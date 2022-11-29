@@ -88,11 +88,3 @@ void	ft_print_combn(int n)
 {
 	ft_recursive(n, 0, 0, n);
 }
-
-/*int	main(void)
-{
-	ft_print_combn(8);
-	ft_print_combn(3);
-	ft_print_combn(9);
-	ft_print_combn(10);
-}*/

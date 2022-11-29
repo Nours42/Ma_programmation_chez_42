@@ -40,12 +40,3 @@ void	ft_putnbr(int nb)
 		return ;
 	}
 }
-
-/*int	main(void)
-{
-	int	nb;
-
-	nb = -2147483648;
-	ft_putnbr(nb);
-	return (0);
-}*/
