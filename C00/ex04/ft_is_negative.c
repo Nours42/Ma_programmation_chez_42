@@ -23,3 +23,10 @@ void	ft_is_negative(int n)
 		write(1, "P", 1);
 	}
 }
+
+/*int	main(void)
+{	
+	b = '2';
+	ft_is_negative (b);
+	return (0);
+}*/
