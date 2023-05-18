@@ -1,11 +1,12 @@
 ITER=100;
+ITERM=100;
 MOYENNE=0;
 NBR=0;
 
 #modification ici :#
 MINI=-100000;
 MAXI=100000;
-NBR_OF_NBRS=100;
+NBR_OF_NBRS=500;
 
 
 while [ $ITER -gt 0 ]
@@ -15,6 +16,6 @@ do
    MOYENNE=$(( MOYENNE + NBR ));
    ITER=$((ITER-1));
 done
-MOYENNE=$(( MOYENNE / $NBR_OF_NBRS));
+MOYENNE=$(( MOYENNE / $ITERM));
 
 echo "Votre moyenne est $MOYENNE";
