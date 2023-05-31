@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 11:11:19 by sdestann          #+#    #+#             */
-/*   Updated: 2023/05/22 14:59:23 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/05/31 17:11:26 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,14 @@ void	philo_eats(t_philo *philo)
 	action_print(rules, philo->id, "\e[1;33mhas taken a fork on his \
 		right 🍴\e[0m");
 	pthread_mutex_lock(&(rules->meal_check));
-	action_print(rules, philo->id, "\e[1;32mis eating 🍝\e[0m");
-	philo->time_of_last_meal = timestamp();
+	if (philo->nb_ate < rules->nb_eat)
+	{
+		action_print(rules, philo->id, "\e[1;32mis eating 🍝\e[0m");
+		philo->time_of_last_meal = timestamp();
+		(philo->nb_ate)++;
+	}
 	pthread_mutex_unlock(&(rules->meal_check));
 	smart_sleep(rules->eat_time, rules);
-	(philo->nb_ate)++;
 	pthread_mutex_unlock(&(rules->forks[philo->left_fork_id]));
 	pthread_mutex_unlock(&(rules->forks[philo->right_fork_id]));
 }
@@ -42,10 +45,10 @@ void	*p_thread(void *void_philo)
 	i = 0;
 	philo = (t_philo *)void_philo;
 	rules = philo->rules;
-	if (philo->id % 2)
-		usleep(15000);
 	while (!(rules->already_died))
 	{
+		if (philo->id % 2)
+			usleep(6000);
 		philo_eats(philo);
 		if (rules->all_ate)
 			break ;
@@ -74,28 +77,39 @@ void	death_checker(t_rules *r, t_philo *p)
 {
 	int	i;
 
-	while (!(r->all_ate))
+	
+	while (1)
 	{
+		pthread_mutex_lock(&(r->meal_check));
+		if ((r->all_ate))
+		{
+			pthread_mutex_unlock(&(r->meal_check));
+			break;
+		}
 		i = -1;
 		while (++i < r->nb_of_phi && !(r->already_died))
 		{
-			pthread_mutex_lock(&(r->meal_check));
 			if (time_diff(p[i].time_of_last_meal, timestamp()) > r->die_time)
 			{
 				action_print(r, i, "\e[1;31mdieded 💀\e[0m");
 				r->already_died = 1;
 			}
-			pthread_mutex_unlock(&(r->meal_check));
 			usleep(100);
 		}
 		if (r->already_died)
+		{
+			pthread_mutex_unlock(&(r->meal_check));
 			break ;
+		}
 		i = 0;
-		while (r->nb_eat != -1 && i < r->nb_of_phi && p[i].nb_ate >= r->nb_eat)
+		
+		while (r->nb_eat != -1 && i < r->nb_of_phi && p[i].nb_ate == r->nb_eat)
 			i++;
 		if (i == r->nb_of_phi)
 			r->all_ate = 1;
+		pthread_mutex_unlock(&(r->meal_check));
 	}
+	
 }
 
 int	ready_to_crumble(t_rules *rules)

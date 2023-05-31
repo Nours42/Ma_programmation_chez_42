@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:32:47 by sdestann          #+#    #+#             */
-/*   Updated: 2023/05/22 14:55:32 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/05/31 17:05:18 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,16 @@ int	init_philo(t_rules *rules)
 	{
 		rules->philo[i].id = i;
 		rules->philo[i].nb_ate = 0;
-		rules->philo[i].left_fork_id = i;
-		rules->philo[i].right_fork_id = (i + 1) % rules->nb_of_phi;
+		if (i % 2 == 0)
+		{
+			rules->philo[i].left_fork_id = i;
+			rules->philo[i].right_fork_id = (i + 1) % rules->nb_of_phi;
+		}
+		else
+		{
+			rules->philo[i].right_fork_id = i;
+			rules->philo[i].left_fork_id = (i + 1) % rules->nb_of_phi;
+		}
 		rules->philo[i].time_of_last_meal = 0;
 		rules->philo[i].rules = rules;
 	}
