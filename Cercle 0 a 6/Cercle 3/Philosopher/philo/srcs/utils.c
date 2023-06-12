@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:29:18 by sdestann          #+#    #+#             */
-/*   Updated: 2023/05/22 14:56:33 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/06/12 14:21:02 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,70 +14,73 @@
 
 int	ft_atoi(const char *str)
 {
-	long	i;
-	long	nbr;
-	int		isneg;
+	int	i;
+	int	result;
+	int	neg;
 
 	i = 0;
-	nbr = 0;
-	isneg = 0;
-	while (str[i] != '\0' && (str[i] == 32 || str[i] == '\t' || str[i] == '\n'
-			|| str[i] == '\r' || str[i] == '\v' || str[i] == '\f'))
+	neg = 1;
+	while (str[i] == ' ' || (str[i] >= '\t' && str[i] <= '\r'))
 		i++;
-	if (str[i] != '\0' && str[i] == '-')
+	if (str[i] == '+' || str[i] == '-')
 	{
-		isneg = 1;
+		if (str[i] == '-')
+			neg *= -1;
 		i++;
 	}
-	else if (str[i] == '+')
-		i++;
-	while (str[i] != '\0' && str[i] >= 48 && str[i] <= 57)
-		nbr = (nbr * 10) + (str[i++] - '0');
-	if (isneg == 1)
-		return (-nbr);
-	return (nbr);
-}
-
-long long	time_diff(long long past, long long pres)
-{
-	return (pres - past);
-}
-
-void	smart_sleep(long long time, t_rules *rules)
-{
-	long long	i;
-
-	i = timestamp();
-	while (!(rules->already_died))
+	result = 0;
+	while (str[i] >= '0' && str[i] <= '9')
 	{
-		if (time_diff(i, timestamp()) >= time)
+		result *= 10;
+		result += str[i] - '0';
+		i++;
+	}
+	return (result * neg);
+}
+
+long long	ft_timestamp(void)
+{
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
+}
+
+void	ft_print_action(t_data *data, int id, char *str, char *color)
+{
+	long long	time;
+
+	time = ft_timestamp() - data->start_time;
+	pthread_mutex_lock(&(data->print));
+	if (!ft_is_dead(data))
+		printf("%s %lli %i %s\n", color, time, id, str);
+	pthread_mutex_unlock(&(data->print));
+}
+
+void	ft_sleep(int time)
+{
+	long long	start;
+
+	start = ft_timestamp();
+	while (1)
+	{
+		if (ft_timestamp() - start >= time)
 			break ;
 		usleep(50);
 	}
 }
 
-void	action_print(t_rules *rules, int id, char *string)
+int	ft_is_dead(t_data *data)
 {
-	pthread_mutex_lock(&(rules->writing));
-	if (!(rules->already_died))
+	pthread_mutex_lock(&data->check_death);
+	if (data->death == 1)
 	{
-		printf("%lli ", timestamp() - rules->first_timestamp);
-		printf("%i ", id + 1);
-		printf("%s\n", string);
+		pthread_mutex_unlock(&(data->check_death));
+		return (1);
 	}
-	pthread_mutex_unlock(&(rules->writing));
-	return ;
-}
-
-int	write_error(char *str)
-{
-	int	len;
-
-	len = 0;
-	while (str[len])
-		len++;
-	write(2, "Error: ", 7);
-	write(2, str, len);
-	write(2, "\n", 1);
-	return (1);
+	else
+	{
+		pthread_mutex_unlock(&(data->check_death));
+		return (0);
+	}
 }

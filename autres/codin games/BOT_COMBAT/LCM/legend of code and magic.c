@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/05 13:31:51 by sdestann          #+#    #+#             */
-/*   Updated: 2023/06/05 13:31:55 by sdestann         ###   ########.fr       */
+/*   Created: 2023/06/05 16:02:39 by sdestann          #+#    #+#             */
+/*   Updated: 2023/06/05 16:02:40 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,15 @@ typedef struct  s_oppo
  {
     int             card_id;
     struct s_card   *cards;
+    struct s_deck   *next;
  }              t_deck;
+
+ void   add_card(t_card *card, t_deck *deck)
+ {
+    deck->next = NULL;
+    deck->cards = card;
+    deck = deck->next;
+ }
 
 int main()
 {
@@ -79,19 +87,19 @@ int main()
             scanf("%[^\n]", oppo.card_number_and_action); fgetc(stdin);
         scanf("%d", &card_count);
         //fprintf(stderr, "CARD COUNT :\ncard_count : %d\n\n", card_count);
+        // Write an action using printf(). DON'T FORGET THE TRAILING \n
+        // To debug: fprintf(stderr, "Debug messages...\n");
         i = 0;
         while (i < card_count)
         {
             deck.card_id = i;
             scanf("%d%d%d%d%d%d%d%s%d%d%d", &card.card_number, &card.instance_id, &card.location, &card.card_type, &card.cost, &card.attack, &card.defense, card.abilities, &me.health_change, &op.health_change, &card.card_draw);
             //fprintf(stderr, "CARD : \ncard_number : %d\ninstance_id : %d\nlocation : %d\ncard_type : %d\ncost : %d\nattack : %d\ndefense : %d\nabilities : %s\nmy_health_change : %d\nopponent_health_change : %d\ncard_draw : %d\n\n", card.card_number, card.instance_id, card.location, card.card_type, card.cost, card.attack, card.defense, card.abilities, me.health_change, op.health_change, card.card_draw);
+            add_card(&card, &deck);
             i++;
         }
-
-        // Write an action using printf(). DON'T FORGET THE TRAILING \n
-        // To debug: fprintf(stderr, "Debug messages...\n");
-    
-        printf("PASS\n");
+        
     }
 
     return 0;
+}

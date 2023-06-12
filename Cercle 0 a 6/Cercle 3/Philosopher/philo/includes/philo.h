@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:31:27 by sdestann          #+#    #+#             */
-/*   Updated: 2023/05/26 13:49:50 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/06/12 14:21:12 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 # define USAGE "Usage : number_of_philosophers time_to_die time_to_eat \
 		time_to_sleep (number_of_times_each_philosopher_must_eat - option)"
 # define RULES "one of your rules is wrong\n"
+
+// to INT_MAX
+
+# include <limits.h>
 
 // to write, usleep
 
@@ -45,53 +49,69 @@ struct	s_rules;
 
 typedef struct s_philo
 {
-	int					id;
-	int					nb_ate;
-	int					left_fork_id;
-	int					right_fork_id;
-	long long			time_of_last_meal;
-	struct s_rules		*rules;
-	pthread_t			thread_id;
-}				t_philo;
+	int				id;
+	int				nb_eat;
+	int				left_fork;
+	int				right_fork;
+	int				fork1;
+	int				fork2;
+	pthread_t		thread_id;
+	struct s_data	*data;
+	long long		last_meal;
+}	t_philo;
 
-typedef struct s_rules
+typedef struct s_data
 {
-	int					nb_of_phi;
-	int					die_time;
-	int					eat_time;
-	int					sleep_time;
-	int					nb_eat;
-	int					already_died;
+	int					nb_philo;
+	int					time_to_die;
+	int					time_to_eat;
+	int					time_to_sleep;
+	int					nb_eat_min;
 	int					all_ate;
-	long long			first_timestamp;
+	int					death;
+	char				fork_available[250];
+	pthread_mutex_t		mutex_forks[250];
 	pthread_mutex_t		meal_check;
-	pthread_mutex_t		forks[250];
-	pthread_mutex_t		writing;
+	pthread_mutex_t		check_death;
+	pthread_mutex_t		print;
 	t_philo				philo[250];
-}				t_rules;
+	long long			start_time;
+}	t_data;
 
-// luncher.c
+// check.c
 
-void		philo_eats(t_philo *philo);
-void		*p_thread(void *void_philo);
-void		exit_launcher(t_rules *rules, t_philo *philos);
-void		death_checker(t_rules *r, t_philo *p);
-int			ready_to_crumble(t_rules *rules);
+int				ft_check_args(char **av);
+int				ft_check_oveflow(char *av);
+int				ft_check_digit(char *av);
+
+// exit.c
+
+void			ft_exit_mutex(t_data *data);
+void			ft_check_die(t_data *data, t_philo *philo);
+void			ft_loop_check(t_data *data, t_philo *philo);
+
+// init.c
+
+int				ft_init_mutex(t_data *data);
+int				ft_init_philo(t_data *data);
+void			ft_init_data(t_data *data, char **av, int ac);
+
+// routine.c
+
+void			*routine(void *philo);
+int				ft_create_threads(t_data *data);
+void			ft_eat(t_philo *philo, t_data *data);
 
 // main.c
 
-int			init_mutex(t_rules *rules);
-int			init_philo(t_rules *rules);
-int			init_all(t_rules *rules, char **argv);
-long long	timestamp(void);
-int			main(int argc, char **argv);
+int				main(int argc, char **argv);
 
 // utils.c
 
-int			ft_atoi(const char *str);
-long long	time_diff(long long past, long long pres);
-void		smart_sleep(long long time, t_rules *rules);
-void		action_print(t_rules *rules, int id, char *string);
-int			write_error(char *str);
+void			ft_sleep(int time);
+void			ft_print_action(t_data *data, int id, char *str, char *color);
+int				ft_atoi(const char *str);
+int				ft_is_dead(t_data *data);
+long long		ft_timestamp(void);
 
 #endif

@@ -1,31 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 16:32:47 by sdestann          #+#    #+#             */
-/*   Updated: 2023/06/12 14:15:32 by sdestann         ###   ########.fr       */
+/*   Created: 2023/06/12 13:49:18 by sdestann          #+#    #+#             */
+/*   Updated: 2023/06/12 14:04:32 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int	main(int ac, char **av)
+int	ft_check_digit(char *av)
 {
-	t_data	data;
+	int	i;
 
-	if (ac != 5 && ac != 6)
-		printf("Error : Wrong number of args\n");
-	else if (!ft_check_args(av))
-		printf("Error : Wrong format of args\n");
-	else
+	i = 0;
+	while (av[i])
 	{
-		ft_init_data(&data, av, ac);
-		ft_init_philo(&data);
-		ft_init_mutex(&data);
-		ft_create_threads(&data);
+		if (av[i] < '0' || av[i] > '9')
+			return (0);
+		i++;
 	}
-	return (0);
+	return (1);
+}
+
+int	ft_check_oveflow(char *av)
+{
+	if (ft_atoi(av) > INT_MAX || ft_atoi(av) < 0)
+		return (0);
+	return (1);
+}
+
+int	ft_check_args(char **av)
+{
+	int	i;
+
+	i = 1;
+	while (av[i])
+	{
+		if (!ft_check_digit(av[i]) || !ft_check_oveflow(av[i]))
+			return (0);
+		i++;
+	}
+	return (1);
 }

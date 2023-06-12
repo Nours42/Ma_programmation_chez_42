@@ -6,7 +6,7 @@
 #    By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/22 14:21:35 by sdestann          #+#    #+#              #
-#    Updated: 2023/05/26 14:07:27 by sdestann         ###   ########.fr        #
+#    Updated: 2023/06/12 14:08:19 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ HEADER_SRCS		= philo.h
 HEADER_DIR		= includes/
 HEADER			= $(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 
-MANDATORY_SRCS	= luncher.c main.c utils.c
+MANDATORY_SRCS	= routine.c main.c utils.c init.c check.c exit.c
 MANDATORY_DIR	= srcs/
 MANDATORY_PATH	= $(addprefix $(MANDATORY_DIR), $(MANDATORY_SRCS))
 OBJ_MANDATORY	= $(MANDATORY_PATH:.c=.o)
