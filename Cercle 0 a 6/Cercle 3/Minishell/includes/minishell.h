@@ -6,12 +6,15 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:48:12 by sdestann          #+#    #+#             */
-/*   Updated: 2023/05/24 11:25:45 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/06/15 15:33:52 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# include "../libft/includes/ft_printf.h"
+# include "../libft/includes/libft.h"
 
 // to access, chdir, close, dup, dup2, execve, fork, getcwd, isatty, pipe, read, 
 // ttyname, ttyslot, unlink, write
@@ -75,5 +78,32 @@
 // to wait, wait3, wait4, waitpid
 
 # include <sys/wait.h>
+
+# define MAX_COMMAND_LENGTH 100
+# define MAX_ARGUMENT_LENGTH 100
+# define MAX_ARGUMENTS 10
+
+typedef struct s_data
+{
+	int		ac;
+	char	**av;
+	char	**envp;
+	char	*env_paths;
+	char	**cmd_paths;
+	char	*cmd;
+	char	**cmd_args;
+	pid_t	pid;
+	int		cmd_nbrs;
+	int		pipe_nbrs;
+	int		*pipe;
+}				t_data;
+
+/*echo et l’option -n
+◦ cd uniquement avec un chemin relatif ou absolu
+◦ pwd sans aucune option
+◦ export sans aucune option
+◦ unset sans aucune option
+◦ env sans aucune option ni argument
+◦ exit sans aucune option*/
 
 #endif

@@ -6,85 +6,67 @@
 #    By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/22 14:21:35 by sdestann          #+#    #+#              #
-#    Updated: 2023/05/24 11:27:48 by sdestann         ###   ########.fr        #
+#    Updated: 2023/06/15 14:52:19 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ### MISC ###
 
-NAME		=	minishell
+NAME = minishell
 
-CC			=	gcc -g
-CFLAGS		=	-Wall -Wextra -Werror
-INCLUDES	=	-I ./includes -I ./libft/includes
-
-HEADER_SRCS	= minishell.h
+HEADER_SRCS	= minitalk.h
 HEADER_DIR	= includes/
 HEADER			= $(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 
-MANDATORY_SRCS	= main.c
-MANDATORY_DIR	= srcs/
-MANDATORY_PATH	= $(addprefix $(MANDATORY_DIR), $(MANDATORY_SRCS))
-OBJ_SERVER	= $(MANDATORY_PATH:.c=.o)
+SRCS = \
+main.c
 
-BONUS_SRCS	= main_bonus.c
-BONUS_DIR	= bonus/
-BONUS_PATH	= $(addprefix $(BONUS_DIR), $(BONUS_SRCS))
-OBJ_BONUS	= $(BONUS_PATH:.c=.o)
+OBJDIR = objs
 
-LFTA		= ./libft/libft.a
+SRCS_PATH 	= $(addprefix ${OBJDIR}/, $(SRCS))
+OBJ_SRCS	= $(SRCS_PATH:.c=.o)
+
+CFLAGS		= -Wall -Wextra -Werror
+
+CC			= gcc -g
 LIBFT		= libft
-BONUSDIR	= bonus
-OBJ_DIR		= objs
+LFTA 		= ./libft/libft.a
 
-### COLORS ###
-
-NOC         = "\033[0m"
-BLACK       = "\033[1;30m"
-RED         = "\033[1;31m"
-GREEN       = "\033[1;32m"
-YELLOW      = "\033[1;33m"
-BLUE        = "\033[1;34m"
-VIOLET      = "\033[1;35m"
-CYAN        = "\033[1;36m"
-WHITE       = "\033[1;37m"
-
+Y = "\033[33m"
+R = "\033[31m"
+G = "\033[32m"
+B = "\033[34m"
+X = "\033[0m"
+UP = "\033[A"
+CUT = "\033[K"
 
 ### RULES ###
 %.o: %.c $(HEADER) Makefile
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME): $(OBJ_SERVER) $(OBJ_CLIENT)
-	@echo $(GREEN)Creating libft files$(CYAN)
+${NAME}: ${OBJ_SRCS}
+	@echo $(G)Creating libft files$(X)
 	@make -s -C $(LIBFT)
-	@$(CC) $(OBJ_CLIENT) $(INCLUDES) $(LFTA) -o client
-	@$(CC) $(OBJ_SERVER) $(INCLUDES) $(LFTA) -o server
-	@echo $(GREEN)Project MINISHELL by JMETEZEA & SDESTANN successfully compiled${NOC}
+	@$(CC) $(OBJ_SRCS) $(INCLUDES) $(LFTA) -o minishell
+	@echo $(G)Project MINISHELL by JMETEZEA and SDESTANN successfully compiled${X}
 
-all: $(NAME)
-	
+all: ${NAME}
+	@echo ${G}Success"   "[${NAME}]${X}
+
+${OBJDIR}/%.o : ./srcs/%.c ${LFTA}
+	@echo ${Y}Compiling [$@]...${X}
+	@/bin/mkdir -p ${OBJDIR}
+	@${CC} ${CFLAGS} -I./includes -c -o $@ $<
+	@printf ${UP}${CUT}
+
 clean:
-	@echo ${BLUE}Cleaning LIBFT files...${NOC}
-	@make clean -s -C $(LIBFT)
-	@echo ${YELLOW}Cleaning MANDATORY files...${NOC}
-	@/bin/rm -rf $(OBJ_CLIENT)
-	@/bin/rm -rf $(OBJ_SERVER)
-	@echo ${RED}Cleaning BONUS files, if they re existing ...${NOC}
-	@/bin/rm -rf $(OBJ_BONUS)
-	@echo ${GREEN}it s clean${NOC}
+	@echo ${R}Cleaning ${G}[${OBJDIR}]...${X}
+	@/bin/rm -Rf ${OBJDIR}
 
-fclean:	
-	@echo ${BLUE}Fcleaning LIBFT files...${NOC}
-	@make fclean -s -C $(LIBFT)
-	@echo ${YELLOW}Cleaning MANDATORY files...${NOC}
-	@/bin/rm -rf $(OBJ_CLIENT)
-	@/bin/rm -rf $(OBJ_SERVER)
-	@echo ${RED}Cleaning BONUS files, if they re existing ...${NOC}
-	@/bin/rm -rf $(OBJ_BONUS)
-	@echo ${BLUE}Cleaning $(NAME) file...${NOC}
-	@rm -f server client
-	@echo ${GREEN}it s f****** clean${NOC}
+fclean: clean
+	@echo ${R}Cleaning ${G}[${NAME}]...${X}
+	@/bin/rm -f ${NAME}
 
 re: fclean all
 
-.PHONY: re, fclean, clean, bonus, all
+.PHONY: all clean fclean re
