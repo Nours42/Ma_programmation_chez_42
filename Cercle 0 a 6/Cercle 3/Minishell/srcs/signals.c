@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/06 13:26:53 by sdestann          #+#    #+#             */
-/*   Updated: 2023/06/16 16:15:34 by sdestann         ###   ########.fr       */
+/*   Created: 2023/06/16 15:04:29 by sdestann          #+#    #+#             */
+/*   Updated: 2023/06/16 15:08:22 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
+#include "../includes/minishell.h"
 
-int	ft_strcmp(char *s1, char *s2)
+void	handle_signal(int signal)
 {
-	unsigned int	i;
-
-	i = 0;
-	while (s1[i] == s2[i] && s1[i] && s2[i])
+	if (signal == SIGINT)
 	{
-		i++;
+		write(1, "\nSignal SIGINT reçu. Fermeture du shell.\n", 40);
+		exit(EXIT_SUCCESS);
 	}
-	return (s1[i] - s2[i]);
 }

@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/06 13:26:53 by sdestann          #+#    #+#             */
-/*   Updated: 2023/06/16 16:15:34 by sdestann         ###   ########.fr       */
+/*   Created: 2023/06/16 15:05:07 by sdestann          #+#    #+#             */
+/*   Updated: 2023/06/16 15:05:22 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
+#include "../includes/minishell.h"
 
-int	ft_strcmp(char *s1, char *s2)
+void	msg_error(char *err)
 {
-	unsigned int	i;
-
-	i = 0;
-	while (s1[i] == s2[i] && s1[i] && s2[i])
-	{
-		i++;
-	}
-	return (s1[i] - s2[i]);
+	perror(err);
+	exit (1);
 }

@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:48:12 by sdestann          #+#    #+#             */
-/*   Updated: 2023/06/15 15:33:52 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/06/16 15:41:12 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include "../libft/includes/ft_printf.h"
 # include "../libft/includes/libft.h"
 
-// to access, chdir, close, dup, dup2, execve, fork, getcwd, isatty, pipe, read, 
-// ttyname, ttyslot, unlink, write
+// to access, chdir, close, dup, dup2, execve, fork, getcwd, isatty, pipe,
+// read, ttyname, ttyslot, unlink, write
 
 # include <unistd.h>
 
@@ -88,15 +88,31 @@ typedef struct s_data
 	int		ac;
 	char	**av;
 	char	**envp;
-	char	*env_paths;
+	char	*str_temp;
 	char	**cmd_paths;
-	char	*cmd;
 	char	**cmd_args;
 	pid_t	pid;
 	int		cmd_nbrs;
 	int		pipe_nbrs;
 	int		*pipe;
 }				t_data;
+
+// error.c
+
+void	msg_error(char *err);
+
+// main.c
+
+char	*get_cmd(char **paths, char *cmd);
+char	*find_path(t_data *data, char *s);
+int		main(int argc, char **argv, char **envp);
+void	shell_loop(t_data *data);
+int		find_builtin(t_data *data);
+void	execute_command(t_data *data);
+
+// signals.c
+
+void	handle_signal(int signal);
 
 /*echo et l’option -n
 ◦ cd uniquement avec un chemin relatif ou absolu

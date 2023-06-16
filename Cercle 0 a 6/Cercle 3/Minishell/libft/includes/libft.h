@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 10:17:48 by sdestann          #+#    #+#             */
-/*   Updated: 2023/05/11 15:20:32 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/06/16 15:51:02 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int			ft_isprint(int c);
 int			ft_iterative_factorial(int nb);
 int			ft_lstsize(t_list *lst);
 int			ft_memcmp(const void *s1, const void *s2, size_t n);
+int			ft_strcmp(char *s1, char *s2);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 int			ft_tolower(int c);
 int			ft_toupper(int c);

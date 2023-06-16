@@ -6,7 +6,7 @@
 #    By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/22 14:21:35 by sdestann          #+#    #+#              #
-#    Updated: 2023/06/15 14:52:19 by sdestann         ###   ########.fr        #
+#    Updated: 2023/06/16 15:04:27 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ HEADER_DIR	= includes/
 HEADER			= $(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 
 SRCS = \
-main.c
+main.c \
+signals.c
 
 OBJDIR = objs
 
