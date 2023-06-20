@@ -6,7 +6,7 @@
 #    By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/13 11:01:13 by sebastien         #+#    #+#              #
-#    Updated: 2023/05/11 15:22:19 by sdestann         ###   ########.fr        #
+#    Updated: 2023/06/19 09:55:31 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,9 +41,9 @@ ft_isprint.c	ft_itoa.c		ft_qsplit.c		ft_split.c	\
 ft_substr.c		ft_strcat.c		ft_strchr.c		ft_strcmp.c \
 ft_strcpy.c		ft_strdup.c		ft_striteri.c	ft_strjoin.c \
 ft_strlcat.c	ft_strlcpy.c	ft_strlen.c		ft_strmapi.c \
-ft_strncat.c	ft_strncmp.c	ft_strncpy.c	ft_strqlen.c \
-ft_strquote.c	ft_strrchr.c	ft_strstr.c		ft_strtrim.c \
-ft_toupper.c	ft_tolower.c
+ft_strncat.c	ft_strncmp.c	ft_strncpy.c	ft_strqnlen.c \
+ft_strrchr.c	ft_strstr.c		ft_strtrim.c	ft_toupper.c \
+ft_tolower.c
 
 SRC_TAB = \
 ft_rev_int_tab.c
