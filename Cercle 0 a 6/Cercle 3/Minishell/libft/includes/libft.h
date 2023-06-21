@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 10:17:48 by sdestann          #+#    #+#             */
-/*   Updated: 2023/06/20 14:29:48 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:05:14 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ bool		ft_error(const char *s);
 
 // char
 char		**ft_split(char const *s, char c);
-char		**ft_qsplit(char const *s, char *delimiteur);
+char		**ft_qsplit(char *s);
 char		*ft_get_next_line(int fd);
 char		*ft_itoa(int n);
 char		*ft_strcat(char *dest, char *src);

@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 13:26:53 by sdestann          #+#    #+#             */
-/*   Updated: 2023/04/12 10:04:35 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/06/16 16:15:34 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,3 @@ int	ft_strcmp(char *s1, char *s2)
 	}
 	return (s1[i] - s2[i]);
 }
-
-int	ft_strcmp(char *s1, char *s2);

@@ -5,191 +5,115 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/23 08:21:41 by sdestann          #+#    #+#             */
-/*   Updated: 2023/06/16 16:22:44 by sdestann         ###   ########.fr       */
+/*   Created: 2023/06/21 12:50:42 by sdestann          #+#    #+#             */
+/*   Updated: 2023/06/21 15:05:48 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
 
-/* DESCRIPTION :
-**
-** Alloue (avec malloc) et retourne un tableau de chaînes de caractères
-** obtenu en séparant ’s’ à l’aide du caractère ’c’, utilisé comme délimiteur.
-** Le tableau doit être terminé par NULL. Renvoie NULL si l'allocation échoue.
-** Les quotes entre ' ou " sont considerees comme un seul mot.
-*/
-
-/*
-	s = la chaine de caratere
-	n_break = le nombre de morceaux a decoupe
-	index = l'index dans la quote
-	in_q = suis-je dans une quote ?
-	q = est-ce qu'il y a une quote dans s ?
-	q_sort = caractere de depart de la quote (' ou ")
-	sp_index = index d'une spart dans s.
-	index_in_sp = index dans une spart.
-	sp_len = longueur d'une spart.
-	liis = dernier index avant de compter la spart;
-	result = resultat.
-*/
-typedef struct s_quote
+typedef struct s_var
 {
-	char const	*s;
-	int			n_break;
-	int			index;
-	int			in_q;
-	int			q;
-	char		q_sort;
-	int			sp_index;
-	int			i_in_sp;
-	int			sp_len;
-	int			liis;
-	char		**result;
-}				t_quote;
+	char	*quote;
+	char	*str;
+	char	*next_space;
+	char	*word;
+	char	*words[100];
+	size_t	num_words;
+	size_t	i;
+}				t_var;
 
-static void	ft_spart_break(t_quote *q)
+void	add_word_to_string(int j, t_var *var)
 {
-	while (q->s[q->index])
+	int	word_length;
+
+	if (j == 0)
+		word_length = var->quote - var->str - var->i - 1;
+	else if (j == 1)
+		word_length = var->next_space - var->str - var->i;
+	else if (j == 2)
+		word_length = (ft_strlen(var->str) - var->i);
+	var->word = malloc(sizeof(char) * (word_length + 1));
+	ft_strncpy(var->word, var->str + var->i, word_length);
+	var->word[word_length] = '\0';
+	var->words[(var->num_words)] = var->word;
+	((var->num_words))++;
+	if (j == 0)
+		var->i += (var->quote - var->str - var->i);
+	else if (j == 1)
+		var->i += (var->next_space - var->str - var->i);
+}
+
+void	process_string(t_var *var)
+{
+	var->i = 0;
+	while (var->i < ft_strlen(var->str))
 	{
-		if (q->s[q->index++] == 32 && q->s[q->index - 1])
+		if (var->str[var->i] == ' ' || var->str[var->i] == '\t'
+			|| var->str[var->i] == '\n')
+			continue ;
+		else if (var->str[var->i] == '\'' || var->str[var->i] == '"')
 		{
-			if ((q->s[q->index] == 34 || q->s[q->index] == 39) && q->q == 0
-				&& (int)ft_strqlen(q->s, q->index + 1, q->s[q->index]))
-			{
-				q->q = 1;
-				q->q_sort = q->s[q->index];
-				q->index += (int)ft_strqlen(q->s, q->index + 1, q->s[q->index]);
-				q->index += 2;
-			}
-			q->n_break++;
-			while (q->s[q->index] && q->s[q->index] != 32)
-				q->index++;
+			var->quote = ft_strchr(var->str + var->i + 1, var->str[var->i]);
+			if (var->quote != NULL)
+				add_word_to_string(0, var);
 		}
-	}
-	if (q->q == 1)
-		q->n_break++;
-	if (q->s[q->index] == '\0')
-		if (q->s[q->index - 1] != 32
-			&& (q->s[q->index - 1] != q->q_sort && q->q == 0))
-			q->n_break++;
-}
-
-//je reutilise sp_index mais ici il ne mesure pas l'index d'une spart.
-static void	ft_ico_malloc_error(t_quote *q)
-{
-	q->sp_index = 0;
-	while (q->sp_index < q->index && q->result[q->sp_index])
-	{
-		free(q->result[q->sp_index]);
-		q->sp_index++;
-	}
-	free(q->result);
-}
-
-static void	ft_spart_malloc_part2(t_quote *q)
-{
-	if (q->sp_len == 1 && q->q == 1)
-		q->result[q->sp_index][0] = q->s[q->index + 1];
-	else
-	{
-		while (q->i_in_sp < q->sp_len)
-		{
-			q->result[q->sp_index][q->i_in_sp] = q->s[q->liis + q->i_in_sp];
-			q->i_in_sp++;
-		}
-	}
-	q->index += q->sp_len;
-	q->result[q->sp_index][q->i_in_sp] = '\0';
-	q->i_in_sp = 0;
-	q->sp_len = 0;
-	q->sp_index++;
-}
-
-static void	ft_spart_malloc(t_quote *q)
-{
-	while (q->s[q->index] && q->sp_index < q->n_break)
-	{
-		while (q->s[q->index] && q->s[q->index] == 32)
-			q->index++;
-		q->liis = q->index;
-		if (q->q && (q->s[q->index] == q->q_sort) && (q->s[q->index - 1] == 32))
-			q->sp_len = (int)ft_strqlen(q->s, q->index + 1, q->q_sort);
 		else
 		{
-			q->sp_len = (int)ft_strqlen(q->s, q->index, 32);
-			if (q->sp_len == 0 && q->sp_index == q->n_break - 1)
-				q->sp_len = ft_strlen(q->s) - q->index;
+			var->next_space = ft_strchr(var->str + var->i + 1, ' ');
+			if (var->next_space != NULL)
+				add_word_to_string(1, var);
+			else
+			{
+				add_word_to_string(2, var);
+				break ;
+			}
 		}
-		q->result[q->sp_index] = (char *)malloc(sizeof(char) * (q->sp_len + 1));
-		if (q->result[q->sp_index] == NULL)
-			return (ft_ico_malloc_error(q));
-		ft_spart_malloc_part2(q);
+		var->i++;
 	}
-	q->result[q->sp_index] = 0;
 }
 
-char	**ft_qsplit(char const *s)
+char		**ft_qsplit(char *s)
 {
-	t_quote	quote;
+	t_var	*var;
 
-	if (!s || !s[0])
-		return (NULL);
-	quote.s = s;
-	quote.n_break = 0;
-	quote.index = 0;
-	quote.q = 0;
-	quote.in_q = 0;
-	quote.q_sort = 0;
-	quote.sp_index = 0;
-	quote.i_in_sp = 0;
-	quote.sp_len = 0;
-	quote.liis = 0;
-	ft_spart_break(&quote);
-	quote.result = (char **)malloc(sizeof(char *) * (quote.n_break + 1));
-	if (quote.result == NULL)
-		return (NULL);
-	quote.result[quote.n_break] = NULL;
-	quote.index = 0;
-	ft_spart_malloc(&quote);
-	return (quote.result);
+	var = (t_var *)malloc(sizeof(t_var) + 1);
+	var->num_words = 0;
+	var->str = s;
+	process_string(var);
+	return (var->words);
+}
+
+/*void	free_string_info(t_var *var)
+{
+	var->i = 0;
+	while (var->i < var->num_words)
+	{
+		free(var->words[var->i]);
+		var->i++;
+	}
+}
+
+void	print_string_info(t_var *var)
+{
+	var->i = 0;
+	printf("Words:\n");
+	while (var->i < var->num_words)
+	{
+		printf("  %ld: \"%s\"\n", var->i, var->words[var->i]);
+		var->i++;
+	}
 }
 
 int	main(void)
 {
-	char	**test;
-	int		i;
+	t_var	*var;
 
-	test = ft_qsplit("cut -d 'prout' -f3");
-	i = -1;
-	while (test[i++])
-	{
-		printf("%s\n", test[i]);
-	}
-	test = ft_qsplit("3: test \"quote quote\"");
-	i = -1;
-	while (test[i++])
-	{
-		printf("%s\n", test[i]);
-	}
-	test = ft_qsplit("4: test qu\"ote quote");
-	i = -1;
-	while (test[i++])
-	{
-		printf("%s\n", test[i]);
-	}
-	test = ft_qsplit("4: test 'quote quote");
-	i = -1;
-	while (test[i++])
-	{
-		printf("%s\n", test[i]);
-	}
-	test = ft_qsplit("4: test \"quote quote");
-	i = -1;
-	while (test[i++])
-	{
-		printf("%s\n", test[i]);
-	}
-	(void)test;
+	var = (t_var *)malloc(sizeof(t_var) + 1);
+	var->num_words = 0;
+	var->str = "word1 && word2 | word3 'word4 with spaces'";
+	process_string(var);
+	print_string_info(var);
+	free_string_info(var);
 	return (0);
-}
+}*/
