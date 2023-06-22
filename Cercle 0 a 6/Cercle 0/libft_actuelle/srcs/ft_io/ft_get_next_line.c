@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 14:41:55 by sdestann          #+#    #+#             */
-/*   Updated: 2023/04/12 09:58:23 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/06/20 17:33:51 by jmetezea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ static char	*join_line(int nl_position, char **buffer)
 	res = *buffer;
 	res[nl_position] = 0;
 	*buffer = tmp;
+//	if (!tmp)
+//		free(tmp);
 	return (res);
 }
 
