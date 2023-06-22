@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:50:42 by sdestann          #+#    #+#             */
-/*   Updated: 2023/06/21 15:05:48 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/06/22 10:49:01 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	process_string(t_var *var)
 	}
 }
 
-char		**ft_qsplit(char *s)
+char	**ft_qsplit(char *s)
 {
 	t_var	*var;
 

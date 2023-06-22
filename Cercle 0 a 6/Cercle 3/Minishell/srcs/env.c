@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmetezea <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:15:32 by jmetezea          #+#    #+#             */
-/*   Updated: 2023/06/19 17:17:27 by jmetezea         ###   ########.fr       */
+/*   Updated: 2023/06/22 10:50:44 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void    ft_env(char **envp)
+void	ft_env(char **envp)
 {
-        int     i;
+	int	i;
 
-        i = -1;
-        while (envp[++i])
-                ft_printf("%s\n", envp[i]);
+	i = -1;
+	while (envp[++i])
+		ft_printf("%s\n", envp[i]);
 }

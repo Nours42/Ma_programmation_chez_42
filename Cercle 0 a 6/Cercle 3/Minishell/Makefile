@@ -6,7 +6,7 @@
 #    By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/22 14:21:35 by sdestann          #+#    #+#              #
-#    Updated: 2023/06/22 09:31:33 by sdestann         ###   ########.fr        #
+#    Updated: 2023/06/22 11:59:43 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,11 +19,9 @@ HEADER_DIR = includes/
 HEADER = $(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 
 SRCS_DIR = srcs/
-SRCS = main.c signals.c error.c init_minishell.c echo.c env.c
+SRCS = echo.c env.c error.c init_minishell.c main.c parse.c signals.c
 OBJDIR = objs
 
-#SRCS_PATH 	= $(addprefix ${OBJDIR}/, $(SRCS))
-#OBJ_SRCS	= $(SRCS_PATH:.c=.o)
 SRCS_PATH = $(addprefix $(SRCS_DIR), $(SRCS))
 OBJ_SRCS = $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
 
@@ -44,19 +42,16 @@ CUT = "\033[K"
 ### RULES ###
 
 all: ${NAME}
-	@echo ${G}Success"   "[${NAME}]${X}
 
-#%.o: %.c $(HEADER) Makefile
-#	@$(CC) $(CFLAGS) -c $< -o $@
+%.o: %.c $(HEADER) Makefile
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 ${NAME}: ${OBJ_SRCS}
 	@echo $(G)Creating libft files$(X)
 	@make -s -C $(LIBFT)
 	@$(CC) $(OBJ_SRCS) -L$(LIBFT) -lft -o $(NAME)
-#	@$(CC) $(OBJ_SRCS) $(INCLUDES) $(LFTA) -o minishell
 	@echo $(G)Project MINISHELL by JMETEZEA and SDESTANN successfully compiled${X}
 
-#${OBJDIR}/%.o : ./srcs/%.c ${LFTA}
 $(OBJDIR)/%.o: $(SRCS_DIR)%.c $(HEADER) Makefile
 	@echo ${Y}Compiling [$@]...${X}
 	@/bin/mkdir -p ${OBJDIR}

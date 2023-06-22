@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:09:36 by kaly              #+#    #+#             */
-/*   Updated: 2023/06/22 09:21:22 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/06/22 10:51:04 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	shell_loop(t_data *data, char **envp)
 			exit(EXIT_FAILURE);
 		}
 		data->str_temp = jenlevedernierchar(data->str_temp);
-		data->cmd_args = ft_qsplit(data->str_temp);
+		data->cmd_args = parse(data->str_temp);
 		if (find_builtin(data, envp) == 0)
 			execute_command(data, envp);
 	}
@@ -114,6 +114,5 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	init_minishell(data, envp);
 	shell_loop(data, envp);
-//	ft_free(data);
 	return (0);
 }

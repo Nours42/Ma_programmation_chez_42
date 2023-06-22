@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:48:12 by sdestann          #+#    #+#             */
-/*   Updated: 2023/06/20 15:16:27 by jmetezea         ###   ########.fr       */
+/*   Updated: 2023/06/22 12:03:07 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,7 @@
 
 # include <sys/wait.h>
 
-# define MAX_COMMAND_LENGTH 100
-# define MAX_ARGUMENT_LENGTH 100
-# define MAX_ARGUMENTS 10
+// data contient les elements structurels, les regles principales.
 
 typedef struct s_data
 {
@@ -90,16 +88,41 @@ typedef struct s_data
 	char	**cmd_paths;
 	char	**cmd_args;
 	pid_t	pid;
-//	int		cmd_nbrs;
-//	int		pipe_nbrs;
-//	int		*pipe;
 }				t_data;
+
+// command stocke sert au parsing des commandes.
+
+typedef struct s_command
+{
+	char	*quote;
+	char	*str;
+	char	*word;
+	char	*commands[100];
+	size_t	num_words;
+	size_t	i;
+	int		brk;
+	int		lvl;
+}				t_command;
+
+// echo.c
+
+void	ft_echo(t_data *data);
+
+// env.c
+
+void	ft_env(char **envp);
 
 // error.c
 
 void	msg_error(char *err);
 void	ft_free(t_data *data);
 void	ft_free2(t_data *data);
+
+// init_minishell.c
+
+char	*jenlevedernierchar(char *str);
+char	*find_path(char *s, char **envp);
+void	init_minishell(t_data *data, char **envp);
 
 // main.c
 
@@ -109,23 +132,17 @@ void	shell_loop(t_data *data, char **envp);
 int		find_builtin(t_data *data, char **envp);
 int		main(int argc, char **argv, char **envp);
 
-// init.minishell.c
+// parse.c
 
-char    *jenlevedernierchar(char *str);
-char	*find_path(char *s, char **envp);
-void    init_minishell(t_data *data, char **envp);
+void	ft_quote(t_command *var);
+void	ft_space(t_command *var);
+void	ft_parenthese(t_command *var);
+void	tokening(t_command *var);
+char	**parse(char *s);
 
 // signals.c
 
 void	handle_signal(int signal);
-
-// env.c
-
-void    ft_env(char **envp);
-
-// echo.c
-
-void    ft_echo(t_data *data);
 
 /*echo et l’option -n
 ◦ cd uniquement avec un chemin relatif ou absolu
