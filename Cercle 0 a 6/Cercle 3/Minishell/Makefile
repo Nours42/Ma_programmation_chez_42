@@ -6,7 +6,7 @@
 #    By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/22 14:21:35 by sdestann          #+#    #+#              #
-#    Updated: 2023/06/19 17:12:01 by jmetezea         ###   ########.fr        #
+#    Updated: 2023/06/22 09:31:33 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,11 +64,14 @@ $(OBJDIR)/%.o: $(SRCS_DIR)%.c $(HEADER) Makefile
 	@printf ${UP}${CUT}
 
 clean:
-	@echo ${R}Cleaning ${G}[${OBJDIR}]...${X}
+	@echo ${R}Cleaning MINISHELL ${G}[${OBJDIR}]...${X}
+	@make clean -s -C $(LIBFT)
 	@/bin/rm -Rf ${OBJDIR}
 
-fclean: clean
-	@echo ${R}Cleaning ${G}[${NAME}]...${X}
+fclean:
+	@echo ${R}FCleaning MINISHELL ${G}[${NAME}]...${X}
+	@make fclean -s -C $(LIBFT)
+	@/bin/rm -Rf ${OBJDIR}
 	@/bin/rm -f ${NAME}
 
 re: fclean all

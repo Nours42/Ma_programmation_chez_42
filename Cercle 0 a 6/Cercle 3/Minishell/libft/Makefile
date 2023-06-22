@@ -6,7 +6,7 @@
 #    By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/13 11:01:13 by sebastien         #+#    #+#              #
-#    Updated: 2023/05/11 15:22:19 by sdestann         ###   ########.fr        #
+#    Updated: 2023/06/22 09:31:15 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -140,11 +140,12 @@ ${OBJDIR}/%.o : ./srcs/ft_io/ft_printf/%.c ${FTP} ${LFT}
 	@printf ${UP}${CUT}
 
 clean:
-	@echo ${R}Cleaning ${G}[${OBJDIR}]...${X}
+	@echo ${R}Cleaning LIBFT ${G}[${OBJDIR}]...${X}
 	@/bin/rm -Rf ${OBJDIR}
 
-fclean: clean
-	@echo ${R}Cleaning ${G}[${NAME}]...${X}
+fclean:
+	@echo ${R}FCleaning LIBFT ${G}[${NAME}]...${X}
+	@/bin/rm -Rf ${OBJDIR}
 	@/bin/rm -f ${NAME}
 
 re: fclean all
