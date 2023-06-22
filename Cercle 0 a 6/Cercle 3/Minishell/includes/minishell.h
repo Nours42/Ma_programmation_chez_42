@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:48:12 by sdestann          #+#    #+#             */
-/*   Updated: 2023/06/16 15:41:12 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/06/20 15:16:27 by jmetezea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,34 +85,47 @@
 
 typedef struct s_data
 {
-	int		ac;
-	char	**av;
-	char	**envp;
 	char	*str_temp;
+	char	*str_temp2;
 	char	**cmd_paths;
 	char	**cmd_args;
 	pid_t	pid;
-	int		cmd_nbrs;
-	int		pipe_nbrs;
-	int		*pipe;
+//	int		cmd_nbrs;
+//	int		pipe_nbrs;
+//	int		*pipe;
 }				t_data;
 
 // error.c
 
 void	msg_error(char *err);
+void	ft_free(t_data *data);
+void	ft_free2(t_data *data);
 
 // main.c
 
 char	*get_cmd(char **paths, char *cmd);
-char	*find_path(t_data *data, char *s);
+void	execute_command(t_data *data, char **envp);
+void	shell_loop(t_data *data, char **envp);
+int		find_builtin(t_data *data, char **envp);
 int		main(int argc, char **argv, char **envp);
-void	shell_loop(t_data *data);
-int		find_builtin(t_data *data);
-void	execute_command(t_data *data);
+
+// init.minishell.c
+
+char    *jenlevedernierchar(char *str);
+char	*find_path(char *s, char **envp);
+void    init_minishell(t_data *data, char **envp);
 
 // signals.c
 
 void	handle_signal(int signal);
+
+// env.c
+
+void    ft_env(char **envp);
+
+// echo.c
+
+void    ft_echo(t_data *data);
 
 /*echo et l’option -n
 ◦ cd uniquement avec un chemin relatif ou absolu

@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: jmetezea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/16 15:04:29 by sdestann          #+#    #+#             */
-/*   Updated: 2023/06/20 17:33:26 by jmetezea         ###   ########.fr       */
+/*   Created: 2023/06/19 16:15:32 by jmetezea          #+#    #+#             */
+/*   Updated: 2023/06/19 17:17:27 by jmetezea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	handle_signal(int signal)
+void    ft_env(char **envp)
 {
-	if (signal == SIGINT)
-		write(1, "\nnotre magnifique minishell >> $ ", 33);
+        int     i;
+
+        i = -1;
+        while (envp[++i])
+                ft_printf("%s\n", envp[i]);
 }

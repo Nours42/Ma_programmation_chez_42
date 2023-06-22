@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:09:36 by kaly              #+#    #+#             */
-/*   Updated: 2023/06/16 16:23:24 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/06/22 09:21:22 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,70 +30,78 @@ char	*get_cmd(char **paths, char *cmd)
 	return (NULL);
 }
 
-void	execute_command(t_data *data)
+void	execute_command(t_data *data, char **envp)
 {
 	data->pid = fork();
+	ft_printf("exec command\n");
 	if (data->pid == 0)
 	{
-		data->str_temp = get_cmd(data->cmd_paths, data->str_temp);
-		execve(data->str_temp, data->cmd_args, data->envp);
-		ft_printf("execute command style : %s\n", data->cmd_args[0]);
-		perror("Erreur d'exécution de la commande");
+		data->str_temp2 = get_cmd(data->cmd_paths, data->cmd_args[0]);
+		if (data->str_temp2 != NULL)
+			execve(data->str_temp2, data->cmd_args, envp);
+		else
+		{
+			ft_printf("%s : commande introuvable\n", data->cmd_args[0]);
+			exit(EXIT_FAILURE);
+		}
+		perror("Erreur d'exécution de la commande\n");
 		exit(EXIT_FAILURE);
 	}
 	else if (data->pid < 0)
-		perror("Erreur lors de la création du processus");
+		perror("Erreur lors de la création du processus\n");
 	else
 		wait(NULL);
 }
 
-char	*find_path(t_data *data, char *s)
+void	shell_loop(t_data *data, char **envp)
 {
-	while (ft_strncmp(s, *data->envp, ft_strlen(s)) != 0)
-	{
-		data->envp++;
-	}
-	return (*data->envp + (ft_strlen(s) + 1));
-}
-
-void	shell_loop(t_data *data)
-{
-	data->cmd_paths = ft_split(find_path(data, "PATH"), ':');
 	while (1)
 	{
-		signal(SIGINT, handle_signal);
 		signal(SIGQUIT, SIG_IGN);
-		write(1, "notre magnifique minishell >> $ ", 31);
-		data->cmd_args = ft_split(ft_get_next_line(0), ' ');
-		int	i = -1;
-		while (data->cmd_args[i++])
-			ft_printf("%s\n", data->cmd_args[i]);
-		if (ft_strcmp("exit\n", data->cmd_args[0]) == 0)
-			break ;
-		else if (find_builtin(data) == 0)
-			execute_command(data);
+		signal(SIGINT, handle_signal);
+		write(1, "notre magnifique minishell >> $ ", 32);
+		data->str_temp = ft_get_next_line(0);
+		if (data->str_temp == NULL)
+		{
+			ft_printf("\nSignal CTRL + D recu, Fermeture du minishell\n");
+			ft_free2(data);
+			exit(EXIT_FAILURE);
+		}
+		if (ft_strcmp("\n", data->str_temp) == 0)
+		{
+			free(data->str_temp);
+			shell_loop(data, envp);
+		}
+		if (ft_strcmp("exit\n", data->str_temp) == 0)
+		{
+			ft_printf("exit\n");
+			free(data->str_temp);
+			ft_free2(data);
+			exit(EXIT_FAILURE);
+		}
+		data->str_temp = jenlevedernierchar(data->str_temp);
+		data->cmd_args = ft_qsplit(data->str_temp);
+		if (find_builtin(data, envp) == 0)
+			execute_command(data, envp);
 	}
 }
 
-int	find_builtin(t_data *data)
+int	find_builtin(t_data *data, char **envp)
 {
-	int	i;
-
-	i = 0;
-	while (data->cmd_args[i])
-	{
-		if (ft_strcmp("echo", data->cmd_args[i]) == 0)
-			ft_printf("echo\n");
-		else if (ft_strcmp("cd\n", data->cmd_args[i]) == 0)
-			ft_printf("cd\n");
-		else if (ft_strcmp("pwd", data->cmd_args[i]) == 0)
-			ft_printf("%s\n", getcwd(NULL, 0));
-		else if (ft_strcmp("unset\n", data->cmd_args[i]) == 0)
-			ft_printf("unset\n");
-		else if (ft_strcmp("env\n", data->cmd_args[i]) == 0)
-			ft_printf("env\n");
-		i++;
-	}
+	if (ft_strcmp("echo", data->cmd_args[0]) == 0)
+		ft_echo(data);
+	else if (ft_strcmp("cd", data->cmd_args[0]) == 0)
+		ft_printf("cd\n");
+	else if (ft_strcmp("pwd", data->cmd_args[0]) == 0)
+		ft_printf("%s\n", getcwd(NULL, 0));
+	else if (ft_strcmp("export", data->cmd_args[0]) == 0)
+		ft_printf("export\n");
+	else if (ft_strcmp("unset", data->cmd_args[0]) == 0)
+		ft_printf("unset\n");
+	else if (ft_strcmp("env", data->cmd_args[0]) == 0)
+		ft_env(envp);
+	else
+		return (0);
 	return (1);
 }
 
@@ -102,9 +110,10 @@ int	main(int argc, char **argv, char **envp)
 	t_data	*data;
 
 	data = (t_data *)malloc(sizeof(t_data));
-	data->ac = argc;
-	data->av = argv;
-	data->envp = envp;
-	shell_loop(data);
+	(void)argc;
+	(void)argv;
+	init_minishell(data, envp);
+	shell_loop(data, envp);
+//	ft_free(data);
 	return (0);
 }
