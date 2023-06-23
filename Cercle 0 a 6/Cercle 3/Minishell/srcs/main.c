@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:09:36 by kaly              #+#    #+#             */
-/*   Updated: 2023/06/22 10:51:04 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/06/23 12:06:47 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ int	main(int argc, char **argv, char **envp)
 	t_data	*data;
 
 	data = (t_data *)malloc(sizeof(t_data));
+	data->commands = (t_command *)malloc(sizeof(t_command));
 	(void)argc;
 	(void)argv;
 	init_minishell(data, envp);
