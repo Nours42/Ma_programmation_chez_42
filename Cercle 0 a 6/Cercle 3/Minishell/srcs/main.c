@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:09:36 by kaly              #+#    #+#             */
-/*   Updated: 2023/06/23 12:06:47 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/06/23 17:04:30 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ char	*get_cmd(char **paths, char *cmd)
 	return (NULL);
 }
 
-void	execute_command(t_data *data, char **envp)
+void	execute_command(t_data *data)
 {
 	data->pid = fork();
-	ft_printf("exec command\n");
+	//ft_printf("exec command\n");
 	if (data->pid == 0)
 	{
 		data->str_temp2 = get_cmd(data->cmd_paths, data->cmd_args[0]);
 		if (data->str_temp2 != NULL)
-			execve(data->str_temp2, data->cmd_args, envp);
+			execve(data->str_temp2, data->cmd_args, data->envp);
 		else
 		{
 			ft_printf("%s : commande introuvable\n", data->cmd_args[0]);
@@ -53,40 +53,40 @@ void	execute_command(t_data *data, char **envp)
 		wait(NULL);
 }
 
-void	shell_loop(t_data *data, char **envp)
+void	shell_loop(t_data *data)
 {
 	while (1)
 	{
-		signal(SIGQUIT, SIG_IGN);
+		signal(SIGQUIT, handle_signal);
 		signal(SIGINT, handle_signal);
 		write(1, "notre magnifique minishell >> $ ", 32);
 		data->str_temp = ft_get_next_line(0);
 		if (data->str_temp == NULL)
 		{
-			ft_printf("\nSignal CTRL + D recu, Fermeture du minishell\n");
-			ft_free2(data);
+			ft_printf("\n");
+			ft_free_paths(data);
 			exit(EXIT_FAILURE);
 		}
 		if (ft_strcmp("\n", data->str_temp) == 0)
 		{
-			free(data->str_temp);
-			shell_loop(data, envp);
+			ft_free_str_temp(1, data);
+			shell_loop(data);
 		}
 		if (ft_strcmp("exit\n", data->str_temp) == 0)
 		{
-			ft_printf("exit\n");
-			free(data->str_temp);
-			ft_free2(data);
+			//ft_printf("exit\n");
+			ft_free_str_temp(1, data);
+			ft_free_paths(data);
 			exit(EXIT_FAILURE);
 		}
-		data->str_temp = jenlevedernierchar(data->str_temp);
+		data->str_temp = delete_last_char(data->str_temp);
 		data->cmd_args = parse(data->str_temp);
-		if (find_builtin(data, envp) == 0)
-			execute_command(data, envp);
+		if (find_builtin(data) == 0)
+			execute_command(data);
 	}
 }
 
-int	find_builtin(t_data *data, char **envp)
+int	find_builtin(t_data *data)
 {
 	if (ft_strcmp("echo", data->cmd_args[0]) == 0)
 		ft_echo(data);
@@ -99,7 +99,7 @@ int	find_builtin(t_data *data, char **envp)
 	else if (ft_strcmp("unset", data->cmd_args[0]) == 0)
 		ft_printf("unset\n");
 	else if (ft_strcmp("env", data->cmd_args[0]) == 0)
-		ft_env(envp);
+		ft_env(data->envp);
 	else
 		return (0);
 	return (1);
@@ -109,11 +109,12 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
 
-	data = (t_data *)malloc(sizeof(t_data));
-	data->commands = (t_command *)malloc(sizeof(t_command));
 	(void)argc;
 	(void)argv;
-	init_minishell(data, envp);
-	shell_loop(data, envp);
+	data = (t_data *)malloc(sizeof(t_data));
+	data->commands = (t_command *)malloc(sizeof(t_command));
+	data->envp = envp;
+	init_minishell(data);
+	shell_loop(data);
 	return (0);
 }

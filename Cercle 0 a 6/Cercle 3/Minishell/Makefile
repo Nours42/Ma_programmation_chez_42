@@ -6,7 +6,7 @@
 #    By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/22 14:21:35 by sdestann          #+#    #+#              #
-#    Updated: 2023/06/22 11:59:43 by sdestann         ###   ########.fr        #
+#    Updated: 2023/06/23 14:28:25 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,13 @@ HEADER_DIR = includes/
 HEADER = $(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 
 SRCS_DIR = srcs/
-SRCS = echo.c env.c error.c init_minishell.c main.c parse.c signals.c
+SRCS =	free.c				\
+		main.c				\
+		parse.c				\
+		print.c				\
+		signals.c			\
+		token_and_lvl.c		\
+		utils.c
 OBJDIR = objs
 
 SRCS_PATH = $(addprefix $(SRCS_DIR), $(SRCS))

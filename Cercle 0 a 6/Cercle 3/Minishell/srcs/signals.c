@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 15:04:29 by sdestann          #+#    #+#             */
-/*   Updated: 2023/06/20 17:33:26 by jmetezea         ###   ########.fr       */
+/*   Updated: 2023/06/23 17:03:41 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,7 @@
 void	handle_signal(int signal)
 {
 	if (signal == SIGINT)
-		write(1, "\nnotre magnifique minishell >> $ ", 33);
+		write(1, "\b\b  \b\b\nnotre magnifique minishell >> $ ", 39);
+	else if (signal == SIGQUIT)
+		ft_printf("\b\b  \b\b");
 }

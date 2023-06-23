@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:50:42 by sdestann          #+#    #+#             */
-/*   Updated: 2023/06/23 13:49:26 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/06/23 16:24:38 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	tokening(t_command *var)
 		}
 		else if (var->str[var->i] == '(')
 			ft_parenthese(var);
-		else if (var->str[var->i] == ' ')
+		else
 			ft_space(var);
 		var->i++;
 	}

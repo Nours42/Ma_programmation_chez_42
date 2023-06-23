@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_minishell.c                                   :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:45:29 by jmetezea          #+#    #+#             */
-/*   Updated: 2023/06/22 10:52:12 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/06/23 15:32:59 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*jenlevedernierchar(char *str)
+char	*delete_last_char(char *str)
 {
 	int		i;
 	char	*new_str;
@@ -39,9 +39,9 @@ char	*find_path(char *s, char **envp)
 	return (envp[i] + (ft_strlen(s) + 1));
 }
 
-void	init_minishell(t_data *data, char **envp)
+void	init_minishell(t_data *data)
 {
-	data->cmd_paths = ft_split(find_path("PATH", envp), ':');
+	data->cmd_paths = ft_split(find_path("PATH", data->envp), ':');
 	data->str_temp = NULL;
 	data->str_temp2 = NULL;
 }

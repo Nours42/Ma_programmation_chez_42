@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/19 16:15:32 by jmetezea          #+#    #+#             */
-/*   Updated: 2023/06/22 10:50:44 by sdestann         ###   ########.fr       */
+/*   Created: 2023/06/19 16:19:39 by jmetezea          #+#    #+#             */
+/*   Updated: 2023/06/23 14:17:43 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,26 @@ void	ft_env(char **envp)
 	i = -1;
 	while (envp[++i])
 		ft_printf("%s\n", envp[i]);
+}
+
+void	ft_echo(t_data *data)
+{
+	if (data->cmd_args[1] != NULL)
+	{
+		if (ft_strcmp("-n", data->cmd_args[1]) == 0
+			&& data->cmd_args[2] != NULL)
+			ft_printf("%s", data->cmd_args[2]);
+		else if (ft_strcmp("-n", data->cmd_args[1]) == 0)
+			return ;
+		else
+			ft_printf("%s\n", data->cmd_args[1]);
+	}
+	else
+		ft_printf("\n");
+}
+
+void	msg_error(char *err)
+{
+	perror(err);
+	exit (1);
 }
