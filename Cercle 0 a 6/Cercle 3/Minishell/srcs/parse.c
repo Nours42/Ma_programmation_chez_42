@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:50:42 by sdestann          #+#    #+#             */
-/*   Updated: 2023/06/23 16:24:38 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/06/26 15:12:07 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ void	tokening(t_command *var)
 	{
 		if (var->brk)
 			break ;
-		else if (var->str[var->i] == '\'' || var->str[var->i] == '"')
+		else if ((var->str[var->i] == '\'' || var->str[var->i] == '"') 
+			&& (var->str[var->i - 1] == ' '))
 		{
 			var->quote = ft_strchr(var->str + var->i + 1, var->str[var->i]);
 			if (var->quote != NULL)

@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:19:39 by jmetezea          #+#    #+#             */
-/*   Updated: 2023/06/23 14:17:43 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/06/27 11:37:28 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ft_env(char **envp)
 		ft_printf("%s\n", envp[i]);
 }
 
+// attention si echo n'est pas dans "" il imprime tous les args suivants.
 void	ft_echo(t_data *data)
 {
 	if (data->cmd_args[1] != NULL)

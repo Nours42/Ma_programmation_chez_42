@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:48:12 by sdestann          #+#    #+#             */
-/*   Updated: 2023/06/23 15:37:40 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/06/27 11:08:33 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,10 @@ typedef struct s_data
 	t_command	*commands;
 }				t_data;
 
+// execute.c
+
+void	execute_command(t_data *data);
+
 // free.c
 
 void	ft_free_args(t_data *data);
@@ -116,7 +120,7 @@ void	ft_free_all(t_data *data);
 // main.c
 
 char	*get_cmd(char **paths, char *cmd);
-void	execute_command(t_data *data);
+
 void	shell_loop(t_data *data);
 int		find_builtin(t_data *data);
 int		main(int argc, char **argv, char **envp);

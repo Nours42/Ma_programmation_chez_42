@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:09:36 by kaly              #+#    #+#             */
-/*   Updated: 2023/06/23 17:04:30 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/06/27 11:07:35 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,29 +28,6 @@ char	*get_cmd(char **paths, char *cmd)
 		paths++;
 	}
 	return (NULL);
-}
-
-void	execute_command(t_data *data)
-{
-	data->pid = fork();
-	//ft_printf("exec command\n");
-	if (data->pid == 0)
-	{
-		data->str_temp2 = get_cmd(data->cmd_paths, data->cmd_args[0]);
-		if (data->str_temp2 != NULL)
-			execve(data->str_temp2, data->cmd_args, data->envp);
-		else
-		{
-			ft_printf("%s : commande introuvable\n", data->cmd_args[0]);
-			exit(EXIT_FAILURE);
-		}
-		perror("Erreur d'exécution de la commande\n");
-		exit(EXIT_FAILURE);
-	}
-	else if (data->pid < 0)
-		perror("Erreur lors de la création du processus\n");
-	else
-		wait(NULL);
 }
 
 void	shell_loop(t_data *data)
