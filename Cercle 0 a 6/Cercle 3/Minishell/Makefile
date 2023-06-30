@@ -6,7 +6,7 @@
 #    By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/22 14:21:35 by sdestann          #+#    #+#              #
-#    Updated: 2023/06/27 11:08:13 by sdestann         ###   ########.fr        #
+#    Updated: 2023/06/29 09:58:12 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,13 +19,15 @@ HEADER_DIR = includes/
 HEADER = $(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 
 SRCS_DIR = srcs/
-SRCS =	execute.C			\
+SRCS =	execute.c			\
+		export.c			\
 		free.c				\
 		main.c				\
 		parse.c				\
 		print.c				\
 		signals.c			\
 		token_and_lvl.c		\
+		unset.c 			\
 		utils.c
 OBJDIR = objs
 

@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:50:42 by sdestann          #+#    #+#             */
-/*   Updated: 2023/06/26 15:12:07 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/06/29 11:53:37 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_quote(t_command *var)
 
 	word_length = var->quote - var->str - var->i - 1;
 	var->word = malloc(sizeof(char) * (word_length + 1));
-	ft_strncpy(var->word, var->str + var->i, word_length);
+	ft_strncpy(var->word, var->str + var->i + 1, word_length);
 	var->word[word_length] = '\0';
 	var->commands[(var->num_words)] = var->word;
 	((var->num_words))++;
@@ -34,6 +34,8 @@ void	ft_space(t_command *var)
 	{
 		word_length = var->quote - var->str - var->i;
 		var->word = malloc(sizeof(char) * (word_length + 1));
+		while (*(var->str) + var->i + 1 == ' ')
+			var->i++;
 		ft_strncpy(var->word, var->str + var->i, word_length);
 		var->word[word_length] = '\0';
 		var->commands[(var->num_words)] = var->word;
@@ -44,6 +46,8 @@ void	ft_space(t_command *var)
 	{
 		word_length = (ft_strlen(var->str) - var->i);
 		var->word = malloc(sizeof(char) * (word_length + 1));
+		while (*(var->str) + var->i + 1 == ' ')
+			var->i++;
 		ft_strncpy(var->word, var->str + var->i, word_length);
 		var->word[word_length] = '\0';
 		var->commands[(var->num_words)] = var->word;

@@ -6,13 +6,13 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 11:07:40 by sdestann          #+#    #+#             */
-/*   Updated: 2023/06/27 11:36:42 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/06/29 13:24:15 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	execute_command(t_data *data)
+void	execute_command(t_data *data, char **envp)
 {
 	// 1 - Verifier le niveau de data->lvl
 	// 2 - Remplacer les $xxx en recherchant dans l'env les exports
@@ -23,7 +23,7 @@ void	execute_command(t_data *data)
 	{
 		data->str_temp2 = get_cmd(data->cmd_paths, data->cmd_args[0]);
 		if (data->str_temp2 != NULL)
-			execve(data->str_temp2, data->cmd_args, data->envp);
+			execve(data->str_temp2, data->cmd_args, envp);
 		else
 		{
 			ft_printf("%s : commande introuvable\n", data->cmd_args[0]);
@@ -47,7 +47,7 @@ void	give_me_the_money(t_data *data)
 	i = 0;
 	while (data->cmd_args[i])
 	{
-		arg_copy = ft_strchr(data->cmd_args[i], '$')
+		arg_copy = ft_strchr(data->cmd_args[i], '$');
 		if (arg_copy != NULL)
 		{
 			//il a trouve un $ donc il doit chercher dans ENV 
@@ -57,6 +57,7 @@ void	give_me_the_money(t_data *data)
 		else
 		{
 			// tu reprends la recherche au cas ou il y ait un autre $.
+
 
 		}
 			

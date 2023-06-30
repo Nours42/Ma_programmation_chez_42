@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:09:36 by kaly              #+#    #+#             */
-/*   Updated: 2023/06/27 11:07:35 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/06/29 13:25:52 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*get_cmd(char **paths, char *cmd)
 	return (NULL);
 }
 
-void	shell_loop(t_data *data)
+void	shell_loop(t_data *data, char **envp)
 {
 	while (1)
 	{
@@ -47,7 +47,7 @@ void	shell_loop(t_data *data)
 		if (ft_strcmp("\n", data->str_temp) == 0)
 		{
 			ft_free_str_temp(1, data);
-			shell_loop(data);
+			shell_loop(data, envp);
 		}
 		if (ft_strcmp("exit\n", data->str_temp) == 0)
 		{
@@ -59,12 +59,18 @@ void	shell_loop(t_data *data)
 		data->str_temp = delete_last_char(data->str_temp);
 		data->cmd_args = parse(data->str_temp);
 		if (find_builtin(data) == 0)
-			execute_command(data);
+			execute_command(data, envp);
 	}
 }
 
 int	find_builtin(t_data *data)
 {
+	int	i;
+
+	i = -1;
+	while(data->cmd_args[++i])
+		ft_printf("cmd args %d : %s\n", i, data->cmd_args[i]);
+//	ft_show_env(data);
 	if (ft_strcmp("echo", data->cmd_args[0]) == 0)
 		ft_echo(data);
 	else if (ft_strcmp("cd", data->cmd_args[0]) == 0)
@@ -72,13 +78,14 @@ int	find_builtin(t_data *data)
 	else if (ft_strcmp("pwd", data->cmd_args[0]) == 0)
 		ft_printf("%s\n", getcwd(NULL, 0));
 	else if (ft_strcmp("export", data->cmd_args[0]) == 0)
-		ft_printf("export\n");
+		ft_export(data);
 	else if (ft_strcmp("unset", data->cmd_args[0]) == 0)
-		ft_printf("unset\n");
+		ft_unset(data);
 	else if (ft_strcmp("env", data->cmd_args[0]) == 0)
-		ft_env(data->envp);
+		ft_show_env(data);
 	else
 		return (0);
+	//ft_free_all(1, data);
 	return (1);
 }
 
@@ -90,8 +97,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	data = (t_data *)malloc(sizeof(t_data));
 	data->commands = (t_command *)malloc(sizeof(t_command));
-	data->envp = envp;
-	init_minishell(data);
-	shell_loop(data);
+	init_minishell(data, envp);
+	shell_loop(data, envp);
 	return (0);
 }

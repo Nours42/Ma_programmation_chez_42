@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: kaly <kaly@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:45:29 by jmetezea          #+#    #+#             */
-/*   Updated: 2023/06/23 15:32:59 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/06/28 16:04:53 by kaly             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,54 @@ char	*delete_last_char(char *str)
 	return (new_str);
 }
 
-char	*find_path(char *s, char **envp)
+char	*find_path(char *s, t_envp *env)
+{
+	t_envp	*find_pa;
+
+	find_pa = env;
+	while (ft_strncmp(s, find_pa->str, ft_strlen(s)) != 0)
+		find_pa = find_pa->next;
+	return (find_pa->str + (ft_strlen(s) + 1));
+}
+
+void	add_str_endlst(t_envp *env, char *str)
+{
+	t_envp	*new;
+
+	new = malloc(sizeof(*new));
+	if (!env || !new)
+		return ;
+	new->str = ft_strdup(str);
+	new->next = NULL;
+	if (env->str == NULL)
+		env->str = new->str;
+	else
+	{
+		while(env->next != NULL)
+			env = env->next;
+		env->next = new;
+	}
+}
+
+void	init_env(t_data *data, char **envp)
 {
 	int	i;
 
-	i = 0;
-	while (ft_strncmp(s, envp[i], ft_strlen(s)) != 0)
-		i++;
-	return (envp[i] + (ft_strlen(s) + 1));
+	i = -1;
+	while (envp[++i])
+	{
+		add_str_endlst(data->env, envp[i]);
+	}
+//	ft_show_env(data);
 }
 
-void	init_minishell(t_data *data)
+void	init_minishell(t_data *data, char **envp)
 {
-	data->cmd_paths = ft_split(find_path("PATH", data->envp), ':');
+	data->env = malloc(sizeof(t_envp));
+	data->env->next = NULL;
+	data->env->str = NULL;
+	init_env(data, envp);
+	data->cmd_paths = ft_split(find_path("PATH", data->env), ':');
 	data->str_temp = NULL;
 	data->str_temp2 = NULL;
 }
