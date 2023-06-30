@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:48:12 by sdestann          #+#    #+#             */
-/*   Updated: 2023/06/29 12:57:02 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/06/30 09:33:48 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ typedef struct s_data
 {
 	char		*str_temp;
 	char		*str_temp2;
+	char		*str_to_unset;
 	char		**cmd_paths;
 	char		**cmd_args;
 	//int			cmd_nbr;

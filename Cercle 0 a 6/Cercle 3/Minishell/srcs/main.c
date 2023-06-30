@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:09:36 by kaly              #+#    #+#             */
-/*   Updated: 2023/06/29 13:25:52 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/06/30 09:35:23 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,10 @@ int	find_builtin(t_data *data)
 	else if (ft_strcmp("export", data->cmd_args[0]) == 0)
 		ft_export(data);
 	else if (ft_strcmp("unset", data->cmd_args[0]) == 0)
+	{
+		data->str_to_unset = data->cmd_args[1];
 		ft_unset(data);
+	}
 	else if (ft_strcmp("env", data->cmd_args[0]) == 0)
 		ft_show_env(data);
 	else

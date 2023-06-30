@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:19:39 by jmetezea          #+#    #+#             */
-/*   Updated: 2023/06/29 13:56:21 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/06/30 09:38:10 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ void	ft_export (t_data *data)
 		{
 			if (ft_strcmp(copy->str, before) == 0
 				&& ft_isalnum(copy->str[ft_strlen(before) + 1]))
-				ft_unset(data);
+				{
+					data->str_to_unset = data->cmd_args[1];
+					ft_unset(data);
+				}
 			copy = copy->next;
 		}
 		ft_add_new_arg_env(data);

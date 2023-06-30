@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:19:39 by jmetezea          #+#    #+#             */
-/*   Updated: 2023/06/29 13:57:43 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/06/30 09:40:24 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ void	ft_delete_arg_env(t_data *data)
 	t_envp  *temp;
 
 	delete = data->env;
-	if (ft_strncmp(data->cmd_args[1], delete->str, ft_strlen(data->cmd_args[1])) == 0)
+	if (ft_strncmp(data->str_to_unset, delete->str, ft_strlen(data->str_to_unset)) == 0)
 	{
 		temp = delete;
 		data->env = delete->next;
 	}
 	else
 	{
-		while (ft_strncmp(data->cmd_args[1], delete->next->str, ft_strlen(data->cmd_args[1])) != 0)
+		while (ft_strncmp(data->str_to_unset, delete->next->str, ft_strlen(data->str_to_unset)) != 0)
 			delete = delete->next;
 		temp = delete->next;
 		delete->next = delete->next->next;
@@ -39,7 +39,6 @@ void	ft_unset (t_data *data)
 	int a;
 	t_envp  *list;
 
-// rajouter un char * de la string a unset
 	a = 0;
 	list = data->env;
 	while(list->next && a == 0 )
