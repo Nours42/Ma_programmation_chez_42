@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaly <kaly@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:45:29 by jmetezea          #+#    #+#             */
-/*   Updated: 2023/06/28 16:04:53 by kaly             ###   ########.fr       */
+/*   Updated: 2023/07/04 11:37:20 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	init_env(t_data *data, char **envp)
 	while (envp[++i])
 	{
 		add_str_endlst(data->env, envp[i]);
+		//ft_printf("---------------%s\n", envp[i]);
 	}
 //	ft_show_env(data);
 }

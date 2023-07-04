@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:19:39 by jmetezea          #+#    #+#             */
-/*   Updated: 2023/06/30 09:43:15 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/04 12:18:03 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,16 @@ void	ft_unset (t_data *data)
 
 	a = 0;
 	list = data->env;
-	while(list->next && a == 0 )
+	while (list && a == 0)
 	{
-		if (ft_strncmp(data->str_to_unset, list->str, ft_strlen(data->str_to_unset)) == 0)
+		if ((ft_strncmp(data->str_to_unset, list->str, ft_strlen(data->str_to_unset)) == 0) 
+			&& (list->str[ft_strlen(data->str_to_unset)] == '='))
 		{
-				ft_printf("la variable est trouve\n%s\n", list->str);
+			ft_printf("la variable est trouve\n%s\n", list->str);
 			ft_delete_arg_env(data);
 			a = 1;
 		}
-		if (a != 1)
-			list = list->next;
+		list = list->next;
 	}
 //	ft_show_env(data);
 	if (a == 0)
