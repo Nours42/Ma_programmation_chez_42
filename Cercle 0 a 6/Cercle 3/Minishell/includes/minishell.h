@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:48:12 by sdestann          #+#    #+#             */
-/*   Updated: 2023/06/30 09:33:48 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/04 15:34:25 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct s_command
 typedef struct s_envp {
 	struct s_envp	*next;
 	char	*str;
+	char	*str_arg;
 }	t_envp;
 
 // data contient les elements structurels, les regles principales.
@@ -119,6 +120,7 @@ typedef struct s_data
 // execute.c
 
 void	execute_command(t_data *data, char **envp);
+void	give_me_the_money(t_data *data, int i);
 
 // export.c
 

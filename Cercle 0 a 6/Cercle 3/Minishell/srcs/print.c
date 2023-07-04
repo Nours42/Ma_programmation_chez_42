@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:19:39 by jmetezea          #+#    #+#             */
-/*   Updated: 2023/06/29 12:49:23 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/04 15:16:03 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ void	ft_echo(t_data *data)
 		{
 			i = 1;
 			while(data->cmd_args[++i])
+			{
+				give_me_the_money(data, i);
 				ft_printf("%s", data->cmd_args[i]);
+			}
 		}
 		else if (ft_strcmp("-n", data->cmd_args[1]) == 0)
 			return ;
@@ -48,7 +51,10 @@ void	ft_echo(t_data *data)
 		{
 			i = 0;
 			while(data->cmd_args[++i])
-				ft_printf("%s\n", data->cmd_args[i]);
+			{
+				give_me_the_money(data, i);
+				ft_printf("echo dans ft_echo %s\n", data->cmd_args[i]);
+			}
 		}
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 10:17:48 by sdestann          #+#    #+#             */
-/*   Updated: 2023/06/22 09:23:42 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/04 14:09:48 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ size_t		ft_strlcat(char *dest, const char *src, size_t size);
 size_t		ft_strlcpy(char *dest, const char *src, size_t size);
 size_t		ft_strlen(const char *str);
 size_t		ft_strqlen(const char *str, int n, char c);
+size_t		ft_strnlen(const char *str, size_t i);
 
 // t_list
 t_list		*ft_lstlast(t_list *lst);
