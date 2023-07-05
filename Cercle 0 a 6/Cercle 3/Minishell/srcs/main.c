@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:09:36 by kaly              #+#    #+#             */
-/*   Updated: 2023/06/30 09:35:23 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/05 15:18:09 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,11 @@ char	*get_cmd(char **paths, char *cmd)
 	char	*tmp;
 	char	*command;
 
+	
 	while (*paths)
 	{
+		if (ft_cmp_paths(cmd, *paths) > 4)
+			return (cmd);
 		tmp = ft_strjoin(*paths, "/");
 		command = ft_strjoin(tmp, cmd);
 		free(tmp);
@@ -32,6 +35,7 @@ char	*get_cmd(char **paths, char *cmd)
 
 void	shell_loop(t_data *data, char **envp)
 {
+	//int i = 0;
 	while (1)
 	{
 		signal(SIGQUIT, handle_signal);
@@ -58,6 +62,20 @@ void	shell_loop(t_data *data, char **envp)
 		}
 		data->str_temp = delete_last_char(data->str_temp);
 		data->cmd_args = parse(data->str_temp);
+		/*ft_printf("avant\n");
+		while(data->cmd_args[i])
+		{
+			ft_printf("ARGS numero %d : %s\n",i ,data->cmd_args[i]);
+			i++;
+		}*/
+		give_me_the_money(data);
+		/*i = 0;
+		ft_printf("\napres\n");
+		while(data->cmd_args[i])
+		{
+			ft_printf("ARGS numero %d : %s\n",i ,data->cmd_args[i]);
+			i++;
+		}*/
 		if (find_builtin(data) == 0)
 			execute_command(data, envp);
 	}

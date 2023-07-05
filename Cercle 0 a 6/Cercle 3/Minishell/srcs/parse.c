@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:50:42 by sdestann          #+#    #+#             */
-/*   Updated: 2023/06/29 11:53:37 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/05 16:38:28 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,68 @@ void	tokening(t_command *var)
 		else
 			ft_space(var);
 		var->i++;
+	}
+}
+
+int	find_dollar(char *s)
+{
+	int	i;
+
+	i = 0;
+
+	while (s[i])
+	{
+		if (s[i] == '$' && (s[i] || s[i + 1] != '$'))
+		{
+			ft_printf("%d\n", i);
+			return (i);
+		}
+		i++;
+	}
+	return (-1);
+}
+
+void	find_and_replace(t_data *data, int i, int index_of_dollar)
+{
+	char 		*temp;
+	char		*temp2;
+	char		*valeur_origine_args;
+	t_envp		*copy;
+	int			j;
+
+	j = -1;
+	valeur_origine_args = ft_strdup(data->cmd_args[i]);
+	temp = ft_strndup(data->cmd_args[i], index_of_dollar + 1);
+	temp2 = malloc(0);
+	if (index_of_dollar > 0)
+	{
+		temp2 = (char *)malloc(sizeof(char) * index_of_dollar + 1);
+		while (++j < index_of_dollar)
+			temp2[j] = data->cmd_args[i][j];
+	}
+	copy = data->env;
+	while (copy)
+	{
+		if (ft_strncmp(temp, copy->str, ft_strlen(temp)) == 0)
+			if (copy->str[ft_strlen(temp)] == '=')
+				data->cmd_args[i] = ft_strjoin(temp2, ft_strndup(copy->str, ft_strlen(temp) + 1));
+		copy = copy->next;
+	}
+	if (ft_strncmp(data->cmd_args[i], valeur_origine_args, ft_strlen(valeur_origine_args) - 1) == 0)
+		data->cmd_args[i] = temp2;
+}
+
+void	give_me_the_money(t_data *data)
+{
+	int	i;
+	int	index_of_dollar;
+
+	i = -1;
+	while (data->cmd_args[++i])
+	{
+		index_of_dollar = find_dollar(data->cmd_args[i]);
+		if (index_of_dollar >= 0)
+			find_and_replace(data, i, index_of_dollar);
 	}
 }
 

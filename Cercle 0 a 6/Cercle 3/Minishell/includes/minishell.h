@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:48:12 by sdestann          #+#    #+#             */
-/*   Updated: 2023/07/04 15:34:25 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/05 13:53:26 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ typedef struct s_data
 // execute.c
 
 void	execute_command(t_data *data, char **envp);
-void	give_me_the_money(t_data *data, int i);
+void	give_me_the_money(t_data *data);
 
 // export.c
 
@@ -169,6 +169,7 @@ void	ft_parenthese(t_command *var);
 
 char	*delete_last_char(char *str);
 char	*find_path(char *s, t_envp *env);
+int		ft_cmp_paths(char *s1, char *s2);
 void	add_str_endlst(t_envp *env, char *str);
 void	init_env(t_data *data, char **envp);
 void	init_minishell(t_data *data, char **envp);
