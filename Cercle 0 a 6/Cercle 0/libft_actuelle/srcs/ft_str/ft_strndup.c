@@ -1,27 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/06 13:19:16 by sdestann          #+#    #+#             */
-/*   Updated: 2023/04/12 10:04:39 by sdestann         ###   ########.fr       */
+/*   Created: 2023/01/23 12:57:42 by sdestann          #+#    #+#             */
+/*   Updated: 2023/07/05 08:45:02 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
 
-char	*ft_strcpy(char *dest, char *src)
-{
-	int	i;
+/* DESCRIPTION :
+**
+** strndup malloc et copie s a partir de i
+**
+*/
 
-	i = 0;
-	while (src[i] != '\0')
+char	*ft_strndup(const char *s, size_t i)
+{
+	char	*dup;
+	size_t	length;
+	size_t	j;
+
+	j = 0;
+	length = ft_strlen(s) + 1 - i;
+	if (length == 0)
+		return (NULL);
+	dup = malloc(length * sizeof(char));
+	if (!dup)
+		return (NULL);
+	while (s[i + j] && j < (length - 1))
 	{
-		dest[i] = src[i];
-		i++;
+		dup[j] = s[i + j];
+		j++;
 	}
-	dest[i] = src[i];
-	return (dest);
+	dup[j] = '\0';
+	return (dup);
 }

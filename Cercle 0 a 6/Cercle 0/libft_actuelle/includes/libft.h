@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 10:17:48 by sdestann          #+#    #+#             */
-/*   Updated: 2023/06/22 09:23:42 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/05 08:39:00 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char		*ft_strncat(char *s1, const char *s2, size_t n);
 char		*ft_strncpy(char *dest, char *src, unsigned int n);
+char		*ft_strndup(const char *s, size_t i);
 char		*ft_strnstr(const char *s1, const char *s2, size_t len);
 char		*ft_strquote(char *s, int index, char c);
 char		*ft_strrchr(const char *s, int c);
@@ -81,6 +82,7 @@ size_t		ft_strlcat(char *dest, const char *src, size_t size);
 size_t		ft_strlcpy(char *dest, const char *src, size_t size);
 size_t		ft_strlen(const char *str);
 size_t		ft_strqlen(const char *str, int n, char c);
+size_t		ft_strnlen(const char *str, size_t i);
 
 // t_list
 t_list		*ft_lstlast(t_list *lst);
