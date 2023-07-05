@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 10:17:48 by sdestann          #+#    #+#             */
-/*   Updated: 2023/07/05 08:39:00 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/05 09:07:25 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int			ft_isalpha(int c);
 int			ft_isascii(int c);
 int			ft_isdigit(int c);
 int			ft_isprint(int c);
+int			ft_isspaces(char c);
 int			ft_iterative_factorial(int nb);
 int			ft_lstsize(t_list *lst);
 int			ft_memcmp(const void *s1, const void *s2, size_t n);
