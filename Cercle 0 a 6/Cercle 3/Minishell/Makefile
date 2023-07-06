@@ -6,7 +6,7 @@
 #    By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/22 14:21:35 by sdestann          #+#    #+#              #
-#    Updated: 2023/06/29 09:58:12 by sdestann         ###   ########.fr        #
+#    Updated: 2023/07/06 12:27:33 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ HEADER_DIR = includes/
 HEADER = $(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 
 SRCS_DIR = srcs/
-SRCS =	execute.c			\
+SRCS =	cd.c				\
+		execute.c			\
 		export.c			\
 		free.c				\
 		main.c				\
@@ -58,7 +59,7 @@ all: ${NAME}
 ${NAME}: ${OBJ_SRCS}
 	@echo $(G)Creating libft files$(X)
 	@make -s -C $(LIBFT)
-	@$(CC) $(OBJ_SRCS) -L$(LIBFT) -lft -o $(NAME)
+	@$(CC) $(OBJ_SRCS) -L$(LIBFT) -lft -lreadline -o $(NAME)
 	@echo $(G)Project MINISHELL by JMETEZEA and SDESTANN successfully compiled${X}
 
 $(OBJDIR)/%.o: $(SRCS_DIR)%.c $(HEADER) Makefile

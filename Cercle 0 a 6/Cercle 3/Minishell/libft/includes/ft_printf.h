@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:55:57 by sdestann          #+#    #+#             */
-/*   Updated: 2023/04/12 16:42:12 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/06 09:48:48 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 # define FT_PRINTF_H
 
 # include <stdio.h>
-# include <stdlib.h>
 # include <stdarg.h>
-# include <unistd.h>
 # include "libft.h"
+
+// deja inclus dans libft : <unistd.h> et <stdlib.h>
 
 typedef struct s_flags
 {

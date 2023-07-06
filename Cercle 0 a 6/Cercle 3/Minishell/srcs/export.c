@@ -6,19 +6,19 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:19:39 by jmetezea          #+#    #+#             */
-/*   Updated: 2023/06/30 09:38:10 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/06 13:21:14 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_add_new_arg_env(t_data *data)
+void	ft_add_new_arg_env(t_data *data, char *args)
 {
 	t_envp	*copy;
 	t_envp	*new;
 
 	new = (t_envp *)malloc(sizeof(t_envp));
-	new->str = data->cmd_args[1];
+	new->str = args;
 	new->next = NULL;
 	copy = data->env;
 	while (copy->next)
@@ -42,28 +42,23 @@ char	*ft_before_and_equal(char *s)
 	return (before);
 }
 
-void	ft_export (t_data *data)
+void	ft_export (t_data *data, char *args)
 {
 	char	*before;
 	t_envp	*copy;
 
 	copy = data->env;
-	data->str_temp = ft_strchr(data->cmd_args[1], '=');
+	data->str_temp = ft_strchr(args, '=');
 	if (data->str_temp != NULL)
 	{
-		before = ft_before_and_equal(data->cmd_args[1]);
+		before = ft_before_and_equal(args);
 		while (copy)
 		{
 			if (ft_strcmp(copy->str, before) == 0
 				&& ft_isalnum(copy->str[ft_strlen(before) + 1]))
-				{
-					data->str_to_unset = data->cmd_args[1];
-					ft_unset(data);
-				}
+					ft_unset(data, args);
 			copy = copy->next;
 		}
-		ft_add_new_arg_env(data);
+		ft_add_new_arg_env(data, args);
 	}
-	/*if (before != NULL)
-		free (before);*/
 }

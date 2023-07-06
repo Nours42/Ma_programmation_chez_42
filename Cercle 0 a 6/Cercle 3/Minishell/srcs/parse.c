@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:50:42 by sdestann          #+#    #+#             */
-/*   Updated: 2023/07/05 16:38:28 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/06 10:31:48 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,7 @@ int	find_dollar(char *s)
 	while (s[i])
 	{
 		if (s[i] == '$' && (s[i] || s[i + 1] != '$'))
-		{
-			ft_printf("%d\n", i);
 			return (i);
-		}
 		i++;
 	}
 	return (-1);
