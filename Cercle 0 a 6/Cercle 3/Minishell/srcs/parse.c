@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:50:42 by sdestann          #+#    #+#             */
-/*   Updated: 2023/07/07 09:25:24 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/07 14:55:06 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,7 @@ void	ft_space(t_data *data)
 
 void	tokening(t_data *data)
 {
-	if (data->var->i > 0)
-			data->piped++;
-	while (data->var->i < ft_strlen(data->var->str) && data->var->str[data->var->i] != '|')
+	while (data->var->i < ft_strlen(data->var->str))
 	{
 		if (data->var->brk)
 			break ;
@@ -72,14 +70,12 @@ void	tokening(t_data *data)
 				ft_quote(data);
 		}
 		else if (data->var->str[data->var->i] == '<' || data->var->str[data->var->i] == '>'
-			|| data->var->str[data->var->i] == '&' || data->var->str[data->var->i] == '|')
+			|| data->var->str[data->var->i] == '&')
 			ft_token(data);
 		else
 			ft_space(data);
 		data->var->i++;
 	}
-	if (data->var->i < ft_strlen(data->var->str) && data->var->brk == 0)
-		tokening(data);
 }
 
 int	find_dollar(char *s)

@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:19:39 by jmetezea          #+#    #+#             */
-/*   Updated: 2023/07/06 18:33:57 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/07 16:19:39 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,16 @@ void	ft_show_envp(t_data *data)//affiche la liste
 	}
 }
 
+void	ft_print_args(t_data *data, char **args)
+{
+	int	i;
+
+	i = -1;
+	while(args[++i])
+		ft_printf("%s \n", args[i]);
+	ft_printf("next_pipe is in : %d\n", data->next_pipe);
+}
+
 // attention si echo n'est pas dans "" il imprime tous les args suivants.
 void	ft_echo(t_data *data)
 {
@@ -39,7 +49,9 @@ void	ft_echo(t_data *data)
 			&& data->cmd_args[2] != NULL)
 		{
 			i = 1;
-			while(data->cmd_args[++i])
+			//ft_printf("echo i : %d\n", i);
+			//ft_printf("data->next_pipe : %d\n", data->next_pipe);
+			while(data->cmd_args[++i] && data->next_pipe > i)
 				ft_printf("%s", data->cmd_args[i]);
 		}
 		else if (ft_strcmp("-n", data->cmd_args[1]) == 0)
@@ -47,8 +59,16 @@ void	ft_echo(t_data *data)
 		else
 		{
 			i = 0;
-			while(data->cmd_args[++i])
-				ft_printf("%s\n", data->cmd_args[i]);
+			//ft_printf("echo i : %d\n", i);
+			//ft_printf("data->next_pipe : %d\n", data->next_pipe);
+			while(data->cmd_args[++i] && data->next_pipe > i)
+			{
+				if (i == 1)
+					ft_printf("%s", data->cmd_args[i]);
+				else if (i > 1)
+					ft_printf(" %s", data->cmd_args[i]);
+			}
+			ft_printf("\n");
 		}
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:09:36 by kaly              #+#    #+#             */
-/*   Updated: 2023/07/07 09:00:50 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/07 16:29:40 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	get_l(t_data *data)
 void	shell_loop(t_data *data, char **envp)
 {
 	struct sigaction	act;
+	int		i;
 	
 	ft_signal(&act, data);
 	while (1)
@@ -71,6 +72,20 @@ void	shell_loop(t_data *data, char **envp)
 		parse(data);
 		data->args->list_args = data->cmd_args;
 		give_me_the_money(data);
+		i = -1;
+		while (data->cmd_args[++i])
+		{
+			data->next_pipe = 0;
+			if (ft_strncmp(data->cmd_args[i], "|", 1) == 0)
+			{
+				data->next_pipe = i;
+				if (find_builtin(data, envp) == 0)
+					execute_command(data, envp);
+				data->cmd_args = data->cmd_args + i + 1;
+				i = -1;
+			}
+		}
+		data->next_pipe = 42;
 		if (find_builtin(data, envp) == 0)
 			execute_command(data, envp);
 	}
@@ -78,7 +93,6 @@ void	shell_loop(t_data *data, char **envp)
 
 int	find_builtin(t_data *data, char **envp)
 {
-	data->piped = 0;
 	data->fd_redirect_in = 0;
 	data->fd_redirect_out = 0;
 	(void)envp;

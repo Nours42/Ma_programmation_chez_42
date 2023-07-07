@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:48:12 by sdestann          #+#    #+#             */
-/*   Updated: 2023/07/07 09:20:25 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/07 15:22:12 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,14 +101,16 @@ typedef struct s_command
 
 // liste chainee pour envp
 
-typedef struct s_envp {
+typedef struct s_envp
+{
 	struct s_envp	*next;
 	char			*str;
 }				t_envp;
 
 // liste chaineee des arguments
 
-typedef struct s_args {
+typedef struct s_args
+{
 	struct s_args	*next;
 	int				segment;
 	char			**list_args;
@@ -126,6 +128,7 @@ typedef struct s_data
 	int			piped;
 	int			fd_redirect_in;
 	int			fd_redirect_out;
+	int			next_pipe;
 	pid_t		pid;
 	t_args		*args;
 	t_command	*var;
@@ -178,6 +181,7 @@ void	parse(t_data *data);
 // print.c
 
 void	ft_show_envp(t_data *data);
+void	ft_print_args(t_data *data, char **args);
 void	ft_echo(t_data *data);
 void	msg_error(char *err);
 

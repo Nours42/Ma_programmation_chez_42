@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:45:29 by jmetezea          #+#    #+#             */
-/*   Updated: 2023/07/06 18:30:34 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/07 15:14:09 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	init_envp(t_data *data, char **envp)
 
 void	init_minishell(t_data *data, char **envp)
 {
+	data->next_pipe = 0;
 	data->envp = malloc(sizeof(t_envp));
 	data->envp->next = NULL;
 	data->envp->str = NULL;
