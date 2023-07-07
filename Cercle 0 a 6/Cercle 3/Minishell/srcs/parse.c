@@ -6,84 +6,80 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:50:42 by sdestann          #+#    #+#             */
-/*   Updated: 2023/07/06 10:31:48 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/07 09:25:24 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_quote(t_command *var)
+void	ft_quote(t_data *data)
 {
 	int	word_length;
 
-	word_length = var->quote - var->str - var->i - 1;
-	var->word = malloc(sizeof(char) * (word_length + 1));
-	ft_strncpy(var->word, var->str + var->i + 1, word_length);
-	var->word[word_length] = '\0';
-	var->commands[(var->num_words)] = var->word;
-	((var->num_words))++;
-	var->i += (var->quote - var->str - var->i);
+	word_length = data->var->quote - data->var->str - data->var->i - 1;
+	data->var->word = malloc(sizeof(char) * (word_length + 1));
+	ft_strncpy(data->var->word, data->var->str + data->var->i + 1, word_length);
+	data->var->word[word_length] = '\0';
+	data->var->commands[(data->var->num_words)] = data->var->word;
+	((data->var->num_words))++;
+	data->var->i += (data->var->quote - data->var->str - data->var->i);
 }
 
-void	ft_space(t_command *var)
+void	ft_space(t_data *data)
 {
 	int	word_length;
 
-	var->quote = ft_strchr(var->str + var->i + 1, ' ');
-	if (var->quote != NULL)
+	data->var->quote = ft_strchr(data->var->str + data->var->i + 1, ' ');
+	if (data->var->quote != NULL)
 	{
-		word_length = var->quote - var->str - var->i;
-		var->word = malloc(sizeof(char) * (word_length + 1));
-		while (*(var->str) + var->i + 1 == ' ')
-			var->i++;
-		ft_strncpy(var->word, var->str + var->i, word_length);
-		var->word[word_length] = '\0';
-		var->commands[(var->num_words)] = var->word;
-		((var->num_words))++;
-		var->i += (var->quote - var->str - var->i);
+		word_length = data->var->quote - data->var->str - data->var->i;
+		data->var->word = malloc(sizeof(char) * (word_length + 1));
+		while (*(data->var->str) + data->var->i + 1 == ' ')
+			data->var->i++;
+		ft_strncpy(data->var->word, data->var->str + data->var->i, word_length);
+		data->var->word[word_length] = '\0';
+		data->var->commands[(data->var->num_words)] = data->var->word;
+		((data->var->num_words))++;
+		data->var->i += (data->var->quote - data->var->str - data->var->i);
 	}
 	else
 	{
-		word_length = (ft_strlen(var->str) - var->i);
-		var->word = malloc(sizeof(char) * (word_length + 1));
-		while (*(var->str) + var->i + 1 == ' ')
-			var->i++;
-		ft_strncpy(var->word, var->str + var->i, word_length);
-		var->word[word_length] = '\0';
-		var->commands[(var->num_words)] = var->word;
-		((var->num_words))++;
-		var->brk = 1;
+		word_length = (ft_strlen(data->var->str) - data->var->i);
+		data->var->word = malloc(sizeof(char) * (word_length + 1));
+		while (*(data->var->str) + data->var->i + 1 == ' ')
+			data->var->i++;
+		ft_strncpy(data->var->word, data->var->str + data->var->i, word_length);
+		data->var->word[word_length] = '\0';
+		data->var->commands[(data->var->num_words)] = data->var->word;
+		((data->var->num_words))++;
+		data->var->brk = 1;
 	}
 }
 
-void	tokening(t_command *var)
+void	tokening(t_data *data)
 {
-	var->i = 0;
-	while (var->i < ft_strlen(var->str))
+	if (data->var->i > 0)
+			data->piped++;
+	while (data->var->i < ft_strlen(data->var->str) && data->var->str[data->var->i] != '|')
 	{
-		if (var->brk)
+		if (data->var->brk)
 			break ;
-		else if ((var->str[var->i] == '\'' || var->str[var->i] == '"') 
-			&& (var->str[var->i - 1] == ' '))
+		else if ((data->var->str[data->var->i] == '\'' || data->var->str[data->var->i] == '"') 
+			&& (data->var->str[data->var->i - 1] == ' '))
 		{
-			var->quote = ft_strchr(var->str + var->i + 1, var->str[var->i]);
-			if (var->quote != NULL)
-				ft_quote(var);
+			data->var->quote = ft_strchr(data->var->str + data->var->i + 1, data->var->str[data->var->i]);
+			if (data->var->quote != NULL)
+				ft_quote(data);
 		}
-		else if (var->str[var->i] == '<' || var->str[var->i] == '>'
-			|| var->str[var->i] == '&' || var->str[var->i] == '|')
-		{
-			if (var->str[var->i] == var->str[var->i + 1])
-				ft_double_token(var);
-			else
-				ft_single_token(var);
-		}
-		else if (var->str[var->i] == '(')
-			ft_parenthese(var);
+		else if (data->var->str[data->var->i] == '<' || data->var->str[data->var->i] == '>'
+			|| data->var->str[data->var->i] == '&' || data->var->str[data->var->i] == '|')
+			ft_token(data);
 		else
-			ft_space(var);
-		var->i++;
+			ft_space(data);
+		data->var->i++;
 	}
+	if (data->var->i < ft_strlen(data->var->str) && data->var->brk == 0)
+		tokening(data);
 }
 
 int	find_dollar(char *s)
@@ -119,7 +115,7 @@ void	find_and_replace(t_data *data, int i, int index_of_dollar)
 		while (++j < index_of_dollar)
 			temp2[j] = data->cmd_args[i][j];
 	}
-	copy = data->env;
+	copy = data->envp;
 	while (copy)
 	{
 		if (ft_strncmp(temp, copy->str, ft_strlen(temp)) == 0)
@@ -145,13 +141,12 @@ void	give_me_the_money(t_data *data)
 	}
 }
 
-char	**parse(char *s)
+void	parse(t_data *data)
 {
-	t_command	*var;
-
-	var = (t_command *)malloc(sizeof(t_command) + 1);
-	var->num_words = 0;
-	var->str = s;
-	tokening(var);
-	return (var->commands);
+	data->var = (t_command *)malloc(sizeof(t_command) + 1);
+	data->var->num_words = 0;
+	data->var->str = data->str_temp;
+	data->var->i = 0;
+	tokening(data);
+	data->cmd_args = data->var->commands;
 }

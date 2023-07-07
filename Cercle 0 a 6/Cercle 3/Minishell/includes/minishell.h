@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:48:12 by sdestann          #+#    #+#             */
-/*   Updated: 2023/07/06 13:21:51 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/07 09:20:25 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,16 @@ typedef struct s_command
 
 typedef struct s_envp {
 	struct s_envp	*next;
-	char	*str;
-	char	*str_arg;
-}	t_envp;
+	char			*str;
+}				t_envp;
+
+// liste chaineee des arguments
+
+typedef struct s_args {
+	struct s_args	*next;
+	int				segment;
+	char			**list_args;
+}				t_args;
 
 // data contient les elements structurels, les regles principales.
 
@@ -120,8 +127,9 @@ typedef struct s_data
 	int			fd_redirect_in;
 	int			fd_redirect_out;
 	pid_t		pid;
-	t_envp		*env;
-	t_command	*commands;
+	t_args		*args;
+	t_command	*var;
+	t_envp		*envp;
 }				t_data;
 
 // cd.c
@@ -138,7 +146,7 @@ void	execute_command(t_data *data, char **envp);
 
 // export.c
 
-void	ft_add_new_arg_env(t_data *data, char *args);
+void	ft_add_new_arg_envp(t_data *data, char *args);
 char	*ft_before_and_equal(char *s);
 void	ft_export (t_data *data, char *args);
 
@@ -159,17 +167,17 @@ int		main(int argc, char **argv, char **envp);
 
 // parse.c
 
-void	ft_quote(t_command *var);
-void	ft_space(t_command *var);
-void	tokening(t_command *var);
+void	ft_quote(t_data *data);
+void	ft_space(t_data *data);
+void	tokening(t_data *data);
 int		find_dollar(char *s);
 void	find_and_replace(t_data *data, int i, int index_of_dollar);
 void	give_me_the_money(t_data *data);
-char	**parse(char *s);
+void	parse(t_data *data);
 
 // print.c
 
-void	ft_show_env(t_data *data);
+void	ft_show_envp(t_data *data);
 void	ft_echo(t_data *data);
 void	msg_error(char *err);
 
@@ -178,24 +186,22 @@ void	msg_error(char *err);
 void	ft_signal(struct sigaction *act, t_data *data);
 void	handle_signal(int signal);
 
-// token_and_lvl.c
+// token.c
 
-void	ft_single_token(t_command *var);
-void	ft_double_token(t_command *var);
-void	ft_parenthese(t_command *var);
+void	ft_token(t_data *data);
 
 // unset.c
 
-void    ft_delete_arg_env(t_data *data, char *arg);
+void    ft_delete_arg_envp(t_data *data, char *arg);
 void    ft_unset(t_data *data, char *args);
 
 // utils.c
 
 int		ft_cmp_paths(char *s1, char *s2);
 char	*delete_last_char(char *str);
-char	*find_path(char *s, t_envp *env);
-void	add_str_endlst(t_envp *env, char *str);
-void	init_env(t_data *data, char **envp);
+char	*find_path(char *s, t_envp *envp);
+void	add_str_endlst(t_envp *envp, char *str);
+void	init_envp(t_data *data, char **envp);
 void	init_minishell(t_data *data, char **envp);
 
 /*echo et l’option -n

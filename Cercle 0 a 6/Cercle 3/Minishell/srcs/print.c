@@ -6,25 +6,25 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:19:39 by jmetezea          #+#    #+#             */
-/*   Updated: 2023/07/06 10:27:13 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/06 18:33:57 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_show_env(t_data *data)//affiche la liste 
+void	ft_show_envp(t_data *data)//affiche la liste 
 {
 	int	i;
-	t_envp	*show_env;
+	t_envp	*show_envp;
 	
-	show_env = data->env;
-	if (!show_env)
+	show_envp = data->envp;
+	if (!show_envp)
 		return ;
 	i = 1;
-	while (show_env != NULL)
+	while (show_envp != NULL)
 	{
-		printf("nb %d : %s\n", i, show_env->str);
-		show_env = show_env->next;
+		printf("nb %d : %s\n", i, show_envp->str);
+		show_envp = show_envp->next;
 		i++;
 	}
 }

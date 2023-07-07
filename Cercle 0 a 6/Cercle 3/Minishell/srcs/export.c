@@ -6,13 +6,13 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:19:39 by jmetezea          #+#    #+#             */
-/*   Updated: 2023/07/06 13:21:14 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/06 18:27:58 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_add_new_arg_env(t_data *data, char *args)
+void	ft_add_new_arg_envp(t_data *data, char *args)
 {
 	t_envp	*copy;
 	t_envp	*new;
@@ -20,7 +20,7 @@ void	ft_add_new_arg_env(t_data *data, char *args)
 	new = (t_envp *)malloc(sizeof(t_envp));
 	new->str = args;
 	new->next = NULL;
-	copy = data->env;
+	copy = data->envp;
 	while (copy->next)
 		copy = copy->next;
 	copy->next = new;
@@ -47,7 +47,7 @@ void	ft_export (t_data *data, char *args)
 	char	*before;
 	t_envp	*copy;
 
-	copy = data->env;
+	copy = data->envp;
 	data->str_temp = ft_strchr(args, '=');
 	if (data->str_temp != NULL)
 	{
@@ -59,6 +59,6 @@ void	ft_export (t_data *data, char *args)
 					ft_unset(data, args);
 			copy = copy->next;
 		}
-		ft_add_new_arg_env(data, args);
+		ft_add_new_arg_envp(data, args);
 	}
 }

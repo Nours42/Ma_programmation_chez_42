@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:09:36 by kaly              #+#    #+#             */
-/*   Updated: 2023/07/06 13:21:33 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/07 09:00:50 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ void	shell_loop(t_data *data, char **envp)
 	while (1)
 	{
 		get_l(data);
-		data->cmd_args = parse(data->str_temp);
+		parse(data);
+		data->args->list_args = data->cmd_args;
 		give_me_the_money(data);
 		if (find_builtin(data, envp) == 0)
 			execute_command(data, envp);
@@ -104,7 +105,7 @@ int	find_builtin(t_data *data, char **envp)
 	else if (ft_strcmp("unset", data->cmd_args[0]) == 0)
 		ft_unset(data, data->cmd_args[1]);
 	else if (ft_strcmp("env", data->cmd_args[0]) == 0)
-		ft_show_env(data);
+		ft_show_envp(data);
 	else
 		return (0);
 	return (1);
@@ -115,7 +116,8 @@ int	main(int argc, char **argv, char **envp)
 	t_data	*data;
 
 	data = (t_data *)malloc(sizeof(t_data));
-	data->commands = (t_command *)malloc(sizeof(t_command));
+	data->args = (t_args *)malloc(sizeof(t_args));
+	data->envp = (t_envp *)malloc(sizeof(t_envp));
 	if (argc == 2 && !ft_strncmp(argv[1], "gnl", 3)) 
 		data->gnl = 1;
 	init_minishell(data, envp);

@@ -55,7 +55,7 @@ void	update_pwd(t_data *data)
 
 	ft_unset(data, "PWD");
 	pwd = getcwd(NULL, 0);
-	ft_add_new_arg_env(data, ft_strjoin("PWD=", pwd));
+	ft_add_new_arg_envp(data, ft_strjoin("PWD=", pwd));
 	free(pwd);
 }
 
@@ -87,8 +87,8 @@ void	ft_cd(t_data *data)
 	pwd = getcwd(NULL, 0);
 	ft_unset(data, "OLDPWD");
 	ft_unset(data, "PWD");
-	ft_add_new_arg_env(data, ft_strjoin("OLDPWD=", oldpwd));
-	ft_add_new_arg_env(data, ft_strjoin("PWD=", pwd));
+	ft_add_new_arg_envp(data, ft_strjoin("OLDPWD=", oldpwd));
+	ft_add_new_arg_envp(data, ft_strjoin("PWD=", pwd));
 	free(oldpwd);
 	free(pwd);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaly <kaly@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 14:00:42 by sdestann          #+#    #+#             */
-/*   Updated: 2023/06/28 11:05:13 by kaly             ###   ########.fr       */
+/*   Updated: 2023/07/06 18:19:28 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	ft_free_args(t_data *data)
 	int	i;
 
 	i = -1;
-	while (data->cmd_args[++i])
-		free(data->cmd_args[i]);
-	free(data->cmd_args);
+	while (data->args->list_args[++i])
+		free(data->args->list_args[i]);
+	free(data->args->list_args);
 	ft_free_paths(data);
 }
 

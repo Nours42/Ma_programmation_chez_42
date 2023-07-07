@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:45:29 by jmetezea          #+#    #+#             */
-/*   Updated: 2023/07/05 10:31:18 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/06 18:30:34 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,55 +41,51 @@ char	*delete_last_char(char *str)
 	return (new_str);
 }
 
-char	*find_path(char *s, t_envp *env)
+char	*find_path(char *s, t_envp *envp)
 {
 	t_envp	*find_pa;
 
-	find_pa = env;
+	find_pa = envp;
 	while (ft_strncmp(s, find_pa->str, ft_strlen(s)) != 0)
 		find_pa = find_pa->next;
 	return (find_pa->str + (ft_strlen(s) + 1));
 }
 
-void	add_str_endlst(t_envp *env, char *str)
+void	add_str_endlst(t_envp *envp, char *str)
 {
 	t_envp	*new;
 
 	new = malloc(sizeof(*new));
-	if (!env || !new)
+	if (!envp || !new)
 		return ;
 	new->str = ft_strdup(str);
 	new->next = NULL;
-	if (env->str == NULL)
-		env->str = new->str;
+	if (envp->str == NULL)
+		envp->str = new->str;
 	else
 	{
-		while(env->next != NULL)
-			env = env->next;
-		env->next = new;
+		while(envp->next != NULL)
+			envp = envp->next;
+		envp->next = new;
 	}
 }
 
-void	init_env(t_data *data, char **envp)
+void	init_envp(t_data *data, char **envp)
 {
 	int	i;
 
 	i = -1;
 	while (envp[++i])
-	{
-		add_str_endlst(data->env, envp[i]);
-		//ft_printf("---------------%s\n", envp[i]);
-	}
-//	ft_show_env(data);
+		add_str_endlst(data->envp, envp[i]);
 }
 
 void	init_minishell(t_data *data, char **envp)
 {
-	data->env = malloc(sizeof(t_envp));
-	data->env->next = NULL;
-	data->env->str = NULL;
-	init_env(data, envp);
-	data->cmd_paths = ft_split(find_path("PATH", data->env), ':');
+	data->envp = malloc(sizeof(t_envp));
+	data->envp->next = NULL;
+	data->envp->str = NULL;
+	init_envp(data, envp);
+	data->cmd_paths = ft_split(find_path("PATH", data->envp), ':');
 	data->str_temp = NULL;
 	data->str_temp2 = NULL;
 }
