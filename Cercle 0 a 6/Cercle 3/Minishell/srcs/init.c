@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 11:41:05 by nours42           #+#    #+#             */
-/*   Updated: 2023/07/24 15:59:23 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/25 00:04:42 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,22 @@ void	init_minishell(t_data *data, char **envp)
 	i = 0;
 	data->envp = (t_envp *)malloc(sizeof(t_envp));
 	data->args = (t_args *)malloc(sizeof(t_args));
+	data->pipe = (t_pipe *)malloc(sizeof(t_pipe));
 	data->envp->next = NULL;
 	data->envp->str = NULL;
 	init_envp(data, envp);
 	data->args->cmd_paths = ft_split(find_path("PATH", data->envp), ':');
-	data->str_temp = ft_strdup("ppp");
+	data->str_temp = NULL;
 	data->str_temp2 = NULL;
+	data->fd_redirect_out = 0;
 	data->redirected = 0;
-	data->piped = 0;
-	data->next_pipe = 42;
+	data->next_part = 42;
 	data->var = (t_command *)malloc(sizeof(t_command));
 	while (i <= 99)
 		data->var->commands[i++] = NULL;
 	data->var->word = NULL;
+	data->var->str = NULL;
+	data->var->quote = NULL;
+	data->pipe->cmd_nbrs = 1;
 	free(data->var->word);
 }

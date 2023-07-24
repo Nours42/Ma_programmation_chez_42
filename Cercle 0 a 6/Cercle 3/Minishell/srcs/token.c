@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:50:42 by sdestann          #+#    #+#             */
-/*   Updated: 2023/07/24 15:15:15 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/25 00:47:53 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	check_redirect(t_data *data, char **envp)
 		else if (ft_strcmp(">", data->args->cmd_args[i]) == 0)
 			redirect_simple_right(data, envp, i);
 		else if (ft_strcmp("|", data->args->cmd_args[i]) == 0)
-			ft_pipe(data, envp);
+			child(data, envp);
 		else if (ft_strcmp("$?", data->args->cmd_args[i]) == 0)
 			ft_dolls_and(data, envp);
 		else if (ft_strcmp("&&", data->args->cmd_args[i]) == 0)

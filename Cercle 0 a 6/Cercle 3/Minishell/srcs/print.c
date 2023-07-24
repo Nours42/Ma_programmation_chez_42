@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:19:39 by jmetezea          #+#    #+#             */
-/*   Updated: 2023/07/24 11:31:29 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/25 00:03:17 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,14 @@ void	ft_echo(t_data *data)
 {
 	int	i;
 
-	if (data->args->cmd_args[1] != NULL && ft_strcmp("<", data->args->cmd_args[1]) != 0)
+	if (data->args->cmd_args[1] != NULL
+		&& ft_strcmp("<", data->args->cmd_args[1]) != 0)
 	{
 		if (ft_strcmp("-n", data->args->cmd_args[1]) == 0
 			&& data->args->cmd_args[2] != NULL)
 		{
 			i = 1;
-			while (data->args->cmd_args[++i] && data->next_pipe > i)
+			while (data->args->cmd_args[++i] && data->next_part > i)
 				ft_printf("%s", data->args->cmd_args[i]);
 		}
 		else if (ft_strcmp("-n", data->args->cmd_args[1]) == 0)
@@ -58,7 +59,7 @@ void	ft_echo(t_data *data)
 		else
 		{
 			i = 0;
-			while (data->args->cmd_args[++i] && data->next_pipe > i)
+			while (data->args->cmd_args[++i] && data->next_part > i)
 			{
 				if (i == 1)
 					ft_printf("%s", data->args->cmd_args[i]);

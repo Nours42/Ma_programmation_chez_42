@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:09:36 by kaly              #+#    #+#             */
-/*   Updated: 2023/07/24 16:33:22 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/25 00:03:17 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,26 +38,32 @@ char	*get_cmd(char **paths, char *cmd)
 }
 
 void	get_readline(t_data *data)
-{	
-	if (ft_strncmp("ppp", data->str_temp, 3) != 0)
-		free(data->str_temp);
-	//ft_print_args(data);
-	if (data->piped != 49)
+{
+	data->var->str = NULL;
+	data->str_temp = NULL;
+	free(data->var->str);
+	free(data->str_temp);
+	// ft_printf("apres le free de get readline\n");
+	// ft_printf("data->str_temp : %s\n", data->str_temp);
+	// ft_printf("data->var->str : %s\n", data->var->str);
+	if (data->redirected != 49)
 		data->str_temp = readline("~>$ ");
 	else
 	{
 		data->str_temp = readline("");
 		if (data->str_temp == NULL)
 		{
-			dup2(data->redirected2, STDIN_FILENO);
-			close(data->redirected2);
+			dup2(data->fd_redirect_in, STDIN_FILENO);
+			close(data->fd_redirect_in);
 			free(data->str_temp);
-			data->str_temp = ft_strdup("ppp");
-			data->piped = 0;
+			data->str_temp = readline("~>$ ");
+			data->redirected = 0;
 		}
 	}
 	if (!data->str_temp)
 	{
+		free(data->var->word);
+		free(data->var);
 		ft_printf("Minishell is closed.\nThat's the end of your life !\n");
 		exit(EXIT_FAILURE);
 	}
@@ -67,31 +73,54 @@ void	get_readline(t_data *data)
 void	shell_loop(t_data *data, char **envp)
 {
 	struct sigaction	act;
+	// int					i;
 
 	ft_signal(&act, data);
 	while (1)
 	{
+		//
+		//data->str_temp = ft_get_next_line(0);
+		//
 		get_readline(data);
 		parse(data);
 		give_me_the_money(data);
 		check_redirect(data, envp);
-		data->next_pipe = 42;
-		if (data->piped == 0)
+		data->next_part = 42;
+		if (data->redirected == 0)
 			if (find_builtin(data, envp) == 0)
 				execute_command(data, envp);
-		if (data->redirected == 0)
-			data->piped = 0;
+		if (data->fd_redirect_out == 0)
+			data->redirected = 0;
+		// ft_printf("Minishell fin de loop avant\n");
+		// ft_print_args(data);
+		//ft_show_envp(data);
+		// ft_printf("data->str_temp : %s\n", data->str_temp);
+		// ft_printf("data->str_temp2 : %s\n", data->str_temp2);
+		// i = -1;
+		// while (++i < (int)data->var->num_words)
+			// ft_printf("d->var->commands[%d] : %s\n", i, data->var->commands[i]);
 		ft_free_cmd_args(data);
+		//free(data->var->str);
+		data->var->word = NULL;
+		free(data->var->word);
+		// ft_printf("Minishell fin de loop apres\n");
+		// ft_print_args(data);
+		//ft_show_envp(data);
+		// ft_printf("data->var->quote : %s\n", data->var->quote);
+		// ft_printf("data->var->str : %s\n", data->var->str);
+		// ft_printf("data->var->word : %s\n", data->var->word);
+		// ft_printf("data->str_temp : %s\n", data->str_temp);
+		// ft_printf("data->str_temp2 : %s\n", data->str_temp2);
+		// i = -1;
+		// while (++i < (int)data->var->num_words)
+		// 	ft_printf("d->var->commands[%d] : %s\n", i, data->var->commands[i]);
 	}
 }
 
 int	find_builtin(t_data *data, char **envp)
 {
 	if (ft_strcmp("", data->str_temp) == 0)
-	{
-		ft_free_str_temp(1, data);
 		shell_loop(data, envp);
-	}
 	if (ft_strcmp("exit", data->str_temp) == 0)
 		ft_exit(data);
 	else if (ft_strcmp("echo", data->args->cmd_args[0]) == 0)

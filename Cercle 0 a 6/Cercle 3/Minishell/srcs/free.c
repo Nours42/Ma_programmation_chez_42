@@ -17,11 +17,11 @@ void	ft_free_cmd_args(t_data *data)
 	int	i;
 
 	i = -1;
-	while (data->args->cmd_args[++i])
+	while (++i < (int)data->var->num_words)
+	{
+		data->args->cmd_args[i] = NULL;
 		free(data->args->cmd_args[i]);
-	i = 99;
-	while (i >= 0)
-		data->args->cmd_args[i--] = NULL;
+	}
 }
 
 void	ft_free_args(t_data *data)
@@ -62,6 +62,7 @@ void	ft_free_envp(t_data *data)
 	{
 		free(data->envp->str);
 		dup->envp = dup->envp->next;
+		free(data->envp);
 	}
 	free(data->envp);
 }
@@ -83,7 +84,6 @@ void	ft_free_command_var(t_data *data)
 void	ft_free_all(int i, t_data *data)
 {
 	ft_free_envp(data);
-	ft_free_command_var(data);
 	ft_free_str_temp(i, data);
 	ft_free_args(data);
 	ft_free_paths(data);

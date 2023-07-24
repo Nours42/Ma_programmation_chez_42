@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 13:49:01 by nours42           #+#    #+#             */
-/*   Updated: 2023/07/24 16:17:13 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/25 00:03:17 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ void	redirect_simple_left(t_data *data, char **envp, int i)
 	}
 	stdin_fd = dup(STDIN_FILENO);
 	dup2(stdin_fd, STDIN_FILENO);
-	data->next_pipe = i;
+	data->next_part = i;
 	if (find_builtin(data, envp) == 0)
 		execute_command(data, envp);
 	close(fd);
 	close(stdin_fd);
-	data->piped = 1;
-	data->fd_redirect_in = 1;
+	data->redirected = 1;
+	//data->fd_redirect_in = 1;
 }
 
 void	redirect_dobble_left(t_data *data, char **envp, int i)
@@ -47,7 +47,7 @@ void	redirect_dobble_left(t_data *data, char **envp, int i)
 	if (!tmp || !envp)
 		return ;
 	while (strncmp(data->args->cmd_args[i + 1], tmp,
-		ft_strlen(data->args->cmd_args[i + 1]))
+			ft_strlen(data->args->cmd_args[i + 1]))
 		|| (ft_strlen(tmp) -1) > ft_strlen(data->args->cmd_args[i + 1]))
 	{
 		ft_putstr_fd(tmp, fd);
@@ -58,11 +58,11 @@ void	redirect_dobble_left(t_data *data, char **envp, int i)
 	close(fd);
 	fd = open("make.tmp", O_RDONLY);
 	stdin_fd = dup(STDIN_FILENO);
-	data->piped = 49;
-	data->redirected = fd;
-	data->redirected2 = stdin_fd;
-	data->next_pipe = i;
-	data->fd_redirect_in = 1;
+	data->redirected = 49;
+	data->fd_redirect_out = fd;
+	data->fd_redirect_in = stdin_fd;
+	data->next_part = i;
+	//data->fd_redirect_in = 1;
 	dup2(fd, STDIN_FILENO);
 	close(fd);
 }
@@ -78,13 +78,13 @@ void	redirect_simple_right(t_data *data, char **envp, int i)
 	ft_printf("le fichier : %s a ete creeeeee\n", data->args->cmd_args[i + 1]);
 	stdout_fd = dup(STDOUT_FILENO);
 	dup2(fd, STDOUT_FILENO);
-	data->next_pipe = i;
+	data->next_part = i;
 	if (find_builtin(data, envp) == 0)
 		execute_command(data, envp);
 	dup2(stdout_fd, STDOUT_FILENO);
 	close(stdout_fd);
 	close(fd);
-	data->piped = 1;
+	data->redirected = 1;
 }
 
 void	redirect_dobble_right(t_data *data, char **envp, int i)
@@ -96,12 +96,12 @@ void	redirect_dobble_right(t_data *data, char **envp, int i)
 	ft_printf("le fichier : %s a ete cree\n", data->args->cmd_args[i + 1]);
 	stdout_fd = dup(STDOUT_FILENO);
 	dup2(fd, STDOUT_FILENO);
-	data->next_pipe = i;
+	data->next_part = i;
 	if (find_builtin(data, envp) == 0)
 		execute_command(data, envp);
 	//data->args->cmd_args = data->args->cmd_args + i + 1;
 	dup2(stdout_fd, STDOUT_FILENO);
 	close(stdout_fd);
 	close(fd);
-	data->piped = 1;
+	data->redirected = 1;
 }

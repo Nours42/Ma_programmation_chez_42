@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kaly <kaly@student.42.fr>                  +#+  +:+       +#+         #
+#    By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/22 14:21:35 by sdestann          #+#    #+#              #
-#    Updated: 2023/07/20 18:38:23 by kaly             ###   ########.fr        #
+#    Updated: 2023/07/25 00:37:34 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,9 +25,11 @@ SRCS =	cd.c		\
 		exit.c		\
 		export.c	\
 		free.c		\
+		free_pipe.c	\
 		init.c		\
 		main.c		\
 		parse.c		\
+		pipe.c		\
 		print.c		\
 		ptd.c		\
 		pwd.c		\

@@ -110,9 +110,20 @@ typedef struct s_envp
 
 typedef struct s_args
 {
-	char			**cmd_paths;
-	char			**cmd_args;
+	char		**cmd_paths;
+	char		**cmd_args;
 }				t_args;
+
+typedef struct s_pipe
+{
+	char		*cmd;
+	int			infile;
+	int			outfile;
+	int			*pipe;
+	int			cmd_nbrs;
+	int			nbr_of_pipe;
+	int			idx;
+}				t_pipe;
 
 // data contient les elements structurels, les regles principales.
 
@@ -120,18 +131,15 @@ typedef struct s_data
 {
 	char		*str_temp;
 	char		*str_temp2;
-	int			piped;
 	int			redirected;
-	int			redirected2;
-	int			std_in;
-	int			std_out;
 	int			fd_redirect_in;
 	int			fd_redirect_out;
-	int			next_pipe;
+	int			next_part;
 	pid_t		pid;
+	t_args		*args;
 	t_command	*var;
 	t_envp		*envp;
-	t_args		*args;
+	t_pipe		*pipe;
 }				t_data;
 
 // cd.c
@@ -171,6 +179,12 @@ void	ft_free_envp(t_data *data);
 void	ft_free_command_var(t_data *data);
 void	ft_free_all(int i, t_data *data);
 
+// free_pipe.c
+
+void	parent_free(t_data *data);
+void	child_free(t_data *data);
+void	pipe_free(t_data *data);
+
 // init.c
 
 void	init_envp(t_data *data, char **envp);
@@ -190,6 +204,14 @@ int		main(int argc, char **argv, char **envp);
 void	ft_quote(t_data *data);
 void	ft_space(t_data *data);
 void	parse(t_data *data);
+
+// pipe.c
+
+void	creat_pipes(t_data *data);
+void	close_pipes(t_data *data);
+void	sub_dup2(int zero, int first);
+void	child(t_data *d, char **envp);
+void	msg_pipe(char *arg, t_data *data);
 
 // print.c
 

@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:50:42 by sdestann          #+#    #+#             */
-/*   Updated: 2023/07/24 10:30:10 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/25 00:34:44 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,41 @@ void	parse(t_data *data)
 	data->var->str = data->str_temp;
 	tokening(data);
 	data->args->cmd_args = data->var->commands;
+	// ft_printf("data->var->quote : %s\n", data->var->quote);
+	// ft_printf("data->var->str : %s\n", data->var->str);
+	// ft_printf("data->var->word : %s\n", data->var->word);
+	if (data->var->quote != NULL)
+		free(data->var->quote);
+	//free(data->var->str);
+	//free(data->var->word);
+	// ft_printf("data->var->quote : %s\n", data->var->quote);
+	// ft_printf("data->var->str : %s\n", data->var->str);
+	// ft_printf("data->var->word : %s\n", data->var->word);
+	// ft_printf("data->var->command[0] : %s\n", data->var->commands[0]);
+	// ft_printf("data->var->num_words : %d\n", data->var->num_words);
+}
+
+void	find_pipe(t_data *data)
+{
+	int	j;
+
+	j = -1;
+	while (data->var->i < ft_strlen(data->var->str))
+	{
+		if (data->var->str[data->var->i - 1] == ' ' && data->var->str[data->var->i] == '|' && data->var->str[data->var->i + 1] == ' ')
+		{
+			data->pipe->pipe = (int *)malloc(sizeof(int) * 10);
+			data->pipe->pipe[++j] = data->var->i;
+			data->pipe->cmd_nbrs++;
+		}
+		data->var->i++;
+	}
+	data->var->i = 0;
 }
 
 void	tokening(t_data *data)
 {
+	find_pipe(data);
 	while (data->var->i < ft_strlen(data->var->str))
 	{
 		if (data->var->brk)
