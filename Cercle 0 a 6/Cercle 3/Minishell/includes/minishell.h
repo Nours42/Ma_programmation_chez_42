@@ -122,6 +122,7 @@ typedef struct s_data
 	char		*str_temp2;
 	int			piped;
 	int			redirected;
+	int			redirected2;
 	int			std_in;
 	int			std_out;
 	int			fd_redirect_in;
@@ -210,8 +211,8 @@ void	ft_pwd();
 
 // redirect.c
 
-void	redirect_simple_left(t_data *data, char **envp);
-void	redirect_dobble_left(t_data *data, char **envp);
+void	redirect_simple_left(t_data *data, char **envp, int i);
+void	redirect_dobble_left(t_data *data, char **envp, int i);
 void	redirect_simple_right(t_data *data, char **envp, int i);
 void	redirect_dobble_right(t_data *data, char **envp, int i);
 

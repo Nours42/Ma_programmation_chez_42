@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaly <kaly@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 11:41:05 by nours42           #+#    #+#             */
-/*   Updated: 2023/07/20 15:59:58 by kaly             ###   ########.fr       */
+/*   Updated: 2023/07/24 15:59:23 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	init_minishell(t_data *data, char **envp)
 	data->envp->str = NULL;
 	init_envp(data, envp);
 	data->args->cmd_paths = ft_split(find_path("PATH", data->envp), ':');
-	data->str_temp = NULL;
+	data->str_temp = ft_strdup("ppp");
 	data->str_temp2 = NULL;
 	data->redirected = 0;
 	data->piped = 0;

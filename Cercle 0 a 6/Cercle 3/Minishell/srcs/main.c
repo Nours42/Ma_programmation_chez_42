@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:09:36 by kaly              #+#    #+#             */
-/*   Updated: 2023/07/24 10:27:44 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/24 16:33:22 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,24 @@ char	*get_cmd(char **paths, char *cmd)
 }
 
 void	get_readline(t_data *data)
-{
-	free(data->str_temp);
-	data->str_temp = readline("~>$ ");
+{	
+	if (ft_strncmp("ppp", data->str_temp, 3) != 0)
+		free(data->str_temp);
+	//ft_print_args(data);
+	if (data->piped != 49)
+		data->str_temp = readline("~>$ ");
+	else
+	{
+		data->str_temp = readline("");
+		if (data->str_temp == NULL)
+		{
+			dup2(data->redirected2, STDIN_FILENO);
+			close(data->redirected2);
+			free(data->str_temp);
+			data->str_temp = ft_strdup("ppp");
+			data->piped = 0;
+		}
+	}
 	if (!data->str_temp)
 	{
 		ft_printf("Minishell is closed.\nThat's the end of your life !\n");
@@ -64,7 +79,8 @@ void	shell_loop(t_data *data, char **envp)
 		if (data->piped == 0)
 			if (find_builtin(data, envp) == 0)
 				execute_command(data, envp);
-		data->piped = 0;
+		if (data->redirected == 0)
+			data->piped = 0;
 		ft_free_cmd_args(data);
 	}
 }

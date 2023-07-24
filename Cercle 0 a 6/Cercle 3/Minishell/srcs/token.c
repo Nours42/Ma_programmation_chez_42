@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:50:42 by sdestann          #+#    #+#             */
-/*   Updated: 2023/07/24 10:26:47 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/24 15:15:15 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void	check_redirect(t_data *data, char **envp)
 	i = -1;
 	while (data->args->cmd_args[++i])
 	{
-		ft_printf("avant redirect\n");
-		ft_print_args(data);
+		//ft_printf("avant redirect\n");
+		//ft_print_args(data);
 		if (ft_strcmp("<", data->args->cmd_args[i]) == 0)
-			redirect_simple_left(data, envp);
+			redirect_simple_left(data, envp, i);
 		else if (ft_strcmp("<<", data->args->cmd_args[i]) == 0)
-			redirect_dobble_left(data, envp);
+			redirect_dobble_left(data, envp, i);
 		else if (ft_strcmp(">>", data->args->cmd_args[i]) == 0)
 			redirect_dobble_right(data, envp, i);
 		else if (ft_strcmp(">", data->args->cmd_args[i]) == 0)
@@ -35,7 +35,7 @@ void	check_redirect(t_data *data, char **envp)
 			ft_dolls_and(data, envp);
 		else if (ft_strcmp("&&", data->args->cmd_args[i]) == 0)
 			dobble_and(data, envp);
-		ft_printf("apres redirect\n");
-		ft_print_args(data);
+		//ft_printf("apres redirect\n");
+		//ft_print_args(data);
 	}
 }
