@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: kaly <kaly@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:45:29 by jmetezea          #+#    #+#             */
-/*   Updated: 2023/07/07 15:14:09 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/20 14:05:08 by kaly             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,35 +58,17 @@ void	add_str_endlst(t_envp *envp, char *str)
 	new = malloc(sizeof(*new));
 	if (!envp || !new)
 		return ;
-	new->str = ft_strdup(str);
 	new->next = NULL;
 	if (envp->str == NULL)
-		envp->str = new->str;
+	{
+		envp->str = ft_strdup(str);
+		free(new);
+	}
 	else
 	{
-		while(envp->next != NULL)
+		new->str = ft_strdup(str);
+		while (envp->next != NULL)
 			envp = envp->next;
 		envp->next = new;
 	}
-}
-
-void	init_envp(t_data *data, char **envp)
-{
-	int	i;
-
-	i = -1;
-	while (envp[++i])
-		add_str_endlst(data->envp, envp[i]);
-}
-
-void	init_minishell(t_data *data, char **envp)
-{
-	data->next_pipe = 0;
-	data->envp = malloc(sizeof(t_envp));
-	data->envp->next = NULL;
-	data->envp->str = NULL;
-	init_envp(data, envp);
-	data->cmd_paths = ft_split(find_path("PATH", data->envp), ':');
-	data->str_temp = NULL;
-	data->str_temp2 = NULL;
 }

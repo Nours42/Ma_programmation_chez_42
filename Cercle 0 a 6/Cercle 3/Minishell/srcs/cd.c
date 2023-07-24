@@ -1,12 +1,12 @@
-/* **********************v**************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 12:12:14 by sdestann          #+#    #+#             */
-/*   Updated: 2023/07/06 12:25:24 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/11 13:41:38 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,14 @@ void	update_pwd(t_data *data)
 
 void	ft_cd(t_data *data)
 {
-	int	i;
+	int		i;
 	t_data	*dup;
 	char	*pwd;
 	char	*oldpwd;
 
 	i = 0;
 	dup = data;
-	while (dup->cmd_args[i])
+	while (dup->args->cmd_args[i])
 		i++;
 	if (i < 2)
 		return (ft_putstr_fd("bash: cd: one argument needed\n", 2));
@@ -76,10 +76,10 @@ void	ft_cd(t_data *data)
 		return (ft_putstr_fd("bash: cd: too many arguments\n", 2));
 	dup = data;
 	oldpwd = getcwd(NULL, 0);
-	if (chdir(dup->cmd_args[1]) == -1)
+	if (chdir(dup->args->cmd_args[1]) == -1)
 	{
 		ft_putstr_fd("bash: cd: ", 2);
-		ft_putstr_fd(dup->cmd_args[1], 2);
+		ft_putstr_fd(dup->args->cmd_args[1], 2);
 		ft_putstr_fd(": ", 2);
 		ft_putstr_fd(strerror(errno), 2);
 		return (ft_putstr_fd("\n", 2));

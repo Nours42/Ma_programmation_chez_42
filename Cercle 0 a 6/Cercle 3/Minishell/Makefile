@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+         #
+#    By: kaly <kaly@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/22 14:21:35 by sdestann          #+#    #+#              #
-#    Updated: 2023/07/06 15:56:12 by sdestann         ###   ########.fr        #
+#    Updated: 2023/07/20 18:38:23 by kaly             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,12 +20,18 @@ HEADER = $(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 
 SRCS_DIR = srcs/
 SRCS =	cd.c		\
+		dobble_and.c\
 		execute.c	\
+		exit.c		\
 		export.c	\
 		free.c		\
+		init.c		\
 		main.c		\
 		parse.c		\
 		print.c		\
+		ptd.c		\
+		pwd.c		\
+		redirect.c	\
 		signals.c	\
 		token.c		\
 		unset.c 	\

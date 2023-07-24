@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:19:39 by jmetezea          #+#    #+#             */
-/*   Updated: 2023/07/06 18:27:58 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/11 12:40:09 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*ft_before_and_equal(char *s)
 	return (before);
 }
 
-void	ft_export (t_data *data, char *args)
+void	ft_export(t_data *data, char *args)
 {
 	char	*before;
 	t_envp	*copy;
@@ -56,9 +56,15 @@ void	ft_export (t_data *data, char *args)
 		{
 			if (ft_strcmp(copy->str, before) == 0
 				&& ft_isalnum(copy->str[ft_strlen(before) + 1]))
-					ft_unset(data, args);
+				ft_unset(data, args);
 			copy = copy->next;
 		}
 		ft_add_new_arg_envp(data, args);
+	}
+	else
+	{
+		ft_putstr_fd("bash: export: '", 2);
+		ft_putstr_fd(args, 2);
+		ft_putstr_fd("': not a valid identifier\n", 2);
 	}
 }
