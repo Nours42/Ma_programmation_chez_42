@@ -6,7 +6,7 @@
 #    By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/13 11:01:13 by sebastien         #+#    #+#              #
-#    Updated: 2023/07/05 09:09:31 by sdestann         ###   ########.fr        #
+#    Updated: 2023/07/25 11:20:08 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,15 +36,15 @@ ft_printf_xtoa.c	ft_print_hex.c		ft_print_int.c		ft_print_ptr.c \
 ft_print_str.c		ft_print_unsigned.c
 
 SRC_STR = \
-ft_isalnum.c	ft_isalpha.c	ft_isascii.c	ft_isdigit.c \
-ft_isprint.c	ft_isspaces.c	ft_itoa.c		ft_qsplit.c	\
-ft_split.c		ft_strcat.c		ft_strchr.c		ft_strcmp.c \
-ft_strcpy.c		ft_strdup.c		ft_striteri.c	ft_strjoin.c \
-ft_strlcat.c	ft_strlcpy.c	ft_strlen.c		ft_strmapi.c \
-ft_strncat.c	ft_strncmp.c	ft_strncpy.c	ft_strndup.c \
-ft_strnlen.c	ft_strqlen.c	ft_strquote.c	ft_strrchr.c \
-ft_strstr.c		ft_strtrim.c	ft_substr.c		ft_tolower.c \
-ft_toupper.c
+ft_isalnum.c	ft_isalpha.c	ft_isascii.c	ft_isdigit.c	\
+ft_isprint.c	ft_isspaces.c	ft_itoa.c		ft_qsplit.c		\
+ft_split.c		ft_strcat.c		ft_strchr.c		ft_strcmp.c		\
+ft_strcpy.c		ft_strdup.c		ft_striteri.c	ft_strjoin.c	\
+ft_strlcat.c	ft_strlcpy.c	ft_strlen.c		ft_strmapi.c	\
+ft_strncat.c	ft_strnchr.c	ft_strncmp.c	ft_strncpy.c	\
+ft_strndup.c	ft_strnlen.c	ft_strqlen.c	ft_strquote.c	\
+ft_strrchr.c	ft_strstr.c		ft_strtrim.c	ft_substr.c		\
+ft_tolower.c	ft_toupper.c
 
 SRC_TAB = \
 ft_rev_int_tab.c

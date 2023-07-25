@@ -6,18 +6,34 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:50:42 by sdestann          #+#    #+#             */
-/*   Updated: 2023/07/25 00:34:44 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/25 11:47:33 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	parse(t_data *data)
+void	parse(t_data *data, char **envp)
 {
+	int	p;
+
+	p = -1;
+	if (!envp)
+		return ;
 	data->var->i = 0;
 	data->var->num_words = 0;
 	data->var->brk = 0;
+	find_pipe(data);
 	data->var->str = data->str_temp;
+	data->pipe->idx = 0;
+	while (++p < data->pipe->nbr_of_pipe)
+	{
+		data->pipe->cmd[p] = ft_substr(data->str_temp, data->pipe->idx, data->pipe->pipe_idx[p]);
+		data->pipe->idx = data->pipe->pipe_idx[p];
+	}
+	if (data->pipe->pipe_idx[1] && data->pipe->pipe_idx[1] > 0)
+		creat_pipes(data);
+	// while ((data->pipe->idx) < data->pipe->cmd_nbrs)
+	// 	child(data, envp);
 	tokening(data);
 	data->args->cmd_args = data->var->commands;
 	// ft_printf("data->var->quote : %s\n", data->var->quote);
@@ -39,13 +55,19 @@ void	find_pipe(t_data *data)
 	int	j;
 
 	j = -1;
-	while (data->var->i < ft_strlen(data->var->str))
+	data->pipe->pipe_idx[0] = 0;
+	data->pipe->cmd_nbrs = ft_strnchr(data->str_temp, '|') + 1;
+	if (data->pipe->cmd_nbrs > 1)
 	{
-		if (data->var->str[data->var->i - 1] == ' ' && data->var->str[data->var->i] == '|' && data->var->str[data->var->i + 1] == ' ')
+		data->pipe->pipe_idx = (int *)malloc(sizeof(int) * data->pipe->cmd_nbrs + 1);
+		data->pipe->pipe = (int *)malloc(sizeof(int) * data->pipe->cmd_nbrs);
+	}
+	while (data->var->i < ft_strlen(data->str_temp))
+	{
+		if (data->str_temp[data->var->i - 1] == ' ' && data->str_temp[data->var->i] == '|' && data->str_temp[data->var->i + 1] == ' ')
 		{
-			data->pipe->pipe = (int *)malloc(sizeof(int) * 10);
-			data->pipe->pipe[++j] = data->var->i;
-			data->pipe->cmd_nbrs++;
+			
+			data->pipe->pipe_idx[++j] = data->var->i;
 		}
 		data->var->i++;
 	}
@@ -54,7 +76,6 @@ void	find_pipe(t_data *data)
 
 void	tokening(t_data *data)
 {
-	find_pipe(data);
 	while (data->var->i < ft_strlen(data->var->str))
 	{
 		if (data->var->brk)

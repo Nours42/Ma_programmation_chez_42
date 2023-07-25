@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_strnchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 10:15:37 by sdestann          #+#    #+#             */
-/*   Updated: 2023/07/25 11:17:21 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/25 11:21:21 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,24 @@
 
 /* DESCRIPTION :
 **
-** La fonction strchr renvoie un pointeur sur la première occurrence du
-** caractère c dans la chaîne s.
+** La fonction strchr renvoie le nombre du caractère c dans la chaîne s.
 **
 */
 
-char	*ft_strchr(const char *s, int c)
+int	ft_strnchr(const char *s, int c)
 {
 	unsigned int	index;
+	unsigned int	number;
 
 	index = 0;
+	number = 0;
 	while (s[index])
 	{
 		if (s[index] == (char)c)
-			return ((char *)s + index);
+			number++;
 		index++;
 	}
 	if (s[index] == c)
-		return ((char *)s + index);
-	return (0);
+		number++;
+	return (number);
 }

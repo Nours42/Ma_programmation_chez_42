@@ -116,10 +116,11 @@ typedef struct s_args
 
 typedef struct s_pipe
 {
-	char		*cmd;
+	char		**cmd;
 	int			infile;
 	int			outfile;
 	int			*pipe;
+	int			*pipe_idx;
 	int			cmd_nbrs;
 	int			nbr_of_pipe;
 	int			idx;
@@ -203,7 +204,8 @@ int		main(int argc, char **argv, char **envp);
 
 void	ft_quote(t_data *data);
 void	ft_space(t_data *data);
-void	parse(t_data *data);
+void	find_pipe(t_data *data);
+void	parse(t_data *data, char **envp);
 
 // pipe.c
 

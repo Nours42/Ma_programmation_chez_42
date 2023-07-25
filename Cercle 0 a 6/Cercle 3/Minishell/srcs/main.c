@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:09:36 by kaly              #+#    #+#             */
-/*   Updated: 2023/07/25 00:03:17 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/25 09:38:49 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	shell_loop(t_data *data, char **envp)
 		//data->str_temp = ft_get_next_line(0);
 		//
 		get_readline(data);
-		parse(data);
+		parse(data, envp);
 		give_me_the_money(data);
 		check_redirect(data, envp);
 		data->next_part = 42;

@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 11:41:05 by nours42           #+#    #+#             */
-/*   Updated: 2023/07/25 00:04:42 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/25 11:47:05 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,10 @@ void	init_minishell(t_data *data, char **envp)
 	data->var->str = NULL;
 	data->var->quote = NULL;
 	data->pipe->cmd_nbrs = 1;
+	data->pipe->infile = 0;
+	data->pipe->outfile = 1;
+	data->pipe->pipe_idx = (int *)malloc(sizeof(int) * 1);
+	data->pipe->pipe_idx = (int *)malloc(sizeof(int) * 1);
+	data->pipe->pipe_idx[0] = 0;
 	free(data->var->word);
 }
