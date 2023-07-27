@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:09:36 by kaly              #+#    #+#             */
-/*   Updated: 2023/07/27 16:31:39 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/27 18:45:08 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,8 @@ char	*get_cmd(char **paths, char *cmd)
 
 void	get_readline(t_data *data)
 {
-	// if (data->str_temp != NULL)
-	// 	free(data->str_temp);
-	 if (data->str_temp != NULL)
-	 	free(data->str_temp);
-	// data->str_temp = NULL;
-	 data->str_temp = NULL;
+	if (data->str_temp != NULL)
+		ft_free_chars(data->str_temp);
 	if (data->redirected != 49)
 		data->str_temp = readline("~>$ ");
 	else
@@ -79,6 +75,8 @@ void	shell_loop(t_data *data, char **envp)
 		parse(data, envp);
 		ft_printf("apres le parse\n");
 		ft_print_args(data);
+		// sera ds le pipe a pres cette ligne
+		// pensez a toujours garder en memoire le result du dernier pipe pour $?
 		give_me_the_money(data);
 		check_redirect(data, envp);
 		data->next_part = 42;
@@ -89,6 +87,7 @@ void	shell_loop(t_data *data, char **envp)
 			data->redirected = 0;
 		ft_free_cmd_args(data);
 		data->var->num_words = 0;
+		//jusque la
 	}
 }
 

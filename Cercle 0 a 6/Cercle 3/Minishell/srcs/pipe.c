@@ -3,25 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaly <kaly@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 23:58:10 by sdestann          #+#    #+#             */
-/*   Updated: 2023/07/25 14:41:25 by kaly             ###   ########.fr       */
+/*   Updated: 2023/07/27 18:40:23 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	how_many_pipe(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	while (data->args->cmd_args[++i])
+		if (ft_strcmp("|", data->args->cmd_args[i]) == 0)
+			data->pipe->nbr_of_pipe++;
+}
 
 void	creat_pipes(t_data *data)
 {
 	int	i;
 
 	i = 0;
-	while (i < data->pipe->cmd_nbrs - 1)
+	if (data->pipe->nbr_of_pipe > 0)
 	{
-		if (pipe(data->pipe->pipe + i) < 0)
-			parent_free(data);
-		i++;
+		while (i < data->pipe->nbr_of_pipe)
+		{
+			if (pipe(data->pipe->pipe + 2 * i) < 0)
+				parent_free(data);
+			i++;
+		}
 	}
 }
 
@@ -52,17 +65,17 @@ void	child(t_data *d, char **envp)
 	{
 		if (d->pipe->idx == 0)
 			sub_dup2(d->pipe->infile, d->pipe->pipe[0]);
-		// else if (d->pipe->idx == d->pipe->cmd_nbrs - 1)
-		// 	sub_dup2(d->pipe->pipe[2 * d->pipe->idx - 2], d->pipe->outfile);
-		// else
-		// 	sub_dup2(d->pipe->pipe[2 * d->pipe->idx - 2], d->pipe->pipe[2 * d->pipe->idx + 1]);
+		else if (d->pipe->idx == d->pipe->cmd_nbrs - 1)
+			sub_dup2(d->pipe->pipe[2 * d->pipe->idx - 2], d->pipe->outfile);
+		else
+			sub_dup2(d->pipe->pipe[2 * d->pipe->idx - 2], d->pipe->pipe[2 * d->pipe->idx + 1]);
 		close_pipes(d);
-		// d->pipe->cmd = get_cmd(d->args->cmd_paths, d->args->cmd_args[0]);
+		d->pipe->cmd = get_cmd(d->args->cmd_paths, d->args->cmd_args[0]);
 		if (!d->pipe->cmd)
 			msg_pipe(d->args->cmd_args[0], d);
-		// execve(d->pipe->cmd, d->args->cmd_args, envp);
+		execve(d->pipe->cmd, d->args->cmd_args, envp);
 	}
-	// ft_printf("%s\n", d->args->cmd_args[0]);
+	ft_printf("%s\n", d->args->cmd_args[0]);
 }
 
 void	msg_pipe(char *arg, t_data *data)

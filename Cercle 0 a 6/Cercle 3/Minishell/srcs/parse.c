@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:50:42 by sdestann          #+#    #+#             */
-/*   Updated: 2023/07/27 17:49:53 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/27 18:41:47 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,50 +14,12 @@
 
 void	parse(t_data *data, char **envp)
 {
-	//int	p;
-
-	//p = -1;
 	if (!envp)
 		return ;
 	init_parse(data);
-	//find_pipe(data);
-	//data->pipe->idx = 0;
-	//while (++p < data->pipe->nbr_of_pipe)
-	// {
-	// 	data->pipe->cmd[p] = ft_substr(data->str_temp, data->pipe->idx, data->pipe->pipe_idx[p]);
-	// 	data->pipe->idx = data->pipe->pipe_idx[p];
-	// }
-	// if (data->pipe->pipe_idx[1] && data->pipe->pipe_idx[1] > 0)
-	// 	creat_pipes(data);
-	//// while ((data->pipe->idx) < data->pipe->cmd_nbrs)
-	//// 	child(data, envp);
 	if (data->str_temp != NULL)
 		tokening(data);
 	data->args->cmd_args = data->var->commands;
-}
-
-void	find_pipe(t_data *data)
-{
-	int	j;
-
-	j = -1;
-	data->pipe->pipe_idx[0] = 0;
-	data->pipe->cmd_nbrs = ft_strnchr(data->str_temp, '|') + 1;
-	if (data->pipe->cmd_nbrs > 1)
-	{
-		data->pipe->pipe_idx = (int *)malloc(sizeof(int) * data->pipe->cmd_nbrs + 1);
-		data->pipe->pipe = (int *)malloc(sizeof(int) * data->pipe->cmd_nbrs);
-	}
-	data->var->i = 1;
-	while (data->var->i < ft_strlen(data->str_temp) - 1)
-	{
-		if (data->str_temp[data->var->i - 1] == ' ' && data->str_temp[data->var->i] == '|' && data->str_temp[data->var->i + 1] == ' ')
-		{	
-			data->pipe->pipe_idx[++j] = data->var->i;
-		}
-		data->var->i++;
-	}
-	data->var->i = 0;
 }
 
 void	tokening(t_data *data)
