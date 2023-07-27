@@ -89,7 +89,7 @@
 
 typedef struct s_command
 {
-	char	*quote;
+	int		quote_type;
 	char	*str;
 	char	*word;
 	char	*commands[100];
@@ -189,7 +189,7 @@ void	pipe_free(t_data *data);
 // init.c
 
 void	init_envp(t_data *data, char **envp);
-void	reinit_minishell(t_data *data);
+void	init_parse(t_data *data);
 void	init_minishell(t_data *data, char **envp);
 
 // main.c

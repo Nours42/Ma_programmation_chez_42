@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: kaly <kaly@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 23:58:10 by sdestann          #+#    #+#             */
-/*   Updated: 2023/07/25 11:45:39 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/25 14:41:25 by kaly             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	child(t_data *d, char **envp)
 
 void	msg_pipe(char *arg, t_data *data)
 {
-	write(2, "Command not found: ", 21);
+	write(2, "Command not found: ", 20);
 	write(2, arg, ft_strlen(arg));
 	write(2, "\n", 1);
 	child_free(data);

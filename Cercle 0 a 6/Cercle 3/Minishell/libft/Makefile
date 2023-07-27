@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+         #
+#    By: kaly <kaly@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/13 11:01:13 by sebastien         #+#    #+#              #
-#    Updated: 2023/07/25 11:20:08 by sdestann         ###   ########.fr        #
+#    Updated: 2023/07/27 11:12:33 by kaly             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,9 @@ ft_abs.c		ft_atoi.c	ft_atoi_base.c	ft_atol.c \
 ft_iterative_factorial.c
 
 SRC_MEM = \
-ft_bzero.c 		ft_calloc.c		ft_memchr.c	ft_memcmp.c \
-ft_memcpy.c 	ft_memmove.c	ft_memset.c
+ft_bzero.c 		ft_calloc.c		ft_free_ints.c	ft_free_chars.c	\
+ft_memchr.c		ft_memcmp.c		ft_memcpy.c 	ft_memmove.c	\
+ft_memset.c
 
 SRC_PRINTF = \
 ft_flags.c			ft_flags_utils.c	ft_nbr_len.c		ft_pad_width.c \

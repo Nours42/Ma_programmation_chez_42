@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: kaly <kaly@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 10:17:48 by sdestann          #+#    #+#             */
-/*   Updated: 2023/07/25 11:21:43 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/27 11:11:31 by kaly             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ void		*ft_memmove(void *dest, const void *src, size_t len);
 void		*ft_memset(void *b, int c, size_t len);
 
 void		ft_bzero(void *s, size_t n);
+void		ft_free_ints(int *i);
+void		ft_free_chars(char *s);
 void		ft_striteri(char *s, void (*f)(unsigned int, char *));
 void		ft_lstadd(t_list **last, t_list *new);
 void		ft_lstadd_back(t_list **lst, t_list *new);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: kaly <kaly@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:19:39 by jmetezea          #+#    #+#             */
-/*   Updated: 2023/07/24 10:22:07 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/26 14:18:27 by kaly             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	ft_unset(t_data *data, char *args)
 		{
 			ft_delete_arg_envp(data, args);
 			a = 1;
+			break ;
 		}
 		list = list->next;
 	}

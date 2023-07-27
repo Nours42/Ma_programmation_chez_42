@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:50:42 by sdestann          #+#    #+#             */
-/*   Updated: 2023/07/25 11:47:33 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:49:53 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,26 @@
 
 void	parse(t_data *data, char **envp)
 {
-	int	p;
+	//int	p;
 
-	p = -1;
+	//p = -1;
 	if (!envp)
 		return ;
-	data->var->i = 0;
-	data->var->num_words = 0;
-	data->var->brk = 0;
-	find_pipe(data);
-	data->var->str = data->str_temp;
-	data->pipe->idx = 0;
-	while (++p < data->pipe->nbr_of_pipe)
-	{
-		data->pipe->cmd[p] = ft_substr(data->str_temp, data->pipe->idx, data->pipe->pipe_idx[p]);
-		data->pipe->idx = data->pipe->pipe_idx[p];
-	}
-	if (data->pipe->pipe_idx[1] && data->pipe->pipe_idx[1] > 0)
-		creat_pipes(data);
-	// while ((data->pipe->idx) < data->pipe->cmd_nbrs)
-	// 	child(data, envp);
-	tokening(data);
+	init_parse(data);
+	//find_pipe(data);
+	//data->pipe->idx = 0;
+	//while (++p < data->pipe->nbr_of_pipe)
+	// {
+	// 	data->pipe->cmd[p] = ft_substr(data->str_temp, data->pipe->idx, data->pipe->pipe_idx[p]);
+	// 	data->pipe->idx = data->pipe->pipe_idx[p];
+	// }
+	// if (data->pipe->pipe_idx[1] && data->pipe->pipe_idx[1] > 0)
+	// 	creat_pipes(data);
+	//// while ((data->pipe->idx) < data->pipe->cmd_nbrs)
+	//// 	child(data, envp);
+	if (data->str_temp != NULL)
+		tokening(data);
 	data->args->cmd_args = data->var->commands;
-	// ft_printf("data->var->quote : %s\n", data->var->quote);
-	// ft_printf("data->var->str : %s\n", data->var->str);
-	// ft_printf("data->var->word : %s\n", data->var->word);
-	if (data->var->quote != NULL)
-		free(data->var->quote);
-	//free(data->var->str);
-	//free(data->var->word);
-	// ft_printf("data->var->quote : %s\n", data->var->quote);
-	// ft_printf("data->var->str : %s\n", data->var->str);
-	// ft_printf("data->var->word : %s\n", data->var->word);
-	// ft_printf("data->var->command[0] : %s\n", data->var->commands[0]);
-	// ft_printf("data->var->num_words : %d\n", data->var->num_words);
 }
 
 void	find_pipe(t_data *data)
@@ -62,11 +48,11 @@ void	find_pipe(t_data *data)
 		data->pipe->pipe_idx = (int *)malloc(sizeof(int) * data->pipe->cmd_nbrs + 1);
 		data->pipe->pipe = (int *)malloc(sizeof(int) * data->pipe->cmd_nbrs);
 	}
-	while (data->var->i < ft_strlen(data->str_temp))
+	data->var->i = 1;
+	while (data->var->i < ft_strlen(data->str_temp) - 1)
 	{
 		if (data->str_temp[data->var->i - 1] == ' ' && data->str_temp[data->var->i] == '|' && data->str_temp[data->var->i + 1] == ' ')
-		{
-			
+		{	
 			data->pipe->pipe_idx[++j] = data->var->i;
 		}
 		data->var->i++;
@@ -76,73 +62,106 @@ void	find_pipe(t_data *data)
 
 void	tokening(t_data *data)
 {
-	while (data->var->i < ft_strlen(data->var->str))
+	while (data->var->i < ft_strlen(data->str_temp))
 	{
-		if (data->var->brk)
-			break ;
-		else if ((data->var->str[data->var->i] == '\''
-				|| data->var->str[data->var->i] == '"')
-			&& (data->var->str[data->var->i - 1] == ' '))
+		if ((data->str_temp[data->var->i] == '\'' || data->str_temp[data->var->i] == '"'))
 		{
-			data->var->quote = ft_strchr(data->var->str + data->var->i + 1,
-					data->var->str[data->var->i]);
-			if (data->var->quote != NULL)
-			{
-				ft_quote(data);
-				data->var->i++;
-			}
+			data->var->quote_type = data->str_temp[data->var->i];
+			ft_printf("quote_type : %d\n", data->var->quote_type);
+			ft_quote(data);
 		}
-		if (data->var->str[data->var->i] != '\0')
-		{
-			while (data->var->str[data->var->i] == ' ')
-				data->var->i++;
+		else
 			ft_space(data);
-		}
-		data->var->i++;
 	}
 }
 
-void	ft_quote(t_data *data)
+size_t	ft_find_char(char *s, int start, char c)
 {
-	int	word_length;
+	size_t i;
 
-	word_length = data->var->quote - data->var->str - data->var->i - 1;
-	data->var->word = malloc(sizeof(char) * (word_length + 1));
-	ft_strncpy(data->var->word, data->var->str + data->var->i + 1, word_length);
-	data->var->word[word_length] = '\0';
-	data->var->commands[(data->var->num_words)] = data->var->word;
-	((data->var->num_words))++;
-	data->var->i += (data->var->quote - data->var->str - data->var->i);
+	i = 0;
+	while (s[start + i])
+	{
+		if (s[start + i] == c)
+			return (i);
+		else
+			i++;
+	}
+	return (0);
 }
 
 void	ft_space(t_data *data)
 {
-	int	word_length;
+	size_t	last_index;
+	int		j;
 
-	if (data->var->str + data->var->i + 1)
-		data->var->quote = ft_strchr(data->var->str + data->var->i + 1, ' ');
-	if (data->var->quote != NULL)
+	j = 0;
+	data->var->word = malloc(sizeof(char) * (ft_strlen(data->str_temp) + 1));
+	ft_bzero(data->var->word, ft_strlen(data->str_temp) + 1);
+	while (data->str_temp[data->var->i] && data->str_temp[data->var->i] != ' ')
 	{
-		word_length = data->var->quote - data->var->str - data->var->i;
-		data->var->word = malloc(sizeof(char) * (word_length + 1));
-		while (*(data->var->str) + data->var->i + 1 == ' ')
+		if (data->str_temp[data->var->i] != data->var->quote_type)
+		{
+			data->var->word[j] = data->str_temp[data->var->i];
 			data->var->i++;
-		ft_strncpy(data->var->word, data->var->str + data->var->i, word_length);
-		data->var->word[word_length] = '\0';
-		data->var->commands[(data->var->num_words)] = data->var->word;
-		((data->var->num_words))++;
-		data->var->i += (data->var->quote - data->var->str - data->var->i);
+			j++;
+		}
+		else
+		{
+			data->var->i++;
+			last_index = ft_find_char(data->str_temp, data->var->i, data->var->quote_type);
+			data->var->str = ft_substr(data->str_temp, data->var->i, last_index);
+			data->var->word = ft_strcat(data->var->word, data->var->str);
+			free(data->var->str);
+			data->var->str = NULL;
+			data->var->i += last_index + 1;
+		}
 	}
-	else
+	data->var->commands[(data->var->num_words)] = data->var->word;
+	data->var->num_words++;
+	data->var->i++;
+}
+
+void	ft_quote(t_data *data)
+{
+	size_t	last_index;
+	int		j;
+
+	j = 0;
+	data->var->word = malloc(sizeof(char) * (ft_strlen(data->str_temp) + 1));
+	ft_bzero(data->var->word, ft_strlen(data->str_temp) + 1);
+	while (data->str_temp[data->var->i] && data->str_temp[data->var->i] != ' ')
 	{
-		word_length = (ft_strlen(data->var->str) - data->var->i);
-		data->var->word = malloc(sizeof(char) * (word_length + 1));
-		while (*(data->var->str) + data->var->i + 1 == ' ')
+		if (data->str_temp[data->var->i] != data->var->quote_type)
+		{
+			data->var->word[j] = data->str_temp[data->var->i];
 			data->var->i++;
-		ft_strncpy(data->var->word, data->var->str + data->var->i, word_length);
-		data->var->word[word_length] = '\0';
-		data->var->commands[(data->var->num_words)] = data->var->word;
-		((data->var->num_words))++;
-		data->var->brk = 1;
+			j++;
+		}
+		else
+		{
+			data->var->i++;
+			last_index = ft_find_char(data->str_temp, data->var->i, data->var->quote_type);
+			if (last_index > 0)
+			{
+				data->var->str = ft_substr(data->str_temp, data->var->i, last_index);
+				data->var->word = ft_strcat(data->var->word, data->var->str);
+				free(data->var->str);
+				data->var->str = NULL;
+				data->var->i += last_index + 1;
+				j += last_index;
+				ft_printf("data->var->i dans ft_quote : %d\n", data->var->i);
+			}
+			else
+			{
+				data->var->i--;
+				data->var->word[j] = data->str_temp[data->var->i];
+				data->var->i++;
+				j++;
+			}
+		}
 	}
+	data->var->commands[(data->var->num_words)] = data->var->word;
+	data->var->num_words++;
+	data->var->i++;
 }

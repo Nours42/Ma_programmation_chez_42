@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: kaly <kaly@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:19:39 by jmetezea          #+#    #+#             */
-/*   Updated: 2023/07/25 00:03:17 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/27 12:19:59 by kaly             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_print_args(t_data *data)
 
 	i = -1;
 	while (data->args->cmd_args[++i])
-		ft_printf("d->args->cmd_args[%d] : %s \n", i, data->args->cmd_args[i]);
+		ft_printf("d->args->cmd_args[%d] : |%s| \n", i, data->args->cmd_args[i]);
 }
 
 // attention si echo n'est pas dans "" il imprime tous les args suivants.
