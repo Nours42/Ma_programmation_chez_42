@@ -136,6 +136,9 @@ typedef struct s_data
 	int			fd_redirect_in;
 	int			fd_redirect_out;
 	int			next_part;
+	int			args_start;
+	int			args_end;
+	int			boucle; //juste pour savoir a virer
 	pid_t		pid;
 	t_args		*args;
 	t_command	*var;
@@ -219,6 +222,7 @@ void	msg_pipe(char *arg, t_data *data);
 
 void	ft_show_envp(t_data *data);
 void	ft_print_args(t_data *data);
+void	ft_print_args_with_start_and_end(t_data *data);
 void	ft_echo(t_data *data);
 void	msg_error(char *err);
 

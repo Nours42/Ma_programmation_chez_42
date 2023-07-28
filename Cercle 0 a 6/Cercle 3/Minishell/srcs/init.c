@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 11:41:05 by nours42           #+#    #+#             */
-/*   Updated: 2023/07/27 18:06:11 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/28 10:29:21 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,15 @@ void	init_minishell(t_data *data, char **envp)
 	int	i;
 
 	i = 0;
-	data->args = (t_args *)malloc(sizeof(t_args));
-	data->args->cmd_paths = ft_split(find_path("PATH", data->envp), ':');
+	data->boucle = 0;
 	data->envp = (t_envp *)malloc(sizeof(t_envp));
 	data->envp->next = NULL;
 	data->envp->str = NULL;
 	init_envp(data, envp);
+	data->args = (t_args *)malloc(sizeof(t_args));
+	data->args->cmd_paths = ft_split(find_path("PATH", data->envp), ':');
+	data->args_start = 0;
+	data->args_end = 1;
 	data->var = (t_command *)malloc(sizeof(t_command));
 	while (i <= 99)
 		data->var->commands[i++] = NULL;

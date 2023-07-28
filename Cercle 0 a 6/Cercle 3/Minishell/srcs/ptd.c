@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:50:42 by sdestann          #+#    #+#             */
-/*   Updated: 2023/07/24 10:25:50 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/28 10:41:25 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	find_dollar(char *s)
 	int	i;
 
 	i = 0;
+	// ft_printf("entree find_dollar\n");
+	// ft_printf("s = %s\n", s);
 	while (s[i])
 	{
 		if (s[i] == '$')
@@ -52,8 +54,11 @@ void	find_and_replace(t_data *data, int i, int index_of_dollar)
 	{
 		if (ft_strncmp(temp, copy->str, ft_strlen(temp)) == 0)
 			if (copy->str[ft_strlen(temp)] == '=')
+			{
 				data->args->cmd_args[i] = ft_strjoin(temp2,
 						ft_strndup(copy->str, ft_strlen(temp) + 1));
+					break ;
+			}
 		copy = copy->next;
 	}
 	if (ft_strncmp(data->args->cmd_args[i], valeur_origine_args,
@@ -66,12 +71,16 @@ void	give_me_the_money(t_data *data)
 	int	i;
 	int	index_of_dollar;
 
-	i = -1;
-	while (data->args->cmd_args[++i])
+	i = data->args_start;
+	// ft_printf("entree give_me_the_money\n");
+	// ft_print_args_with_start_and_end(data);
+	while (i <= data->args_end)
 	{
 		index_of_dollar = find_dollar(data->args->cmd_args[i]);
 		if (index_of_dollar >= 0)
 			if (ft_strcmp("$?", data->args->cmd_args[i]) != 0)
 				find_and_replace(data, i, index_of_dollar);
+		index_of_dollar = 0;
+		i++;
 	}
 }

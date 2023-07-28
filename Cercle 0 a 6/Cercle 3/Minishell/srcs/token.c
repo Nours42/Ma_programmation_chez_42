@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:50:42 by sdestann          #+#    #+#             */
-/*   Updated: 2023/07/25 00:47:53 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/28 10:11:11 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	check_redirect(t_data *data, char **envp)
 {
 	int		i;
 
-	i = -1;
-	while (data->args->cmd_args[++i])
+	i = data->args_start;
+	while (i <= data->args_end)
 	{
 		//ft_printf("avant redirect\n");
 		//ft_print_args(data);
@@ -35,6 +35,7 @@ void	check_redirect(t_data *data, char **envp)
 			ft_dolls_and(data, envp);
 		else if (ft_strcmp("&&", data->args->cmd_args[i]) == 0)
 			dobble_and(data, envp);
+		i++;
 		//ft_printf("apres redirect\n");
 		//ft_print_args(data);
 	}

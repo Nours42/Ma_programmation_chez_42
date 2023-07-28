@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 23:58:10 by sdestann          #+#    #+#             */
-/*   Updated: 2023/07/27 18:40:23 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/28 09:26:54 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,15 @@ void	child(t_data *d, char **envp)
 	{
 		if (d->pipe->idx == 0)
 			sub_dup2(d->pipe->infile, d->pipe->pipe[0]);
-		else if (d->pipe->idx == d->pipe->cmd_nbrs - 1)
-			sub_dup2(d->pipe->pipe[2 * d->pipe->idx - 2], d->pipe->outfile);
-		else
-			sub_dup2(d->pipe->pipe[2 * d->pipe->idx - 2], d->pipe->pipe[2 * d->pipe->idx + 1]);
-		close_pipes(d);
-		d->pipe->cmd = get_cmd(d->args->cmd_paths, d->args->cmd_args[0]);
-		if (!d->pipe->cmd)
-			msg_pipe(d->args->cmd_args[0], d);
-		execve(d->pipe->cmd, d->args->cmd_args, envp);
+		// else if (d->pipe->idx == d->pipe->cmd_nbrs - 1)
+		// 	sub_dup2(d->pipe->pipe[2 * d->pipe->idx - 2], d->pipe->outfile);
+		// else
+		// 	sub_dup2(d->pipe->pipe[2 * d->pipe->idx - 2], d->pipe->pipe[2 * d->pipe->idx + 1]);
+		// close_pipes(d);
+		// d->pipe->cmd = get_cmd(d->args->cmd_paths, d->args->cmd_args[0]);
+		// if (!d->pipe->cmd)
+		// 	msg_pipe(d->args->cmd_args[0], d);
+		// execve(d->pipe->cmd, d->args->cmd_args, envp);
 	}
 	ft_printf("%s\n", d->args->cmd_args[0]);
 }
