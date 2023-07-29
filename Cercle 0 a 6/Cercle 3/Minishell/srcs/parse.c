@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:50:42 by sdestann          #+#    #+#             */
-/*   Updated: 2023/07/27 18:41:47 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/29 18:11:18 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,21 @@ void	parse(t_data *data, char **envp)
 	if (!envp)
 		return ;
 	init_parse(data);
-	if (data->str_temp != NULL)
+	if (data->original_prompt != NULL)
 		tokening(data);
 	data->args->cmd_args = data->var->commands;
+	//premiere valeur de args_end = valeur max en cas de pas de pipe
+	data->args_end[0] = data->var->num_words - 1;
+	//ft_printf("parse -> data->var->num_word = %d\n", data->var->num_words);
 }
 
 void	tokening(t_data *data)
 {
-	while (data->var->i < ft_strlen(data->str_temp))
+	while (data->var->i < ft_strlen(data->original_prompt))
 	{
-		if ((data->str_temp[data->var->i] == '\'' || data->str_temp[data->var->i] == '"'))
+		if ((data->original_prompt[data->var->i] == '\'' || data->original_prompt[data->var->i] == '"'))
 		{
-			data->var->quote_type = data->str_temp[data->var->i];
+			data->var->quote_type = data->original_prompt[data->var->i];
 			ft_printf("quote_type : %d\n", data->var->quote_type);
 			ft_quote(data);
 		}
@@ -58,21 +61,21 @@ void	ft_space(t_data *data)
 	int		j;
 
 	j = 0;
-	data->var->word = malloc(sizeof(char) * (ft_strlen(data->str_temp) + 1));
-	ft_bzero(data->var->word, ft_strlen(data->str_temp) + 1);
-	while (data->str_temp[data->var->i] && data->str_temp[data->var->i] != ' ')
+	data->var->word = malloc(sizeof(char) * (ft_strlen(data->original_prompt) + 1));
+	ft_bzero(data->var->word, ft_strlen(data->original_prompt) + 1);
+	while (data->original_prompt[data->var->i] && data->original_prompt[data->var->i] != ' ')
 	{
-		if (data->str_temp[data->var->i] != data->var->quote_type)
+		if (data->original_prompt[data->var->i] != data->var->quote_type)
 		{
-			data->var->word[j] = data->str_temp[data->var->i];
+			data->var->word[j] = data->original_prompt[data->var->i];
 			data->var->i++;
 			j++;
 		}
 		else
 		{
 			data->var->i++;
-			last_index = ft_find_char(data->str_temp, data->var->i, data->var->quote_type);
-			data->var->str = ft_substr(data->str_temp, data->var->i, last_index);
+			last_index = ft_find_char(data->original_prompt, data->var->i, data->var->quote_type);
+			data->var->str = ft_substr(data->original_prompt, data->var->i, last_index);
 			data->var->word = ft_strcat(data->var->word, data->var->str);
 			free(data->var->str);
 			data->var->str = NULL;
@@ -90,23 +93,23 @@ void	ft_quote(t_data *data)
 	int		j;
 
 	j = 0;
-	data->var->word = malloc(sizeof(char) * (ft_strlen(data->str_temp) + 1));
-	ft_bzero(data->var->word, ft_strlen(data->str_temp) + 1);
-	while (data->str_temp[data->var->i] && data->str_temp[data->var->i] != ' ')
+	data->var->word = malloc(sizeof(char) * (ft_strlen(data->original_prompt) + 1));
+	ft_bzero(data->var->word, ft_strlen(data->original_prompt) + 1);
+	while (data->original_prompt[data->var->i] && data->original_prompt[data->var->i] != ' ')
 	{
-		if (data->str_temp[data->var->i] != data->var->quote_type)
+		if (data->original_prompt[data->var->i] != data->var->quote_type)
 		{
-			data->var->word[j] = data->str_temp[data->var->i];
+			data->var->word[j] = data->original_prompt[data->var->i];
 			data->var->i++;
 			j++;
 		}
 		else
 		{
 			data->var->i++;
-			last_index = ft_find_char(data->str_temp, data->var->i, data->var->quote_type);
+			last_index = ft_find_char(data->original_prompt, data->var->i, data->var->quote_type);
 			if (last_index > 0)
 			{
-				data->var->str = ft_substr(data->str_temp, data->var->i, last_index);
+				data->var->str = ft_substr(data->original_prompt, data->var->i, last_index);
 				data->var->word = ft_strcat(data->var->word, data->var->str);
 				free(data->var->str);
 				data->var->str = NULL;
@@ -117,7 +120,7 @@ void	ft_quote(t_data *data)
 			else
 			{
 				data->var->i--;
-				data->var->word[j] = data->str_temp[data->var->i];
+				data->var->word[j] = data->original_prompt[data->var->i];
 				data->var->i++;
 				j++;
 			}

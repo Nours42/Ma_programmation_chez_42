@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 23:58:10 by sdestann          #+#    #+#             */
-/*   Updated: 2023/07/28 09:26:54 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/29 18:36:03 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,22 @@
 void	how_many_pipe(t_data *data)
 {
 	int	i;
+	int	j;
 
 	i = -1;
+	j = 0;
 	while (data->args->cmd_args[++i])
+	{
 		if (ft_strcmp("|", data->args->cmd_args[i]) == 0)
+		{
+			// ft_printf("position of pipe : %d\n", i);
+			// ft_printf("data->args->cmd_args[i] : %s\n", data->args->cmd_args[i]);
+			// ft_printf("data->args->cmd_args[i - 1] : %s\n", data->args->cmd_args[i - 1]);
+			data->args_end[j++] = i - 1;
 			data->pipe->nbr_of_pipe++;
+		}
+	}
+	data->args_end[j++] = i - 1;
 }
 
 void	creat_pipes(t_data *data)

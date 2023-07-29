@@ -6,7 +6,7 @@
 /*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:19:39 by jmetezea          #+#    #+#             */
-/*   Updated: 2023/07/11 12:40:09 by nours42          ###   ########.fr       */
+/*   Updated: 2023/07/29 14:28:48 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	ft_export(t_data *data, char *args)
 	t_envp	*copy;
 
 	copy = data->envp;
-	data->str_temp = ft_strchr(args, '=');
-	if (data->str_temp != NULL)
+	data->original_prompt = ft_strchr(args, '=');
+	if (data->original_prompt != NULL)
 	{
 		before = ft_before_and_equal(args);
 		while (copy)

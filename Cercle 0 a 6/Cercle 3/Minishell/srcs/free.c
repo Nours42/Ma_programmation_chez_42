@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 14:00:42 by sdestann          #+#    #+#             */
-/*   Updated: 2023/07/27 17:32:48 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/29 14:31:45 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,18 @@ void	ft_free_paths(t_data *data)
 	free(data->args->cmd_paths);
 }
 
-void	ft_free_str_temp(int i, t_data *data)
+void	ft_free_original_prompt(int i, t_data *data)
 {
-	if (i == 1 && data->str_temp != NULL)
-		free(data->str_temp);
-	else if (i == 2 && data->str_temp2 != NULL)
-		free(data->str_temp2);
+	if (i == 1 && data->original_prompt != NULL)
+		free(data->original_prompt);
+	else if (i == 2 && data->cmd_prompt != NULL)
+		free(data->cmd_prompt);
 	else if (i == 3)
 	{
-		if (data->str_temp != NULL)
-			free(data->str_temp);
-		if (data->str_temp2 != NULL)
-			free(data->str_temp2);
+		if (data->original_prompt != NULL)
+			free(data->original_prompt);
+		if (data->cmd_prompt != NULL)
+			free(data->cmd_prompt);
 	}
 }
 
@@ -99,7 +99,7 @@ void	ft_free_command_var(t_data *data)
 void	ft_free_all(int i, t_data *data)
 {
 	ft_free_envp(data);
-	ft_free_str_temp(i, data);
+	ft_free_original_prompt(i, data);
 	ft_free_paths(data);
 	ft_free_args(data);
 	free(data->args);

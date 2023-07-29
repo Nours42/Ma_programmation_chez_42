@@ -130,14 +130,14 @@ typedef struct s_pipe
 
 typedef struct s_data
 {
-	char		*str_temp;
-	char		*str_temp2;
+	char		*original_prompt;
+	char		*cmd_prompt;
 	int			redirected;
 	int			fd_redirect_in;
 	int			fd_redirect_out;
 	int			next_part;
 	int			args_start;
-	int			args_end;
+	int			*args_end;
 	int			boucle; //juste pour savoir a virer
 	pid_t		pid;
 	t_args		*args;
@@ -178,7 +178,7 @@ void	ft_export(t_data *data, char *args);
 void	ft_free_cmd_args(t_data *data);
 void	ft_free_args(t_data *data);
 void	ft_free_paths(t_data *data);
-void	ft_free_str_temp(int i, t_data *data);
+void	ft_free_original_prompt(int i, t_data *data);
 void	ft_free_envp(t_data *data);
 void	ft_free_command_var(t_data *data);
 void	ft_free_all(int i, t_data *data);
@@ -193,8 +193,8 @@ void	pipe_free(t_data *data);
 
 void	init_envp(t_data *data, char **envp);
 void	init_parse(t_data *data);
-void	init_minishell(t_data *data, char **envp);
-
+void	init_first(t_data *data, char **envp);
+void	init_minishell(t_data *data);
 // main.c
 
 char	*get_cmd(char **paths, char *cmd);
@@ -212,6 +212,7 @@ void	parse(t_data *data, char **envp);
 
 // pipe.c
 
+void	how_many_pipe(t_data *data);
 void	creat_pipes(t_data *data);
 void	close_pipes(t_data *data);
 void	sub_dup2(int zero, int first);
