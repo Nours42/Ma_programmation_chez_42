@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ptd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:50:42 by sdestann          #+#    #+#             */
-/*   Updated: 2023/07/28 10:41:25 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/07/29 18:36:15 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	give_me_the_money(t_data *data)
 	i = data->args_start;
 	// ft_printf("entree give_me_the_money\n");
 	// ft_print_args_with_start_and_end(data);
-	while (i <= data->args_end)
+	while (i <= data->args_end[0])
 	{
 		index_of_dollar = find_dollar(data->args->cmd_args[i]);
 		if (index_of_dollar >= 0)
