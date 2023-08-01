@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 11:41:05 by nours42           #+#    #+#             */
-/*   Updated: 2023/07/29 18:26:49 by nours42          ###   ########.fr       */
+/*   Updated: 2023/08/01 18:54:15 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	init_parse(t_data *data)
 		ft_free_chars(data->var->word);
 	if (data->var->str != NULL)
 		ft_free_chars(data->var->str);
-	//initialiser les pipes
 }
 
 void	init_first(t_data *data, char **envp)
@@ -39,6 +38,7 @@ void	init_first(t_data *data, char **envp)
 
 	i = 0;
 	data->boucle = 0;
+	data->end = 0;
 	data->envp = (t_envp *)malloc(sizeof(t_envp));
 	data->envp->next = NULL;
 	data->envp->str = NULL;
@@ -48,6 +48,7 @@ void	init_first(t_data *data, char **envp)
 	data->args_start = 0;
 	data->args_end = (int *)malloc(sizeof(int) * 100);
 	data->args_end[0] = 0;
+	data->args_max = 0;
 	data->var = (t_command *)malloc(sizeof(t_command));
 	while (i <= 99)
 		data->var->commands[i++] = NULL;
@@ -62,22 +63,20 @@ void	init_first(t_data *data, char **envp)
 	data->cmd_prompt = NULL;
 	data->pipe = (t_pipe *)malloc(sizeof(t_pipe));
 	data->pipe->nbr_of_pipe = 0;
+	if (data->pipe->infile > 0)
+		data->pipe->infile = dup(STDIN_FILENO);
+	if (data->pipe->outfile > 0)
+		data->pipe->outfile = dup(STDOUT_FILENO);
+	ft_printf("////// fin de l'initialiation /////\n");
+	print_all(data);
 }
 
 void	init_minishell(t_data *data)
 {
-	// int	i;
-
-	// i = 0;
-	// while (i <= 99)
-	// 	data->var->commands[i++] = NULL;
 	data->var->word = NULL;
 	data->var->str = NULL;
 	data->var->quote_type = 0;
 	data->var->num_words = 0;
 	data->fd_redirect_out = 0;
-	data->redirected = 0;
 	data->next_part = 42;
-	// data->original_prompt = NULL;
-	// data->cmd_prompt = NULL;
 }

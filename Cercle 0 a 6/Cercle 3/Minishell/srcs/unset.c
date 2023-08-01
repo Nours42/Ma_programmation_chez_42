@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaly <kaly@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:19:39 by jmetezea          #+#    #+#             */
-/*   Updated: 2023/07/26 14:18:27 by kaly             ###   ########.fr       */
+/*   Updated: 2023/08/01 17:57:10 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,12 @@ void	ft_unset(t_data *data, char *args)
 		a = 1;
 	if (a == 0)
 		ft_printf("la variable %s n'existe pas dans l'environnement\n", args);
+	update_path(data);
+}
+
+void	update_path(t_data *data)
+{
+	ft_free_paths(data);
+	data->args = (t_args *)malloc(sizeof(t_args));
+	data->args->cmd_paths = ft_split(find_path("PATH", data->envp), ':');
 }

@@ -3,53 +3,72 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 11:07:40 by sdestann          #+#    #+#             */
-/*   Updated: 2023/07/29 18:25:41 by nours42          ###   ########.fr       */
+/*   Updated: 2023/08/01 18:18:39 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	execute_command(t_data *data, char **envp)
+void	execute_cmd(t_data *d, char **envp)
 {
-	data->pid = fork();
-	if (data->pid == 0)
+	if (find_builtin(d, envp) == 0)
 	{
-		data->cmd_prompt = get_cmd(data->args->cmd_paths,
-				data->args->cmd_args[data->args_start]);
-		// ft_printf("test1 : %s\n", data->cmd_prompt);
-		if (data->args->cmd_args[data->args_start + 1])
+		d->cmd_prompt = get_cmd(d->args->cmd_paths,
+				d->args->cmd_args[d->args_start]);
+		if (d->args->cmd_args[d->args_start + 1])
 		{
-			if (ft_strncmp("<", data->args->cmd_args[data->args_start + 1], 1) == 0)
+			if (ft_strncmp("<", d->args->cmd_args[d->args_start + 1], 1) == 0)
 			{
-				// ft_printf("test2\n");
-				if (ft_strncmp("<<", data->args->cmd_args[data->args_start + 1], 2) == 0)
+				if (ft_strncmp("<<", d->args->cmd_args[d->args_start + 1], 2)
+					== 0)
 					return ;
-				data->args->cmd_args[data->args_start + 1] = data->args->cmd_args[data->args_start];
-				data->args->cmd_args = data->args->cmd_args + 1;
+				d->args->cmd_args[d->args_start + 1]
+					= d->args->cmd_args[d->args_start];
+				d->args->cmd_args = d->args->cmd_args + 1;
 			}
 		}
-		// ft_printf("test3 : %s\n", data->cmd_prompt);
-		if (data->cmd_prompt != NULL)
+		if (d->cmd_prompt != NULL)
 		{
-			execve(data->cmd_prompt, data->args->cmd_args, envp);
-			free(data->cmd_prompt);
+			execve(d->cmd_prompt, d->args->cmd_args, envp);
+			free(d->cmd_prompt);
 		}
-		else if (ft_strcmp(data->args->cmd_args[data->args_start + 1], "") == 0)
+		else if (ft_strcmp(d->args->cmd_args[d->args_start + 1], "") == 0)
 			exit(EXIT_FAILURE);
 		else
 		{
-			ft_printf("%s : commande introuvable\n", data->args->cmd_args[data->args_start + 1]);
-			free(data->args->cmd_args[data->args_start + 1]);
+			ft_printf("%s : commande introuvable\n",
+				d->args->cmd_args[d->args_start + 1]);
+			free(d->args->cmd_args[d->args_start + 1]);
 			exit(EXIT_FAILURE);
 		}
 		perror("Erreur d'exécution de la commande\n");
 		exit(EXIT_FAILURE);
 	}
-	else if (data->pid < 0)
-		perror("Erreur lors de la création du processus\n");
+}
+
+void	exec_last(t_data *d, char **envp)
+{
+	pid_t	pid;
+
+	if (d->pipe->nbr_of_pipe > 0)
+	{
+		d->args_start = d->args_end[0] + 2;
+		d->args_end[0] = d->args_max;
+	}
+	d->end = 1;
+	pid = fork();
+	if (!pid)
+	{
+		check_redirect(d);
+		if (find_builtin(d, envp) == 0)
+			execute_cmd(d, envp);
+	}
 	else
-		wait(NULL);
+	{
+		dup2(d->pipe->outfile, STDOUT_FILENO);
+		waitpid(pid, NULL, 0);
+	}
 }

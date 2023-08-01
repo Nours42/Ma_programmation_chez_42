@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dobble_and.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 17:04:58 by kaly              #+#    #+#             */
-/*   Updated: 2023/07/25 00:03:17 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/01 14:10:55 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ void	dobble_and(t_data *data, char **envp)
 		{
 			data->next_part = i;
 			if (find_builtin(data, envp) == 0)
-				execute_command(data, envp);
+				execute_cmd(data, envp);
 			data->args->cmd_args = data->args->cmd_args + i + 1;
 			i = -1;
 		}
 	}
 	data->next_part = 42;
 	if (find_builtin(data, envp) == 0)
-		execute_command(data, envp);
+		execute_cmd(data, envp);
 	data->redirected = 1;
 }
 

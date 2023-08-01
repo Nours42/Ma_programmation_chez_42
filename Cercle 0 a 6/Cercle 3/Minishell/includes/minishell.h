@@ -116,9 +116,8 @@ typedef struct s_args
 
 typedef struct s_pipe
 {
-	char		**cmd;
-	int			infile;
-	int			outfile;
+	int			infile; // fd d'origine
+	int			outfile; // fd de sortie
 	int			*pipe;
 	int			*pipe_idx;
 	int			cmd_nbrs;
@@ -138,6 +137,8 @@ typedef struct s_data
 	int			next_part;
 	int			args_start;
 	int			*args_end;
+	int			args_max;
+	int			end;
 	int			boucle; //juste pour savoir a virer
 	pid_t		pid;
 	t_args		*args;
@@ -161,7 +162,8 @@ void    ft_pipe(t_data *data, char **envp);
 
 // execute.c
 
-void	execute_command(t_data *data, char **envp);
+void	execute_cmd(t_data *data, char **envp);
+void	exec_last(t_data *data, char **envp);
 
 // exit.c
 
@@ -213,7 +215,7 @@ void	parse(t_data *data, char **envp);
 // pipe.c
 
 void	how_many_pipe(t_data *data);
-void	creat_pipes(t_data *data);
+void	execute_pipes(t_data *data, char **envp);
 void	close_pipes(t_data *data);
 void	sub_dup2(int zero, int first);
 void	child(t_data *d, char **envp);
@@ -223,9 +225,12 @@ void	msg_pipe(char *arg, t_data *data);
 
 void	ft_show_envp(t_data *data);
 void	ft_print_args(t_data *data);
+void	ft_print_pipe_args(t_data *data);
 void	ft_print_args_with_start_and_end(t_data *data);
 void	ft_echo(t_data *data);
 void	msg_error(char *err);
+void	print_intstar(int *i);
+void	print_all(t_data *data);
 
 // ptd.c
 
@@ -240,10 +245,10 @@ void	ft_pwd();
 
 // redirect.c
 
-void	redirect_simple_left(t_data *data, char **envp, int i);
-void	redirect_dobble_left(t_data *data, char **envp, int i);
-void	redirect_simple_right(t_data *data, char **envp, int i);
-void	redirect_dobble_right(t_data *data, char **envp, int i);
+void	redirect_simple_left(t_data *data, int i);
+void	redirect_dobble_left(t_data *data, int i);
+void	redirect_simple_right(t_data *data, int i);
+void	redirect_dobble_right(t_data *data, int i);
 
 // signals.c
 
@@ -252,12 +257,13 @@ void	handle_signal(int signal);
 
 // token.c
 
-void	check_redirect(t_data *data, char **envp);
+void	check_redirect(t_data *data);
 
 // unset.c
 
 void	ft_delete_arg_envp(t_data *data, char *arg);
 void	ft_unset(t_data *data, char *args);
+void	update_path(t_data *data);
 
 // utils.c
 

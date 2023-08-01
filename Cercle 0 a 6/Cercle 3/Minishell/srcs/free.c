@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 14:00:42 by sdestann          #+#    #+#             */
-/*   Updated: 2023/07/29 14:31:45 by nours42          ###   ########.fr       */
+/*   Updated: 2023/08/01 18:21:37 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ void	ft_free_cmd_args(t_data *data)
 void	ft_free_args(t_data *data)
 {
 	if (data->var->num_words > 0)
-	{
 		ft_free_cmd_args(data);
-	}
-	//free(data->args->cmd_args);
 }
 
 void	ft_free_paths(t_data *data)
@@ -74,13 +71,8 @@ void	ft_free_envp(t_data *data)
 
 void	ft_free_command_var(t_data *data)
 {
-	 int	i;
-	
-	// if (data->var->word != NULL)
-	// {
-	// 	free(data->var->word);
-	// 	data->var->word = NULL;
-	// }
+	int	i;
+
 	if (data->var->str != NULL)
 	{
 		free(data->var->str);
@@ -88,11 +80,14 @@ void	ft_free_command_var(t_data *data)
 	}
 	i = -1;
 	while (++i < (int)data->var->num_words)
+	{
 		if (data->var->commands[i] != NULL)
 		{
-			ft_printf("data->var->commands[%d] : %s\n", i, data->var->commands[i]);
+			ft_printf("data->var->commands[%d] : %s\n", i,
+				data->var->commands[i]);
 			free(data->var->commands[i]);
 		}
+	}
 	free(data->var);
 }
 
@@ -103,8 +98,6 @@ void	ft_free_all(int i, t_data *data)
 	ft_free_paths(data);
 	ft_free_args(data);
 	free(data->args);
-	//free(data->pipe->pipe_idx);
-	//free(data->pipe);
 	ft_free_command_var(data);
 	free(data);
 }

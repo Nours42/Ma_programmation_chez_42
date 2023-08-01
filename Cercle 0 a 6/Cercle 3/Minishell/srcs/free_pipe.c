@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 00:25:12 by sdestann          #+#    #+#             */
-/*   Updated: 2023/07/25 11:45:13 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/01 18:19:34 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	parent_free(t_data *data)
 
 	i = 0;
 	close(data->pipe->infile);
-	close(data->pipe->outfile);
 	while (data->args->cmd_paths[i])
 	{
 		free(data->args->cmd_paths[i]);
@@ -39,13 +38,13 @@ void	child_free(t_data *data)
 		i++;
 	}
 	free(data->args->cmd_args);
-	free(data->pipe->cmd);
 }
 
 void	pipe_free(t_data *data)
 {
+	if (!data)
+		return ;
 	close(data->pipe->infile);
-	close(data->pipe->outfile);
 	free(data->pipe->pipe_idx);
 	msg_error("Error in split process in main.c");
 	exit(1);

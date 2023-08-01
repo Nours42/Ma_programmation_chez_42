@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:09:36 by kaly              #+#    #+#             */
-/*   Updated: 2023/07/29 18:39:29 by nours42          ###   ########.fr       */
+/*   Updated: 2023/08/01 18:50:59 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+//pense bete :
+// les espaces dans echo      "test" doivent n'en faire qu'un
+// penser a faire $? et a stocker le result du dernier pipe
+// gerer la modification de path
+// si exit dans les arguments sortie du prog
 
 char	*get_cmd(char **paths, char *cmd)
 {
@@ -44,11 +50,7 @@ void	get_readline(t_data *data)
 		ft_free_chars(data->original_prompt);
 	}
 	if (data->redirected != 49)
-	{
-		// ft_printf("get_readline\n");
-		// ft_printf("original prompt = %s\n", data->original_prompt);
 		data->original_prompt = readline("~>$ ");
-	}
 	else
 	{
 		data->original_prompt = readline("");
@@ -65,6 +67,7 @@ void	get_readline(t_data *data)
 	{
 		ft_free_all(3, data);
 		ft_printf("Minishell is closed.\nThat's the end of your life !\n");
+		close(data->pipe->infile);
 		exit(EXIT_FAILURE);
 	}
 	add_history(data->original_prompt);
@@ -73,80 +76,43 @@ void	get_readline(t_data *data)
 void	shell_loop(t_data *data, char **envp)
 {
 	struct sigaction	act;
-	int					i;
 
+	data->pipe->idx = -1;
 	ft_signal(&act, data);
 	while (1)
 	{
 		get_readline(data);
 		parse(data, envp);
-		ft_printf("shell loop\n");
-		//ft_print_args(data);
-		ft_print_args_with_start_and_end(data);
-		// sera ds le pipe a pres cette ligne
-		// pensez a toujours garder en memoire le result du dernier pipe pour $?
-		ft_printf("boucle numero %d\n", data->boucle);
-		if (data->boucle == 0)
+		// ft_printf("shell loop\n");
+		// ft_print_args(data);
+		give_me_the_money(data);
+		how_many_pipe(data);
+		check_redirect(data);
+		data->next_part = 42;
+		// ft_printf("//data->pipe->infile : %d\n", data->pipe->infile);
+		// ft_printf("//data->pipe->outfile : %d\n", data->pipe->outfile);
+		while (++(data->pipe->idx) < data->pipe->nbr_of_pipe)
 		{
-			data->boucle++;
-			// ft_printf("premier tour\n");
-			give_me_the_money(data);
-			ft_printf("avant checkredirect\n");
-			ft_print_args_with_start_and_end(data);
-			check_redirect(data, envp);
-			ft_printf("apres checkredirect\n");
-			ft_print_args_with_start_and_end(data);
-			data->next_part = 42;
-			if (data->redirected == 0)
+			execute_pipes(data, envp);
+			if (data->pipe->nbr_of_pipe - data->pipe->idx > 1)
 			{
-				if (find_builtin(data, envp) == 0)
-					execute_command(data, envp);
-			}
-			// if (data->fd_redirect_out == 0)
-			// 	data->redirected = 0;
-			// ft_free_cmd_args(data);
-			// data->var->num_words = 0;
-			ft_printf("nbr of pipe dans main : %d\n", data->pipe->nbr_of_pipe);
-		}
-		if (data->pipe->nbr_of_pipe > 0)
-		{
-			i = 0;
-
-			while (++i <= data->pipe->nbr_of_pipe)
-			{
-				ft_printf("je relance de %d\n", i);
-				ft_printf("reinitialisation des valeurs\n");
-				init_minishell(data);
-				ft_printf("valeur de data->args_start avant :  %d\n", data->args_start);
-				ft_printf("valeur de data->args_end[0] avant :  %d\n", data->args_end[0]);
 				data->args_start = data->args_end[0] + 2;
-				data->args_end++;
-				ft_printf("valeur de data->args_start apres :  %d\n", data->args_start);
-				ft_printf("valeur de data->args_end[0] apres :  %d\n", data->args_end[0]);
-				give_me_the_money(data);
-				check_redirect(data, envp);
-				data->next_part = 42;
-				if (data->redirected == 0)
-					if (find_builtin(data, envp) == 0)
-						execute_command(data, envp);
-				if (data->fd_redirect_out == 0)
-					data->redirected = 0;
-				ft_free_cmd_args(data);
-				data->var->num_words = 0;
-				data->boucle++;
+				data->args_end[0] = data->args_end[data->pipe->idx + 1];
 			}
 		}
-		else
-			ft_printf("c'est la fin des haricots\n");
+		dup2(data->pipe->infile, STDIN_FILENO);
+		dup2(data->pipe->outfile, STDOUT_FILENO);
+		// ft_printf("data->pipe->infile : %d//\n", data->pipe->infile);
+		// ft_printf("data->pipe->outfile : %d//\n", data->pipe->outfile);
+		exec_last(data, envp);
+		// ft_printf("infile : %d\n", data->pipe->infile);
+		// ft_printf("outfile : %d\n", data->pipe->outfile);
 		init_first(data, envp);
-		//jusque la
 	}
 }
 
 int	find_builtin(t_data *data, char **envp)
 {
-	// ft_printf("find builtin\n");
-	// ft_print_args_with_start_and_end(data);
 	if (ft_strcmp("", data->original_prompt) == 0)
 		shell_loop(data, envp);
 	if (ft_strcmp("exit", data->original_prompt) == 0)
@@ -165,6 +131,9 @@ int	find_builtin(t_data *data, char **envp)
 		ft_show_envp(data);
 	else
 		return (0);
+	print_all(data);
+	if (data->end)
+		close(data->pipe->infile);
 	return (1);
 }
 
@@ -172,7 +141,8 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
 
-	(void)argc;
+	if (argc > 1)
+		ft_printf("tu as cru m'avoir avec un env -i ? ah ah ah et bien oui");
 	(void)argv;
 	data = (t_data *)malloc(sizeof(t_data));
 	init_first(data, envp);

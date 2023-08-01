@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ptd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:50:42 by sdestann          #+#    #+#             */
-/*   Updated: 2023/07/29 18:36:15 by nours42          ###   ########.fr       */
+/*   Updated: 2023/08/01 18:27:18 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ int	find_dollar(char *s)
 	int	i;
 
 	i = 0;
-	// ft_printf("entree find_dollar\n");
-	// ft_printf("s = %s\n", s);
 	while (s[i])
 	{
 		if (s[i] == '$')
@@ -53,12 +51,14 @@ void	find_and_replace(t_data *data, int i, int index_of_dollar)
 	while (copy)
 	{
 		if (ft_strncmp(temp, copy->str, ft_strlen(temp)) == 0)
+		{
 			if (copy->str[ft_strlen(temp)] == '=')
 			{
 				data->args->cmd_args[i] = ft_strjoin(temp2,
 						ft_strndup(copy->str, ft_strlen(temp) + 1));
-					break ;
+				break ;
 			}
+		}
 		copy = copy->next;
 	}
 	if (ft_strncmp(data->args->cmd_args[i], valeur_origine_args,
@@ -72,8 +72,6 @@ void	give_me_the_money(t_data *data)
 	int	index_of_dollar;
 
 	i = data->args_start;
-	// ft_printf("entree give_me_the_money\n");
-	// ft_print_args_with_start_and_end(data);
 	while (i <= data->args_end[0])
 	{
 		index_of_dollar = find_dollar(data->args->cmd_args[i]);
