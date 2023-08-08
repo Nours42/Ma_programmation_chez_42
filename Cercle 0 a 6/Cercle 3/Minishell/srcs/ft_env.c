@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_pipe.c                                        :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/25 00:25:12 by sdestann          #+#    #+#             */
-/*   Updated: 2023/08/07 11:47:46 by sdestann         ###   ########.fr       */
+/*   Created: 2023/08/04 16:30:25 by sdestann          #+#    #+#             */
+/*   Updated: 2023/08/04 16:40:27 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	free_and_clear_pipe(t_data *data)
+void	ft_print_envp(t_data *data)
 {
-	int	i;
+	int		i;
+	t_envp	*show_envp;
 
-	i = -1;
-	while (data->pipe->pipe_fd[++i])
-		data->pipe->pipe_fd[i] = 0;
-	i = -1;
-	data->pipe->cmd_nbrs = 0;
-	data->pipe->nbr_of_pipe = 0;
-	data->pipe->idx = 0;
-	close(data->pipe->infile);
-	close(data->pipe->outfile);
-	free(data->pipe);
+	show_envp = data->envp;
+	if (!show_envp)
+		return ;
+	i = 1;
+	while (show_envp != NULL)
+	{
+		printf("nb %d : %s\n", i, show_envp->str);
+		show_envp = show_envp->next;
+		i++;
+	}
+	free(show_envp);
+	exit(EXIT_SUCCESS);
 }

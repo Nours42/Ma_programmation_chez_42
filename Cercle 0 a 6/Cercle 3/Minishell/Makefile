@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+         #
+#    By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/22 14:21:35 by sdestann          #+#    #+#              #
-#    Updated: 2023/07/25 00:37:34 by sdestann         ###   ########.fr        #
+#    Updated: 2023/08/08 14:46:24 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,24 +19,31 @@ HEADER_DIR = includes/
 HEADER = $(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 
 SRCS_DIR = srcs/
-SRCS =	cd.c		\
-		dobble_and.c\
-		execute.c	\
-		exit.c		\
-		export.c	\
-		free.c		\
-		free_pipe.c	\
-		init.c		\
-		main.c		\
-		parse.c		\
-		pipe.c		\
-		print.c		\
-		ptd.c		\
-		pwd.c		\
-		redirect.c	\
-		signals.c	\
-		token.c		\
-		unset.c 	\
+SRCS =	dobble_and.c	\
+		execute.c		\
+		find_builtin.c	\
+		free.c			\
+		free_args.c		\
+		free_envp.c		\
+		free_pipe.c		\
+		free_var.c		\
+		ft_cd.c			\
+		ft_echo.c		\
+		ft_env.c		\
+		ft_exit.c		\
+		ft_export.c		\
+		ft_pwd.c		\
+		ft_unset.c		\
+		init.c			\
+		init2.c			\
+		main.c			\
+		parse.c			\
+		pipe.c			\
+		print.c			\
+		ptd.c			\
+		redirect.c		\
+		signals.c		\
+		token.c			\
 		utils.c
 OBJDIR = objs
 

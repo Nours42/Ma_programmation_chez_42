@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaly <kaly@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:45:29 by jmetezea          #+#    #+#             */
-/*   Updated: 2023/07/20 14:05:08 by kaly             ###   ########.fr       */
+/*   Updated: 2023/08/08 15:47:41 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,12 @@ char	*find_path(char *s, t_envp *envp)
 
 	find_pa = envp;
 	while (ft_strncmp(s, find_pa->str, ft_strlen(s)) != 0)
-		find_pa = find_pa->next;
+	{
+		if (find_pa->next)
+			find_pa = find_pa->next;
+		else
+			return("");
+	}
 	return (find_pa->str + (ft_strlen(s) + 1));
 }
 

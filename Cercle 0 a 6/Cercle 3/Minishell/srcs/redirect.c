@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 13:49:01 by nours42           #+#    #+#             */
-/*   Updated: 2023/08/01 18:06:27 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/07 12:02:44 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	redirect_simple_left(t_data *data, int i)
 	{
 		ft_putstr_fd("bash: ", 2);
 		ft_putstr_fd(data->args->cmd_args[i + 1], 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
+		ft_putstr_fd(": No XXX such file or directory\n", 2);
 		return ;
 	}
 	dup2(data->pipe->infile, STDIN_FILENO);
@@ -63,7 +63,16 @@ void	redirect_simple_right(t_data *d, int i)
 
 	if (d->args->cmd_args[i + 1] == NULL)
 		msg_error("bash: erreur de syntaxeeeeeeeee\n");
-	if (d->redirected != 1)
+	ft_printf("d->redirected : %d\n", d->redirected);
+	ft_printf("d->next_part : %d\n", d->next_part);
+	ft_printf("i : %d\n", i);
+	fd = 0;
+	while (d->args->cmd_args[fd])
+	{
+		ft_printf("d->args->cmd_args[%d] : %s\n", fd, d->args->cmd_args[fd]);
+		fd++;
+	}
+	if (d->redirected == 0)
 		d->next_part = i;
 	else
 	{
@@ -74,7 +83,7 @@ void	redirect_simple_right(t_data *d, int i)
 	fd = open(d->args->cmd_args[i + 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	ft_printf("le fichier : %s a ete creeeeee\n", d->args->cmd_args[i + 1]);
 	dup2(fd, STDOUT_FILENO);
-	d->redirected = 1;
+	d->redirected = 2;
 }
 
 void	redirect_dobble_right(t_data *d, int i)
@@ -83,21 +92,10 @@ void	redirect_dobble_right(t_data *d, int i)
 
 	if (d->args->cmd_args[i + 1] == NULL)
 		msg_error("bash: erreur de syntaxeeee\n");
-	if (d->redirected != 1)
+	if (d->redirected != 1 || d->redirected != 2)
 		d->next_part = i;
-	else
-	{
-		ft_printf("d->args->cmd_args[i - 2] : %s\n", d->args->cmd_args[i - 2]);
-		ft_printf("d->args->cmd_args[i - 3] : %s\n", d->args->cmd_args[i - 3]);
-		{
-			unlink(d->args->cmd_args[i - 1]);
-			fd = open(d->args->cmd_args[i - 1],
-					O_WRONLY | O_CREAT | O_APPEND, 0644);
-			close(fd);
-		}
-	}
 	fd = open(d->args->cmd_args[i + 1], O_WRONLY | O_CREAT | O_APPEND, 0644);
 	ft_printf("le fichier : %s a ete cree\n", d->args->cmd_args[i + 1]);
 	dup2(fd, STDOUT_FILENO);
-	d->redirected = 1;
+	d->redirected = 2;
 }

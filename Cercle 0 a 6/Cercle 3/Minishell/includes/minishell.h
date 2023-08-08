@@ -1,12 +1,12 @@
- /* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:48:12 by sdestann          #+#    #+#             */
-/*   Updated: 2023/07/11 11:54:47 by nours42          ###   ########.fr       */
+/*   Updated: 2023/08/08 14:42:46 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@
 
 // command stocke sert au parsing des commandes.
 
-typedef struct s_command
+typedef struct s_var
 {
 	int		quote_type;
 	char	*str;
@@ -95,8 +95,7 @@ typedef struct s_command
 	char	*commands[100];
 	size_t	num_words;
 	size_t	i;
-	int		brk;
-}				t_command;
+}				t_var;
 
 // liste chainee pour envp
 
@@ -116,10 +115,9 @@ typedef struct s_args
 
 typedef struct s_pipe
 {
-	int			infile; // fd d'origine
-	int			outfile; // fd de sortie
-	int			*pipe;
-	int			*pipe_idx;
+	int			infile;
+	int			outfile;
+	int			*pipe_fd;
 	int			cmd_nbrs;
 	int			nbr_of_pipe;
 	int			idx;
@@ -139,109 +137,137 @@ typedef struct s_data
 	int			*args_end;
 	int			args_max;
 	int			end;
-	int			boucle; //juste pour savoir a virer
-	pid_t		pid;
+	int			kill_process;
+	int			boucle;
+	pid_t		pid_pipe;
+	pid_t		pid_last;
 	t_args		*args;
-	t_command	*var;
+	t_var		*var;
 	t_envp		*envp;
 	t_pipe		*pipe;
 }				t_data;
 
-// cd.c
-
-char	*get_oldpwd(t_envp *envp);
-void	update_oldpwd(t_envp *envp, int a);
-void	update_pwd(t_data *data);
-void	ft_cd(t_data *data);
-
 // dobble_and
 
-void    dobble_and(t_data *data, char **envp);
-void    ft_dolls_and(t_data *data, char **envp);
-void    ft_pipe(t_data *data, char **envp);
+void	dobble_and(t_data *data, char **envp);
+void	ft_dolls_and(t_data *data, char **envp);
 
 // execute.c
 
 void	execute_cmd(t_data *data, char **envp);
 void	exec_last(t_data *data, char **envp);
 
-// exit.c
+// find_builtin.c
 
-void    ft_exit(t_data *data);
+int		find_builtin_outside(t_data *data);
+void	find_builtin_inside(t_data *data);
 
-// export.c
+// free_args.c
+
+void	ft_free_paths(t_data *data);
+void	ft_free_cmd_args(t_data *data);
+void	free_and_clear_args(t_data *data);
+
+// free_envp.c
+
+void	ft_free_envp(t_data *data);
+
+// free_pipe.c
+
+void	free_and_clear_pipe(t_data *data);
+
+// free_var.c
+
+void	free_and_clear_var(t_data *data);
+
+// free.c
+
+void	ft_free_original_prompt(int i, t_data *data);
+void	ft_free_all(int i, t_data *data);
+
+// ft_cd.c
+
+char	*get_oldpwd(t_envp *envp);
+void	update_oldpwd(t_envp *envp, int a);
+void	update_pwd(t_data *data);
+void	ft_cd(t_data *data);
+
+// ft_echo.c
+
+void	ft_echo(t_data *data);
+
+// ft_env
+
+void	ft_print_envp(t_data *data);
+
+// ft_exit.c
+
+void	check_exit(t_data *data);
+void	ft_exit(t_data *data);
+
+// ft_export.c
 
 void	ft_add_new_arg_envp(t_data *data, char *args);
 char	*ft_before_and_equal(char *s);
 void	ft_export(t_data *data, char *args);
 
-// free.c
+// ft_pwd.c
 
-void	ft_free_cmd_args(t_data *data);
-void	ft_free_args(t_data *data);
-void	ft_free_paths(t_data *data);
-void	ft_free_original_prompt(int i, t_data *data);
-void	ft_free_envp(t_data *data);
-void	ft_free_command_var(t_data *data);
-void	ft_free_all(int i, t_data *data);
+void	ft_pwd(void);
 
-// free_pipe.c
+// ft_unset.c
 
-void	parent_free(t_data *data);
-void	child_free(t_data *data);
-void	pipe_free(t_data *data);
+void	ft_delete_arg_envp(t_data *data, char *arg);
+void	ft_unset(t_data *data, char *args);
+void	update_path(t_data *data);
+void	check_unset(t_data *data);
 
 // init.c
 
+void	init_args(t_data *data);
 void	init_envp(t_data *data, char **envp);
 void	init_parse(t_data *data);
+void	init_pipe(t_data *data);
+void	init_var(t_data *data);
+
+// init2.c
+
 void	init_first(t_data *data, char **envp);
-void	init_minishell(t_data *data);
+
 // main.c
 
 char	*get_cmd(char **paths, char *cmd);
 void	get_readline(t_data *data);
 void	shell_loop(t_data *data, char **envp);
-int		find_builtin(t_data *data, char **envp);
 int		main(int argc, char **argv, char **envp);
 
 // parse.c
 
-void	ft_quote(t_data *data);
-void	ft_space(t_data *data);
-void	find_pipe(t_data *data);
 void	parse(t_data *data, char **envp);
+void	tokening(t_data *d);
+size_t	ft_find_char(char *s, int start, char c);
+void	ft_quote(t_data *data);
 
 // pipe.c
 
 void	how_many_pipe(t_data *data);
 void	execute_pipes(t_data *data, char **envp);
-void	close_pipes(t_data *data);
 void	sub_dup2(int zero, int first);
-void	child(t_data *d, char **envp);
-void	msg_pipe(char *arg, t_data *data);
 
 // print.c
 
-void	ft_show_envp(t_data *data);
-void	ft_print_args(t_data *data);
 void	ft_print_pipe_args(t_data *data);
+void	ft_print_args(t_data *data);
 void	ft_print_args_with_start_and_end(t_data *data);
-void	ft_echo(t_data *data);
 void	msg_error(char *err);
 void	print_intstar(int *i);
 void	print_all(t_data *data);
 
 // ptd.c
 
-void	tokening(t_data *data);
 int		find_dollar(char *s);
 void	find_and_replace(t_data *data, int i, int index_of_dollar);
 void	give_me_the_money(t_data *data);
-
-// pwd.c
-
-void	ft_pwd();
 
 // redirect.c
 
@@ -258,12 +284,6 @@ void	handle_signal(int signal);
 // token.c
 
 void	check_redirect(t_data *data);
-
-// unset.c
-
-void	ft_delete_arg_envp(t_data *data, char *arg);
-void	ft_unset(t_data *data, char *args);
-void	update_path(t_data *data);
 
 // utils.c
 

@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_pipe.c                                        :+:      :+:    :+:   */
+/*   free_envp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/25 00:25:12 by sdestann          #+#    #+#             */
-/*   Updated: 2023/08/07 11:47:46 by sdestann         ###   ########.fr       */
+/*   Created: 2023/08/02 13:39:58 by kaly              #+#    #+#             */
+/*   Updated: 2023/08/07 11:47:36 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	free_and_clear_pipe(t_data *data)
+void	ft_free_envp(t_data *data)
 {
-	int	i;
+	t_envp	*temp;
 
-	i = -1;
-	while (data->pipe->pipe_fd[++i])
-		data->pipe->pipe_fd[i] = 0;
-	i = -1;
-	data->pipe->cmd_nbrs = 0;
-	data->pipe->nbr_of_pipe = 0;
-	data->pipe->idx = 0;
-	close(data->pipe->infile);
-	close(data->pipe->outfile);
-	free(data->pipe);
+	temp = data->envp;
+	while (data->envp != NULL)
+	{
+		temp = data->envp;
+		data->envp = data->envp->next;
+		free(temp->str);
+		free(temp);
+	}
 }

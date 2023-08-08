@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ptd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:50:42 by sdestann          #+#    #+#             */
-/*   Updated: 2023/08/01 18:27:18 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/07 18:15:13 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,20 @@ void	find_and_replace(t_data *data, int i, int index_of_dollar)
 	if (index_of_dollar >= 0)
 	{
 		temp2 = (char *)malloc(sizeof(char) * index_of_dollar + 1);
+		temp2 = NULL;
 		while (++j < index_of_dollar)
 			temp2[j] = data->args->cmd_args[i][j];
 	}
 	copy = data->envp;
+	j = ft_strlen(temp);
 	while (copy)
 	{
-		if (ft_strncmp(temp, copy->str, ft_strlen(temp)) == 0)
+		if (ft_strncmp(temp, copy->str, j) == 0)
 		{
-			if (copy->str[ft_strlen(temp)] == '=')
+			if (copy->str[j] == '=')
 			{
 				data->args->cmd_args[i] = ft_strjoin(temp2,
-						ft_strndup(copy->str, ft_strlen(temp) + 1));
+						ft_strndup(copy->str, j + 1));
 				break ;
 			}
 		}
