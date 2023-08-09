@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:48:12 by sdestann          #+#    #+#             */
-/*   Updated: 2023/08/09 09:43:32 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/09 12:58:43 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ typedef struct s_pipe
 {
 	int			infile;
 	int			outfile;
-	int			*pipe_fd;
+	int			pipe_fd[2];
 	int			cmd_nbrs;
 	int			nbr_of_pipe;
 	int			idx;
@@ -137,8 +137,8 @@ typedef struct s_data
 	int			*args_end;
 	int			args_max;
 	int			end;
-	int			kill_process;
 	int			boucle;
+	int			error_number;
 	pid_t		pid_pipe;
 	pid_t		pid_last;
 	t_args		*args;
@@ -253,7 +253,6 @@ void	ft_quote(t_data *data);
 
 void	how_many_pipe(t_data *data);
 void	execute_pipes(t_data *data, char **envp);
-void	sub_dup2(int zero, int first);
 
 // print.c
 

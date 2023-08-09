@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 11:41:05 by nours42           #+#    #+#             */
-/*   Updated: 2023/08/08 14:43:01 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/09 13:05:16 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	init_pipe(t_data *data)
 	data->pipe->nbr_of_pipe = 0;
 	data->pipe->infile = dup(STDIN_FILENO);
 	data->pipe->outfile = dup(STDOUT_FILENO);
+	data->pipe->idx = 0;
+	data->pipe->cmd_nbrs = 0;
 }
 
 void	init_var(t_data *data)
@@ -57,11 +59,14 @@ void	init_var(t_data *data)
 	int		i;
 
 	i = 0;
-	if (data->var && data->var->commands[0] != NULL)
-		while (i <= 99)
-			data->var->commands[i++] = NULL;
-	else
-		data->var = (t_var *)malloc(sizeof(t_var));
+	// if (data->var && data->var->commands[0] != NULL)
+	// 	while (i <= 99)
+	// 		data->var->commands[i++] = NULL;
+	// else
+	// 	data->var = (t_var *)malloc(sizeof(t_var));
+	data->var = (t_var *)malloc(sizeof(t_var));
+	while (i <= 99)
+		data->var->commands[i++] = NULL;
 	data->var->i = 0;
 	data->var->num_words = 0;
 	data->var->quote_type = 0;

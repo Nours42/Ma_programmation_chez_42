@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 14:35:28 by sdestann          #+#    #+#             */
-/*   Updated: 2023/08/08 14:49:08 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/09 13:34:55 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,19 @@
 
 void	find_builtin_inside(t_data *data)
 {
+	// int	status;
+
 	if (ft_strcmp("echo", data->args->cmd_args[data->args_start]) == 0)
 		ft_echo(data);
 	else if (ft_strcmp("pwd", data->args->cmd_args[data->args_start]) == 0)
 		ft_pwd();
 	else if (ft_strcmp("env", data->args->cmd_args[data->args_start]) == 0)
 		ft_print_envp(data);
+	else if (ft_strcmp("$?", data->args->cmd_args[data->args_start]) == 0)
+	{
+		ft_printf("%d\n", data->error_number / 256);
+		exit(EXIT_SUCCESS);
+	}
 	else
 		return ;
 }

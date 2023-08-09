@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_args.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 12:50:18 by kaly              #+#    #+#             */
-/*   Updated: 2023/08/08 15:18:56 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/09 11:33:29 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,5 @@ void	free_and_clear_args(t_data *data)
 {
 	ft_free_paths(data);
 	ft_free_cmd_args(data);
+	free(data->args);
 }

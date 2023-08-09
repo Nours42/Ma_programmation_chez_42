@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 00:25:12 by sdestann          #+#    #+#             */
-/*   Updated: 2023/08/07 11:47:46 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/09 12:12:52 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,7 @@
 
 void	free_and_clear_pipe(t_data *data)
 {
-	int	i;
-
-	i = -1;
-	while (data->pipe->pipe_fd[++i])
-		data->pipe->pipe_fd[i] = 0;
-	i = -1;
+	// free(data->pipe->pipe_fd);
 	data->pipe->cmd_nbrs = 0;
 	data->pipe->nbr_of_pipe = 0;
 	data->pipe->idx = 0;

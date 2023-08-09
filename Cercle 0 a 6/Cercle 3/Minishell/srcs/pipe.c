@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 23:58:10 by sdestann          #+#    #+#             */
-/*   Updated: 2023/08/08 14:44:33 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/09 13:30:51 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	how_many_pipe(t_data *d)
 
 	i = -1;
 	j = 0;
+
 	while (d->args->cmd_args[++i])
 	{
 		if (ft_strcmp("|", d->args->cmd_args[i]) == 0)
@@ -29,8 +30,6 @@ void	how_many_pipe(t_data *d)
 	}
 	d->args_end[j] = i - 1;
 	d->args_max = d->args_end[j];
-	if (d->pipe->nbr_of_pipe > 0)
-		d->pipe->pipe_fd = (int *)malloc(sizeof(int) * d->pipe->nbr_of_pipe);
 	i = -1;
 	while (++i < d->pipe->nbr_of_pipe)
 		d->pipe->pipe_fd[i] = -1;
@@ -80,17 +79,10 @@ void	execute_pipes(t_data *d, char **envp)
 		}
 		else
 		{
-			waitpid(d->pid_pipe, NULL, 0);
+			waitpid(d->pid_pipe, &d->error_number, 0);
+			d->error_number *= 127;
 			dup2(d->pipe->pipe_fd[0], STDIN_FILENO);
 			close(d->pipe->pipe_fd[1]);
-			if (d->kill_process == 1)
-				exit(EXIT_FAILURE);
 		}
 	}
-}
-
-void	sub_dup2(int zero, int first)
-{
-	dup2(zero, 0);
-	dup2(first, 1);
 }

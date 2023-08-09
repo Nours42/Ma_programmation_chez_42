@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 11:07:40 by sdestann          #+#    #+#             */
-/*   Updated: 2023/08/08 14:38:28 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/09 13:30:04 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,15 @@ void	execute_cmd(t_data *d, char **envp)
 	}
 	if (d->cmd_prompt != NULL)
 		execve(d->cmd_prompt, d->args->cmd_args, envp);
-	else if (ft_strcmp(d->args->cmd_args[d->args_start + 1], "") == 0)
-		exit(EXIT_FAILURE);
+	// else if (ft_strcmp(d->args->cmd_args[d->args_start + 1], "") == 0)
+	// 	exit(EXIT_FAILURE);
 	else
 	{
 		ft_printf("%s : commande introuvable\n",
-			d->args->cmd_args[d->args_start + 1]);
-		free(d->args->cmd_args[d->args_start + 1]);
+			d->args->cmd_args[d->args_start]);
+		// free(d->args->cmd_args[d->args_start + 1]);
 		exit(EXIT_FAILURE);
 	}
-	perror("Erreur d'exécution de la commande\n");
-	exit(EXIT_FAILURE);
 }
 
 void	exec_last(t_data *d, char **envp)
@@ -75,9 +73,8 @@ void	exec_last(t_data *d, char **envp)
 		else
 		{
 			dup2(d->pipe->outfile, STDOUT_FILENO);
-			waitpid(d->pid_last, NULL, 0);
-			if (d->kill_process == 1)
-				exit(EXIT_FAILURE);
+			waitpid(d->pid_last, &d->error_number, 0);
+			d->error_number *= 127;
 		}
 	}
 }

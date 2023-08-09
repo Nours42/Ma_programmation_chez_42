@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:50:42 by sdestann          #+#    #+#             */
-/*   Updated: 2023/08/07 17:46:19 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/09 12:25:17 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	tokening(t_data *d)
 		d->var->num_words++;
 		d->var->i++;
 		d->var->quote_type = 0;
+		d->var->word = NULL;
+		free(d->var->word);
 	}
 }
 
@@ -87,7 +89,6 @@ void	ft_quote(t_data *d)
 				d->var->str = NULL;
 				d->var->i += last_index + 1;
 				j += last_index;
-				ft_printf("d->var->i dans ft_quote : %d\n", d->var->i);
 			}
 			else
 			{
