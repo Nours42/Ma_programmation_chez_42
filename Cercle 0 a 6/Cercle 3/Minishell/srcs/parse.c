@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:50:42 by sdestann          #+#    #+#             */
-/*   Updated: 2023/08/09 12:25:17 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/09 18:01:20 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,17 @@ void	tokening(t_data *d)
 	i = ft_strlen(d->original_prompt) + 1;
 	while (d->var->i < ft_strlen(d->original_prompt))
 	{
-		d->var->word = malloc(sizeof(char) * i);
+		// ft_printf("%d\n",d->var->i);
+		d->var->word = (char *)malloc(sizeof(char) * i);
 		ft_bzero(d->var->word, i);
 		ft_quote(d);
-		d->var->commands[(d->var->num_words)] = d->var->word;
-		d->var->num_words++;
+		if (ft_strcmp(d->var->word, "\0") != 0)
+		{
+			d->var->commands[(d->var->num_words)] = d->var->word;
+			d->var->num_words++;
+			d->var->word = NULL;
+			free(d->var->word);
+		}
 		d->var->i++;
 		d->var->quote_type = 0;
 		d->var->word = NULL;

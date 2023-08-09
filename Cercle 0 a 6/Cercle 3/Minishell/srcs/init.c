@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 11:41:05 by nours42           #+#    #+#             */
-/*   Updated: 2023/08/09 13:05:16 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/09 14:27:19 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,6 @@ void	init_var(t_data *data)
 	int		i;
 
 	i = 0;
-	// if (data->var && data->var->commands[0] != NULL)
-	// 	while (i <= 99)
-	// 		data->var->commands[i++] = NULL;
-	// else
-	// 	data->var = (t_var *)malloc(sizeof(t_var));
 	data->var = (t_var *)malloc(sizeof(t_var));
 	while (i <= 99)
 		data->var->commands[i++] = NULL;

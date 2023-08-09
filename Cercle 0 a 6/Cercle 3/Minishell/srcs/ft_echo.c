@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 13:29:56 by nours42           #+#    #+#             */
-/*   Updated: 2023/08/08 16:59:40 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/09 17:09:57 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,7 @@ void	ft_echo(t_data *d)
 	}
 	else
 		ft_printf("\n");
+	i = -1;
+	// ft_free_all(3, d);
 	exit(EXIT_SUCCESS);
 }

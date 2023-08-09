@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:09:36 by kaly              #+#    #+#             */
-/*   Updated: 2023/08/09 13:35:36 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/09 16:23:44 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ void	get_readline(t_data *data)
 	if (data->original_prompt != NULL)
 		ft_free_chars(data->original_prompt);
 	if (data->redirected != 49)
+	{
+		free(data->original_prompt);
 		data->original_prompt = readline("~>$ ");
+	}
 	else
 	{
 		data->original_prompt = readline("");
@@ -63,6 +66,8 @@ void	get_readline(t_data *data)
 	{
 		ft_free_all(0, data);
 		ft_printf("Minishell is closed.\nThat's the end of your life !\n");
+		// free(data->var->word);
+		rl_clear_history();
 		exit(EXIT_FAILURE);
 	}
 	add_history(data->original_prompt);

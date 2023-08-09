@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 12:12:14 by sdestann          #+#    #+#             */
-/*   Updated: 2023/08/09 13:02:30 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/09 15:42:39 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,17 @@ void	check_exit(t_data *data)
 
 void	ft_exit(t_data *data)
 {
+	int	i;
+
 	ft_printf("exit\n");
 	if (data->pid_last > 0)
 		kill(data->pid_last, SIGKILL);
-	free(data->var->commands[0]);
-	ft_free_all(3, data);
+	i = -1;
+	while (++i < (int)data->var->num_words)
+		free(data->var->commands[i]);
+	free(data->original_prompt);
+	free(data->cmd_prompt);
+	ft_free_all(0, data);
+	rl_clear_history();
 	exit(EXIT_FAILURE);
 }

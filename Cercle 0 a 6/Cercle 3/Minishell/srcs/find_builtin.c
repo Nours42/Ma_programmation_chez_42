@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 14:35:28 by sdestann          #+#    #+#             */
-/*   Updated: 2023/08/09 13:34:55 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/09 17:19:03 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@ void	find_builtin_inside(t_data *data)
 {
 	// int	status;
 
+	if ((ft_strcmp("echo", data->args->cmd_args[data->args_start]) == 0) && (ft_strcmp("$?", data->args->cmd_args[data->args_start + 1]) == 0))
+	{
+		ft_printf("%d\n", data->error_number / 256);
+		exit(EXIT_SUCCESS);
+	}
 	if (ft_strcmp("echo", data->args->cmd_args[data->args_start]) == 0)
 		ft_echo(data);
 	else if (ft_strcmp("pwd", data->args->cmd_args[data->args_start]) == 0)
@@ -24,10 +29,9 @@ void	find_builtin_inside(t_data *data)
 		ft_print_envp(data);
 	else if (ft_strcmp("$?", data->args->cmd_args[data->args_start]) == 0)
 	{
-		ft_printf("%d\n", data->error_number / 256);
+		ft_printf("%d : commande introuvable\n", data->error_number / 256);
 		exit(EXIT_SUCCESS);
 	}
-	else
 		return ;
 }
 

@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 14:00:42 by sdestann          #+#    #+#             */
-/*   Updated: 2023/08/09 13:00:43 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/09 13:56:40 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,5 @@ void	ft_free_all(int i, t_data *data)
 	free_and_clear_var(data);
 	close(data->pipe->infile);
 	free(data->pipe);
-	free(data->args_end);
 	free(data);
 }

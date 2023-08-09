@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:45:29 by jmetezea          #+#    #+#             */
-/*   Updated: 2023/08/09 10:57:11 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/09 17:06:40 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,5 @@ void	add_str_endlst(t_envp *envp, char *str)
 			envp = envp->next;
 		envp->next = new;
 	}
+	// free(new->str);
 }

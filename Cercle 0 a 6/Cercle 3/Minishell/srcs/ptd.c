@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:50:42 by sdestann          #+#    #+#             */
-/*   Updated: 2023/08/09 13:10:48 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/09 18:15:43 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,32 +40,35 @@ void	find_and_replace(t_data *data, int i, int index_of_dollar)
 	j = -1;
 	valeur_origine_args = ft_strdup(data->args->cmd_args[i]);
 	temp = ft_strndup(data->args->cmd_args[i], index_of_dollar + 1);
-	temp2 = malloc(0);
-	if (index_of_dollar >= 0)
-	{
-		temp2 = (char *)malloc(sizeof(char) * index_of_dollar + 1);
-		temp2 = NULL;
-		while (++j < index_of_dollar)
-			temp2[j] = data->args->cmd_args[i][j];
-	}
+	temp2 = (char *)malloc(sizeof(char) * index_of_dollar + 1);
+	while (++j < index_of_dollar)
+		temp2[j] = data->args->cmd_args[i][j];
 	copy = data->envp;
 	j = ft_strlen(temp);
 	while (copy)
 	{
-		if (ft_strncmp(temp, copy->str, j) == 0)
+		if ((ft_strncmp(temp, copy->str, j) == 0) && (copy->str[j] == '='))
 		{
-			if (copy->str[j] == '=')
+			free(temp);
+			free(data->args->cmd_args[i]);
+			temp = ft_strndup(copy->str, j + 1);
+			if (index_of_dollar != 0)
 			{
-				data->args->cmd_args[i] = ft_strjoin(temp2,
-						ft_strndup(copy->str, j + 1));
-				break ;
+				data->args->cmd_args[i] = ft_strjoin(temp2, temp);
+				free(temp);
 			}
+			else
+				data->args->cmd_args[i] = ft_strdup(temp);
+			free(temp2);
+			break ;
 		}
 		copy = copy->next;
 	}
 	if (ft_strncmp(data->args->cmd_args[i], valeur_origine_args,
 			ft_strlen(valeur_origine_args) - 1) == 0)
 		data->args->cmd_args[i] = temp2;
+	free(valeur_origine_args);
+	free(temp);
 }
 
 void	give_me_the_money(t_data *data)
