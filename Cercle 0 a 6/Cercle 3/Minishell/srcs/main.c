@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:09:36 by kaly              #+#    #+#             */
-/*   Updated: 2023/08/08 14:43:56 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/09 10:33:20 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,11 +109,30 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
 
-	if (argc > 1)
-		ft_printf("tu as cru m'avoir avec un env -i ? ah ah ah et bien oui");
+	(void)argc;
 	(void)argv;
 	data = (t_data *)malloc(sizeof(t_data));
+	if (envp[0] == NULL)
+		init_envp_in_i(data);
 	init_first(data, envp);
 	shell_loop(data, envp);
 	return (0);
+}
+
+void	init_envp_in_i(t_data *data)
+{
+	int	i;
+	char **envp2;
+
+	i = 3;
+	envp2 = (char **)malloc(sizeof(char *) * 3);
+	envp2[0] = ft_strdup("");
+	envp2[1] = ft_strdup("SHLVL=1\0");
+	envp2[2] = ft_strdup(getcwd(NULL, 0));
+	envp2[3] = ft_strdup("");
+	data->envp = (t_envp *)malloc(sizeof(t_envp));
+	data->envp->next = NULL;
+	data->envp->str = NULL;
+	while (--i > 0)
+		add_str_endlst(data->envp, envp2[i]);
 }

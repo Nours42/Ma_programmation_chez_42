@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:48:12 by sdestann          #+#    #+#             */
-/*   Updated: 2023/08/08 14:42:46 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/09 09:43:32 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,6 +240,7 @@ char	*get_cmd(char **paths, char *cmd);
 void	get_readline(t_data *data);
 void	shell_loop(t_data *data, char **envp);
 int		main(int argc, char **argv, char **envp);
+void	init_envp_in_i(t_data *data);
 
 // parse.c
 
