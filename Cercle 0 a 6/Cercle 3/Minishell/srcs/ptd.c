@@ -6,11 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:50:42 by sdestann          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/08/10 16:27:38 by sdestann         ###   ########.fr       */
-=======
-/*   Updated: 2023/08/10 12:12:27 by sdestann         ###   ########.fr       */
->>>>>>> bb6a7fbea488da8d2a8258804339c1d5318b2f78
+/*   Updated: 2023/08/10 16:45:07 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +31,11 @@ int	find_dollar(char *s)
 
 void	find_and_replace(t_data *data, int i, int index_of_dollar)
 {
-<<<<<<< HEAD
 	char		**temp;
-=======
-	char		*temp;
-	char		*temp2;
-	char		*temp3;
-	char		*valeur_origine_args;
->>>>>>> bb6a7fbea488da8d2a8258804339c1d5318b2f78
 	t_envp		*copy;
 	int			j;
 
 	j = -1;
-<<<<<<< HEAD
 	temp = (char **)malloc(sizeof(char *) * 4);
 	temp[0] = ft_strdup(data->args->cmd_args[i]);
 	temp[1] = (char *)malloc(sizeof(char) * index_of_dollar + 2);
@@ -91,72 +79,10 @@ void	find_and_replace(t_data *data, int i, int index_of_dollar)
 				}
 			}
 			data->args->cmd_args[i] = ft_strjoin(temp[2], temp[3]);
-=======
-
-	// la copie de l'oirginal
-
-	valeur_origine_args = ft_strdup(data->args->cmd_args[i]);
-
-	// le avant $:
-
-	temp2 = (char *)malloc(sizeof(char) * index_of_dollar + 1);
-	while (++j < index_of_dollar)
-		temp2[j] = data->args->cmd_args[i][j];
-	temp2[j] = '\0';
-	
-	// le après $ a découper au premier espace
-	if (data->args->cmd_args[i][index_of_dollar + 1] == 32)
-		temp = NULL;
-	else
-		temp = ft_strndup(data->args->cmd_args[i], index_of_dollar + 1);
-	
-	// je stocke le reste de la phrase a partir du premier espace :
-
-	j = ft_find_char(temp, 0, 32);
-	if (j == 0)
-		temp3 = NULL;
-	else
-	{
-		temp3 = ft_strndup(temp, j);
-		temp[j] = '\0';
-	}
-	copy = data->envp;
-	j = ft_strlen(temp);
-	ft_printf("temp ~~~%s~~~\n", temp);
-	ft_printf("temp2 ~~~%s~~~\n", temp2);
-	ft_printf("temp3 ~~~%s~~~\n", temp3);
-	while (copy)
-	{
-		if ((ft_strncmp(temp, copy->str, j) == 0) && (copy->str[j] == '='))
-		{
-			free(temp);
-			free(data->args->cmd_args[i]);
-			temp = ft_strndup(copy->str, j + 1);
-			if (index_of_dollar != 0)
-			{
-				if(temp && temp2)
-				{
-				// ft_printf("data->args->cmd_args[i] ~~~%s~~~\n", data->args->cmd_args[i]);
-				// ft_printf("size ~~~%d~~~\n", (int)ft_strlen(data->args->cmd_args[i]));
-					data->args->cmd_args[i] = ft_strjoin(temp2, temp);
-					free(temp);
-					temp = ft_strdup(data->args->cmd_args[i]);
-					free(data->args->cmd_args[i]);
-				}
-				// ft_printf("data->args->cmd_args[i] ~~~%s~~~\n", data->args->cmd_args[i]);
-				// ft_printf("size ~~~%d~~~\n", (int)ft_strlen(data->args->cmd_args[i]));
-				data->args->cmd_args[i] = ft_strjoin(temp, temp3);
-				// ft_printf("data->args->cmd_args[i] ~~~%s~~~\n", data->args->cmd_args[i]);
-				// ft_printf("size ~~~%d~~~\n", (int)ft_strlen(data->args->cmd_args[i]));
-			}
-			else
-				data->args->cmd_args[i] = ft_strjoin(temp, temp3);
->>>>>>> bb6a7fbea488da8d2a8258804339c1d5318b2f78
 			break ;
 		}
 		copy = copy->next;
 	}
-<<<<<<< HEAD
 	if (ft_strncmp(data->args->cmd_args[i], temp[0],
 			ft_strlen(temp[0]) - 1) == 0)
 	{
@@ -169,16 +95,6 @@ void	find_and_replace(t_data *data, int i, int index_of_dollar)
 	if (temp[3] != NULL)
 		free(temp[3]);
 	free(temp);
-=======
-	if (ft_strncmp(data->args->cmd_args[i], valeur_origine_args,
-			ft_strlen(valeur_origine_args) - 1) == 0)
-		data->args->cmd_args[i] = ft_strjoin(temp2, temp3);
-	free(valeur_origine_args);
-	free(temp);
-	free(temp2);
-	if (temp3 != NULL)
-		free(temp3);
->>>>>>> bb6a7fbea488da8d2a8258804339c1d5318b2f78
 }
 
 void	give_me_the_money(t_data *data)

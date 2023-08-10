@@ -6,11 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 11:41:05 by nours42           #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2023/08/10 14:53:31 by sdestann         ###   ########.fr       */
-=======
-/*   Updated: 2023/08/09 17:48:16 by sdestann         ###   ########.fr       */
->>>>>>> bb6a7fbea488da8d2a8258804339c1d5318b2f78
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +24,8 @@ void	init_first(t_data *data, char **envp)
 	}
 	else
 	{
-<<<<<<< HEAD
 		while (data->var->commands[++i])
 			free(data->var->commands[i]);
-=======
-		while(data->var->commands[++i])
-			free(data->var->commands[i]);
-		// i = -1;
-		// while(data->args->cmd_args[++i])
-		// 	free(data->args->cmd_args[i]);
->>>>>>> bb6a7fbea488da8d2a8258804339c1d5318b2f78
 		free_and_clear_args(data);
 		free_and_clear_var(data);
 		free_and_clear_pipe(data);

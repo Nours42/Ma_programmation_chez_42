@@ -3,20 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:45:29 by jmetezea          #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2023/08/10 16:17:47 by sdestann         ###   ########.fr       */
-=======
-/*   Updated: 2023/08/10 13:08:30 by sdestann         ###   ########.fr       */
->>>>>>> bb6a7fbea488da8d2a8258804339c1d5318b2f78
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-<<<<<<< HEAD
 int	ft_only_space(char *str)
 {
 	int	i;
@@ -32,8 +27,6 @@ int	ft_only_space(char *str)
 	return (1);
 }
 
-=======
->>>>>>> bb6a7fbea488da8d2a8258804339c1d5318b2f78
 char	*delete_last_char(char *str)
 {
 	int		i;
@@ -86,5 +79,4 @@ void	add_str_endlst(t_envp *envp, char *str)
 			envp = envp->next;
 		envp->next = new;
 	}
-	// free(new->str);
 }

@@ -6,11 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 13:44:31 by kaly              #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2023/08/10 14:42:08 by sdestann         ###   ########.fr       */
-=======
-/*   Updated: 2023/08/09 15:00:25 by sdestann         ###   ########.fr       */
->>>>>>> bb6a7fbea488da8d2a8258804339c1d5318b2f78
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,19 +55,9 @@ void	free_and_clear_var(t_data *data)
 		data->var->word = NULL;
 		free(data->var->word);
 	}
-	// ft_print_args(data);
 	i = -1;
 	while (++i < (int)data->var->num_words)
-<<<<<<< HEAD
 		free(data->var->commands[i]);
-=======
-	{
-		// ft_printf("%s\n", data->var->commands[i]);
-		free(data->var->commands[i]);
-	}
-	// free(data->var->commands);
-	// data->var->num_words = 0;
->>>>>>> bb6a7fbea488da8d2a8258804339c1d5318b2f78
 	data->var->i = 0;
 	free(data->var);
 }

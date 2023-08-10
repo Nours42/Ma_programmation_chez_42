@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 14:35:28 by sdestann          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/08/10 14:40:45 by sdestann         ###   ########.fr       */
-=======
-/*   Updated: 2023/08/09 17:19:03 by sdestann         ###   ########.fr       */
->>>>>>> bb6a7fbea488da8d2a8258804339c1d5318b2f78
+/*   Updated: 2023/08/10 16:46:13 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +14,15 @@
 
 void	find_builtin_inside(t_data *data)
 {
-<<<<<<< HEAD
-	if ((ft_strcmp("echo", data->args->cmd_args[data->args_start]) == 0)
-		&& (ft_strcmp("$?", data->args->cmd_args[data->args_start + 1]) == 0))
-=======
-	// int	status;
-
-	if ((ft_strcmp("echo", data->args->cmd_args[data->args_start]) == 0) && (ft_strcmp("$?", data->args->cmd_args[data->args_start + 1]) == 0))
->>>>>>> bb6a7fbea488da8d2a8258804339c1d5318b2f78
+	if (data->args->cmd_args[data->args_start + 1])
 	{
-		ft_printf("%d\n", data->error_number / 256);
-		exit(EXIT_SUCCESS);
+		if ((ft_strcmp("echo", data->args->cmd_args[data->args_start]) == 0)
+			&& (ft_strcmp("$?", data->args->cmd_args[data->args_start + 1])
+				== 0))
+		{
+			ft_printf("%d\n", data->error_number / 256);
+			exit(EXIT_SUCCESS);
+		}
 	}
 	if (ft_strcmp("echo", data->args->cmd_args[data->args_start]) == 0)
 		ft_echo(data);
@@ -41,11 +35,7 @@ void	find_builtin_inside(t_data *data)
 		ft_printf("%d : commande introuvable\n", data->error_number / 256);
 		exit(EXIT_SUCCESS);
 	}
-<<<<<<< HEAD
 	return ;
-=======
-		return ;
->>>>>>> bb6a7fbea488da8d2a8258804339c1d5318b2f78
 }
 
 int	find_builtin_outside(t_data *d)
