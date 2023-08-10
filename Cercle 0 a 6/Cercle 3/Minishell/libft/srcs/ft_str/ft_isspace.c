@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/04 16:30:25 by sdestann          #+#    #+#             */
-/*   Updated: 2023/08/09 11:04:08 by sdestann         ###   ########.fr       */
+/*   Created: 2023/07/05 09:04:44 by sdestann          #+#    #+#             */
+/*   Updated: 2023/08/10 14:25:36 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+/*
+** la fonction ft_isspaces renvoie 1 si le char * n'est composé que d'espaces
+** ou équivalent
+*/
 
-void	ft_print_envp(t_data *data)
+int	ft_isspace(char *c)
 {
-	int		i;
-	t_envp	*show_envp;
+	int	i;
 
-	show_envp = data->envp;
-	if (!show_envp)
-		return ;
-	i = 1;
-	while (show_envp != NULL)
+	i = 0;
+	while (c[i])
 	{
-		printf("nb %d : %s\n", i, show_envp->str);
-		show_envp = show_envp->next;
-		i++;
+		if (c[i] == 32 || (c[i] <= 13 && c[i] >= 9))
+			i++;
+		else
+			return (0);
 	}
-	free(show_envp);
-	exit(EXIT_SUCCESS);
+	return (1);
 }

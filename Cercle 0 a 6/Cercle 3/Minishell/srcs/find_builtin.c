@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 14:35:28 by sdestann          #+#    #+#             */
-/*   Updated: 2023/08/08 14:49:08 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/10 14:40:45 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,24 @@
 
 void	find_builtin_inside(t_data *data)
 {
+	if ((ft_strcmp("echo", data->args->cmd_args[data->args_start]) == 0)
+		&& (ft_strcmp("$?", data->args->cmd_args[data->args_start + 1]) == 0))
+	{
+		ft_printf("%d\n", data->error_number / 256);
+		exit(EXIT_SUCCESS);
+	}
 	if (ft_strcmp("echo", data->args->cmd_args[data->args_start]) == 0)
 		ft_echo(data);
 	else if (ft_strcmp("pwd", data->args->cmd_args[data->args_start]) == 0)
 		ft_pwd();
 	else if (ft_strcmp("env", data->args->cmd_args[data->args_start]) == 0)
 		ft_print_envp(data);
-	else
-		return ;
+	else if (ft_strcmp("$?", data->args->cmd_args[data->args_start]) == 0)
+	{
+		ft_printf("%d : commande introuvable\n", data->error_number / 256);
+		exit(EXIT_SUCCESS);
+	}
+	return ;
 }
 
 int	find_builtin_outside(t_data *d)

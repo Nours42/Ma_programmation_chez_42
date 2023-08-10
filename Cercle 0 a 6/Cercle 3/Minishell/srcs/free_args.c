@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_args.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 12:50:18 by kaly              #+#    #+#             */
-/*   Updated: 2023/08/08 15:18:56 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/10 14:36:50 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,16 @@
 // 	char		**cmd_paths;
 // 	char		**cmd_args;
 // }				t_args;
+
+// void	init_args(t_data *data)
+// {
+// 	data->args = (t_args *)malloc(sizeof(t_args));
+// 	data->args->cmd_paths = ft_split(find_path("PATH", data->envp), ':');
+// 	data->args_start = 0;
+// 	data->args_end = (int *)malloc(sizeof(int) * 100);
+// 	data->args_end[0] = 0;
+// 	data->args_max = 0;
+// }
 
 void	ft_free_paths(t_data *data)
 {
@@ -49,4 +59,6 @@ void	free_and_clear_args(t_data *data)
 {
 	ft_free_paths(data);
 	ft_free_cmd_args(data);
+	free(data->args_end);
+	free(data->args);
 }

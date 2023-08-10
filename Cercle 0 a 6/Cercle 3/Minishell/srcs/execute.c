@@ -6,11 +6,46 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 11:07:40 by sdestann          #+#    #+#             */
-/*   Updated: 2023/08/08 14:38:28 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/10 16:17:20 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	ft_cmp_paths(char *s1, char *s2)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] && s2[i])
+		i++;
+	return (i);
+}
+
+char	*get_cmd(char **paths, char *cmd)
+{
+	char	*tmp;
+	char	*command;
+
+	if (ft_strlen(cmd) == 0)
+		return (NULL);
+	if (cmd)
+	{
+		while (*paths)
+		{
+			if (ft_cmp_paths(cmd, *paths) >= 4)
+				return (cmd);
+			tmp = ft_strjoin(*paths, "/");
+			command = ft_strjoin(tmp, cmd);
+			free(tmp);
+			if (access(command, 0) == 0)
+				return (command);
+			free(command);
+			paths++;
+		}
+	}
+	return (NULL);
+}
 
 void	execute_cmd(t_data *d, char **envp)
 {
@@ -30,17 +65,12 @@ void	execute_cmd(t_data *d, char **envp)
 	}
 	if (d->cmd_prompt != NULL)
 		execve(d->cmd_prompt, d->args->cmd_args, envp);
-	else if (ft_strcmp(d->args->cmd_args[d->args_start + 1], "") == 0)
-		exit(EXIT_FAILURE);
 	else
 	{
 		ft_printf("%s : commande introuvable\n",
-			d->args->cmd_args[d->args_start + 1]);
-		free(d->args->cmd_args[d->args_start + 1]);
+			d->args->cmd_args[d->args_start]);
 		exit(EXIT_FAILURE);
 	}
-	perror("Erreur d'exécution de la commande\n");
-	exit(EXIT_FAILURE);
 }
 
 void	exec_last(t_data *d, char **envp)
@@ -55,7 +85,7 @@ void	exec_last(t_data *d, char **envp)
 		d->args_start = d->args_end[0] + 2;
 		d->args_end[0] = d->args_max;
 	}
-	if (ft_strcmp("", d->original_prompt) == 0)
+	if ((ft_strcmp("", d->original_prompt) == 0) || ft_only_space(d->original_prompt) == 1)
 		shell_loop(d, envp);
 	else
 	{
@@ -75,9 +105,8 @@ void	exec_last(t_data *d, char **envp)
 		else
 		{
 			dup2(d->pipe->outfile, STDOUT_FILENO);
-			waitpid(d->pid_last, NULL, 0);
-			if (d->kill_process == 1)
-				exit(EXIT_FAILURE);
+			waitpid(d->pid_last, &d->error_number, 0);
+			d->error_number *= 127;
 		}
 	}
 }

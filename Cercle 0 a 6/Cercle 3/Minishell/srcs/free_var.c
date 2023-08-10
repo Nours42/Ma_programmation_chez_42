@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_var.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 13:44:31 by kaly              #+#    #+#             */
-/*   Updated: 2023/08/08 14:43:15 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/10 14:42:08 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,21 @@
 // 	int		brk;
 // }				t_var;
 
+// void	init_var(t_data *data)
+// {
+// 	int		i;
+
+// 	i = 0;
+// 	data->var = (t_var *)malloc(sizeof(t_var));
+// 	while (i <= 99)
+// 		data->var->commands[i++] = NULL;
+// 	data->var->i = 0;
+// 	data->var->num_words = 0;
+// 	data->var->quote_type = 0;
+// 	data->var->str = NULL;
+// 	data->var->word = NULL;
+// }
+
 void	free_and_clear_var(t_data *data)
 {
 	int	i;
@@ -42,11 +57,7 @@ void	free_and_clear_var(t_data *data)
 	}
 	i = -1;
 	while (++i < (int)data->var->num_words)
-	{
-		if (data->var->commands[i] && data->var->commands[i] != NULL)
-			free(data->var->commands[i]);
-	}
-	data->var->num_words = 0;
+		free(data->var->commands[i]);
 	data->var->i = 0;
 	free(data->var);
 }

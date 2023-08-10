@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 15:04:29 by sdestann          #+#    #+#             */
-/*   Updated: 2023/07/24 12:13:11 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/09 15:42:30 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	handle_signal(int signal)
 {
 	if (signal == SIGINT)
 	{
-		write(1, "\b\b  \b\b\n", 7);
+		write(1, "~>$   \n", 7);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();

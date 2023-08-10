@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:48:12 by sdestann          #+#    #+#             */
-/*   Updated: 2023/08/08 14:42:46 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/10 16:17:17 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ typedef struct s_pipe
 {
 	int			infile;
 	int			outfile;
-	int			*pipe_fd;
+	int			pipe_fd[2];
 	int			cmd_nbrs;
 	int			nbr_of_pipe;
 	int			idx;
@@ -137,8 +137,8 @@ typedef struct s_data
 	int			*args_end;
 	int			args_max;
 	int			end;
-	int			kill_process;
 	int			boucle;
+	int			error_number;
 	pid_t		pid_pipe;
 	pid_t		pid_last;
 	t_args		*args;
@@ -195,6 +195,7 @@ void	ft_cd(t_data *data);
 // ft_echo.c
 
 void	ft_echo(t_data *data);
+void	ft_echo2(t_data *data, int i, int n);
 
 // ft_env
 
@@ -233,6 +234,7 @@ void	init_var(t_data *data);
 // init2.c
 
 void	init_first(t_data *data, char **envp);
+void	init_first_2(t_data *data);
 
 // main.c
 
@@ -240,6 +242,8 @@ char	*get_cmd(char **paths, char *cmd);
 void	get_readline(t_data *data);
 void	shell_loop(t_data *data, char **envp);
 int		main(int argc, char **argv, char **envp);
+void	control_d(t_data *data)
+void	init_envp_in_i(t_data *data);
 
 // parse.c
 
@@ -252,7 +256,7 @@ void	ft_quote(t_data *data);
 
 void	how_many_pipe(t_data *data);
 void	execute_pipes(t_data *data, char **envp);
-void	sub_dup2(int zero, int first);
+void	execute_pipe2(t_data *d, char **envp);
 
 // print.c
 

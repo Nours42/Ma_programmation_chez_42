@@ -6,22 +6,25 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:45:29 by jmetezea          #+#    #+#             */
-/*   Updated: 2023/08/08 15:47:41 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/10 16:17:47 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	ft_cmp_paths(char *s1, char *s2)
+int	ft_only_space(char *str)
 {
-	unsigned int	i;
+	int	i;
 
 	i = 0;
-	while (s1[i] == s2[i] && s1[i] && s2[i])
+	while (str[i])
 	{
-		i++;
+		if (str[i] == ' ' || str[i] == 9)
+			i++;
+		else
+			return (0);
 	}
-	return (i);
+	return (1);
 }
 
 char	*delete_last_char(char *str)
@@ -51,7 +54,7 @@ char	*find_path(char *s, t_envp *envp)
 		if (find_pa->next)
 			find_pa = find_pa->next;
 		else
-			return("");
+			return ("");
 	}
 	return (find_pa->str + (ft_strlen(s) + 1));
 }

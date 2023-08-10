@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 23:58:10 by sdestann          #+#    #+#             */
-/*   Updated: 2023/08/08 14:44:33 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/10 16:11:32 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ void	how_many_pipe(t_data *d)
 	}
 	d->args_end[j] = i - 1;
 	d->args_max = d->args_end[j];
-	if (d->pipe->nbr_of_pipe > 0)
-		d->pipe->pipe_fd = (int *)malloc(sizeof(int) * d->pipe->nbr_of_pipe);
 	i = -1;
 	while (++i < d->pipe->nbr_of_pipe)
 		d->pipe->pipe_fd[i] = -1;
@@ -59,38 +57,34 @@ void	execute_pipes(t_data *d, char **envp)
 	else if (ft_strcmp("unset", d->args->cmd_args[d->args_start]) == 0)
 		ft_unset(d, d->args->cmd_args[d->args_start + 1]);
 	else
-	{
-		check_exit(d);
-		if (find_builtin_outside(d))
-			return ;
-		d->pid_pipe = fork();
-		if (d->pid_pipe == -1)
-		{
-			close(d->pipe->pipe_fd[0]);
-			close(d->pipe->pipe_fd[1]);
-			msg_error("Fork on execute_pipe doesn't work.\n");
-		}
-		else if (d->pid_pipe == 0)
-		{
-			dup2(d->pipe->pipe_fd[1], STDOUT_FILENO);
-			close(d->pipe->pipe_fd[0]);
-			check_redirect(d);
-			find_builtin_inside(d);
-			execute_cmd(d, envp);
-		}
-		else
-		{
-			waitpid(d->pid_pipe, NULL, 0);
-			dup2(d->pipe->pipe_fd[0], STDIN_FILENO);
-			close(d->pipe->pipe_fd[1]);
-			if (d->kill_process == 1)
-				exit(EXIT_FAILURE);
-		}
-	}
+		execute_pipe2(d, envp);
 }
 
-void	sub_dup2(int zero, int first)
+void	execute_pipe2(t_data *d, char **envp)
 {
-	dup2(zero, 0);
-	dup2(first, 1);
+	check_exit(d);
+	if (find_builtin_outside(d))
+		return ;
+	d->pid_pipe = fork();
+	if (d->pid_pipe == -1)
+	{
+		close(d->pipe->pipe_fd[0]);
+		close(d->pipe->pipe_fd[1]);
+		msg_error("Fork on execute_pipe doesn't work.\n");
+	}
+	else if (d->pid_pipe == 0)
+	{
+		dup2(d->pipe->pipe_fd[1], STDOUT_FILENO);
+		close(d->pipe->pipe_fd[0]);
+		check_redirect(d);
+		find_builtin_inside(d);
+		execute_cmd(d, envp);
+	}
+	else
+	{
+		waitpid(d->pid_pipe, &d->error_number, 0);
+		d->error_number *= 127;
+		dup2(d->pipe->pipe_fd[0], STDIN_FILENO);
+		close(d->pipe->pipe_fd[1]);
+	}
 }
