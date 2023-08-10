@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 23:58:10 by sdestann          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/08/10 16:11:32 by sdestann         ###   ########.fr       */
+=======
+/*   Updated: 2023/08/09 13:30:51 by sdestann         ###   ########.fr       */
+>>>>>>> bb6a7fbea488da8d2a8258804339c1d5318b2f78
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +23,7 @@ void	how_many_pipe(t_data *d)
 
 	i = -1;
 	j = 0;
+
 	while (d->args->cmd_args[++i])
 	{
 		if (ft_strcmp("|", d->args->cmd_args[i]) == 0)
@@ -57,6 +62,7 @@ void	execute_pipes(t_data *d, char **envp)
 	else if (ft_strcmp("unset", d->args->cmd_args[d->args_start]) == 0)
 		ft_unset(d, d->args->cmd_args[d->args_start + 1]);
 	else
+<<<<<<< HEAD
 		execute_pipe2(d, envp);
 }
 
@@ -88,3 +94,33 @@ void	execute_pipe2(t_data *d, char **envp)
 		close(d->pipe->pipe_fd[1]);
 	}
 }
+=======
+	{
+		check_exit(d);
+		if (find_builtin_outside(d))
+			return ;
+		d->pid_pipe = fork();
+		if (d->pid_pipe == -1)
+		{
+			close(d->pipe->pipe_fd[0]);
+			close(d->pipe->pipe_fd[1]);
+			msg_error("Fork on execute_pipe doesn't work.\n");
+		}
+		else if (d->pid_pipe == 0)
+		{
+			dup2(d->pipe->pipe_fd[1], STDOUT_FILENO);
+			close(d->pipe->pipe_fd[0]);
+			check_redirect(d);
+			find_builtin_inside(d);
+			execute_cmd(d, envp);
+		}
+		else
+		{
+			waitpid(d->pid_pipe, &d->error_number, 0);
+			d->error_number *= 127;
+			dup2(d->pipe->pipe_fd[0], STDIN_FILENO);
+			close(d->pipe->pipe_fd[1]);
+		}
+	}
+}
+>>>>>>> bb6a7fbea488da8d2a8258804339c1d5318b2f78

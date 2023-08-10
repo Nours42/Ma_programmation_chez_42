@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:09:36 by kaly              #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/08/10 16:16:59 by sdestann         ###   ########.fr       */
+=======
+/*   Updated: 2023/08/10 13:26:21 by sdestann         ###   ########.fr       */
+>>>>>>> bb6a7fbea488da8d2a8258804339c1d5318b2f78
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +18,48 @@
 
 //pense bete :
 // les espaces dans echo      "test" doivent n'en faire qu'un
+<<<<<<< HEAD
 // shlvl + 1
 // et les leaks mais bon...
+=======
+// et les leaks mais bon...
+
+int	ft_cmp_paths(char *s1, char *s2)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] && s2[i])
+		i++;
+	return (i);
+}
+
+
+char	*get_cmd(char **paths, char *cmd)
+{
+	char	*tmp;
+	char	*command;
+
+	if (ft_strlen(cmd) == 0)
+		return (NULL);
+	if (cmd)
+	{
+		while (*paths)
+		{
+			if (ft_cmp_paths(cmd, *paths) >= 4)
+				return (cmd);
+			tmp = ft_strjoin(*paths, "/");
+			command = ft_strjoin(tmp, cmd);
+			free(tmp);
+			if (access(command, 0) == 0)
+				return (command);
+			free(command);
+			paths++;
+		}
+	}
+	return (NULL);
+}
+>>>>>>> bb6a7fbea488da8d2a8258804339c1d5318b2f78
 
 void	get_readline(t_data *data)
 {
@@ -39,7 +83,17 @@ void	get_readline(t_data *data)
 		}
 	}
 	if (!data->original_prompt)
+<<<<<<< HEAD
 		control_d(data);
+=======
+	{
+		ft_free_all(0, data);
+		ft_printf("Minishell is closed.\nThat's the end of your life !\n");
+		// free(data->var->word);
+		rl_clear_history();
+		exit(EXIT_FAILURE);
+	}
+>>>>>>> bb6a7fbea488da8d2a8258804339c1d5318b2f78
 	add_history(data->original_prompt);
 }
 
@@ -100,13 +154,22 @@ int	main(int argc, char **argv, char **envp)
 
 void	init_envp_in_i(t_data *data)
 {
+<<<<<<< HEAD
 	int		i;
 	char	**envp2;
+=======
+	int	i;
+	char **envp2;
+>>>>>>> bb6a7fbea488da8d2a8258804339c1d5318b2f78
 
 	i = 3;
 	envp2 = (char **)malloc(sizeof(char *) * 3);
 	envp2[0] = ft_strdup("");
+<<<<<<< HEAD
 	envp2[1] = ft_strdup("SHLVL=1\0");
+=======
+	envp2[1] = ft_strdup("SHLVL=1\0"); //ca il faut l'incrementer si minishelle dans minishell
+>>>>>>> bb6a7fbea488da8d2a8258804339c1d5318b2f78
 	envp2[2] = ft_strdup(getcwd(NULL, 0));
 	envp2[3] = ft_strdup("");
 	data->envp = (t_envp *)malloc(sizeof(t_envp));

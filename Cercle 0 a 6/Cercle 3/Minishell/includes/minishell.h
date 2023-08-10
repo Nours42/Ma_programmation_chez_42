@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:48:12 by sdestann          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/08/10 16:17:17 by sdestann         ###   ########.fr       */
+=======
+/*   Updated: 2023/08/09 14:27:00 by sdestann         ###   ########.fr       */
+>>>>>>> bb6a7fbea488da8d2a8258804339c1d5318b2f78
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,7 +246,10 @@ char	*get_cmd(char **paths, char *cmd);
 void	get_readline(t_data *data);
 void	shell_loop(t_data *data, char **envp);
 int		main(int argc, char **argv, char **envp);
+<<<<<<< HEAD
 void	control_d(t_data *data)
+=======
+>>>>>>> bb6a7fbea488da8d2a8258804339c1d5318b2f78
 void	init_envp_in_i(t_data *data);
 
 // parse.c
@@ -256,7 +263,10 @@ void	ft_quote(t_data *data);
 
 void	how_many_pipe(t_data *data);
 void	execute_pipes(t_data *data, char **envp);
+<<<<<<< HEAD
 void	execute_pipe2(t_data *d, char **envp);
+=======
+>>>>>>> bb6a7fbea488da8d2a8258804339c1d5318b2f78
 
 // print.c
 

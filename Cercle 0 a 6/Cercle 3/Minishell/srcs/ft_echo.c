@@ -6,7 +6,11 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 13:29:56 by nours42           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/08/10 14:49:34 by sdestann         ###   ########.fr       */
+=======
+/*   Updated: 2023/08/09 17:09:57 by sdestann         ###   ########.fr       */
+>>>>>>> bb6a7fbea488da8d2a8258804339c1d5318b2f78
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +57,10 @@ void	ft_echo(t_data *d)
 	else
 		ft_printf("\n");
 	i = -1;
+<<<<<<< HEAD
+=======
+	// ft_free_all(3, d);
+>>>>>>> bb6a7fbea488da8d2a8258804339c1d5318b2f78
 	exit(EXIT_SUCCESS);
 }
 
