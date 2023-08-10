@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 11:07:40 by sdestann          #+#    #+#             */
-/*   Updated: 2023/08/09 13:30:04 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/10 13:09:48 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,10 @@ void	execute_cmd(t_data *d, char **envp)
 	}
 	if (d->cmd_prompt != NULL)
 		execve(d->cmd_prompt, d->args->cmd_args, envp);
-	// else if (ft_strcmp(d->args->cmd_args[d->args_start + 1], "") == 0)
-	// 	exit(EXIT_FAILURE);
 	else
 	{
 		ft_printf("%s : commande introuvable\n",
 			d->args->cmd_args[d->args_start]);
-		// free(d->args->cmd_args[d->args_start + 1]);
 		exit(EXIT_FAILURE);
 	}
 }

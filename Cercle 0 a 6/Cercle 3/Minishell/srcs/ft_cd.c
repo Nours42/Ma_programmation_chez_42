@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 12:12:14 by sdestann          #+#    #+#             */
-/*   Updated: 2023/08/08 15:13:09 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/10 09:54:34 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ void	ft_cd(t_data *data)
 	char	*oldpwd;
 	char	*pwd;
 	
-	ft_printf("args_end : %d\n", data->args_end[0]);
-	ft_printf("args_start : %d\n", data->args_start);
+	// ft_printf("args_end : %d\n", data->args_end[0]);
+	// ft_printf("args_start : %d\n", data->args_start);
 	if ((data->args_end[0] - data->args_start) < 1)
 		return (ft_putstr_fd("bash: cd: one argument needed\n", 2));
 	else if ((data->args_end[0] - data->args_start) > 1)

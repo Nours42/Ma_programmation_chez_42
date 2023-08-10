@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:09:36 by kaly              #+#    #+#             */
-/*   Updated: 2023/08/09 16:23:44 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/10 13:26:21 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,17 @@
 //pense bete :
 // les espaces dans echo      "test" doivent n'en faire qu'un
 // et les leaks mais bon...
+
+int	ft_cmp_paths(char *s1, char *s2)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] && s2[i])
+		i++;
+	return (i);
+}
+
 
 char	*get_cmd(char **paths, char *cmd)
 {
@@ -27,7 +38,7 @@ char	*get_cmd(char **paths, char *cmd)
 	{
 		while (*paths)
 		{
-			if (ft_cmp_paths(cmd, *paths) > 4)
+			if (ft_cmp_paths(cmd, *paths) >= 4)
 				return (cmd);
 			tmp = ft_strjoin(*paths, "/");
 			command = ft_strjoin(tmp, cmd);

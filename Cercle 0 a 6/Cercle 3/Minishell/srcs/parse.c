@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:50:42 by sdestann          #+#    #+#             */
-/*   Updated: 2023/08/09 18:01:20 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/08/10 13:11:10 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,9 @@ void	parse(t_data *data, char **envp)
 
 void	tokening(t_data *d)
 {
-	int	i;
-
-	i = ft_strlen(d->original_prompt) + 1;
+	
 	while (d->var->i < ft_strlen(d->original_prompt))
 	{
-		// ft_printf("%d\n",d->var->i);
-		d->var->word = (char *)malloc(sizeof(char) * i);
-		ft_bzero(d->var->word, i);
 		ft_quote(d);
 		if (ft_strcmp(d->var->word, "\0") != 0)
 		{
@@ -41,11 +36,15 @@ void	tokening(t_data *d)
 			d->var->word = NULL;
 			free(d->var->word);
 		}
+		else
+		{
+			d->var->word = NULL;
+			free(d->var->word);
+		}
 		d->var->i++;
 		d->var->quote_type = 0;
-		d->var->word = NULL;
-		free(d->var->word);
 	}
+
 }
 
 size_t	ft_find_char(char *s, int start, char c)
@@ -69,11 +68,10 @@ void	ft_quote(t_data *d)
 	int		j;
 
 	j = 0;
-	while (d->original_prompt[d->var->i]
-		&& d->original_prompt[d->var->i] != ' ')
+	d->var->word = ft_calloc(sizeof(char), (int)ft_strlen(d->original_prompt) + 1);
+	while (d->original_prompt[d->var->i] && d->original_prompt[d->var->i] != ' ')
 	{
-		if ((d->original_prompt[d->var->i] != '\''
-				&& d->original_prompt[d->var->i] != '"'))
+		if ((d->original_prompt[d->var->i] != '\'' && d->original_prompt[d->var->i] != '"'))
 		{
 			d->var->word[j] = d->original_prompt[d->var->i];
 			d->var->i++;
@@ -83,13 +81,10 @@ void	ft_quote(t_data *d)
 		{
 			d->var->quote_type = d->original_prompt[d->var->i];
 			d->var->i++;
-			last_index
-				= ft_find_char(d->original_prompt,
-					d->var->i, d->var->quote_type);
+			last_index = ft_find_char(d->original_prompt, d->var->i, d->var->quote_type);
 			if (last_index > 0)
 			{
-				d->var->str
-					= ft_substr(d->original_prompt, d->var->i, last_index);
+				d->var->str	= ft_substr(d->original_prompt, d->var->i, last_index);
 				d->var->word = ft_strcat(d->var->word, d->var->str);
 				free(d->var->str);
 				d->var->str = NULL;
