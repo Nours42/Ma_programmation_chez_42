@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:54:28 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/07 17:44:06 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/08 11:51:30 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,114 +53,75 @@
 // prevoir la possibilite de remplir les caracteres manquant par des 0.
 //
 
-int	is_valid_line(char *s)
+int	color_verif(char *s)
 {
 	int	i;
 
-	i = 0;
-	while (s[i] != '\n')
+	if(s)
 	{
-		if (s[i] == ' ' || s[i] =='\t' || s[i] =='0' || s[i] =='1'
-			|| s[i] =='E' || s[i] =='N' || s[i] =='S' || s[i] =='W')
-		i++;
-		else
+		i = ft_atoi(s);
+		if (i < 0 || i > 255)
 			return (1);
+		if (i < 10)
+			return (2);
+		if (i < 100)
+			return (3);
+		else
+			return (4);
 	}
 	return (0);
 }
 
-int	begin_by_one(char *s)
+int	fc_validation(char *s, int i)
 {
-	int i;
+	int		j;
+	int		k;
+	char	*s2;
 
-	i = 0;
-	while (s[i] == ' ' || s[i] == '\t')
-		i++;
-	if (s[i] == 49)
-		return (0);
-	return (1);
-}
-
-int	ends_by_one(char *s)
-{
-	int i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	i -= 2;
-	while (s[i] == 32)
-		i--;
-	if (s[i] == 49)
-		return (0);
-	return (1);
-}
-
-int map_validation(char **cub)
-{
-	int		i;
-
-	i = 5;
-	while (cub[++i])
+	s2 = s + 2;
+	j = 1;
+	if ((i == 1 && ft_strncmp(s, "F ", 2) != 0)
+		|| (i == 2 && ft_strncmp(s, "C ", 2) != 0))
+		return (1);
+	while (j < 4)
 	{
-		if(is_valid_line(cub[i]))
-			return (err("erreur dans l'une des lignes de la map : caractere incorrect\n"));
-		else if (begin_by_one(cub[i]))
-			return (err("erreur dans l'une des lignes de la map"), 
-				err(": ouverture dans un mur\n"));
-		else if (ends_by_one(cub[i]))
-			return (err("erreur dans l'une des lignes de la map"), 
-				err(": fermeture dans un mur\n"));
-	}
-	return (0);
-}
-
-int	*player_coordonate(char **cub)
-{
-	int	i;
-	int	j;
-	int	coord[2];
-
-	i = 0;
-	j = 0;
-	coord = (int*)malloc(sizeof(int) * 2);
-	coord[0] = 0;
-	coord[1] = 0;
-	while (cub[i])
-	{
-		while (cub[i][j])
+		k = color_verif(s2);
+		if (k == 1)
 		{
-			if (cub[i][j] =='E' || cub[i][j] =='N' || cub[i][j] =='S'
-				|| cub[i][j] =='W')
-				coord[0] = i;
-				coord[1] = j;
-			j++;
+			if (j == 1)
+				return (titre_err(" 1st color "));
+			if (j == 2)
+				return (titre_err(" 2nd color "));
+			if (j == 3)
+				return (titre_err(" 3rd color "));
 		}
-		i++;
+			s2 += k;
+		j++;
 	}
-	return (coord);
+	return (0);
 }
 
-int	player_can_moove(char **cub)
+int	cub_validation(t_map	*cub)
 {
-	int	coord[2];
-
-	coord = player_coordonate(cub);
-	printf("%s\n", cub[coord[0] - 1]);
-}
-
-int	cub_validation(char **cub)
-{
-	if (ft_strncmp(cub[0], "NO", 2) != 0
-		|| ft_strncmp(cub[1], "SO", 2) != 0
-		|| ft_strncmp(cub[2], "WE", 2) != 0
-		|| ft_strncmp(cub[3], "EA", 2) != 0)
-		return (err("textures incorrectes\n"));
-	if (ft_strncmp(cub[4], "F ", 2) != 0
-		|| ft_strncmp(cub[5], "C ", 2) != 0)
-		return (err("FLOOR ou CEILING manquant\n"));
+	if (ft_strncmp(cub->map[0], "NO", 2) != 0
+		|| ft_strncmp(cub->map[1], "SO", 2) != 0
+		|| ft_strncmp(cub->map[2], "WE", 2) != 0
+		|| ft_strncmp(cub->map[3], "EA", 2) != 0)
+		return (err_map("Textures"));
+	else
+		ft_printf("Textures :\t\t\t\033[32mOK\033[0m\n");
+	if (fc_validation(cub->map[4], 1))
+		return (titre_err(" FLOOR manquant "));
+	else
+		ft_printf("Floor :\t\t\t\t\033[32mOK\033[0m\n");
+	if (fc_validation(cub->map[5], 2))
+		return (titre_err(" CEILING manquant "));
+	else
+		ft_printf("Ceiling :\t\t\t\033[32mOK\033[0m\n");
 	if (map_validation(cub))
-		return (err("erreur dans la map\n"));
+		return (1);
+	else
+		ft_printf("structure de la map :\t\t\033[32mOK\033[0m\n\n");
 	return (0);
 }
 
@@ -169,11 +130,12 @@ int	main(int argc, char **argv)
 	int		fd;
 	int		i;
 	char	*str;
-	char	**cub;
+	t_map	*cub;
 
 	if (argc > 1)
 	{
-		cub = (char **)malloc(sizeof(char *) * 1024);
+		cub = (t_map *)malloc(sizeof(t_map));
+		cub->map = (char **)malloc(sizeof(char *) * 100);
 		fd = open(argv[1], O_RDONLY);
 		i = -1;
 		str = ft_get_next_line(fd);
@@ -181,15 +143,30 @@ int	main(int argc, char **argv)
 			return (err("erreur dans l'ouverture de la map\n"));;
 		while (str)
 		{
-			cub[++i] = ft_strdup(str);
+			cub->map[++i] = ft_strdup(str);
 			free(str);
 			str = ft_get_next_line(fd);
 		}
+		ft_printf("\e[1;1H\e[2J");
+		titre(" TEST DE LA MAP ");
 		if (cub_validation(cub))
-			return (err("la carte "), err(argv[1]), err(" est invalide\n"));
+			return(titre_err(" MAP : KO "));
 		else
-			ft_printf("la carte est valide\n");
-		ft_free_chars(cub);
+			titre(" MAP : OK ");
+		player_coordonate(cub);
+		titre(" TEST PERSO ");
+		if (only_one_player(cub))
+			return (titre_err(" too perso "));
+		else
+			ft_printf("Personnage : 1\t\t\t\033[32mOK\033[0m\n");
+		if (player_can_moove(cub))
+			return (titre_err(" pers moove "));
+		else
+		{
+			ft_printf("Personnage : peut bouger\t\033[32mOK\033[0m\n\n");
+			titre(" PERSO : OK ");
+		}
+		free(cub);
 	}
 	else
 		return (err("ou est la carte ?\n"));

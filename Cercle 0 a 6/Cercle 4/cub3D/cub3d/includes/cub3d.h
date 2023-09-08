@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 12:03:23 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/07 17:32:01 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/08 11:51:59 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,13 @@ typedef struct s_mlx
 	int			color_b;
 }				t_mlx;
 
+typedef struct s_map
+{
+	int		coord[2];
+	char	**map;
+}				t_map;
+
+
 /*** FUNCTIONS ***/
 
 // control.c
@@ -121,7 +128,8 @@ int		mouse_controls(int button, int x, int y, t_mlx *mlx);
 
 // error.c
 
-int	err(char *str);
+int		err(char *str);
+int		err_map(char *str);
 
 // main.c
 
@@ -132,13 +140,30 @@ int		rerender(t_mlx *mlx);
 
 // maps.c
 
-int	is_valid_line(char *s);
-int	begin_by_one(char *s);
-int	ends_by_one(char *s);
-int	*player_coordonate(char **cub);
-int	player_can_moove(char **cub);
-int	map_validation(char **cub);
-int	cub_validation(char **cub);
-int	main(int argc, char **argv);
+int		color_verif(char *s);
+int		fc_validation(char *s, int i);
+int		cub_validation(t_map	*cub);
+int		main(int argc, char **argv);
+
+// print.c
+
+
+void	titre(char *str);
+int		titre_err(char *str);
+void	line_up(int i);
+void	line(int i);
+
+// verif_map.c
+
+int		is_valid_line(char *s);
+int		begin_by_one(char *s);
+int		ends_by_one(char *s);
+int		map_validation(t_map *cub);
+
+// verif_player.c
+
+void	player_coordonate(t_map *cub);
+int		player_can_moove(t_map *cub);
+int		only_one_player(t_map *cub);
 
 #endif

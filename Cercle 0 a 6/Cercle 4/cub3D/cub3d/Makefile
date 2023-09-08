@@ -6,7 +6,7 @@
 #    By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/22 14:21:35 by sdestann          #+#    #+#              #
-#    Updated: 2023/09/07 11:39:07 by sdestann         ###   ########.fr        #
+#    Updated: 2023/09/08 11:53:56 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,9 +19,14 @@ HEADER_DIR = includes/
 HEADER = $(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 
 SRCS_DIR = srcs/
-SRCS =	controls.c	\
-		error.c		\
-		main.c
+SRCS =	controls.c		\
+		error.c			\
+		main.c			\
+		maps.c			\
+		note_maps.c		\
+		print.c			\
+		verif_map.c		\
+		verif_player.c
 
 OBJDIR = objs
 

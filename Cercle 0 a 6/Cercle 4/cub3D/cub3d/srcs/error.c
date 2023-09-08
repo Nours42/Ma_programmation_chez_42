@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/07 11:00:18 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/07 13:25:13 by sdestann         ###   ########.fr       */
+/*   Created: 2023/09/08 11:52:09 by sdestann          #+#    #+#             */
+/*   Updated: 2023/09/08 11:52:32 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,12 @@ int	err(char *str)
 		write(2, &str[i], 1);
 		i++;
 	}
+	return (1);
+}
+
+int	err_map(char *str)
+{
+	ft_printf("%s :", str);
+	ft_printf("\t\t\t\033[31mKO\033[0m\n");
 	return (1);
 }
