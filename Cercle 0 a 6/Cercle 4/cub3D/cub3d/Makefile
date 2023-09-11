@@ -6,7 +6,7 @@
 #    By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/22 14:21:35 by sdestann          #+#    #+#              #
-#    Updated: 2023/09/08 11:53:56 by sdestann         ###   ########.fr        #
+#    Updated: 2023/09/11 11:33:57 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ HEADER = $(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 SRCS_DIR = srcs/
 SRCS =	controls.c		\
 		error.c			\
+		game_over.c		\
 		main.c			\
 		maps.c			\
 		note_maps.c		\

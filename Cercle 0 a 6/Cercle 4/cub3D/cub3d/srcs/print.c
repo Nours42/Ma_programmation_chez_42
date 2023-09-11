@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:00:18 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/08 11:52:30 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/11 13:00:15 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,22 @@
 void	titre(char *str)
 {
 	int		i;
-	int		j;
 
 	i = ft_strlen(str);
 	if (!str)
 		return ;
 	line(1);
 	ft_printf("\t*** ");
+	titre2(str, i);
+	ft_printf(" ***\n");
+	line(2);
+	ft_printf("\n");
+}
+
+void	titre2(char *str, int i)
+{
+	int		j;
+
 	if (i < 16)
 	{
 		i = (16 - ft_strlen(str)) / 2;
@@ -42,15 +51,11 @@ void	titre(char *str)
 	}
 	else
 		ft_printf("%s", str);
-	ft_printf(" ***\n");
-	line(2);
-	ft_printf("\n");
 }
 
 int	titre_err(char *str)
 {
 	int		i;
-	int		j;
 
 	i = ft_strlen(str);
 	if (!str)
@@ -58,32 +63,12 @@ int	titre_err(char *str)
 	ft_printf("\n");
 	line(3);
 	ft_printf("\t*** ");
-	if (i < 16)
-	{
-		i = (16 - ft_strlen(str)) / 2;
-		j = -1;
-		while (++j < i)
-			ft_printf(" ");
-		ft_printf("%s", str);
-		j = -1;
-		while (++j < i)
-			ft_printf(" ");
-	}
-	else if (i > 16)
-	{
-		j = -1;
-		while (++j < 15)
-			ft_printf("%c", str[j]);
-		ft_printf(".");
-	}
-	else
-		ft_printf("%s", str);
+	titre2(str, i);
 	ft_printf(" ***\n");
 	line(2);
 	ft_printf("\n");
 	return (1);
 }
-
 
 void	line_up(int i)
 {

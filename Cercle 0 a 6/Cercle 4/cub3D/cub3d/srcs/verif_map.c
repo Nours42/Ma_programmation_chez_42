@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:50:43 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/08 11:51:10 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/11 12:59:15 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	is_valid_line(char *s)
 	i = 0;
 	while (s[i] != '\n')
 	{
-		if (s[i] == ' ' || s[i] =='\t' || s[i] =='0' || s[i] =='1'
-			|| s[i] =='E' || s[i] =='N' || s[i] =='S' || s[i] =='W')
-		i++;
+		if (s[i] == ' ' || s[i] == '\t' || s[i] == '0' || s[i] == '1'
+			|| s[i] == 'E' || s[i] == 'N' || s[i] == 'S' || s[i] == 'W')
+			i++;
 		else
 			return (1);
 	}
@@ -30,7 +30,7 @@ int	is_valid_line(char *s)
 
 int	begin_by_one(char *s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s[i] == ' ' || s[i] == '\t')
@@ -42,7 +42,7 @@ int	begin_by_one(char *s)
 
 int	ends_by_one(char *s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s[i])
@@ -55,17 +55,31 @@ int	ends_by_one(char *s)
 	return (1);
 }
 
-int map_validation(t_map	*cub)
+int	map_validation(t_map *cub)
 {
 	int		i;
 
 	i = 5;
 	while (cub->map[++i])
 	{
-		if(is_valid_line(cub->map[i]))
+		if (is_valid_line(cub->map[i]))
 			return (titre_err(" car. incorrect "));
 		else if (begin_by_one(cub->map[i]) || ends_by_one(cub->map[i]))
 			return (titre_err(" mur ouvert "));
 	}
+	return (0);
+}
+
+int	ft_cub(char *argv)
+{
+	int	len;
+
+	len = ft_strlen(argv);
+	if (len - 4 < 0)
+		len = 0;
+	else
+		len = len - 4;
+	if ((ft_strncmp(argv + len, ".cub", 4)))
+		return (err("Error\nInvalide map file : file extention isn't .cub"));
 	return (0);
 }

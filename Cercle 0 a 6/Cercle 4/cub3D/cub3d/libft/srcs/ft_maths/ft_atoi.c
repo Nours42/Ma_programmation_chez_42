@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 07:57:22 by sdestann          #+#    #+#             */
-/*   Updated: 2023/04/12 10:02:13 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/11 13:02:48 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ int	ft_atoi(const char *str)
 	i = 0;
 	nbr = 0;
 	isneg = 0;
-	while (str[i] != '\0' && (str[i] == 32 || str[i] == '\t' || str[i] == '\n'
-			|| str[i] == '\r' || str[i] == '\v' || str[i] == '\f'))
+	while (str[i] != '\0' && (str[i] == 32 || str[i] == '\t'
+			|| str[i] == '\n' || str[i] == '\r' || str[i] == '\v'
+			|| str[i] == '\f'))
 		i++;
 	if (str[i] != '\0' && str[i] == '-')
 	{
