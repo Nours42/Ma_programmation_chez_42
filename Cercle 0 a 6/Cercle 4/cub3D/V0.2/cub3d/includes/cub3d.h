@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 12:03:23 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/09 16:01:12 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/12 16:34:23 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ typedef struct s_map
 {
 	int		coord[2];
 	char	**map;
+	char	*color_map_hex;
 }				t_map;
 
 typedef struct t_data
@@ -158,6 +159,11 @@ void	titre(char *str);
 int		titre_err(char *str);
 void	line_up(int i);
 void	line(int i);
+
+// utils.c
+
+char	*make_color_hex(int n);
+char	*get_map_color(t_data *data);
 
 // verif_map.c
 

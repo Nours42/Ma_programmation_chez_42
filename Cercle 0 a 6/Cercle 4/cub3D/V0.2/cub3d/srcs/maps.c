@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maps.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:54:28 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/09 15:35:20 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/12 16:39:19 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,6 @@ int	ft_check(int argc, char **argv, t_map *cub)
 			ft_printf("Personnage : peut bouger\t\033[32mOK\033[0m\n\n");
 			titre(" PERSO : OK ");
 		}
-		free(cub);
 	}
 	else
 		return (err("ou est la carte ?\n"));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 10:47:16 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/09 16:11:11 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/12 16:42:39 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	init_params(t_data *data)
 	data->mlx->center_x = 0.0;
 	data->mlx->center_y = 0.0;
 	data->mlx->max_iter = 100;
+	data->map->color_map_hex = strdup(get_map_color(data));
+	ft_printf("%s\n", data->map->color_map_hex);
 	return (0);
 }
 
@@ -51,6 +53,7 @@ int	main(int argc, char **argv)
 	data->map = (t_map *)malloc(sizeof(t_map));
 	ft_check(argc, argv, data->map);
 	init_params(data);
+	ft_printf("%s\n", data->map->color_map_hex);
 	data->mlx->mlx = mlx_init();
 	data->mlx->window = mlx_new_window(data->mlx->mlx, WINDOW_W, WINDOW_H, "cub3d");
 	data->image->image_ptr = mlx_new_image(data->mlx->mlx, WINDOW_W, WINDOW_H);

@@ -6,7 +6,7 @@
 #    By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/22 14:21:35 by sdestann          #+#    #+#              #
-#    Updated: 2023/09/08 11:53:56 by sdestann         ###   ########.fr        #
+#    Updated: 2023/09/12 16:33:02 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS =	controls.c		\
 		maps.c			\
 		note_maps.c		\
 		print.c			\
+		utils.c			\
 		verif_map.c		\
 		verif_player.c
 
