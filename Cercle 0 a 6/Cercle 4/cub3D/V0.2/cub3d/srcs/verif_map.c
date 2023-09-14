@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:50:43 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/08 11:51:10 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:04:09 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,16 @@ int	ends_by_one(char *s)
 	return (1);
 }
 
-int map_validation(t_map	*cub)
+int map_validation(t_data *data)
 {
 	int		i;
 
 	i = 5;
-	while (cub->map[++i])
+	while (data->map->map[++i])
 	{
-		if(is_valid_line(cub->map[i]))
+		if(is_valid_line(data->map->map[i]))
 			return (titre_err(" car. incorrect "));
-		else if (begin_by_one(cub->map[i]) || ends_by_one(cub->map[i]))
+		else if (begin_by_one(data->map->map[i]) || ends_by_one(data->map->map[i]))
 			return (titre_err(" mur ouvert "));
 	}
 	return (0);

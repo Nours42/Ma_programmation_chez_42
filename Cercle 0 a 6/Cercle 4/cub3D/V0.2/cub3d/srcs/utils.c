@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:20:10 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/12 16:42:12 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:21:47 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,13 @@ char	*make_color_hex(int n)
 char	*get_map_color(t_data *data)
 {
 	char	*color_map_hex;
+	char	*res;
 	int		i;
 	int		j;
 	int		k;
 
 	j = 1;
+	res = 0;
 	color_map_hex = ft_strdup(data->map->map[4]);
 	color_map_hex += 2;
 	while (j < 4)
@@ -46,11 +48,11 @@ char	*get_map_color(t_data *data)
 		else
 			k = 4;
 		if (j == 1)
-			color_map_hex = ft_strjoin("0x00", make_color_hex(i));
+			res = ft_strjoin("0x00", make_color_hex(i));
 		else
-			color_map_hex = ft_strjoin(color_map_hex, make_color_hex(i));
+			res = ft_strjoin(res, make_color_hex(i));
 		color_map_hex += k;
 		j++;
 	}
-	return (color_map_hex);
+	return (res);
 }

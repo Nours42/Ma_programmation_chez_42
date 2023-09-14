@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maps.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:54:28 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/12 16:39:19 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:16:12 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,31 +101,31 @@ int	fc_validation(char *s, int i)
 	return (0);
 }
 
-int	cub_validation(t_map	*cub)
+int	cub_validation(t_data *data)
 {
-	if (ft_strncmp(cub->map[0], "NO", 2) != 0
-		|| ft_strncmp(cub->map[1], "SO", 2) != 0
-		|| ft_strncmp(cub->map[2], "WE", 2) != 0
-		|| ft_strncmp(cub->map[3], "EA", 2) != 0)
+	if (ft_strncmp(data->map->map[0], "NO", 2) != 0
+		|| ft_strncmp(data->map->map[1], "SO", 2) != 0
+		|| ft_strncmp(data->map->map[2], "WE", 2) != 0
+		|| ft_strncmp(data->map->map[3], "EA", 2) != 0)
 		return (err_map("Textures"));
 	else
 		ft_printf("Textures :\t\t\t\033[32mOK\033[0m\n");
-	if (fc_validation(cub->map[4], 1))
+	if (fc_validation(data->map->map[4], 1))
 		return (titre_err(" FLOOR manquant "));
 	else
 		ft_printf("Floor :\t\t\t\t\033[32mOK\033[0m\n");
-	if (fc_validation(cub->map[5], 2))
+	if (fc_validation(data->map->map[5], 2))
 		return (titre_err(" CEILING manquant "));
 	else
 		ft_printf("Ceiling :\t\t\t\033[32mOK\033[0m\n");
-	if (map_validation(cub))
+	if (map_validation(data))
 		return (1);
 	else
 		ft_printf("structure de la map :\t\t\033[32mOK\033[0m\n\n");
 	return (0);
 }
 
-int	ft_check(int argc, char **argv, t_map *cub)
+int	ft_check(int argc, char **argv, t_data *data)
 {
 	int		fd;
 	int		i;
@@ -134,7 +134,7 @@ int	ft_check(int argc, char **argv, t_map *cub)
 
 	if (argc > 1)
 	{
-		cub->map = (char **)malloc(sizeof(char *) * 100);
+		data->map->map = (char **)malloc(sizeof(char *) * 100);
 		fd = open(argv[1], O_RDONLY);
 		i = -1;
 		str = ft_get_next_line(fd);
@@ -142,23 +142,23 @@ int	ft_check(int argc, char **argv, t_map *cub)
 			return (err("erreur dans l'ouverture de la map\n"));;
 		while (str)
 		{
-			cub->map[++i] = ft_strdup(str);
+			data->map->map[++i] = ft_strdup(str);
 			free(str);
 			str = ft_get_next_line(fd);
 		}
 		ft_printf("\e[1;1H\e[2J");
 		titre(" TEST DE LA MAP ");
-		if (cub_validation(cub))
+		if (cub_validation(data))
 			return(titre_err(" MAP : KO "));
 		else
 			titre(" MAP : OK ");
-		player_coordonate(cub);
+		player_coordonate(data);
 		titre(" TEST PERSO ");
-		if (only_one_player(cub))
+		if (only_one_player(data))
 			return (titre_err(" too perso "));
 		else
 			ft_printf("Personnage : 1\t\t\t\033[32mOK\033[0m\n");
-		if (player_can_moove(cub))
+		if (player_can_moove(data))
 			return (titre_err(" pers moove "));
 		else
 		{

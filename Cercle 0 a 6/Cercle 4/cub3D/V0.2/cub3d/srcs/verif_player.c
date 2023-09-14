@@ -3,67 +3,67 @@
 /*                                                        :::      ::::::::   */
 /*   verif_player.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:50:21 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/08 11:50:35 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:07:36 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	player_coordonate(t_map	*cub)
+void	player_coordonate(t_data *data)
 {
 	int	i;
 	int	j;
 
 	i = 6;
 	j = 0;
-	while (cub->map[i])
+	while (data->map->map[i])
 	{
 		j = 0;
-		while (cub->map[i][j])
+		while (data->map->map[i][j])
 		{
-			if (cub->map[i][j] =='E' || cub->map[i][j] =='N' || cub->map[i][j] =='S'
-				|| cub->map[i][j] =='W')
+			if (data->map->map[i][j] =='E' || data->map->map[i][j] =='N' || data->map->map[i][j] =='S'
+				|| data->map->map[i][j] =='W')
 			{
-				cub->coord[0] = i;
-				cub->coord[1] = j;
+				data->map->coord[0] = i;
+				data->map->coord[1] = j;
 				break;
 			}
 			j++;
 		}
-		if (cub->coord[0] > 0 && cub->coord[1] > 0)
+		if (data->map->coord[0] > 0 && data->map->coord[1] > 0)
 			break;
 		i++;
 	}
 }
 
-int	player_can_moove(t_map	*cub)
+int	player_can_moove(t_data *data)
 {
-	if ((cub->map[cub->coord[0] - 1][cub->coord[1]] == 49)
-		&& (cub->map[cub->coord[0]][cub->coord[1] - 1] == 49)
-		&& (cub->map[cub->coord[0]][cub->coord[1] + 1] == 49)
-		&& (cub->map[cub->coord[0] + 1][cub->coord[1]] == 49))
+	if ((data->map->map[data->map->coord[0] - 1][data->map->coord[1]] == 49)
+		&& (data->map->map[data->map->coord[0]][data->map->coord[1] - 1] == 49)
+		&& (data->map->map[data->map->coord[0]][data->map->coord[1] + 1] == 49)
+		&& (data->map->map[data->map->coord[0] + 1][data->map->coord[1]] == 49))
 		return (1);
 	return (0);
 }
 
-int	only_one_player(t_map *cub)
+int	only_one_player(t_data *data)
 {
 	int i;
 	int	j;
 	int	player;
 
-	i = cub->coord[0];
+	i = data->map->coord[0];
 	player = 0;
-	while (cub->map[i])
+	while (data->map->map[i])
 	{
 		j = 0;
-		while (cub->map[i][j])
+		while (data->map->map[i][j])
 		{
-			if (cub->map[i][j] =='E' || cub->map[i][j] =='N'
-				|| cub->map[i][j] =='S' || cub->map[i][j] =='W')
+			if (data->map->map[i][j] =='E' || data->map->map[i][j] =='N'
+				|| data->map->map[i][j] =='S' || data->map->map[i][j] =='W')
 				player++;
 			j++;
 		}

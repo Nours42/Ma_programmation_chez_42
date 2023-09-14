@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 12:03:23 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/12 16:34:23 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:06:29 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,8 +149,8 @@ int		main(int argc, char **argv);
 
 int		color_verif(char *s);
 int		fc_validation(char *s, int i);
-int		cub_validation(t_map	*cub);
-int		ft_check(int argc, char **argv, t_map *cub);
+int		cub_validation(t_data *data);
+int		ft_check(int argc, char **argv, t_data *data);
 
 // print.c
 
@@ -170,12 +170,12 @@ char	*get_map_color(t_data *data);
 int		is_valid_line(char *s);
 int		begin_by_one(char *s);
 int		ends_by_one(char *s);
-int		map_validation(t_map *cub);
+int		map_validation(t_data *data);
 
 // verif_player.c
 
-void	player_coordonate(t_map *cub);
-int		player_can_moove(t_map *cub);
-int		only_one_player(t_map *cub);
+void	player_coordonate(t_data *data);
+int		player_can_moove(t_data *data);
+int		only_one_player(t_data *data);
 
 #endif
