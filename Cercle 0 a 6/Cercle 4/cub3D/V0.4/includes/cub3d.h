@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmetezea <jmetezea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 12:03:23 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/14 14:27:55 by jmetezea         ###   ########.fr       */
+/*   Updated: 2023/09/14 16:23:12 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,10 +134,15 @@ typedef struct s_mlx
 
 typedef struct s_map
 {
-	int		coord[2];
+	int		player_coord[2];
+	int		player_start_orient;
+	int		player_see;
 	char	**map;
-	int	color_map_hex_C;
-	int	color_map_hex_F;
+	int		color_map_hex_C;
+	int		color_map_hex_F;
+	int		ligne_zero;
+	int		ligne_max;
+	int		longueur_de_ligne[100];
 }				t_map;
 
 typedef struct t_data
@@ -209,6 +214,8 @@ int		is_valid_line(char *s);
 int		begin_by_one(char *s);
 int		ends_by_one(char *s);
 int		map_validation(t_data *data);
+int		where_s_the_wall(int x, int y, int angle, t_data *data);
+void	test_gps(t_data *data);
 
 // verif_player.c
 

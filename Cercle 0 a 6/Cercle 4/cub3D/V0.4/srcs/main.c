@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmetezea <jmetezea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 10:47:16 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/14 14:42:31 by jmetezea         ###   ########.fr       */
+/*   Updated: 2023/09/14 15:49:14 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ void	ft_fill_floor(t_data *data)
 		while ((data->mlx->x) < WINDOW_W)
 		{
 			if (data->mlx->y < WINDOW_H / 2)
-				my_mlx_pixel_put(data, data->mlx->x, data->mlx->y, 0x000000FF);
+				my_mlx_pixel_put(data, data->mlx->x, data->mlx->y, data->map->color_map_hex_C);
 			else
-				my_mlx_pixel_put(data, data->mlx->x, data->mlx->y, 0x00FF00FF);
+				my_mlx_pixel_put(data, data->mlx->x, data->mlx->y, data->map->color_map_hex_F);
 			data->mlx->x++;
 		}
 		data->mlx->y++;
@@ -120,6 +120,7 @@ int	main(int argc, char **argv)
 		data->mlx = (t_mlx *)malloc(sizeof(t_mlx));
 		init_params(data);
 		data->image = (t_image *)malloc(sizeof(t_image));
+		test_gps(data);
 		ft_create_window(data);
 		game_over(data);
 	}
