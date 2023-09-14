@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:20:10 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/13 16:21:47 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/14 11:09:10 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,39 @@ char	*make_color_hex(int n)
 	return (res);
 }
 
-char	*get_map_color(t_data *data)
+int	ft_htoi(char *s)
+{
+	int	i;
+	int	c;
+	int	n;
+
+	i = 0;
+	c = 0;
+	n = 0;
+	while ((c = s[i]) != '\0')
+	{
+		n *= 16;
+		if (i == 0 && c == '0')
+		{
+			c = s[++i];
+			if (c != 'x' && c != 'X')
+				--i;
+		}
+		else if (c >= '0' && c <= '9')
+			n += c - '0';
+		else if (c >= 'a' && c <= 'f')
+			n += 10 + (c - 'a');
+		else if (c >= 'A' && c <= 'F')
+			n += 10 + (c - 'A');
+		else
+			return (n);
+		i++;
+	}
+	return (n);
+}
+
+
+char	*get_map_color(int l, t_data *data)
 {
 	char	*color_map_hex;
 	char	*res;
@@ -36,7 +68,7 @@ char	*get_map_color(t_data *data)
 
 	j = 1;
 	res = 0;
-	color_map_hex = ft_strdup(data->map->map[4]);
+	color_map_hex = ft_strdup(data->map->map[l]);
 	color_map_hex += 2;
 	while (j < 4)
 	{

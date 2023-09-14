@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 12:03:23 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/14 09:53:39 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/14 10:48:09 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,8 @@ typedef struct s_map
 {
 	int		coord[2];
 	char	**map;
-	char	*color_map_hex;
+	int		color_map_hex_C;
+	int		color_map_hex_F;
 }				t_map;
 
 typedef struct t_data
@@ -147,12 +148,6 @@ typedef struct t_data
 	t_mlx		*mlx;
 	t_mouse		*mouse;
 }				t_data;
-
-
-
-
-
-
 
 /*** FUNCTIONS ***/
 
@@ -198,7 +193,8 @@ void	line(int i);
 // utils.c
 
 char	*make_color_hex(int n);
-char	*get_map_color(t_data *data);
+int		ft_htoi(char *s);
+char	*get_map_color(int l, t_data *data);
 
 // verif_map.c
 

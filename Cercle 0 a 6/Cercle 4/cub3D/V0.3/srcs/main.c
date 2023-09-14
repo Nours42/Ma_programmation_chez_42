@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 10:47:16 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/14 09:52:30 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/14 11:09:16 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int	init_params(t_data *data)
 	data->mlx->x = WINDOW_H;
 	data->mlx->y = WINDOW_W;
 	data->mlx->pxl = 50;
-	data->map->color_map_hex = strdup(get_map_color(data));
+	data->map->color_map_hex_F = ft_htoi(get_map_color(4, data));
+	data->map->color_map_hex_C = ft_htoi(get_map_color(5, data));
 	return (0);
 }
 
@@ -64,9 +65,9 @@ void	ft_fill_floor(t_data *data)
 		while ((data->mlx->x) < WINDOW_W)
 		{
 			if (data->mlx->y < WINDOW_H / 2)
-				my_mlx_pixel_put(data, data->mlx->x, data->mlx->y, 0x000000FF);
+				my_mlx_pixel_put(data, data->mlx->x, data->mlx->y, data->map->color_map_hex_C);
 			else
-				my_mlx_pixel_put(data, data->mlx->x, data->mlx->y, 0x00FF00FF);
+				my_mlx_pixel_put(data, data->mlx->x, data->mlx->y, data->map->color_map_hex_F);
 			data->mlx->x++;
 		}
 		data->mlx->y++;
