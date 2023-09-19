@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmetezea <jmetezea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 15:18:13 by kaly              #+#    #+#             */
-/*   Updated: 2023/09/16 18:57:14 by jmetezea         ###   ########.fr       */
+/*   Updated: 2023/09/19 15:46:13 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	init_data(t_data *data)
 	data->x = WINDOW_W;
 	data->y = WINDOW_H;
 	data->exit = 1;
-	data->index_first_lane = 6;
+	data->index_first_line = 6;
 	s = get_map_color("42\0", 4, data);
 	data->color_map_hex_F = ft_htoi(s);
 	free(s);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maps.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmetezea <jmetezea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:54:28 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/16 19:24:50 by jmetezea         ###   ########.fr       */
+/*   Updated: 2023/09/19 15:57:25 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,77 +53,9 @@
 // prevoir la possibilite de remplir les caracteres manquant par des 0.
 //
 
-int	color_verif(char *s)
-{
-	int	i;
 
-	if(s)
-	{
-		i = ft_atoi(s);
-		if (i < 0 || i > 255)
-			return (1);
-		if (i < 10)
-			return (2);
-		if (i < 100)
-			return (3);
-		else
-			return (4);
-	}
-	return (0);
-}
 
-int	fc_validation(char *s, int i)
-{
-	int		j;
-	int		k;
-	char	*s2;
 
-	s2 = s + 2;
-	j = 1;
-	if ((i == 1 && ft_strncmp(s, "F ", 2) != 0)
-		|| (i == 2 && ft_strncmp(s, "C ", 2) != 0))
-		return (1);
-	while (j < 4)
-	{
-		k = color_verif(s2);
-		if (k == 1)
-		{
-			if (j == 1)
-				return (titre_err(" 1st color "));
-			if (j == 2)
-				return (titre_err(" 2nd color "));
-			if (j == 3)
-				return (titre_err(" 3rd color "));
-		}
-			s2 += k;
-		j++;
-	}
-	return (0);
-}
-
-int	cub_validation(t_data *data)
-{
-	if (ft_strncmp(data->map[0], "NO", 2) != 0
-		|| ft_strncmp(data->map[1], "SO", 2) != 0
-		|| ft_strncmp(data->map[2], "WE", 2) != 0
-		|| ft_strncmp(data->map[3], "EA", 2) != 0)
-		return (err_map("Textures"));
-	else
-		ft_printf("Textures :\t\t\t\033[32mOK\033[0m\n");
-	if (fc_validation(data->map[4], 1))
-		return (titre_err(" FLOOR manquant "));
-	else
-		ft_printf("Floor :\t\t\t\t\033[32mOK\033[0m\n");
-	if (fc_validation(data->map[5], 2))
-		return (titre_err(" CEILING manquant "));
-	else
-		ft_printf("Ceiling :\t\t\t\033[32mOK\033[0m\n");
-	if (map_validation(data))
-		return (1);
-	else
-		ft_printf("structure de la map :\t\t\033[32mOK\033[0m\n\n");
-	return (0);
-}
 
 int	ft_check(int argc, char **argv, t_data *data)
 {
@@ -149,7 +81,7 @@ int	ft_check(int argc, char **argv, t_data *data)
 		data->map[i] = 0;
 		ft_printf("\e[1;1H\e[2J");
 		titre(" TEST DE LA MAP ");
-		if (cub_validation(data))
+		if (texture_validation(data) || floor_ceiling_validation(data))
 			return(titre_err(" MAP : KO "));
 		else
 			titre(" MAP : OK ");

@@ -6,9 +6,12 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:06:32 by kaly              #+#    #+#             */
-/*   Updated: 2023/09/18 15:52:47 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/19 15:59:26 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+// gestion des espaces dans Floor ans Ceiling
+// gestion des espaces dans textures
 
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -42,8 +45,14 @@ typedef struct s_data {
 	void	*win_ptr;
 	
 	char	**map;
-	int		index_first_lane;
-	int		index_last_lane;
+	int		index_first_line;
+	int		index_last_line;
+	int		NO_texture;
+	int		SO_texture;
+	int		WE_texture;
+	int		EA_texture;
+	int		index_Floor;
+	int		index_Ceiling;
 
 	void	*file;
 	char	*addr;
@@ -96,46 +105,59 @@ void	ft_check_arg(int argc, char **argv);
 
 //		error			//
 
-int	err(char *str);
-int	err_map(char *str);
+int		err(char *str);
+int		err_map(char *str);
 
 //		main			//
 
 void	init_data(t_data *data);
-int	main(int argc, char **argv);
+int		main(int argc, char **argv);
 
 //		maps			//
 
-int	color_verif(char *s);
-int	fc_validation(char *s, int i);
-int	cub_validation(t_data *data);
-int	ft_check(int argc, char **argv, t_data *data);
+int		color_verif(char *s);
+
+int		ft_check(int argc, char **argv, t_data *data);
 
 
 //		print			//
 
 void	titre(char *str);
-int	titre_err(char *str);
+int		titre_err(char *str);
 void	line_up(int i);
 void	line(int i);
 
 //		utils			//
 
 char	*make_color_hex(int n);
-int	ft_htoi(char *s);
+int		ft_htoi(char *s);
 char	*get_map_color(char *s, int l, t_data *data);
 
 //		verif_map		//
 
-int	is_valid_line(char *s);
-int	begin_by_one(char *s);
-int	ends_by_one(char *s);
-int map_validation(t_data *data);
+int		search_map(t_data *data);
+int		is_valid_line(char *s);
+int		begin_by_one(char *s);
+int		ends_by_one(char *s);
+int 	map_validation(t_data *data);
 
 //		verif_player	//
 
 void	player_coordonate(t_data *data);
-int	only_one_player(t_data *data);
+int		only_one_player(t_data *data);
+
+// 		verif_floor_and_ceiling.c		//
+
+int 	search_floor_or_ceiling(t_data *data, char c);
+int 	floor_ceiling_found(t_data *data);
+int		floor_ceiling_format_validation(char *s, int i);
+int		color_verif(char *s);
+int		floor_ceiling_validation(t_data *data);
+
+// 		verif_textures.c		//
+
+int		search_textures(t_data *data, char *texture);
+int		texture_validation(t_data *data);
 
 //		window			//
 

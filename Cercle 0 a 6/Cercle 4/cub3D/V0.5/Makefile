@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jmetezea <jmetezea@student.42.fr>          +#+  +:+       +#+         #
+#    By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/22 14:21:35 by sdestann          #+#    #+#              #
-#    Updated: 2023/09/16 18:07:31 by jmetezea         ###   ########.fr        #
+#    Updated: 2023/09/19 15:58:35 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,9 @@ SRCS =	window.c		\
 		print.c			\
 		utils.c			\
 		verif_map.c		\
-		verif_player.c	
+		verif_player.c	\
+		verif_floor_and_ceiling.c	\
+		verif_textures.c
 
 OBJDIR = objs
 
