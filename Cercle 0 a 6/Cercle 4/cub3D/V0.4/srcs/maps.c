@@ -6,7 +6,11 @@
 /*   By: jmetezea <jmetezea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:54:28 by sdestann          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/09/16 19:24:50 by jmetezea         ###   ########.fr       */
+=======
+/*   Updated: 2023/09/14 11:18:08 by jmetezea         ###   ########.fr       */
+>>>>>>> fc43c40293e881edf2f65252a4cdbe41522467b8
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +107,7 @@ int	fc_validation(char *s, int i)
 
 int	cub_validation(t_data *data)
 {
+<<<<<<< HEAD
 	if (ft_strncmp(data->map[0], "NO", 2) != 0
 		|| ft_strncmp(data->map[1], "SO", 2) != 0
 		|| ft_strncmp(data->map[2], "WE", 2) != 0
@@ -115,6 +120,20 @@ int	cub_validation(t_data *data)
 	else
 		ft_printf("Floor :\t\t\t\t\033[32mOK\033[0m\n");
 	if (fc_validation(data->map[5], 2))
+=======
+	if (ft_strncmp(data->map->map[0], "NO", 2) != 0
+		|| ft_strncmp(data->map->map[1], "SO", 2) != 0
+		|| ft_strncmp(data->map->map[2], "WE", 2) != 0
+		|| ft_strncmp(data->map->map[3], "EA", 2) != 0)
+		return (err_map("Textures"));
+	else
+		ft_printf("Textures :\t\t\t\033[32mOK\033[0m\n");
+	if (fc_validation(data->map->map[4], 1))
+		return (titre_err(" FLOOR manquant "));
+	else
+		ft_printf("Floor :\t\t\t\t\033[32mOK\033[0m\n");
+	if (fc_validation(data->map->map[5], 2))
+>>>>>>> fc43c40293e881edf2f65252a4cdbe41522467b8
 		return (titre_err(" CEILING manquant "));
 	else
 		ft_printf("Ceiling :\t\t\t\033[32mOK\033[0m\n");
@@ -134,7 +153,11 @@ int	ft_check(int argc, char **argv, t_data *data)
 
 	if (argc > 1)
 	{
+<<<<<<< HEAD
 		data->map = (char **)malloc(sizeof(char *) * 100);
+=======
+		data->map->map = (char **)malloc(sizeof(char *) * 100);
+>>>>>>> fc43c40293e881edf2f65252a4cdbe41522467b8
 		fd = open(argv[1], O_RDONLY);
 		i = 0;
 		str = ft_get_next_line(fd);
@@ -142,11 +165,19 @@ int	ft_check(int argc, char **argv, t_data *data)
 			return (err("erreur dans l'ouverture de la map\n"));;
 		while (str)
 		{
+<<<<<<< HEAD
 			data->map[i++] = ft_strdup(str);
 			free(str);
 			str = ft_get_next_line(fd);
 		}
 		data->map[i] = 0;
+=======
+			data->map->map[i++] = ft_strdup(str);
+			free(str);
+			str = ft_get_next_line(fd);
+		}
+		data->map->map[i] = 0;
+>>>>>>> fc43c40293e881edf2f65252a4cdbe41522467b8
 		ft_printf("\e[1;1H\e[2J");
 		titre(" TEST DE LA MAP ");
 		if (cub_validation(data))

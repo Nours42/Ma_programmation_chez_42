@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   verif_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: jmetezea <jmetezea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:50:43 by sdestann          #+#    #+#             */
 /*   Updated: 2023/09/16 18:03:20 by jmetezea         ###   ########.fr       */
+=======
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/08 11:50:43 by sdestann          #+#    #+#             */
+/*   Updated: 2023/09/14 16:31:16 by sdestann         ###   ########.fr       */
+>>>>>>> fc43c40293e881edf2f65252a4cdbe41522467b8
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +67,7 @@ int map_validation(t_data *data)
 	int		i;
 
 	i = 5;
+<<<<<<< HEAD
 	while (data->map[++i])
 	{
 		if(is_valid_line(data->map[i]))
@@ -69,5 +77,17 @@ int map_validation(t_data *data)
 		// data->map->longueur_de_ligne[i - 5] = ft_strlen(data->map[i]);
 	}
 	data->index_last_lane = i - 1;
+=======
+	data->map->ligne_zero = i;
+	while (data->map->map[++i])
+	{
+		if(is_valid_line(data->map->map[i]))
+			return (titre_err(" car. incorrect "));
+		else if (begin_by_one(data->map->map[i]) || ends_by_one(data->map->map[i]))
+			return (titre_err(" mur ouvert "));
+		data->map->longueur_de_ligne[i - 5] = ft_strlen(data->map->map[i]);
+	}
+	data->map->ligne_max = i - 1;
+>>>>>>> fc43c40293e881edf2f65252a4cdbe41522467b8
 	return (0);
 }

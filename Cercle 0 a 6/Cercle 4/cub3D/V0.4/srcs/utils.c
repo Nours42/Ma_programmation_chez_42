@@ -6,7 +6,11 @@
 /*   By: jmetezea <jmetezea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:20:10 by sdestann          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/09/16 17:54:04 by jmetezea         ###   ########.fr       */
+=======
+/*   Updated: 2023/09/14 12:09:48 by jmetezea         ###   ########.fr       */
+>>>>>>> fc43c40293e881edf2f65252a4cdbe41522467b8
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +78,11 @@ char	*get_map_color(char *s, int l, t_data *data)
 	res[2] = '0';
 	res[3] = '0';
 	res[10] = '\0';
+<<<<<<< HEAD
 	color_map_hex = data->map[l];
+=======
+	color_map_hex = data->map->map[l];
+>>>>>>> fc43c40293e881edf2f65252a4cdbe41522467b8
 	color_map_hex += 2;
 	while (j < 4)
 	{

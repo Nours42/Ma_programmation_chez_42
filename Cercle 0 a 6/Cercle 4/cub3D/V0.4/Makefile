@@ -3,10 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
+<<<<<<< HEAD
 #    By: jmetezea <jmetezea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/22 14:21:35 by sdestann          #+#    #+#              #
 #    Updated: 2023/09/16 18:07:31 by jmetezea         ###   ########.fr        #
+=======
+#    By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/02/22 14:21:35 by sdestann          #+#    #+#              #
+#    Updated: 2023/09/14 09:54:04 by sdestann         ###   ########.fr        #
+>>>>>>> fc43c40293e881edf2f65252a4cdbe41522467b8
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +26,7 @@ HEADER_DIR = includes/
 HEADER = $(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 
 SRCS_DIR = srcs/
+<<<<<<< HEAD
 SRCS =	window.c		\
 		main.c			\
 		maps.c			\
@@ -29,6 +37,18 @@ SRCS =	window.c		\
 		utils.c			\
 		verif_map.c		\
 		verif_player.c	
+=======
+SRCS =	controls.c		\
+		error.c			\
+		game_over.c		\
+		main.c			\
+		maps.c			\
+		note_maps.c		\
+		print.c			\
+		utils.c			\
+		verif_map.c		\
+		verif_player.c
+>>>>>>> fc43c40293e881edf2f65252a4cdbe41522467b8
 
 OBJDIR = objs
 
