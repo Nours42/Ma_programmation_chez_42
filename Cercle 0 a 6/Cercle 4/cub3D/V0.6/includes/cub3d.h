@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:06:32 by kaly              #+#    #+#             */
-/*   Updated: 2023/09/20 10:25:12 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/20 14:57:46 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ typedef struct s_data {
 	void	*win_ptr;
 	
 	char	**map;
-	int		index_first_line;
-	int		index_last_line;
 	int		NO_texture;
 	int		SO_texture;
 	int		WE_texture;
@@ -61,6 +59,8 @@ typedef struct s_data {
 	int		Ceiling_first_color;
 	int		Ceiling_second_color;
 	int		Ceiling_third_color;
+	int		Map_last_line;
+	int		Map_first_line;
 
 	void	*file;
 	char	*addr;
@@ -137,17 +137,25 @@ void	line(int i);
 
 //		utils			//
 
+int		empty_line(char *c);
 char	*make_color_hex(int n);
 int		ft_htoi(char *s);
 char	*get_map_color(char *s, int l, t_data *data);
 
 //		verif_map		//
 
-int		search_map(t_data *data);
-int		is_valid_line(char *s);
+// int	search_map(t_data *data);
+// int	is_valid_line(char *s);
+// int 	map_validation(t_data *data);
+int		browse_the_top_wall(t_data *data);
+int		browse_the_right_wall(t_data *data, int line, int index);
+int		browse_the_down_wall(t_data *data, int line, int index);
+int		browse_the_left_wall(t_data *data, int line, int index);
+// int		first_and_last_line_is_ones(t_data *data, int i);
+// int		spaces_or_tabs(char *s, int i);
 int		begin_by_one(char *s);
 int		ends_by_one(char *s);
-int 	map_validation(t_data *data);
+void	find_start_end_of_map(t_data *data);
 
 //		verif_player	//
 

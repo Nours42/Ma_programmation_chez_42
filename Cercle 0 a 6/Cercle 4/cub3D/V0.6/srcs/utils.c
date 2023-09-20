@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmetezea <jmetezea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:20:10 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/16 17:54:04 by jmetezea         ###   ########.fr       */
+/*   Updated: 2023/09/20 11:10:21 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+int	empty_line(char *c)
+{
+	int	i;
+
+	i = 0;
+	while (c[i])
+	{
+		if (c[i] == 32 || (c[i] == 9) || (c[i] == 10))
+			i++;
+		else
+			return (0);
+	}
+	return (1);
+}
 
 char	*make_color_hex(int n)
 {
