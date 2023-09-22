@@ -6,25 +6,29 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:50:43 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/21 16:40:50 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/22 15:00:06 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+void	first_step(t_data *data)
+{
+	data->line = data->Map_first_line;
+	data->index = 0;
+	while (data->map[data->line][data->index] == ' ')
+		data->index++;
+	if (data->map[data->line][data->index] == '1')
+		data->first_index = data->index;
+	data->map[data->line][data->index] = '4';
+}
 
 int	go_around_the_walls(t_data *data)
 {
 	int	i;
 
 	i = 0;
-	data->line = data->Map_first_line;
-	data->index = 0;
-	while (data->map[data->line][data->index] == ' '
-		|| data->map[data->line][data->index] == '\t')
-		data->index++;
-	if (data->map[data->line][data->index] == '1')
-		data->first_index = data->index;
-	data->map[data->line][data->index] = '4';
+	first_step(data);
 	if (data->map[data->line][data->index + 1] == '1')
 	{
 		data->index++;
@@ -32,38 +36,24 @@ int	go_around_the_walls(t_data *data)
 			|| data->index != data->first_index)
 		{
 			i++;
-			if (data->map[data->line][data->index + 1] == '1')
-				go_right(data);
-			else if (((((data->line != data->Map_first_line)
-							&& (data->map[data->line - 1][data->index] == '4'))
-					|| ((data->index != 0
-							&& data->map[data->line][data->index - 1] == '4'))
-				|| ((data->line != data->Map_last_line)
-					&& (data->map[data->line + 1][data->index] == '4'))
-				|| (data->map[data->line][data->index + 1] == '4'))
-							&& (data->map[data->line][data->index] != '2')
-							&& i > 2))
-			{
-				print_map(data, data->Map_first_line - 1);
+			if (test_map_ok(data, i))
 				return (0);
-			}
-			else if ((data->line != data->Map_first_line)
-				&& (data->map[data->line - 1][data->index] == '1'))
-				go_up(data);
-			else if (data->map[data->line][data->index - 1] == '1')
-				go_left(data);
-			else if ((data->line != data->Map_last_line)
-				&& (data->map[data->line + 1][data->index] == '1'))
-				go_down(data);
-			else if ((data->line != data->Map_last_line)
-				&& (data->map[data->line + 1][data->index] == '2'))
-				go_down_f(data);
-			else if (data->map[data->line][data->index - 1] == '2')
-				go_left_f(data);
-			else if (data->map[data->line - 1][data->index] == '2')
-				go_up_f(data);
-			else if (data->map[data->line][data->index + 1] == '2')
-				go_right_f(data);
+			else if (verif_sides(data, 1, '1'))
+				go_sides(data, 1, '2');
+			else if (verif_up_or_down(data, -1, '1'))
+				go_up_or_down(data, -1, '2');
+			else if (verif_sides(data, -1,'1'))
+				go_sides(data, -1, '2');
+			else if (verif_up_or_down(data, 1, '1'))
+				go_up_or_down(data, 1, '2');
+			else if (verif_up_or_down(data, 1, '2'))
+				go_up_or_down(data, 1, '3');
+			else if (verif_sides(data, -1,'2'))
+				go_sides(data, -1, '3');
+			else if (verif_up_or_down(data, -1, '2'))
+				go_up_or_down(data, -1, '3');
+			else if (verif_sides(data, 1, '2'))
+				go_sides(data, 1, '3');
 			else
 				return (1);
 		}

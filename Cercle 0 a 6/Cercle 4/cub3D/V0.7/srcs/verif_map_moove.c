@@ -6,32 +6,73 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:50:43 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/21 15:23:54 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/22 13:37:59 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	go_right(t_data *data)
+int	test_map_ok (t_data *data, int i)
 {
-	data->map[data->line][data->index] = '2';
-	data->index++;
+	if ((((data->line != data->Map_first_line)
+			&& (data->map[data->line - 1])
+			&& (data->map[data->line - 1][data->index])
+			&& (data->map[data->line - 1][data->index] == '4'))
+		|| ((data->index != 0
+			&& data->map[data->line][data->index - 1]
+			&& data->map[data->line][data->index - 1] == '4'))
+		|| ((data->line != data->Map_last_line)
+			&& (data->map[data->line + 1])
+			&& (data->map[data->line + 1][data->index])
+			&& (data->map[data->line + 1][data->index] == '4'))
+		|| ((data->map[data->line][data->index + 1])
+			&& (data->map[data->line][data->index + 1] == '4')))
+			&& (data->map[data->line][data->index] != '2')
+			&& i > 2)
+	{
+		print_map(data, data->Map_first_line - 1);
+		return (1);
+	}
+	else
+		return (0);
 }
 
-void	go_left(t_data *data)
+int	verif_sides(t_data *data, int i, int j)
 {
-	data->map[data->line][data->index] = '2';
-	data->index--;
+	if ((data->map[data->line][data->index + i])
+		&& (data->map[data->line][data->index + i] == j))
+		return (1);
+	return (0);
 }
 
-void	go_down(t_data *data)
+int verif_up_or_down(t_data *data, int i, int j)
 {
-	data->map[data->line][data->index] = '2';
-	data->line++;
+	if (i == -1)
+	{
+		if ((data->line != data->Map_first_line)
+		&& (data->map[data->line + i][data->index])
+		&& (data->map[data->line + i][data->index] == j))
+		return (1);
+	}
+	else if (i == 1)
+	{
+		if ((data->line != data->Map_last_line)
+		&& (data->map[data->line + i])
+		&& (data->map[data->line + i][data->index])
+		&& (data->map[data->line + i][data->index] == j))
+		return (1);
+	}
+	return (0);
 }
 
-void	go_up(t_data *data)
+void	go_sides(t_data *data, int i, int j)
 {
-	data->map[data->line][data->index] = '2';
-	data->line--;
+	data->map[data->line][data->index] = j;
+	data->index += i;
+}
+
+void	go_up_or_down(t_data *data, int i, int j)
+{
+	data->map[data->line][data->index] = j;
+	data->line += i;
 }

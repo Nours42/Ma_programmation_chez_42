@@ -6,7 +6,7 @@
 #    By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/22 14:21:35 by sdestann          #+#    #+#              #
-#    Updated: 2023/09/21 15:30:11 by sdestann         ###   ########.fr        #
+#    Updated: 2023/09/22 11:59:26 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,6 @@ SRCS =	break_prog.c		\
 		utils.c				\
 		verif_fc.c			\
 		verif_map_moove.c	\
-		verif_map_moove2.c	\
 		verif_map.c			\
 		verif_player.c		\
 		verif_textures.c	\

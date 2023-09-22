@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:06:32 by kaly              #+#    #+#             */
-/*   Updated: 2023/09/21 16:39:26 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/22 15:07:08 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_data {
 	int		line;
 	int		index;
 	int		first_index;
+	size_t	size_max;
 
 	void	*file;
 	char	*addr;
@@ -111,7 +112,7 @@ int		ft_quit(t_data *data);
 
 //		check_arg		//
 
-int	ft_comp_cub(char *arg, char *str);
+int		ft_comp_cub(char *arg, char *str);
 void	ft_check_arg(int argc, char **argv);
 
 //		error			//
@@ -126,10 +127,9 @@ int		main(int argc, char **argv);
 
 //		maps			//
 
-int		color_verif(char *s);
-
 int		ft_check(int argc, char **argv, t_data *data);
-
+void	resize_map(t_data *data);
+void	add_spaces(t_data *data);
 
 //		print			//
 
@@ -146,40 +146,34 @@ char	*make_color_hex(int n);
 int		ft_htoi(char *s);
 char	*get_map_color(char *s, int l, t_data *data);
 
-//		verif_map		//
-
-int		go_around_the_walls(t_data *data);
-int		begin_by_one(char *s);
-int		ends_by_one(char *s);
-void	find_start_end_of_map(t_data *data);
-
-//		verif_map_moove		//
-
-void	go_right(t_data *data);
-void	go_left(t_data *data);
-void	go_down(t_data *data);
-void	go_up(t_data *data);
-
-//		verif_map_moove2		//
-
-void	go_right_f(t_data *data);
-void	go_left_f(t_data *data);
-void	go_down_f(t_data *data);
-void	go_up_f(t_data *data);
-
-//		verif_player	//
-
-void	player_coordonate(t_data *data);
-int		only_one_player(t_data *data);
-
-// 		verif_floor_and_ceiling.c		//
+// 		verif_fc.c		//
 
 int 	search_floor_or_ceiling(t_data *data, char *c);
 int 	floor_ceiling_found(t_data *data);
 int		floor_format_validation(t_data *data);
 int		ceiling_format_validation(t_data *data);
-int		color_verif(char *s);
 int		floor_ceiling_validation(t_data *data);
+
+//		verif_map_moove		//
+
+int		test_map_ok (t_data *data, int i);
+int		verif_sides(t_data *data, int i, int j);
+int 	verif_up_or_down(t_data *data, int i, int j);
+void	go_sides(t_data *data, int i, int j);
+void	go_up_or_down(t_data *data, int i, int j);
+
+//		verif_map		//
+
+void	first_step(t_data *data);
+int		go_around_the_walls(t_data *data);
+int		begin_by_one(char *s);
+int		ends_by_one(char *s);
+void	find_start_end_of_map(t_data *data);
+
+//		verif_player	//
+
+void	player_coordonate(t_data *data);
+int		only_one_player(t_data *data);
 
 // 		verif_textures.c		//
 
@@ -188,12 +182,12 @@ int		texture_validation(t_data *data);
 
 //		window			//
 
-void	ft_create_window(t_data *data);
-void	ft_print_double(double i);
+int		handle_keypress(int keysym, t_data *data);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+int		calcul_distance(t_data *data);
 void	affiche_un_mur(t_data *data, int i);
 void	ft_fill_floor(t_data *data);
-int		handle_keypress(int keysym, t_data *data);
 int		render(t_data *data);
-void	ft_complete_img(t_data *data);
+void	ft_create_window(t_data *data);
 
 #endif

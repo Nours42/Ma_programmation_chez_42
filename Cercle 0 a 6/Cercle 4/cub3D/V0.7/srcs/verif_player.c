@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:50:21 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/21 16:27:38 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/22 15:09:42 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	player_coordonate(t_data *data)
 	int	i;
 	int	j;
 
-	i = 6;
+	i = data->Map_first_line;
 	while (data->map[i])
 	{
 		j = 0;
@@ -50,7 +50,7 @@ int	only_one_player(t_data *data)
 	int	j;
 	int	player;
 
-	i = 6;
+	i = data->Map_first_line;
 	player = 0;
 	while (data->map[i])
 	{
