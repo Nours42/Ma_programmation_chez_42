@@ -6,7 +6,7 @@
 /*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:54:28 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/23 07:04:50 by nours42          ###   ########.fr       */
+/*   Updated: 2023/09/23 07:07:13 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ void	add_spaces(t_data *data)
 {
 	size_t	i;
 	int		j;
-	char	*str1;
-	char	*str2;
+	size_t	len;
+	char	*res;
 
 	j = -1;
 	while (data->map[++j])
@@ -93,19 +93,22 @@ void	add_spaces(t_data *data)
 		if (ft_strlen(data->map[j]) < data->size_max)
 		{
 			i = 0;
-			str1 = (char *)malloc(sizeof(char) * data->size_max + ft_strlen(data->map[j]) - 1);
+			len = ft_strlen(data->map[j]) - 1;
+			res = (char *)malloc(sizeof(char) * data->size_max + 1);
 			while (i < data->size_max - 1)
 			{
-				str1[i] = ' ';
+				res[i] = ' ';
 				i++;
 			}
-			str1[i] = '\n';
+			res[i] = '\n';
 			i = 0;
-			str2 = ft_strdup(data->map[j]);
+			while (i < len)
+			{
+				res[i] = data->map[j][i];
+				i++;
+			}
 			free(data->map[j]);
-			data->map[j] = ft_strcat(str1, str2);
-			free(str1);
-			free(str2);
+			data->map[j] = res;
 		}
 	}
 }
