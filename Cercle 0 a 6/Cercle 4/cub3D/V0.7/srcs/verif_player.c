@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_player.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:50:21 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/22 15:09:42 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/23 07:06:18 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	player_coordonate(t_data *data)
 	while (data->map[i])
 	{
 		j = 0;
+		// print_map(data, data->Map_first_line - 1);
 		while (data->map[i][j])
 		{
 			if (data->map[i][j] == 'E' || data->map[i][j] == 'N'
@@ -55,7 +56,7 @@ int	only_one_player(t_data *data)
 	while (data->map[i])
 	{
 		j = 0;
-		while (data->map[i][j])
+		while (i < data->Map_last_line && data->map[i][j])
 		{
 			if (data->map[i][j] == 'E' || data->map[i][j] == 'N'
 				|| data->map[i][j] == 'S' || data->map[i][j] == 'W')

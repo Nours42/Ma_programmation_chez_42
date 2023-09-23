@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maps.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:54:28 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/22 15:24:08 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/23 07:04:50 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ void	add_spaces(t_data *data)
 {
 	size_t	i;
 	int		j;
-	int		len;
-	char	*res;
+	char	*str1;
+	char	*str2;
 
 	j = -1;
 	while (data->map[++j])
@@ -93,24 +93,19 @@ void	add_spaces(t_data *data)
 		if (ft_strlen(data->map[j]) < data->size_max)
 		{
 			i = 0;
-			len = data->size_max;
-			res = (char *)malloc(sizeof(char) * len);
-			while (len)
+			str1 = (char *)malloc(sizeof(char) * data->size_max + ft_strlen(data->map[j]) - 1);
+			while (i < data->size_max - 1)
 			{
-				res[i] = ' ';
+				str1[i] = ' ';
 				i++;
-				len--;
 			}
-			i--;
-			res[i] = '\n';
-			i = ft_strlen(data->map[j]);
-			while (i != 0)
-			{
-				res[i] = data->map[j][i];
-				i--;
-			}
+			str1[i] = '\n';
+			i = 0;
+			str2 = ft_strdup(data->map[j]);
 			free(data->map[j]);
-			data->map[j] = res;
+			data->map[j] = ft_strcat(str1, str2);
+			free(str1);
+			free(str2);
 		}
 	}
 }

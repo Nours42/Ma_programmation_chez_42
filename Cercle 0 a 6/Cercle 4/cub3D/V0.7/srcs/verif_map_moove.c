@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_map_moove.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:50:43 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/22 13:37:59 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/22 22:48:18 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	test_map_ok (t_data *data, int i)
 			&& (data->map[data->line][data->index] != '2')
 			&& i > 2)
 	{
-		print_map(data, data->Map_first_line - 1);
 		return (1);
 	}
 	else
