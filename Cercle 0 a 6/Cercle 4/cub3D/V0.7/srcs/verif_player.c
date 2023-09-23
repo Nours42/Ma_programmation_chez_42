@@ -6,7 +6,7 @@
 /*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:50:21 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/23 07:06:18 by nours42          ###   ########.fr       */
+/*   Updated: 2023/09/23 19:07:47 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,31 @@ void	player_coordonate(t_data *data)
 	i = data->Map_first_line;
 	while (data->map[i])
 	{
+		// j = (int)ft_strlen(data->map[i]);
+		// ft_printf("ligne : %d size / size_max: %d / %d\n", i, j, data->size_max);
 		j = 0;
 		// print_map(data, data->Map_first_line - 1);
-		while (data->map[i][j])
+		if(data->map[i] && data->map[j])
 		{
-			if (data->map[i][j] == 'E' || data->map[i][j] == 'N'
-				|| data->map[i][j] == 'S' || data->map[i][j] == 'W')
+			while (data->map[i][j])
 			{
-				data->player_x = i * 100 + 50;
-				data->player_y = j * 100 + 50;
-				if (data->map[i][j] == 'E')
-					data->player_orient = 0;
-				else if (data->map[i][j] == 'N')
-					data->player_orient = 90;
-				else if (data->map[i][j] == 'W')
-					data->player_orient = 180;
-				else
-					data->player_orient = 270;
-				return ;
+				if (data->map[i][j] == 'E' || data->map[i][j] == 'N'
+					|| data->map[i][j] == 'S' || data->map[i][j] == 'W')
+				{
+					data->player_x = i * 100 + 50;
+					data->player_y = j * 100 + 50;
+					if (data->map[i][j] == 'E')
+						data->player_orient = 0;
+					else if (data->map[i][j] == 'N')
+						data->player_orient = 90;
+					else if (data->map[i][j] == 'W')
+						data->player_orient = 180;
+					else
+						data->player_orient = 270;
+					return ;
+				}
+				j++;
 			}
-			j++;
 		}
 		i++;
 	}

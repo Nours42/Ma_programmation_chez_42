@@ -6,7 +6,7 @@
 /*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:54:28 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/23 07:07:13 by nours42          ###   ########.fr       */
+/*   Updated: 2023/09/23 21:12:53 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ int	ft_check(int argc, char **argv, t_data *data)
 			return (err("erreur dans l'ouverture de la map\n"));
 		while (str)
 		{
+			// ft_printf("avant dup : %s", str);
 			data->map[i++] = ft_strdup(str);
+			// ft_printf("apres dup : %s", str);
 			free(str);
 			str = ft_get_next_line(fd);
 		}
@@ -82,33 +84,58 @@ void	resize_map(t_data *data)
 
 void	add_spaces(t_data *data)
 {
-	size_t	i;
+	char	*res;
 	int		j;
 	size_t	len;
-	char	*res;
-
-	j = -1;
+	
+	j = data->Map_first_line - 1;
 	while (data->map[++j])
 	{
-		if (ft_strlen(data->map[j]) < data->size_max)
+		len = ft_strlen(data->map[j]);
+		if (len < data->size_max)
 		{
-			i = 0;
-			len = ft_strlen(data->map[j]) - 1;
-			res = (char *)malloc(sizeof(char) * data->size_max + 1);
-			while (i < data->size_max - 1)
-			{
-				res[i] = ' ';
-				i++;
-			}
-			res[i] = '\n';
-			i = 0;
-			while (i < len)
-			{
-				res[i] = data->map[j][i];
-				i++;
-			}
-			free(data->map[j]);
-			data->map[j] = res;
+			res = data->map[j];
+			data->map[j] = ft_realloc_space(res, len - 1, data->size_max + 1);
 		}
 	}
+}
+
+void    *ft_realloc_space(void *ptr, size_t original_size, size_t new_size)
+{
+	void	*new_memblock;
+
+	if (new_size == 0)
+	{
+		free(ptr);
+		return (NULL);
+	}
+	if (new_size <= original_size)
+		return (ptr);
+	new_memblock = malloc(new_size);
+	if (ptr)
+	{
+		if (!new_memblock)
+			return (NULL);
+		ft_memcpy(new_memblock, ptr, original_size);
+		ft_memset2(new_memblock + original_size, ' ', new_size - original_size);
+		free(ptr);
+	}
+	return (new_memblock);
+}
+
+void	*ft_memset2(void *b, int c, size_t len)
+{
+	char	*str;
+
+	str = b;
+	len--;
+	while (len)
+	{
+		*str = (unsigned char)c;
+		str++;
+		len--;
+	}
+	c = 0;
+	*str = (unsigned char)c;
+	return (b);
 }

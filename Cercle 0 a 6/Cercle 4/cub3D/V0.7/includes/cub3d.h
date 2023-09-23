@@ -6,7 +6,7 @@
 /*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:06:32 by kaly              #+#    #+#             */
-/*   Updated: 2023/09/22 22:42:49 by nours42          ###   ########.fr       */
+/*   Updated: 2023/09/23 21:09:40 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,8 @@ int		main(int argc, char **argv);
 int		ft_check(int argc, char **argv, t_data *data);
 void	resize_map(t_data *data);
 void	add_spaces(t_data *data);
+void    *ft_realloc_space(void *ptr, size_t original_size, size_t new_size);
+void	*ft_memset2(void *b, int c, size_t len);
 
 //		print			//
 
@@ -142,6 +144,7 @@ void	line(int i);
 
 void	print_map(t_data *data, int i);
 int		empty_line(char *c);
+void	print_map_n(t_data *data, int i);
 char	*make_color_hex(int n);
 int		ft_htoi(char *s);
 char	*get_map_color(char *s, int l, t_data *data);

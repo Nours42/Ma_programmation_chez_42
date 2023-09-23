@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+         #
+#    By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/13 11:01:13 by sebastien         #+#    #+#              #
-#    Updated: 2023/09/19 09:38:15 by sdestann         ###   ########.fr        #
+#    Updated: 2023/09/23 18:21:48 by nours42          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ ft_iterative_factorial.c	ft_print_double.c
 SRC_MEM = \
 ft_bzero.c 		ft_calloc.c		ft_free_ints.c	ft_free_chars.c	\
 ft_memchr.c		ft_memcmp.c		ft_memcpy.c 	ft_memmove.c	\
-ft_memset.c
+ft_memset.c		ft_realloc.c
 
 SRC_PRINTF = \
 ft_flags.c			ft_flags_utils.c	ft_nbr_len.c		ft_pad_width.c \
