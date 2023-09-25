@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+         #
+#    By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/13 11:01:13 by sebastien         #+#    #+#              #
-#    Updated: 2023/09/23 18:21:48 by nours42          ###   ########.fr        #
+#    Updated: 2023/09/25 14:50:37 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ ft_lstlast.c	ft_lstnew.c			ft_lstsize.c	ft_lstsort.c
 
 SRC_MATHS = \
 ft_abs.c		ft_atoi.c	ft_atoi_base.c	ft_atol.c \
-ft_iterative_factorial.c	ft_print_double.c
+ft_htoi.c		ft_iterative_factorial.c
 
 SRC_MEM = \
 ft_bzero.c 		ft_calloc.c		ft_free_ints.c	ft_free_chars.c	\

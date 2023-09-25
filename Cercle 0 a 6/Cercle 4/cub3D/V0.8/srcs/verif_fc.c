@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:38:27 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/21 16:22:28 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/25 14:42:53 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,11 @@ int	floor_format_validation(t_data *data)
 
 	j = -1;
 	s2 = data->map[data->line_Floor];
-	while (++j <= data->index_Floor)
-		s2++;
+	if (data->index_Floor > 0)
+	{
+		while (++j <= data->index_Floor)
+			s2++;
+	}
 	s2 += 2;
 	data->Floor_first_color = ft_atoi(s2);
 	s2 = ft_strchr(s2, ',');

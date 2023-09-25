@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_htoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 07:57:22 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/25 14:51:15 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/25 17:16:46 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,37 @@
 
 /* DESCRIPTION :
 **
-** The  atoi function converts the initial portion of the string pointed (*str)
-** in to an int.
+** The  htoi function converts the initial portion of the string pointed (*str)
+** in to an hexadecimal.
 **
 */
 
-int	ft_atoi(const char *str)
+int	ft_htoi(char *s, int i, int n)
 {
-	long	i;
-	long	nbr;
-	int		isneg;
+	int	c;
 
-	i = 0;
-	nbr = 0;
-	isneg = 0;
-	while (str[i] != '\0' && (str[i] == 32 || str[i] == '\t'
-			|| str[i] == '\n' || str[i] == '\r' || str[i] == '\v'
-			|| str[i] == '\f'))
-		i++;
-	if (str[i] != '\0' && str[i] == '-')
+	c = s[i];
+	while (c != '\0')
 	{
-		isneg = 1;
+		c = s[i];
+		n *= 16;
+		if (i == 0 && c == '0')
+		{
+			c = s[++i];
+			if (c != 'x' && c != 'X')
+				--i;
+			else
+				c = s[++i];
+		}
+		else if (c >= '0' && c <= '9')
+			n += c - '0';
+		else if (c >= 'a' && c <= 'f')
+			n += 10 + (c - 'a');
+		else if (c >= 'A' && c <= 'F')
+			n += 10 + (c - 'A');
+		else
+			return (n);
 		i++;
 	}
-	else if (str[i] == '+')
-		i++;
-	while (str[i] != '\0' && ft_isdigit(str[i]))
-		nbr = (nbr * 10) + (str[i++] - '0');
-	if (isneg == 1)
-		return (-nbr);
-	return (nbr);
+	return (n);
 }

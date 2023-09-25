@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:54:28 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/25 12:45:22 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/25 12:59:02 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int	ft_test_map(t_data *data)
 		return (titre_err(" MAP : KO "));
 	else
 		titre(" MAP : OK ");
+	fill_fc_color(data);
 	find_start_end_of_map(data);
 	resize_map(data);
 	if (go_around_the_walls(data))

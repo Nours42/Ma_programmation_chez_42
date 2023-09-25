@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmetezea <jmetezea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 15:18:13 by kaly              #+#    #+#             */
-/*   Updated: 2023/09/25 15:49:39 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/25 11:02:05 by jmetezea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,18 @@
 
 void	init_data(t_data *data)
 {
+	char *s;
+	
 	data->x = WINDOW_W;
 	data->y = WINDOW_H;
 	data->exit = 1;
+	data->index_first_lane = 6;
+	s = get_map_color("42\0", 4, data);
+	data->color_map_hex_F = ft_htoi(s);
+	free(s);
+	s = get_map_color("42\0", 5, data);
+	data->color_map_hex_C = ft_htoi(s);
+	free(s);
 	data->ya = 0.00;
 	data->xa = 0.00;
 	data->anglerad = 0.00;
@@ -44,5 +53,7 @@ int	main(int argc, char **argv)
 		ft_clean_when_verif_map_ko(data);
 	init_data(data);
 	ft_create_window(data);
+	// ft_quit(data);
 	return (0);
 }
+

@@ -6,12 +6,9 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:06:32 by kaly              #+#    #+#             */
-/*   Updated: 2023/09/25 12:46:03 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/25 17:14:10 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-// gestion des espaces dans Floor ans Ceiling
-// gestion des espaces dans textures
 
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -54,9 +51,11 @@ typedef struct s_data {
 	int		index_Ceiling;
 	int		line_Floor;
 	int		line_Ceiling;
+	char	*Floor_hex_color;
 	int		Floor_first_color;
 	int		Floor_second_color;
 	int		Floor_third_color;
+	char 	*Ceiling_hex_color;
 	int		Ceiling_first_color;
 	int		Ceiling_second_color;
 	int		Ceiling_third_color;
@@ -74,9 +73,9 @@ typedef struct s_data {
 	int		size_line;
 	int		line_length;
 
-	int			color_r;
-	int			color_g;
-	int			color_b;
+	int		color_r;
+	int		color_g;
+	int		color_b;
 
 	int		color_map_hex_C;
 	int		color_map_hex_F;
@@ -88,30 +87,30 @@ typedef struct s_data {
 	double	rad_beta;
 	int		x;
 	int		y;
-	double		anglerad;
+	int		horizon;
+	double	anglerad;
 
-	double		delta_x;
-	double		delta_y;
-	double		xa;
-	double		ya;
+	double	delta_x;
+	double	delta_y;
+	double	xa;
+	double	ya;
 
-	double		first_x;
-	double		first_xa;
-	double		first_y;
-	double		first_ya;
+	double	first_x;
+	double	first_xa;
+	double	first_y;
+	double	first_ya;
 
-	double		dist_x;
-	double		dist_y;
+	double	dist_x;
+	double	dist_y;
 
 	int		check_x;
 	int		check_y;
 	int		i;
 	int		o;
 
-	double		dist;
-	double		orient;
+	double	dist;
+	double	orient;
 	
-
 	int		exit;
 	
 }	t_data;
@@ -120,6 +119,7 @@ typedef struct s_data {
 
 void	ft_clean_when_verif_map_ko(t_data *data);
 int		ft_quit(t_data *data);
+void	ft_quit2(t_data *data);
 
 //		check_arg		//
 
@@ -133,6 +133,7 @@ int		err_map(char *str);
 
 // 		get_map_colors.c	//
 
+void	fill_fc_color(t_data *data);
 char	*make_color_hex(int n);
 int		ft_htoi(char *s, int i, int n);
 char	*get_map_color(char *s, int l, t_data *data);
@@ -213,10 +214,28 @@ int		texture_validation(t_data *data);
 
 //		window			//
 
-int		handle_keypress(int keysym, t_data *data);
+void	my_mlx_pixel(t_data *data, int x, int y, int color);
+void	calcul_distance(t_data *data);
 int		render(t_data *data);
-void	ft_complete_img(t_data *data);
 void	ft_create_window(t_data *data);
+
+// 		windows_check_wall.c	//
+
+void	ft_check_wall_sw(t_data *data);
+void	ft_check_wall_se(t_data *data);
+void	ft_check_wall_nw(t_data *data);
+void	ft_check_wall_ne(t_data *data);
+
+//		windows_init.c			//
+
+void	ft_init_first(t_data *data);
+void	ft_init_delta(t_data *data);
 void	ft_fill_floor(t_data *data);
+
+// 		windows_mooves.c		//
+
+void	ft_move_back(t_data *data);
+void	ft_move_up(t_data *data);
+int		handle_keypress(int keysym, t_data *data);
 
 #endif
