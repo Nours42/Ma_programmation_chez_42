@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:54:28 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/25 12:19:09 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/26 10:08:17 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ void	resize_map(t_data *data)
 	int		i;
 
 	data->size_max = 0;
-	i = data->Map_first_line - 1;
+	i = data->map_first_line - 1;
 	while (data->map[++i])
 	{
 		if (ft_strlen(data->map[i]) > data->size_max)
 			data->size_max = ft_strlen(data->map[i]);
 	}
-	i = data->Map_first_line - 1;
+	i = data->map_first_line - 1;
 	add_spaces(data);
 }
 
@@ -33,7 +33,7 @@ void	add_spaces(t_data *data)
 	int		j;
 	size_t	len;
 
-	j = data->Map_first_line - 1;
+	j = data->map_first_line - 1;
 	while (data->map[++j])
 	{
 		len = ft_strlen(data->map[j]);

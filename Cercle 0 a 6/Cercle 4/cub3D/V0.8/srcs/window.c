@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 23:40:05 by kaly              #+#    #+#             */
-/*   Updated: 2023/09/25 17:02:53 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/26 10:09:03 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,30 @@ void	ft_create_window(t_data *data)
 	ft_fill_floor(data);
 	mlx_loop(data->mlx_ptr);
 	mlx_destroy_display(data->mlx_ptr);
+}
+
+void	ft_fill_floor(t_data *data)
+{
+	data->x = WINDOW_W;
+	data->y = WINDOW_H;
+	data->file = mlx_new_image(data->mlx_ptr, data->x, data->y);
+	data->addr = mlx_get_data_addr(data->file, &data->bits_per_pixel,
+			&data->line_length, &data->endian);
+	data->y = 0;
+	while ((data->y) < WINDOW_H)
+	{
+		data->x = 0;
+		while ((data->x) < WINDOW_W)
+		{
+			if (data->y < data->horizon)
+				my_mlx_pixel(data, data->x, data->y, data->color_map_hex_c);
+			else
+				my_mlx_pixel(data, data->x, data->y, data->color_map_hex_f);
+			data->x++;
+		}
+		data->y++;
+	}
+	calcul_distance(data);
+	mlx_put_image_to_window (data->mlx_ptr, data->win_ptr, data->file, 0, 0);
+	mlx_destroy_image(data->mlx_ptr, data->file);
 }

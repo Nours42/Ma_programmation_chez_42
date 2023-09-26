@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:06:32 by kaly              #+#    #+#             */
-/*   Updated: 2023/09/25 17:14:10 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/26 10:16:11 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,45 +41,40 @@
 typedef struct s_data {
 	void	*mlx_ptr;
 	void	*win_ptr;
-	
 	char	**map;
-	int		NO_texture;
-	int		SO_texture;
-	int		WE_texture;
-	int		EA_texture;
-	int		index_Floor;
-	int		index_Ceiling;
-	int		line_Floor;
-	int		line_Ceiling;
-	char	*Floor_hex_color;
-	int		Floor_first_color;
-	int		Floor_second_color;
-	int		Floor_third_color;
-	char 	*Ceiling_hex_color;
-	int		Ceiling_first_color;
-	int		Ceiling_second_color;
-	int		Ceiling_third_color;
-	int		Map_last_line;
-	int		Map_first_line;
+	int		no_texture;
+	int		so_texture;
+	int		we_texture;
+	int		ea_texture;
+	int		index_floor;
+	int		index_ceiling;
+	int		line_floor;
+	int		line_ceiling;
+	char	*floor_hex_color;
+	int		floor_first_color;
+	int		floor_second_color;
+	int		floor_third_color;
+	char	*ceiling_hex_color;
+	int		ceiling_first_color;
+	int		ceiling_second_color;
+	int		ceiling_third_color;
+	int		map_last_line;
+	int		map_first_line;
 	int		line;
 	int		index;
 	int		first_index;
 	size_t	size_max;
-
 	void	*file;
 	char	*addr;
 	int		bits_per_pixel;
 	int		endian;
 	int		size_line;
 	int		line_length;
-
 	int		color_r;
 	int		color_g;
 	int		color_b;
-
-	int		color_map_hex_C;
-	int		color_map_hex_F;
-
+	int		color_map_hex_c;
+	int		color_map_hex_f;
 	int		player_x;
 	int		player_y;
 	double	player_orient;
@@ -89,30 +84,23 @@ typedef struct s_data {
 	int		y;
 	int		horizon;
 	double	anglerad;
-
 	double	delta_x;
 	double	delta_y;
 	double	xa;
 	double	ya;
-
 	double	first_x;
 	double	first_xa;
 	double	first_y;
 	double	first_ya;
-
 	double	dist_x;
 	double	dist_y;
-
 	int		check_x;
 	int		check_y;
 	int		i;
 	int		o;
-
 	double	dist;
 	double	orient;
-	
 	int		exit;
-	
 }	t_data;
 
 //		break_prog		//
@@ -135,7 +123,7 @@ int		err_map(char *str);
 
 void	fill_fc_color(t_data *data);
 char	*make_color_hex(int n);
-int		ft_htoi(char *s, int i, int n);
+int		ft_htoi(char *s, int i, int n, int c);
 char	*get_map_color(char *s, int l, t_data *data);
 char	*ft_create_res(char *res);
 void	complete_res(char *res, int j, char *s);
@@ -176,22 +164,22 @@ int		get_k(int i);
 
 void	resize_map(t_data *data);
 void	add_spaces(t_data *data);
-void    *ft_realloc_space(void *ptr, size_t original_size, size_t new_size);
+void	*ft_realloc_space(void *ptr, size_t original_size, size_t new_size);
 void	*ft_memset2(void *b, int c, size_t len);
 
 // 		verif_fc.c		//
 
-int 	search_floor_or_ceiling(t_data *data, char *c);
-int 	floor_ceiling_found(t_data *data);
+int		search_floor_or_ceiling(t_data *data, char *c);
+int		floor_ceiling_found(t_data *data);
 int		floor_format_validation(t_data *data);
 int		ceiling_format_validation(t_data *data);
 int		floor_ceiling_validation(t_data *data);
 
 //		verif_map_moove		//
 
-int		test_map_ok (t_data *data, int i);
+int		test_map_ok(t_data *data, int i);
 int		verif_sides(t_data *data, int i, int j);
-int 	verif_up_or_down(t_data *data, int i, int j);
+int		verif_up_or_down(t_data *data, int i, int j);
 void	go_sides(t_data *data, int i, int j);
 void	go_up_or_down(t_data *data, int i, int j);
 
@@ -218,6 +206,7 @@ void	my_mlx_pixel(t_data *data, int x, int y, int color);
 void	calcul_distance(t_data *data);
 int		render(t_data *data);
 void	ft_create_window(t_data *data);
+void	ft_fill_floor(t_data *data);
 
 // 		windows_check_wall.c	//
 
@@ -228,9 +217,11 @@ void	ft_check_wall_ne(t_data *data);
 
 //		windows_init.c			//
 
+void	ft_init_part_one(t_data *data, int i);
+void	ft_init_part_two(t_data *data, int i);
+void	ft_turn_orient(t_data *data);
 void	ft_init_first(t_data *data);
 void	ft_init_delta(t_data *data);
-void	ft_fill_floor(t_data *data);
 
 // 		windows_mooves.c		//
 

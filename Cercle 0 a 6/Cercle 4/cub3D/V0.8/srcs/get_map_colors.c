@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:20:10 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/25 17:17:00 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/26 10:16:45 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@ void	fill_fc_color(t_data *d)
 {
 	char	*s;
 
-	s = d->Floor_hex_color;
-	d->Floor_hex_color = get_map_color(s, d->line_Floor, d);
-	d->color_map_hex_F = ft_htoi(d->Floor_hex_color, 0, 0);
-	s = d->Ceiling_hex_color;
-	d->Ceiling_hex_color = get_map_color(s, d->line_Ceiling, d);
-	d->color_map_hex_C = ft_htoi(d->Ceiling_hex_color, 0, 0);
+	s = d->floor_hex_color;
+	d->floor_hex_color = get_map_color(s, d->line_floor, d);
+	d->color_map_hex_f = ft_htoi(d->floor_hex_color, 0, 0, \
+		d->floor_hex_color[0]);
+	s = d->ceiling_hex_color;
+	d->ceiling_hex_color = get_map_color(s, d->line_ceiling, d);
+	d->color_map_hex_c = ft_htoi(d->ceiling_hex_color, 0, 0, \
+		d->ceiling_hex_color[0]);
 }
 
 char	*make_color_hex(int n)

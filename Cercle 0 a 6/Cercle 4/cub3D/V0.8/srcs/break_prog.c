@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 20:37:41 by jmetezea          #+#    #+#             */
-/*   Updated: 2023/09/25 14:57:32 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/26 10:07:06 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ void	ft_quit2(t_data *data)
 	while (data->map[++i])
 		free(data->map[i]);
 	free(data->map);
-	free(data->Floor_hex_color);
-	free(data->Ceiling_hex_color);
+	free(data->floor_hex_color);
+	free(data->ceiling_hex_color);
 }

@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:50:43 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/25 12:43:11 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/26 10:08:09 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	go_around_the_walls(t_data *data)
 
 int	go_around_the_walls2(t_data *d, int i)
 {
-	while (d->line != d->Map_first_line || d->index != d->first_index)
+	while (d->line != d->map_first_line || d->index != d->first_index)
 	{
 		i++;
 		if (test_map_ok(d, i))
