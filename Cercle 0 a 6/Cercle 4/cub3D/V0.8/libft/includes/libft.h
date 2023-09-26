@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 10:17:48 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/19 09:37:54 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/26 11:37:32 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ char		*ft_substr(char const *s, unsigned int start, size_t len);
 
 // int
 int			ft_atoi(const char *nptr);
+int			ft_htoi(char *s, int i, int n, int c);
 int			ft_isalnum(int c);
 int			ft_isalpha(int c);
 int			ft_isascii(int c);

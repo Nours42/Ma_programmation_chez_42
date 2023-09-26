@@ -6,11 +6,12 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 23:40:05 by kaly              #+#    #+#             */
-/*   Updated: 2023/09/26 10:09:03 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/26 15:25:56 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+#include "../objects/textures/down640.ppm"
 
 void	my_mlx_pixel(t_data *data, int x, int y, int color)
 {

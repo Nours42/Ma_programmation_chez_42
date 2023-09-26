@@ -6,7 +6,7 @@
 #    By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/22 14:21:35 by sdestann          #+#    #+#              #
-#    Updated: 2023/09/25 17:02:10 by sdestann         ###   ########.fr        #
+#    Updated: 2023/09/26 12:03:32 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,9 +39,13 @@ SRCS =	break_prog.c			\
 		windows_mooves.c		\
 		window.c
 
+SRCS_BONUS_DIR = srcs/bonus/
+SRCS_BONUS = ft_sound_bonus.c
+
 OBJDIR = objs
 
 SRCS_PATH = $(addprefix $(SRCS_DIR), $(SRCS))
+SRCS_BONUS_PATH = $(addprefix $(SRCS_BONUS_DIR), $(SRCS_BONUS))
 OBJ_SRCS = $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
 
 CFLAGS		= -Wall -Wextra -Werror
@@ -86,6 +90,10 @@ norminette:
 	@norminette ./includes/
 	@echo ${G}Norminette libft files${X}
 	@norminette ./libft/
+
+bonus:
+	@rm cub3d
+	@$(CC) $(OBJ_SRCS) -L$(LIBFT) ./libmlx/*.a -lXext -lX11 -lm -lft -o $(NAME)
 
 clean:
 	@echo ${R}Cleaning CUB3D ${G}[${OBJDIR}]...${X}
