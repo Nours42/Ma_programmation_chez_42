@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:50:43 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/25 12:20:57 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/26 10:08:18 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 int	test_map_ok(t_data *data, int i)
 {
-	if ((((data->line != data->Map_first_line)
+	if ((((data->line != data->map_first_line)
 				&& (data->map[data->line - 1])
 				&& (data->map[data->line - 1][data->index])
 			&& (data->map[data->line - 1][data->index] == '4'))
 		|| ((data->index != 0
 			&& data->map[data->line][data->index - 1]
 			&& data->map[data->line][data->index - 1] == '4'))
-		|| ((data->line != data->Map_last_line)
+		|| ((data->line != data->map_last_line)
 			&& (data->map[data->line + 1])
 			&& (data->map[data->line + 1][data->index])
 			&& (data->map[data->line + 1][data->index] == '4'))
@@ -48,14 +48,14 @@ int	verif_up_or_down(t_data *data, int i, int j)
 {
 	if (i == -1)
 	{
-		if ((data->line != data->Map_first_line)
+		if ((data->line != data->map_first_line)
 			&& (data->map[data->line + i][data->index])
 			&& (data->map[data->line + i][data->index] == j))
 			return (1);
 	}
 	else if (i == 1)
 	{
-		if ((data->line != data->Map_last_line)
+		if ((data->line != data->map_last_line)
 			&& (data->map[data->line + i])
 			&& (data->map[data->line + i][data->index])
 			&& (data->map[data->line + i][data->index] == j))

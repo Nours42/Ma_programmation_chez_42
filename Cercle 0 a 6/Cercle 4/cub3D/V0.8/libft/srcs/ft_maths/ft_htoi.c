@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 07:57:22 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/25 17:16:46 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/26 10:15:24 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,11 @@
 **
 ** The  htoi function converts the initial portion of the string pointed (*str)
 ** in to an hexadecimal.
-**
+** i = 0, n = 0 et c = s[i]
 */
 
-int	ft_htoi(char *s, int i, int n)
+int	ft_htoi(char *s, int i, int n, int c)
 {
-	int	c;
-
-	c = s[i];
 	while (c != '\0')
 	{
 		c = s[i];

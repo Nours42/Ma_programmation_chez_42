@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:54:28 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/25 12:59:02 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/26 10:08:14 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	ft_test_map(t_data *data)
 
 int	ft_test_perso(t_data *data)
 {
-	player_coordonate(data, data->Map_first_line, 0);
+	player_coordonate(data, data->map_first_line, 0);
 	titre(" TEST PERSO ");
 	if (only_one_player(data))
 		return (titre_err(" too or not perso "));
@@ -84,7 +84,7 @@ void	ft_restore_map(t_data *data)
 	int	i;
 	int	j;
 
-	i = data->Map_first_line;
+	i = data->map_first_line;
 	while (data->map[i])
 	{
 		j = 0;

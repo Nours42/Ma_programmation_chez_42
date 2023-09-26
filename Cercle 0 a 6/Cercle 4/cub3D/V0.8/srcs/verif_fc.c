@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:38:27 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/25 14:42:53 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/26 10:07:17 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int	search_floor_or_ceiling(t_data *data, char *c)
 			if (data->map[i][j] == c[0] && data->map[i][j + 1] == ' ')
 			{
 				if (c[0] == 'F')
-					data->index_Floor = j;
+					data->index_floor = j;
 				else if (c[0] == 'C')
-					data->index_Ceiling = j;
+					data->index_ceiling = j;
 				return (i);
 			}
 			j++;
@@ -41,13 +41,13 @@ int	search_floor_or_ceiling(t_data *data, char *c)
 
 int	floor_ceiling_found(t_data *data)
 {
-	data->line_Floor = (search_floor_or_ceiling(data, "F "));
-	data->line_Ceiling = (search_floor_or_ceiling(data, "C "));
-	if (data->line_Floor == -1)
+	data->line_floor = (search_floor_or_ceiling(data, "F "));
+	data->line_ceiling = (search_floor_or_ceiling(data, "C "));
+	if (data->line_floor == -1)
 		return (titre_err(" FLOOR manquant "));
 	else
 		ft_printf("Floor :\t\t\t\t\033[32mPRESENT\033[0m\n");
-	if (data->line_Ceiling == -1)
+	if (data->line_ceiling == -1)
 		return (titre_err(" CEILING manquant "));
 	else
 		ft_printf("Ceiling :\t\t\t\033[32mPRESENT\033[0m\n");
@@ -60,23 +60,23 @@ int	floor_format_validation(t_data *data)
 	char	*s2;
 
 	j = -1;
-	s2 = data->map[data->line_Floor];
-	if (data->index_Floor > 0)
+	s2 = data->map[data->line_floor];
+	if (data->index_floor > 0)
 	{
-		while (++j <= data->index_Floor)
+		while (++j <= data->index_floor)
 			s2++;
 	}
 	s2 += 2;
-	data->Floor_first_color = ft_atoi(s2);
+	data->floor_first_color = ft_atoi(s2);
 	s2 = ft_strchr(s2, ',');
 	s2++;
-	data->Floor_second_color = ft_atoi(s2);
+	data->floor_second_color = ft_atoi(s2);
 	s2 = ft_strchr(s2, ',');
 	s2++;
-	data->Floor_third_color = ft_atoi(s2);
-	if ((data->Floor_first_color < 0 || data->Floor_first_color > 255)
-		|| (data->Floor_second_color < 0 || data->Floor_second_color > 255)
-		|| (data->Floor_third_color < 0 || data->Floor_third_color > 255))
+	data->floor_third_color = ft_atoi(s2);
+	if ((data->floor_first_color < 0 || data->floor_first_color > 255)
+		|| (data->floor_second_color < 0 || data->floor_second_color > 255)
+		|| (data->floor_third_color < 0 || data->floor_third_color > 255))
 		return (1);
 	return (0);
 }
@@ -87,19 +87,19 @@ int	ceiling_format_validation(t_data *data)
 	char	*s2;
 
 	j = -1;
-	s2 = data->map[data->line_Ceiling];
-	while (++j <= data->index_Ceiling)
+	s2 = data->map[data->line_ceiling];
+	while (++j <= data->index_ceiling)
 		s2++;
-	data->Ceiling_first_color = ft_atoi(s2);
+	data->ceiling_first_color = ft_atoi(s2);
 	s2 = ft_strchr(s2, ',');
 	s2++;
-	data->Ceiling_second_color = ft_atoi(s2);
+	data->ceiling_second_color = ft_atoi(s2);
 	s2 = ft_strchr(s2, ',');
 	s2++;
-	data->Ceiling_third_color = ft_atoi(s2);
-	if ((data->Ceiling_first_color < 0 || data->Ceiling_first_color > 255)
-		|| (data->Ceiling_second_color < 0 || data->Ceiling_second_color > 255)
-		|| (data->Ceiling_third_color < 0 || data->Ceiling_third_color > 255))
+	data->ceiling_third_color = ft_atoi(s2);
+	if ((data->ceiling_first_color < 0 || data->ceiling_first_color > 255)
+		|| (data->ceiling_second_color < 0 || data->ceiling_second_color > 255)
+		|| (data->ceiling_third_color < 0 || data->ceiling_third_color > 255))
 		return (1);
 	return (0);
 }

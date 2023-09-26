@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:50:43 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/25 12:27:58 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/26 10:08:22 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	first_step(t_data *data)
 {
-	data->line = data->Map_first_line;
+	data->line = data->map_first_line;
 	data->index = 0;
 	while (data->map[data->line][data->index] == ' ')
 		data->index++;
@@ -60,8 +60,8 @@ void	find_start_end_of_map(t_data *data)
 	i--;
 	while (empty_line(data->map[i]))
 		i--;
-	data->Map_last_line = i;
+	data->map_last_line = i;
 	while (begin_by_one(data->map[i]) && ends_by_one(data->map[i]))
 		i--;
-	data->Map_first_line = i + 1;
+	data->map_first_line = i + 1;
 }

@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:50:21 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/25 12:46:52 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/26 10:08:24 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ int	only_one_player(t_data *data)
 	int	j;
 	int	player;
 
-	i = data->Map_first_line;
+	i = data->map_first_line;
 	player = 0;
 	while (data->map[i])
 	{
 		j = 0;
-		while (i < data->Map_last_line && data->map[i][j])
+		while (i < data->map_last_line && data->map[i][j])
 		{
 			if (data->map[i][j] == 'E' || data->map[i][j] == 'N'
 				|| data->map[i][j] == 'S' || data->map[i][j] == 'W')

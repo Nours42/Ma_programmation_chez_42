@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:38:27 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/21 16:21:00 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/26 10:04:14 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ int	search_textures(t_data *data, char *texture)
 
 int	texture_validation(t_data *data)
 {
-	data->NO_texture = search_textures(data, "NO");
-	data->SO_texture = search_textures(data, "SO");
-	data->WE_texture = search_textures(data, "WE");
-	data->EA_texture = search_textures(data, "EA");
-	if (data->NO_texture == -1 || data->SO_texture == -1
-		|| data->WE_texture == -1 || data->EA_texture == -1)
+	data->no_texture = search_textures(data, "NO");
+	data->so_texture = search_textures(data, "SO");
+	data->we_texture = search_textures(data, "WE");
+	data->ea_texture = search_textures(data, "EA");
+	if (data->no_texture == -1 || data->so_texture == -1
+		|| data->we_texture == -1 || data->ea_texture == -1)
 		return (err_map("Texture manquante"));
 	else
 		ft_printf("Textures :\t\t\t\033[32mOK\033[0m\n");
