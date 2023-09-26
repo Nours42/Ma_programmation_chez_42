@@ -6,7 +6,11 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:06:32 by kaly              #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/09/26 11:56:09 by sdestann         ###   ########.fr       */
+=======
+/*   Updated: 2023/09/26 10:16:11 by sdestann         ###   ########.fr       */
+>>>>>>> e5518b7c21a263b6eca4816ebf231b237429214e
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +74,12 @@ typedef struct s_data {
 	int		endian;
 	int		size_line;
 	int		line_length;
+<<<<<<< HEAD
+=======
+	int		color_r;
+	int		color_g;
+	int		color_b;
+>>>>>>> e5518b7c21a263b6eca4816ebf231b237429214e
 	int		color_map_hex_c;
 	int		color_map_hex_f;
 	int		player_x;
@@ -120,6 +130,10 @@ int		err_map(char *str);
 
 void	fill_fc_color(t_data *data);
 char	*make_color_hex(int n);
+<<<<<<< HEAD
+=======
+int		ft_htoi(char *s, int i, int n, int c);
+>>>>>>> e5518b7c21a263b6eca4816ebf231b237429214e
 char	*get_map_color(char *s, int l, t_data *data);
 char	*ft_create_res(char *res);
 void	complete_res(char *res, int j, char *s);
@@ -213,8 +227,13 @@ void	ft_check_wall_ne(t_data *data);
 
 //		windows_init.c			//
 
+<<<<<<< HEAD
 void	ft_init_part_one(t_data *data, int i, int j);
 void	ft_init_part_two(t_data *data, int i, int j);
+=======
+void	ft_init_part_one(t_data *data, int i);
+void	ft_init_part_two(t_data *data, int i);
+>>>>>>> e5518b7c21a263b6eca4816ebf231b237429214e
 void	ft_turn_orient(t_data *data);
 void	ft_init_first(t_data *data);
 void	ft_init_delta(t_data *data);
