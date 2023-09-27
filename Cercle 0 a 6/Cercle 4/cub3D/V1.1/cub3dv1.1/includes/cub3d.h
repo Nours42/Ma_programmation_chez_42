@@ -6,7 +6,7 @@
 /*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:06:32 by kaly              #+#    #+#             */
-/*   Updated: 2023/09/27 19:36:53 by nours42          ###   ########.fr       */
+/*   Updated: 2023/09/27 19:53:51 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ typedef struct s_data {
 
 //		break_prog		//
 
+void	ft_clean_before_creating_map(t_data *data);
 void	ft_clean_when_verif_map_ko(t_data *data);
 int		ft_quit(t_data *data);
 void	ft_quit2(t_data *data);

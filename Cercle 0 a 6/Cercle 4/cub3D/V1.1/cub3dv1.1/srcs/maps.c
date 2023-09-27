@@ -6,7 +6,7 @@
 /*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:54:28 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/27 19:37:29 by nours42          ###   ########.fr       */
+/*   Updated: 2023/09/27 19:50:26 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int	ft_check(int argc, char **argv, t_data *data)
 {
 	if (argc == 2)
 	{
-		ft_create_map(data, argv);
+		if (ft_create_map(data, argv))
+			return (2);
 		if (ft_test_map(data))
 			return (1);
 		else if (ft_test_perso(data))
@@ -35,6 +36,8 @@ int	ft_create_map(t_data *data, char **argv)
 
 	data->map = (char **)malloc(sizeof(char *) * 10000);
 	fd = open(argv[1], O_RDONLY);
+	if (fd < 1)
+		return (err("fichier map introuvable\n"));
 	i = 0;
 	str = ft_get_next_line(fd);
 	if (!str)

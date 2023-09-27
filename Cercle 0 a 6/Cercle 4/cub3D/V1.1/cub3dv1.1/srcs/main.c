@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmetezea <jmetezea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 15:18:13 by kaly              #+#    #+#             */
-/*   Updated: 2023/09/27 14:06:23 by jmetezea         ###   ########.fr       */
+/*   Updated: 2023/09/27 19:55:14 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,17 @@ void	init_data(t_data *data)
 int	main(int argc, char **argv)
 {
 	t_data	*data;
+	int		i;
 
 	ft_check_arg(argc, argv);
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (MLX_ERROR);
-	if (ft_check(argc, argv, data) == 1)
+	i = ft_check(argc, argv, data);
+	if (i == 1)
 		ft_clean_when_verif_map_ko(data);
+	else if (i == 2)
+		ft_clean_before_creating_map(data);
 	init_data(data);
 	ft_create_window(data);
 	return (0);

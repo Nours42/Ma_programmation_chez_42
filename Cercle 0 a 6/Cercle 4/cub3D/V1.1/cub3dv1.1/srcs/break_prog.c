@@ -6,11 +6,18 @@
 /*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 20:37:41 by jmetezea          #+#    #+#             */
-/*   Updated: 2023/09/27 19:44:10 by nours42          ###   ########.fr       */
+/*   Updated: 2023/09/27 19:55:53 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+void	ft_clean_before_creating_map(t_data *data)
+{
+	free(data->map);
+	free(data);
+	exit (EXIT_FAILURE);
+}
 
 void	ft_clean_when_verif_map_ko(t_data *data)
 {
