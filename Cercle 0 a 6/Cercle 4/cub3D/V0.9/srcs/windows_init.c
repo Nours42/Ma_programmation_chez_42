@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   windows_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmetezea <jmetezea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 23:40:05 by kaly              #+#    #+#             */
-/*   Updated: 2023/09/26 11:54:49 by jmetezea         ###   ########.fr       */
+/*   Updated: 2023/09/27 09:09:30 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,5 @@ void	ft_init_delta(t_data *data)
 	data->delta_x = sqrt((data->xa * data->xa) + 100 * 100);
 	data->delta_y = sqrt((data->ya * data->ya) + 100 * 100);
 	ft_init_first(data);
+	data->y = data->horizon - (100 / data->dist * 1000);
 }
