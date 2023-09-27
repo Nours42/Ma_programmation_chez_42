@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   windows_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmetezea <jmetezea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 23:40:05 by kaly              #+#    #+#             */
-/*   Updated: 2023/09/27 08:02:31 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/26 11:54:49 by jmetezea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,38 +45,22 @@ void	ft_turn_orient(t_data *data)
 {
 	if (data->orient > 0 && data->orient < 90)
 	{
-<<<<<<< HEAD
 		ft_init_part_one(data, 1, -1);
-=======
-		ft_init_part_one(data, 1);
->>>>>>> e5518b7c21a263b6eca4816ebf231b237429214e
 		ft_check_wall_ne(data);
 	}
 	else if (data->orient > -90 && data->orient < 0)
 	{
-<<<<<<< HEAD
 		ft_init_part_two(data, 1, -1);
-=======
-		ft_init_part_two(data, 1);
->>>>>>> e5518b7c21a263b6eca4816ebf231b237429214e
 		ft_check_wall_se(data);
 	}
 	else if (data->orient < -90)
 	{
-<<<<<<< HEAD
 		ft_init_part_two(data, 0, 1);
-=======
-		ft_init_part_two(data, 0);
->>>>>>> e5518b7c21a263b6eca4816ebf231b237429214e
 		ft_check_wall_sw(data);
 	}
 	else
 	{
-<<<<<<< HEAD
 		ft_init_part_one(data, 0, 1);
-=======
-		ft_init_part_one(data, 0);
->>>>>>> e5518b7c21a263b6eca4816ebf231b237429214e
 		ft_check_wall_nw(data);
 	}
 }
