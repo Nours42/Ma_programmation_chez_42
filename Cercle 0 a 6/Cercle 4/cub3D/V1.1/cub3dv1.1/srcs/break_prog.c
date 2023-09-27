@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   break_prog.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmetezea <jmetezea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 20:37:41 by jmetezea          #+#    #+#             */
-/*   Updated: 2023/09/26 19:15:12 by jmetezea         ###   ########.fr       */
+/*   Updated: 2023/09/27 19:44:10 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,10 @@ void	ft_quit2(t_data *data)
 	while (data->map[++i])
 		free(data->map[i]);
 	free(data->map);
+	free(data->no_texture);
+	free(data->so_texture);
+	free(data->ea_texture);
+	free(data->we_texture);
 	free(data->floor_hex_color);
 	free(data->ceiling_hex_color);
 }

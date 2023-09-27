@@ -6,7 +6,7 @@
 /*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:38:27 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/27 19:29:27 by nours42          ###   ########.fr       */
+/*   Updated: 2023/09/27 19:45:44 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*texture_file(char *s)
 	s += 3;
 	while (s[j] == ' ' || s[j] == '\t')
 		j++;
-	length = ft_strlen(s) - (4 + j);
+	length = ft_strlen(s);
 	res = (char *)malloc((sizeof(char) * length) + 1);
 	while (s[i + j] != '\n')
 	{
