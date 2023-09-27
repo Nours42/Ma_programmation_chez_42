@@ -6,13 +6,13 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 23:40:05 by kaly              #+#    #+#             */
-/*   Updated: 2023/09/27 08:24:59 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/27 08:54:01 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	calcul_distance(t_data *data)
+void	calcul_distance(t_data *d)
 {
 	int	i;
 
@@ -25,7 +25,7 @@ void	calcul_distance(t_data *data)
 			d->orient -= 360.00;
 		if (d->orient <= -180)
 			d->orient += 360.00;
-		ft_init_delta(data);
+		ft_init_delta(d);
 		d->y = d->horizon - (100 / d->dist * 1000);
 		i = -1;
 		while ((d->y) < d->horizon + (100 / d->dist * 1000))
@@ -41,7 +41,7 @@ void	calcul_distance(t_data *data)
 	return ;
 }
 
-void	calcul_distance_part_one(t_data *data)
+void	calcul_distance_part_one(t_data *d)
 {
 	if (++i == 0)
 		d->origin_y = d->y;
@@ -70,7 +70,7 @@ void	calcul_distance_part_one(t_data *data)
 	calcul_distance_part_two(data);
 }
 
-void	calcul_distance_part_two(t_data *data)
+void	calcul_distance_part_two(t_data *d)
 {
 	if (((d->orient > 0 && d->orient < 90) && d->dist_x < d->dist_y)
 		|| (d->orient > 90 && d->dist_x < d->dist_y))

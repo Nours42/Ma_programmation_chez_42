@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   windows_mooves2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jmetezea <jmetezea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 23:40:05 by kaly              #+#    #+#             */
-/*   Updated: 2023/09/27 08:04:06 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/26 19:07:31 by jmetezea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	ft_turn_right(t_data *data)
 
 void	ft_turn_left(t_data *data)
 {
-	data->player_orient += 5.00;
+    data->player_orient += 5.00;
 	if (data->player_orient >= 180)
 		data->player_orient -= 360;
 }

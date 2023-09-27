@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:06:32 by kaly              #+#    #+#             */
-/*   Updated: 2023/09/27 08:28:34 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/27 08:59:21 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,8 @@ typedef struct s_data {
 	int		draw_y;
 	int		pixel_x;
 	int		pixel_y;
-
+	
+	
 	char	*addr;
 	int		bpp;
 	int		endian;
@@ -145,7 +146,9 @@ typedef struct s_data {
 	double	dist;
 	double	orient;
 	int		exit;
+
 }	t_data;
+
 
 //		break_prog		//
 
@@ -247,17 +250,12 @@ int		texture_validation(t_data *data);
 //		window			//
 
 void	my_mlx_pixel(t_data *data, int x, int y, int color);
-int		pix_text(t_data *data, char *addr, int line_lenght, int bpp);
+void	calcul_distance(t_data *data);
+void	calcul_distance_part_one(t_data *data, int i);
+void	calcul_distance_part_two(t_data *data);
 int		render(t_data *data);
 void	ft_create_window(t_data *data);
 void	ft_fill_floor(t_data *data);
-
-// 		window_calcul_distances.c	//
-
-void	calcul_distance(t_data *data);
-void	calcul_distance_part_one(t_data *data);
-void	calcul_distance_part_two(t_data *data);
-void	ft_init_wall_img(t_data *d);
 
 // 		windows_check_wall.c	//
 

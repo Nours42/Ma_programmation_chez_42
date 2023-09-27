@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+         #
+#    By: jmetezea <jmetezea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/22 14:21:35 by sdestann          #+#    #+#              #
-#    Updated: 2023/09/27 08:25:50 by sdestann         ###   ########.fr        #
+#    Updated: 2023/09/26 13:51:05 by jmetezea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,26 +19,25 @@ HEADER_DIR = includes/
 HEADER = $(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 
 SRCS_DIR = srcs/
-SRCS =	break_prog.c				\
-		check_arg.c 				\
-		error.c						\
-		get_map_colors.c			\
-		go_around_the_walls.c		\
-		main.c						\
-		maps.c						\
-		print.c						\
-		utils.c						\
-		utils_maps.c				\
-		verif_fc.c					\
-		verif_map_moove.c			\
-		verif_map.c					\
-		verif_player.c				\
-		verif_textures.c			\
-		windows_check_wall.c		\
-		window_calcul_distances.c	\
-		windows_init.c				\
-		windows_mooves.c			\
-		windows_mooves2.c			\
+SRCS =	break_prog.c			\
+		check_arg.c 			\
+		error.c					\
+		get_map_colors.c		\
+		go_around_the_walls.c	\
+		main.c					\
+		maps.c					\
+		print.c					\
+		utils.c					\
+		utils_maps.c			\
+		verif_fc.c				\
+		verif_map_moove.c		\
+		verif_map.c				\
+		verif_player.c			\
+		verif_textures.c		\
+		windows_check_wall.c	\
+		windows_init.c			\
+		windows_mooves.c		\
+		windows_mooves2.c		\
 		window.c
 
 OBJDIR = objs
