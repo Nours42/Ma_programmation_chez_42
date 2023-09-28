@@ -1,0 +1,36 @@
+leak:
+
+pas de map
+si pas de joueur
+si deux joueurs
+un 0 en dehors
+
+segfault :
+
+map avant donnees
+
+
+
+SO ./img/left.xpm
+NO ./img/up.xpm
+F 0,255,0
+WE ./img/fond.xpm
+EA ./img/fond2.xpm
+C 255,0,60
+
+
+
+11111
+11001111
+  1110001
+ 10001111  
+10N01
+10 001
+10001
+11111
+
+11111111111111
+000000000000
+  11111
+  1   00
+  11111
