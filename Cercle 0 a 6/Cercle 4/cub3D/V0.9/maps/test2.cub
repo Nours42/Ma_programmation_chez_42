@@ -1,8 +1,8 @@
-SO ./path_to_the_south_texture
+SO        ./img/bomb.xpm
 F 163,		121,6
-NO ./path_to_the_north_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
+NO    ./img/dale_jaune.xpm
+WE ./img/down.xpm
+EA ./img/fond.xpm
 C 0,   146,255
         111111111111111111111111
         100000000000000000000001

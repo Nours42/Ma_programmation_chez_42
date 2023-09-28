@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:38:27 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/27 19:45:44 by nours42          ###   ########.fr       */
+/*   Updated: 2023/09/28 12:19:03 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	search_textures(t_data *data, char *texture)
 	{
 		if (ft_strncmp(data->map[i], texture, 2) == 0)
 		{
+			if (search_xpm(data->map[i]))
+				return (-3);
 			if (j == -1)
 				j = i;
 			else
@@ -35,10 +37,10 @@ int	search_textures(t_data *data, char *texture)
 
 char	*texture_file(char *s)
 {
-	int	length;
-	int	i;
-	int	j;
-	char *res;
+	int		length;
+	int		i;
+	int		j;
+	char	*res;
 
 	i = 0;
 	j = 0;
@@ -68,6 +70,9 @@ int	texture_validation(t_data *data)
 	else if (data->no_texture_index == -2 || data->so_texture_index == -2
 		|| data->we_texture_index == -2 || data->ea_texture_index == -2)
 		return (err_map("Texture en double"));
+	else if (data->no_texture_index == -3 || data->so_texture_index == -3
+		|| data->we_texture_index == -3 || data->ea_texture_index == -3)
+		return (err_map("Texture non xpm"));
 	else
 	{
 		data->no_texture = texture_file(data->map[data->no_texture_index]);
@@ -77,4 +82,30 @@ int	texture_validation(t_data *data)
 		ft_printf("Textures :\t\t\t\033[32mOK\033[0m\n");
 	}
 	return (0);
+}
+
+int	search_xpm(char *s)
+{
+	int		i;
+	int		j;
+	char	*cpy;
+
+	i = 0;
+	j = 0;
+	while (s[i])
+		i++;
+	cpy = (char *)malloc(sizeof(char) * 4 + 1);
+	while (j < 4)
+	{
+		cpy[j] = s[i - (5 - j)];
+		j++;
+	}
+	if (cpy [0] == '.' && cpy[1] == 'x' && cpy[2] == 'p'
+		&& cpy[3] == 'm')
+	{
+		free(cpy);
+		return (0);
+	}
+	free(cpy);
+	return (1);
 }

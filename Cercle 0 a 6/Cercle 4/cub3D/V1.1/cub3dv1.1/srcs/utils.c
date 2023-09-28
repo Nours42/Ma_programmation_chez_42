@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:20:10 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/25 16:09:20 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/28 10:59:00 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	empty_line(char *c)
 	int	i;
 
 	i = 0;
+	if (c == NULL)
+		return (1);
 	while (c[i])
 	{
 		if (c[i] == 32 || (c[i] == 9) || (c[i] == 10))

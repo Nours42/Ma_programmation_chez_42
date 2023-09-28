@@ -6,13 +6,13 @@
 #    By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/22 14:21:35 by sdestann          #+#    #+#              #
-#    Updated: 2023/09/27 09:17:25 by sdestann         ###   ########.fr        #
+#    Updated: 2023/09/28 12:14:41 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ### MISC ###
 
-NAME = cub3d
+NAME = cub3D
 
 HEADER_SRCS = cub3d.h
 HEADER_DIR = includes/
@@ -20,6 +20,7 @@ HEADER = $(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 
 SRCS_DIR = srcs/
 SRCS =	break_prog.c				\
+		break_prog2.c				\
 		check_arg.c 				\
 		error.c						\
 		get_map_colors.c			\

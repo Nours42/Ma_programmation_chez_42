@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maps.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:54:28 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/27 19:50:26 by nours42          ###   ########.fr       */
+/*   Updated: 2023/09/28 12:13:57 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,21 @@
 
 int	ft_check(int argc, char **argv, t_data *data)
 {
+	int	i;
+
 	if (argc == 2)
 	{
 		if (ft_create_map(data, argv))
 			return (2);
-		if (ft_test_map(data))
-			return (1);
+		i = ft_test_map(data);
+		if (i > 0)
+		{
+			if (i == 2)
+				ft_clean_when_textures_ko(data);
+			else
+				ft_clean_when_verif_map_ko(data);
+			titre_err(" MAP :\t\t\033[31mKO\033[0m\n");
+		}
 		else if (ft_test_perso(data))
 			return (1);
 	}
@@ -56,13 +65,21 @@ int	ft_test_map(t_data *data)
 {
 	ft_printf("\e[1;1H\e[2J");
 	titre(" TEST DE LA MAP ");
-	if (texture_validation(data) || floor_ceiling_validation(data))
-		return (titre_err(" MAP : KO "));
+	if (texture_validation(data))
+	{
+		err(" TEXTURES :\t\t\033[31mKO\033[0m\n");
+		return (2);
+	}
+	else if (floor_ceiling_validation(data))
+	{
+		err(" FLOOR OR CEILING :\t\t\033[31mKO\033[0m\n");
+		return (3);
+	}
 	else
 		titre(" MAP : OK ");
 	fill_fc_color(data);
 	if (find_start_end_of_map(data))
-		return(err("mur d'enceinte :\t\t\033[31mKO\033[0m\n"));
+		return (err("mur d'enceinte :\t\t\033[31mKO\033[0m\n"));
 	resize_map(data);
 	if (go_around_the_walls(data))
 		return (err("mur d'enceinte :\t\t\033[31mKO\033[0m\n"));

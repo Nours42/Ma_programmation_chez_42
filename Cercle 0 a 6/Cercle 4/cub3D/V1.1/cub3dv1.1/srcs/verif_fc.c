@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:38:27 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/26 10:07:17 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/28 11:09:58 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,24 +56,13 @@ int	floor_ceiling_found(t_data *data)
 
 int	floor_format_validation(t_data *data)
 {
-	int		j;
-	char	*s2;
-
-	j = -1;
-	s2 = data->map[data->line_floor];
-	if (data->index_floor > 0)
-	{
-		while (++j <= data->index_floor)
-			s2++;
-	}
-	s2 += 2;
-	data->floor_first_color = ft_atoi(s2);
-	s2 = ft_strchr(s2, ',');
-	s2++;
-	data->floor_second_color = ft_atoi(s2);
-	s2 = ft_strchr(s2, ',');
-	s2++;
-	data->floor_third_color = ft_atoi(s2);
+	data->split_color_f = ft_split(data->map[data->line_floor], ',');
+	if (empty_line(data->split_color_f[0]) || empty_line(data->split_color_f[1])
+		|| empty_line(data->split_color_f[2]))
+		return (1);
+	data->floor_first_color = ft_atoi(data->split_color_f[0]);
+	data->floor_second_color = ft_atoi(data->split_color_f[1]);
+	data->floor_third_color = ft_atoi(data->split_color_f[2]);
 	if ((data->floor_first_color < 0 || data->floor_first_color > 255)
 		|| (data->floor_second_color < 0 || data->floor_second_color > 255)
 		|| (data->floor_third_color < 0 || data->floor_third_color > 255))
@@ -83,20 +72,13 @@ int	floor_format_validation(t_data *data)
 
 int	ceiling_format_validation(t_data *data)
 {
-	int		j;
-	char	*s2;
-
-	j = -1;
-	s2 = data->map[data->line_ceiling];
-	while (++j <= data->index_ceiling)
-		s2++;
-	data->ceiling_first_color = ft_atoi(s2);
-	s2 = ft_strchr(s2, ',');
-	s2++;
-	data->ceiling_second_color = ft_atoi(s2);
-	s2 = ft_strchr(s2, ',');
-	s2++;
-	data->ceiling_third_color = ft_atoi(s2);
+	data->split_color_c = ft_split(data->map[data->line_ceiling], ',');
+	if (empty_line(data->split_color_c[0]) || empty_line(data->split_color_c[1])
+		|| empty_line(data->split_color_c[2]))
+		return (1);
+	data->ceiling_first_color = ft_atoi(data->split_color_c[0]);
+	data->ceiling_second_color = ft_atoi(data->split_color_c[1]);
+	data->ceiling_third_color = ft_atoi(data->split_color_c[2]);
 	if ((data->ceiling_first_color < 0 || data->ceiling_first_color > 255)
 		|| (data->ceiling_second_color < 0 || data->ceiling_second_color > 255)
 		|| (data->ceiling_third_color < 0 || data->ceiling_third_color > 255))
@@ -104,16 +86,72 @@ int	ceiling_format_validation(t_data *data)
 	return (0);
 }
 
+// int	floor_format_validation(t_data *data)
+// {
+// 	int		j;
+// 	char	*s2;
+
+// 	j = -1;
+// 	s2 = data->map[data->line_floor];
+// 	if (data->index_floor > 0)
+// 	{
+// 		while (++j <= data->index_floor)
+// 			s2++;
+// 	}
+// 	s2 += 2;
+// 	data->floor_first_color = ft_atoi(s2);
+// 	s2 = ft_strchr(s2, ',');
+// 	s2++;
+// 	data->floor_second_color = ft_atoi(s2);
+// 	s2 = ft_strchr(s2, ',');
+// 	s2++;
+// 	data->floor_third_color = ft_atoi(s2);
+// 	if ((data->floor_first_color < 0 || data->floor_first_color > 255)
+// 		|| (data->floor_second_color < 0 || data->floor_second_color > 255)
+// 		|| (data->floor_third_color < 0 || data->floor_third_color > 255))
+// 		return (1);
+// 	return (0);
+// }
+
+// int	ceiling_format_validation(t_data *data)
+// {
+// 	int		j;
+// 	char	*s2;
+
+// 	j = -1;
+// 	s2 = data->map[data->line_ceiling];
+// 	while (++j <= data->index_ceiling)
+// 		s2++;
+// 	data->ceiling_first_color = ft_atoi(s2);
+// 	s2 = ft_strchr(s2, ',');
+// 	s2++;
+// 	data->ceiling_second_color = ft_atoi(s2);
+// 	s2 = ft_strchr(s2, ',');
+// 	s2++;
+// 	data->ceiling_third_color = ft_atoi(s2);
+// 	if ((data->ceiling_first_color < 0 || data->ceiling_first_color > 255)
+// 		|| (data->ceiling_second_color < 0 || data->ceiling_second_color > 255)
+// 		|| (data->ceiling_third_color < 0 || data->ceiling_third_color > 255))
+// 		return (1);
+// 	return (0);
+// }
+
 int	floor_ceiling_validation(t_data *data)
 {
 	if (floor_ceiling_found(data))
 		return (err("error in search of Floor and Ceiling"));
 	if (floor_format_validation(data))
+	{
+		free_fc_color(data, 0);
 		return (err("Floor :\t\t\t\t\033[31mColor KO\033[0m\n"));
+	}
 	else
 		ft_printf("Floor :\t\t\t\t\033[32mColor OK\033[0m\n");
 	if (ceiling_format_validation(data))
+	{
+		free_fc_color(data, 1);
 		return (err("Ceiling :\t\t\t\033[31mColor KO\033[0m\n\n"));
+	}
 	else
 		ft_printf("Ceiling :\t\t\t\033[32mColor OK\033[0m\n\n");
 	return (0);

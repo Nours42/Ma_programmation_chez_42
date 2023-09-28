@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 23:40:05 by kaly              #+#    #+#             */
-/*   Updated: 2023/09/27 09:22:40 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/27 15:10:04 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,10 @@ void	calcul_distance(t_data *data)
 		i = -1;
 		while ((data->y) < data->horizon + (100 / data->dist * 1000))
 		{
-			if (data->y >= 0 && data->y < WINDOW_H)
-			{
-				if (++i == 0)
+			if (++i == 0)
 					data->origin_y = data->y;
+			if (data->y >= 0 && data->y < WINDOW_H)
 				calcul_distance_part_one(data);
-			}
 			data->y++;
 		}
 		data->x++;
@@ -90,19 +88,19 @@ void	calcul_distance_part_two(t_data *data)
 
 void	ft_init_wall_img(t_data *data)
 {
-	data->wall_n = mlx_xpm_file_to_image(data->mlx_ptr, "./img/down.xpm",
+	data->wall_n = mlx_xpm_file_to_image(data->mlx_ptr, data->no_texture,
 			&data->wall_n_width, &data->wall_n_height);
 	data->wall_n_addr = mlx_get_data_addr(data->wall_n, &data->wall_n_bpp,
 			&data->wall_n_line_length, &data->wall_n_endian);
 	data->wall_e = mlx_xpm_file_to_image(data->mlx_ptr, \
-		"./img/black_window.xpm", &data->wall_e_width, &data->wall_e_height);
+		data->ea_texture, &data->wall_e_width, &data->wall_e_height);
 	data->wall_e_addr = mlx_get_data_addr(data->wall_e, &data->wall_e_bpp,
 			&data->wall_e_line_length, &data->wall_e_endian);
-	data->wall_s = mlx_xpm_file_to_image(data->mlx_ptr, "./img/red_window.xpm",
+	data->wall_s = mlx_xpm_file_to_image(data->mlx_ptr, data->so_texture,
 			&data->wall_s_width, &data->wall_s_height);
 	data->wall_s_addr = mlx_get_data_addr(data->wall_s, &data->wall_s_bpp,
 			&data->wall_s_line_length, &data->wall_s_endian);
-	data->wall_w = mlx_xpm_file_to_image(data->mlx_ptr, "./img/window.xpm",
+	data->wall_w = mlx_xpm_file_to_image(data->mlx_ptr, data->we_texture,
 			&data->wall_w_width, &data->wall_w_height);
 	data->wall_w_addr = mlx_get_data_addr(data->wall_w, &data->wall_w_bpp,
 			&data->wall_w_line_length, &data->wall_w_endian);

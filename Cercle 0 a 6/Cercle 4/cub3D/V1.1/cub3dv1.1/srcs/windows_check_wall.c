@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   windows_check_wall.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 23:40:05 by kaly              #+#    #+#             */
-/*   Updated: 2023/09/27 19:25:09 by nours42          ###   ########.fr       */
+/*   Updated: 2023/09/28 11:09:15 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,11 +143,11 @@ void	ft_init_wall_img(t_data *data)
 		ft_clean_when_verif_map_ko(data);
 	}
 	data->wall_n_addr = mlx_get_data_addr(data->wall_n, &data->wall_n_bpp,
-		&data->wall_n_line_l, &data->wall_n_endian);
+			&data->wall_n_line_l, &data->wall_n_endian);
 	data->wall_e_addr = mlx_get_data_addr(data->wall_e, &data->wall_e_bpp,
-		&data->wall_e_line_l, &data->wall_e_endian);
+			&data->wall_e_line_l, &data->wall_e_endian);
 	data->wall_s_addr = mlx_get_data_addr(data->wall_s, &data->wall_s_bpp,
-		&data->wall_s_line_l, &data->wall_s_endian);
+			&data->wall_s_line_l, &data->wall_s_endian);
 	data->wall_w_addr = mlx_get_data_addr(data->wall_w, &data->wall_w_bpp,
-		&data->wall_w_line_l, &data->wall_w_endian);
+			&data->wall_w_line_l, &data->wall_w_endian);
 }

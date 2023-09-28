@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:06:32 by kaly              #+#    #+#             */
-/*   Updated: 2023/09/27 09:23:22 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/27 15:08:59 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,14 @@ typedef struct s_data {
 	void	*mlx_ptr;
 	void	*win_ptr;
 	char	**map;
-	int		no_texture;
-	int		so_texture;
-	int		we_texture;
-	int		ea_texture;
+	char	*no_texture;
+	char	*so_texture;
+	char	*we_texture;
+	char	*ea_texture;
+	int		no_texture_index;
+	int		so_texture_index;
+	int		we_texture_index;
+	int		ea_texture_index;
 	int		index_floor;
 	int		index_ceiling;
 	int		line_floor;
@@ -243,6 +247,8 @@ int		only_one_player(t_data *data);
 
 int		search_textures(t_data *data, char *texture);
 int		texture_validation(t_data *data);
+char	*go_3_cut_end(char *s);
+
 
 //		window			//
 

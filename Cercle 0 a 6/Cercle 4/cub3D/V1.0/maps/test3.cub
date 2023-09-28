@@ -1,0 +1,12 @@
+NO ./img/test.xpm
+SO ./img/bomb.xpm
+WE ./img/up.xpm
+EA ./img/left.xpm
+F 163,121,6
+C 0,246,255
+111   111
+101111101
+100000001
+110000011
+ 100N001
+ 1111111

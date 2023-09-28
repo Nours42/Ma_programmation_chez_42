@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:06:32 by kaly              #+#    #+#             */
-/*   Updated: 2023/09/27 19:53:51 by nours42          ###   ########.fr       */
+/*   Updated: 2023/09/28 12:14:27 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ typedef struct s_data {
 	int		ceiling_first_color;
 	int		ceiling_second_color;
 	int		ceiling_third_color;
+	char	**split_color_f;
+	char	**split_color_c;
 	int		map_last_line;
 	int		map_first_line;
 	int		line;
@@ -69,6 +71,7 @@ typedef struct s_data {
 	int		first_index;
 	size_t	size_max;
 	void	*file;
+	int		error;
 
 	void	*wall_n;
 	char	*wall_n_addr;
@@ -157,7 +160,12 @@ typedef struct s_data {
 void	ft_clean_before_creating_map(t_data *data);
 void	ft_clean_when_verif_map_ko(t_data *data);
 int		ft_quit(t_data *data);
-void	ft_quit2(t_data *data);
+void	ft_quit2(t_data *data, int i);
+void	free_fc_color(t_data *data, int i);
+
+// 		break_prog2		//
+
+void	ft_clean_when_textures_ko(t_data *data);
 
 //		check_arg		//
 
@@ -247,7 +255,9 @@ int		only_one_player(t_data *data);
 // 		verif_textures.c		//
 
 int		search_textures(t_data *data, char *texture);
+char	*texture_file(char *s);
 int		texture_validation(t_data *data);
+int		search_xpm(char *s);
 
 //		window			//
 
