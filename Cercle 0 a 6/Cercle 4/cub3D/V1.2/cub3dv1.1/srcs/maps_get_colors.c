@@ -6,20 +6,20 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:20:10 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/28 16:43:01 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/28 17:19:46 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	fill_fc_color(t_data *d)
+void	fill_fc_color(t_data *d)
 {
 	char	*s;
 
 	s = d->floor_hex_color;
 	d->floor_hex_color = get_map_color(s, d->line_floor, d);
 	if (d->floor_hex_color == NULL)
-		ft_exit_failure(data, 2, \
+		ft_exit_failure(d, 2, \
 		"Erreur a la creation de d->floor_hex_color\n", NULL);
 	d->color_map_hex_f = ft_htoi(d->floor_hex_color, 0, 0, \
 		d->floor_hex_color[0]);
@@ -27,8 +27,8 @@ int	fill_fc_color(t_data *d)
 	d->ceiling_hex_color = get_map_color(s, d->line_ceiling, d);
 	if (d->ceiling_hex_color == NULL)
 	{
-		free(data->floor_hex_color);
-		ft_exit_failure(data, 2, \
+		free(d->floor_hex_color);
+		ft_exit_failure(d, 2, \
 			"Erreur a la creation de d->ceiling_hex_color\n", NULL);
 	}
 	d->color_map_hex_c = ft_htoi(d->ceiling_hex_color, 0, 0, \

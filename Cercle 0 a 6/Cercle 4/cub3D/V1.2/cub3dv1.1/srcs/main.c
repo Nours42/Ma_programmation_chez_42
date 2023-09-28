@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 15:18:13 by kaly              #+#    #+#             */
-/*   Updated: 2023/09/28 16:34:41 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/28 17:18:46 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	init_data(t_data *data)
 	data->scale = 60.0000000 / WINDOW_W;
 }
 
-void	ft_check(int argc, char **argv, t_data *data)
+void	ft_check(char **argv, t_data *data)
 {
 	// data
 	if (ft_create_map(data, argv))
@@ -47,19 +47,19 @@ void	ft_check(int argc, char **argv, t_data *data)
 		ft_quit(data);
 	}
 	if (ft_test_perso(data))
-		return (1);
+		ft_exit_failure(data, 3., NULL, \
+		"Personnage : 1\t\t\t\033[32mKO\033[0m\n");
 }
 
 int	main(int argc, char **argv)
 {
 	t_data	*data;
-	int		i;
 
 	ft_check_arg(argc, argv);
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (1);
-	ft_check(argc, argv, data);
+	ft_check(argv, data);
 	init_data(data);
 	ft_create_window(data);
 	return (0);

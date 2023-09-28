@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 20:37:41 by jmetezea          #+#    #+#             */
-/*   Updated: 2023/09/28 16:51:51 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/28 17:21:22 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_clean(t_data *data, int i)
 {
 	if (i >= 3)
-		free_fc_color(data, 2);
+		ft_clean_fc_color(data, 2);
 	if (i >= 2)
 		ft_clean_split_color(data, 3);
 	if (i >= 1)

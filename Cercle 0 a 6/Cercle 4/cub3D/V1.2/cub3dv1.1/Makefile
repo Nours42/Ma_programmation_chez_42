@@ -6,7 +6,7 @@
 #    By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/22 14:21:35 by sdestann          #+#    #+#              #
-#    Updated: 2023/09/28 12:14:41 by sdestann         ###   ########.fr        #
+#    Updated: 2023/09/28 17:13:53 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,25 +22,25 @@ SRCS_DIR = srcs/
 SRCS =	break_prog.c				\
 		break_prog2.c				\
 		check_arg.c 				\
-		error.c						\
-		get_map_colors.c			\
-		go_around_the_walls.c		\
 		main.c						\
-		maps.c						\
+		map.c						\
+		maps_get_colors.c			\
+		maps_go_around_the_walls.c	\
+		maps_utils.c				\
+		maps_verif_fc.c				\
+		maps_verif_moove.c			\
+		maps_verif_textures.c		\
+		maps_verif.c				\
+		player_verif.c				\
+		print_error.c				\
 		print.c						\
 		utils.c						\
-		utils_maps.c				\
-		verif_fc.c					\
-		verif_map_moove.c			\
-		verif_map.c					\
-		verif_player.c				\
-		verif_textures.c			\
+		window.c					\
 		windows_calcul_distances.c	\
 		windows_check_wall.c		\
 		windows_init.c				\
 		windows_mooves.c			\
-		windows_mooves2.c			\
-		window.c
+		windows_mooves2.c
 
 OBJDIR = objs
 

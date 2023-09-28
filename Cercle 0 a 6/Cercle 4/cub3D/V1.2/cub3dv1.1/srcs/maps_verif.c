@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   verif_map.c                                        :+:      :+:    :+:   */
+/*   maps_verif.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:50:43 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/28 16:21:34 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/28 17:20:50 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	find_start_end_of_map(t_data *data)
 	i--;
 	while (empty_line(data->map[i]))
 		i--;
-	if (ft_test_map_is_at_end(data, i));
+	if (ft_test_map_is_at_end(data, i))
 		ft_exit_failure(data, 3, "la map doit etre a la fin\n", NULL);
 	data->map_last_line = i;
 	while (begin_by_one(data->map[i]))
@@ -70,9 +70,9 @@ int	ft_test_map_is_at_end(t_data *data, int i)
 	int	j;
 
 	j = -1;
-	while (data[i][++j])
+	while (data->map[i][++j])
 	{
-		if (data[i][j] == ' ' || data[i][j] == '\t' || data[i][j] == '1')
+		if (data->map[i][j] == ' ' || data->map[i][j] == '\t' || data->map[i][j] == '1')
 			j++;
 		else
 			return (1);
