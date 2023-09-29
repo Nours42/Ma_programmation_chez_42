@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:31:27 by sdestann          #+#    #+#             */
-/*   Updated: 2023/06/12 14:21:12 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/29 15:48:39 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 
 # include <pthread.h>
 
-struct	s_rules;
+struct	s_data;
 
 typedef struct s_philo
 {

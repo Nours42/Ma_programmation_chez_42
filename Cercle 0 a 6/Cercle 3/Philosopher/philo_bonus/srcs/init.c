@@ -6,62 +6,58 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 13:06:21 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/29 14:39:51 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/29 16:04:45 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int	init_semaphore(t_rules *rules)
+int	ft_init_data(t_data *data, char **argv)
+{
+	data->nb_philo = ft_atoi(argv[1]);
+	data->time_death = ft_atoi(argv[2]);
+	data->time_eat = ft_atoi(argv[3]);
+	data->time_sleep = ft_atoi(argv[4]);
+	data->nb_eat_min = -1;
+	if (ac == 6)
+		data->nb_eat_min = ft_atoi(av[5]);
+	data->all_ate = 0;
+	data->death = 0;
+	return (0);
+}
+
+int	init_philos(t_data *data)
+{
+	int i;
+
+	i = 0;
+	data->start_time = ft_timestamp();
+	while (i < data->nb_philo)
+	{
+		data->philo[i].id = i + 1;
+		data->philo[i].nb_eat = 0;
+		data->philo[i].last_meal = 0;
+		data->philo[i].fork1 = 0;
+		data->philo[i].fork2 = 0;
+		data->philo[i].left_fork = i;
+		data->philo[i].right_fork = (i + 1) % data->nb_philo;
+		data->philo[i].data = data;
+		data->fork_available[i] = 1;
+		i++;
+	}
+	return (0);
+}
+
+int	init_semaphore(t_data *data)
 {
 	sem_unlink("/philo_forks");
 	sem_unlink("/philo_write");
 	sem_unlink("/philo_mealcheck");
-	rules->forks = sem_open("/philo_forks", O_CREAT, S_IRWXU, rules->nb_philo);
-	rules->writing = sem_open("/philo_write", O_CREAT, S_IRWXU, 1);
-	rules->meal_check = sem_open("/philo_mealcheck", O_CREAT, S_IRWXU, 1);
-	// if (rules->forks <= 0 || &rules->writing <= 0 || &rules->meal_check <= 0)
-	// 	return (1);
+	data->forks = sem_open("/philo_forks", O_CREAT, S_IRWXU, data->nb_philo);
+	data->writing = sem_open("/philo_write", O_CREAT, S_IRWXU, 1);
+	data->meal_check = sem_open("/philo_mealcheck", O_CREAT, S_IRWXU, 1);
 	return (0);
 }
 
-int	init_philosophers(t_rules *rules)
-{
-	int i;
 
-	i = rules->nb_philo;
-	while (--i >= 0)
-	{
-		rules->philosophers[i].id = i;
-		rules->philosophers[i].x_ate = 0;
-		rules->philosophers[i].t_last_meal = 0;
-		rules->philosophers[i].rules = rules;
-	}
-	return (0);
-}
 
-int	init_all(t_rules *rules, char **argv)
-{
-	rules->nb_philo = ft_atoi(argv[1]);
-	rules->time_death = ft_atoi(argv[2]);
-	rules->time_eat = ft_atoi(argv[3]);
-	rules->time_sleep = ft_atoi(argv[4]);
-	rules->dieded = 0;
-	if (rules->nb_philo < 2 || rules->time_death < 0 || rules->time_eat < 0
-		|| rules->time_sleep < 0 || rules->nb_philo > 250)
-		return (1);
-	if (argv[5])
-	{
-		rules->nb_eat = ft_atoi(argv[5]);
-		if (rules->nb_eat <= 0)
-			return (1);
-	}
-	else
-		rules->nb_eat = -1;
-	if (rules->nb_eat == 1)
-		rules->nb_eat++;
-	if (init_semaphore(rules))
-		return (2);
-	init_philosophers(rules);
-	return (0);
-}

@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:29:18 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/29 14:36:41 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/29 16:01:07 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,41 +35,49 @@ int			ft_atoi(const char *str)
 	return ((int)(n * sign));
 }
 
-long long	timestamp(void)
+long long	ft_timestamp(void)
 {
-	struct timeval	t;
+	struct timeval	*time;
 
-	gettimeofday(&t, NULL);
-	return ((t.tv_sec * 1000) + (t.tv_usec / 1000));
+	gettimeofday(time, NULL);
+	return ((time->tv_sec * 1000) + (time->tv_usec / 1000));
 }
 
-long long	time_diff(long long past, long long pres)
+void	ft_sleep(int time)
 {
-	return (pres - past);
-}
+	long long	start;
 
-void		smart_sleep(long long time, t_rules *rules)
-{
-	long long i;
-
-	i = timestamp();
-	while (!(rules->dieded))
+	start = ft_timestamp();
+	while (1)
 	{
-		if (time_diff(i, timestamp()) >= time)
+		if (ft_timestamp() - start >= time)
 			break ;
 		usleep(50);
 	}
 }
 
-void		action_print(t_rules *rules, int id, char *string)
+void	ft_print_action(t_data *data, int id, char *str, char *color)
 {
-	sem_wait(rules->writing);
-	if (!(rules->dieded))
+	long long	time;
+
+	time = ft_timestamp() - data->start_time;
+	sem_wait(data->writing);
+	if (!(data->dieded))
+		printf("%s %lli %i %s\n", color, time, id, str);
+	sem_post(data->writing);
+}
+
+int	ft_is_dead(t_data *data)
+{
+	sem_wait(data->check_death)
+	if (data->death == 1)
 	{
-		printf("%lli ", timestamp() - rules->first_timestamp);
-		printf("%i ", id + 1);
-		printf("%s\n", string);
+		sem_post(data->check_death);
+		return (1);
 	}
-	sem_post(rules->writing);
-	return ;
+	else
+	{
+		sem_post(data->check_death);
+		return (0);
+	}
 }
