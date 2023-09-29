@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:54:28 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/28 16:44:36 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/29 15:16:49 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	add_spaces(t_data *data)
 	while (data->map[++j])
 	{
 		len = ft_strlen(data->map[j]);
-		if (len < data->size_max)
+		if (len < data->size_max && j != data->map_last_line
+			&& len != data->size_max - 1)
 		{
 			res = data->map[j];
 			data->map[j] = ft_realloc_space(res, len - 1, data->size_max + 1);

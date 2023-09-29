@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:50:43 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/29 11:20:38 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/29 15:02:46 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	find_start_end_of_map(t_data *data)
 	i = 0;
 	while (data->map[i])
 		i++;
-	i--;
 	while (empty_line(data->map[i]))
 		i--;
 	if (ft_test_map_is_at_end(data, i))
@@ -69,14 +68,19 @@ int	ft_test_map_is_at_end(t_data *data, int i)
 {
 	int	j;
 
-	j = -1;
+	j = 0;
 	while (data->map[i][j])
 	{
 		if (data->map[i][j] == ' ' || data->map[i][j] == '\t'
 			|| data->map[i][j] == '1')
 			j++;
 		else
-			return (1);
+		{
+			if (data->map[i][j] == '\n' || data->map[i][j] == 0)
+				return (0);
+			else
+				return (1);
+		}
 	}
 	return (0);
 }
