@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:20:10 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/28 17:19:46 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/29 12:23:26 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@ char	*get_map_color(char *s, int l, t_data *data)
 	while (j < 4)
 	{
 		i = ft_atoi(color_map_hex);
+		if (i < 0)
+			ft_exit_failure(data, 2, "\n\tNegative color\n",\
+		"COLOR : KO");
 		s = make_color_hex(i);
 		complete_res(res, j, s);
 		color_map_hex += get_k(i);
