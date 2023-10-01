@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:29:18 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/29 16:01:07 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/01 13:02:38 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int			ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	long int	n;
 	int			sign;
@@ -35,49 +35,42 @@ int			ft_atoi(const char *str)
 	return ((int)(n * sign));
 }
 
-long long	ft_timestamp(void)
+long long	time_diff(long long past, long long pres)
 {
-	struct timeval	*time;
-
-	gettimeofday(time, NULL);
-	return ((time->tv_sec * 1000) + (time->tv_usec / 1000));
+	return (pres - past);
 }
 
-void	ft_sleep(int time)
+long long	ft_timestamp(void)
 {
-	long long	start;
+	struct timeval	time;
 
-	start = ft_timestamp();
-	while (1)
+	gettimeofday(&time, NULL);
+	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
+}
+
+void	ft_sleep(long long time, t_data *data)
+{
+	long long	i;
+
+	i = ft_timestamp();
+	while (!(data->death))
 	{
-		if (ft_timestamp() - start >= time)
+		if (time_diff(i, ft_timestamp()) >= time)
 			break ;
 		usleep(50);
 	}
 }
 
-void	ft_print_action(t_data *data, int id, char *str, char *color)
+void	ft_print_action(t_data *data, int id, char *string, char *color)
 {
-	long long	time;
-
-	time = ft_timestamp() - data->start_time;
 	sem_wait(data->writing);
-	if (!(data->dieded))
-		printf("%s %lli %i %s\n", color, time, id, str);
+	if (!(data->death))
+	{
+		printf("%s", color);
+		printf("%lli ", ft_timestamp() - data->start_time);
+		printf("%i ", id + 1);
+		printf("%s\n", string);
+	}
 	sem_post(data->writing);
-}
-
-int	ft_is_dead(t_data *data)
-{
-	sem_wait(data->check_death)
-	if (data->death == 1)
-	{
-		sem_post(data->check_death);
-		return (1);
-	}
-	else
-	{
-		sem_post(data->check_death);
-		return (0);
-	}
+	return ;
 }

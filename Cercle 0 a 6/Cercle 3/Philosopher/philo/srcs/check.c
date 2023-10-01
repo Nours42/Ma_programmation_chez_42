@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 13:49:18 by sdestann          #+#    #+#             */
-/*   Updated: 2023/06/12 14:04:32 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/29 20:42:38 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_check_oveflow(char *av)
 	return (1);
 }
 
-int	ft_check_args(char **av)
+int	ft_check_args(char **argv)
 {
 	int	i;
 

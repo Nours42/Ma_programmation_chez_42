@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+         #
+#    By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/22 14:21:35 by sdestann          #+#    #+#              #
-#    Updated: 2023/09/29 16:38:09 by sdestann         ###   ########.fr        #
+#    Updated: 2023/09/29 22:18:29 by nours42          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,11 @@ HEADER_SRCS		= philo.h
 HEADER_DIR		= includes/
 HEADER			= $(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 
-MANDATORY_SRCS	= routine.c main.c utils.c init.c check.c exit.c
+MANDATORY_SRCS	=	check.c		\
+					init.c		\
+					launcher.c	\
+					main.c		\
+					utils.c
 MANDATORY_DIR	= srcs/
 MANDATORY_PATH	= $(addprefix $(MANDATORY_DIR), $(MANDATORY_SRCS))
 OBJ_MANDATORY	= $(MANDATORY_PATH:.c=.o)

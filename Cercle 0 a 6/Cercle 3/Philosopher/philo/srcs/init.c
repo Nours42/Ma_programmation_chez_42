@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 13:06:21 by sdestann          #+#    #+#             */
-/*   Updated: 2023/06/12 14:04:54 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/29 20:42:38 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	ft_init_data(t_data *data, char **av, int ac)
+void	ft_init_data(t_data *data, char **argv, int ac)
 {
 	data->nb_philo = ft_atoi(av[1]);
 	data->time_to_die = ft_atoi(av[2]);
 	data->time_to_eat = ft_atoi(av[3]);
 	data->time_to_sleep = ft_atoi(av[4]);
 	data->nb_eat_min = -1;
-	if (ac == 6)
+	if (argc== 6)
 		data->nb_eat_min = ft_atoi(av[5]);
 	data->all_ate = 0;
 	data->death = 0;

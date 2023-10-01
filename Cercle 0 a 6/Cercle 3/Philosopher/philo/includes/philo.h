@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:31:27 by sdestann          #+#    #+#             */
-/*   Updated: 2023/09/29 15:48:39 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/09/29 20:42:38 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ typedef struct s_data
 
 // check.c
 
-int				ft_check_args(char **av);
+int				ft_check_args(char **argv);
 int				ft_check_oveflow(char *av);
 int				ft_check_digit(char *av);
 
@@ -94,7 +94,7 @@ void			ft_loop_check(t_data *data, t_philo *philo);
 
 int				ft_init_mutex(t_data *data);
 int				ft_init_philo(t_data *data);
-void			ft_init_data(t_data *data, char **av, int ac);
+void			ft_init_data(t_data *data, char **argv, int ac);
 
 // routine.c
 

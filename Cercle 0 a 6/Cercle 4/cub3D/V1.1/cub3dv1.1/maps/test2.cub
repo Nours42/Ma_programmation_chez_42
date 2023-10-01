@@ -1,7 +1,7 @@
-NO ./img/up.xpm
+NO ./img/test.xpm
 SO ./img/up.xpm
-WE ./img/up.xpm
-EA ./img/up.xpm
+WE ./img/bomb.xpm
+EA ./img/house_open.xpm
 F 163,121,6
 C 0,246,255
         111111111111111111111111
