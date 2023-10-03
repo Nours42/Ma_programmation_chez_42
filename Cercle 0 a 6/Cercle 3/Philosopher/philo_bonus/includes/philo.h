@@ -3,41 +3,70 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:31:27 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/03 09:36:22 by nours42          ###   ########.fr       */
+/*   Updated: 2023/10/03 10:48:39 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-# include <sys/time.h>
-# include <sys/wait.h>
-# include <signal.h>
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <pthread.h>
-# include <semaphore.h>
-# include <fcntl.h>
-# include <sys/stat.h>
+# define USAGE "Usage : number_of_philosophers time_to_die time_to_eat \
+		time_to_sleep (number_of_times_each_philosopher_must_eat - option)"
+# define RULES "one of your rules is wrong\n"
+
+// to INT_MAX
+
 # include <limits.h>
+
+// to write, usleep
+
+# include <unistd.h>
+
+// to free
+
+# include <stdlib.h>
+
+// to memset
+
+# include <string.h>
+
+// to printf
+
+# include <stdio.h>
+
+// to gettimeofday
+
+# include <sys/time.h>
+
+// to pthread_create
+
+# include <pthread.h>
+
+// to semaphore
+
+# include <semaphore.h>
+
+// to use O_CREAT
+
+# include <fcntl.h>
 
 struct	s_data;
 
 typedef struct s_philo
 {
-	int					id;
-	int					nb_eat;
-	int					fork1;
-	int					fork2;
-	long long			last_meal;
-	struct s_data		*data;
-	pthread_t			proc_id;
-}						t_philo;
+	int				id;
+	int				nb_eat;
+	int				left_fork;
+	int				right_fork;
+	int				fork1;
+	int				fork2;
+	pthread_t		thread_id;
+	struct s_data	*data;
+	long long		last_meal;
+}	t_philo;
 
 typedef struct s_data
 {
@@ -46,49 +75,53 @@ typedef struct s_data
 	int					time_to_eat;
 	int					time_to_sleep;
 	int					nb_eat_min;
-	int					death;
 	int					all_ate;
-	int					forks_available;
-	long long			start_time;
-	sem_t				*meal_check;
+	int					death;
+	char				fork_available[250];
 	sem_t				*forks;
-	sem_t				*writing;
+	sem_t				*meal_check;
+	sem_t				*check_death;
+	sem_t				*print;
 	t_philo				philo[250];
-}						t_data;
+	long long			start_time;
+}	t_data;
 
-// 	check.c		//
+// check.c
 
-int			ft_check_digit(char *argv);
-int			ft_check_overflow(char *argv);
-int			ft_check_args(char **argv);
+int				ft_check_args(char **argv);
+int				ft_check_oveflow(char *av);
+int				ft_check_digit(char *av);
 
-// 	init.c		//
+// exit.c
 
-int			init_semaphore(t_data *data);
-int			init_all(t_data *data, char **argv);
-int			init_philo(t_data *data);
+// void			ft_exit_mutex(t_data *data);
+void			ft_check_die(t_data *data, t_philo *philo);
+void			exit_launcher(t_data *data);
+void			ft_loop_check(t_data *data, t_philo *philo);
 
-// 	main.c		//
+// init.c
 
-int			main(int argc, char **argv);
-int			write_error(char *str);
-int			error_manager(int error);
-// int			ft_is_dead(t_data *data);
+// int				ft_init_mutex(t_data *data);
+int				ft_init_philo(t_data *data);
+void			ft_init_data(t_data *data, char **argv, int argc);
+int				init_semaphore(t_data *data);
 
-// 	launcher.c	//
+// routine.c
 
-// void		philo_eats(t_philo *philo);
-// void		*p_process(void *void_phil);
-void		exit_launcher(t_data *data, t_philo *philo);
-// void		*death_checker(t_data *data, t_philo *philo, int i);
-int			launcher(t_data *data);
+void			*routine(void *philo);
+int				ft_create_threads(t_data *data);
+void			ft_eat(t_philo *philo, t_data *data);
 
-// 	utils.c		//
+// main.c
 
-int			ft_atoi(const char *str);
-long long	time_diff(long long past, long long pres);
-long long	ft_timestamp(void);
-void		ft_sleep(long long time, t_data *data);
-void		ft_print_action(t_data *data, int id, char *str, char *color);
+int				main(int argc, char **argv);
+
+// utils.c
+
+void			ft_sleep(int time);
+void			ft_print_action(t_data *data, int id, char *str, char *color);
+int				ft_atoi(const char *str);
+int				ft_is_dead(t_data *data);
+long long		ft_timestamp(void);
 
 #endif

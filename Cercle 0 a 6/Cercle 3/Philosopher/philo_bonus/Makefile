@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+         #
+#    By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/22 14:21:35 by sdestann          #+#    #+#              #
-#    Updated: 2023/10/03 09:41:26 by nours42          ###   ########.fr        #
+#    Updated: 2023/10/03 10:06:18 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,11 +22,7 @@ HEADER_SRCS		= philo.h
 HEADER_DIR		= includes/
 HEADER			= $(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 
-MANDATORY_SRCS	=	check.c		\
-					init.c		\
-					launcher.c	\
-					main.c		\
-					utils.c
+MANDATORY_SRCS	= routine.c main.c utils.c init.c check.c exit.c
 MANDATORY_DIR	= srcs/
 MANDATORY_PATH	= $(addprefix $(MANDATORY_DIR), $(MANDATORY_SRCS))
 OBJ_MANDATORY	= $(MANDATORY_PATH:.c=.o)
@@ -52,7 +48,7 @@ WHITE       = "\033[1;37m"
 
 $(NAME): $(OBJ_MANDATORY)
 	@$(CC) $(OBJ_MANDATORY) $(INCLUDES) -o $(NAME)
-	@echo $(GREEN)Project PHILOSOPHER by SDESTANN successfully compiled${NOC}
+	@echo $(GREEN)Project PHILOSOPHER with BONUS by SDESTANN successfully compiled${NOC}
 
 all: $(NAME)
 	

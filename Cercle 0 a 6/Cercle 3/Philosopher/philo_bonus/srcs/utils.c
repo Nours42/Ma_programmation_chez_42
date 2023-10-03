@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 22:29:18 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/01 13:02:38 by nours42          ###   ########.fr       */
+/*   Updated: 2023/10/03 10:29:11 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,28 @@
 
 int	ft_atoi(const char *str)
 {
-	long int	n;
-	int			sign;
+	int	i;
+	int	result;
+	int	neg;
 
-	n = 0;
-	sign = 1;
-	while ((*str <= 13 && *str >= 9) || *str == 32)
-		str++;
-	if (*str == '-')
-		return (-1);
-	else if (*str == '+')
-		str++;
-	while (*str)
+	i = 0;
+	neg = 1;
+	while (str[i] == ' ' || (str[i] >= '\t' && str[i] <= '\r'))
+		i++;
+	if (str[i] == '+' || str[i] == '-')
 	{
-		if (*str >= '0' && *str <= '9')
-			n = n * 10 + (*str++ - '0');
-		else
-			return (-1);
+		if (str[i] == '-')
+			neg *= -1;
+		i++;
 	}
-	return ((int)(n * sign));
-}
-
-long long	time_diff(long long past, long long pres)
-{
-	return (pres - past);
+	result = 0;
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		result *= 10;
+		result += str[i] - '0';
+		i++;
+	}
+	return (result * neg);
 }
 
 long long	ft_timestamp(void)
@@ -48,29 +46,41 @@ long long	ft_timestamp(void)
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
-void	ft_sleep(long long time, t_data *data)
+void	ft_print_action(t_data *data, int id, char *str, char *color)
 {
-	long long	i;
+	long long	time;
 
-	i = ft_timestamp();
-	while (!(data->death))
+	time = ft_timestamp() - data->start_time;
+	sem_wait(data->print);
+	if (!ft_is_dead(data))
+		printf("%s %lli %i %s\n", color, time, id, str);
+	sem_post(data->print);
+}
+
+void	ft_sleep(int time)
+{
+	long long	start;
+
+	start = ft_timestamp();
+	while (1)
 	{
-		if (time_diff(i, ft_timestamp()) >= time)
+		if (ft_timestamp() - start >= time)
 			break ;
 		usleep(50);
 	}
 }
 
-void	ft_print_action(t_data *data, int id, char *string, char *color)
+int	ft_is_dead(t_data *data)
 {
-	sem_wait(data->writing);
-	if (!(data->death))
+	sem_wait(data->check_death);
+	if (data->death == 1)
 	{
-		printf("%s", color);
-		printf("%lli ", ft_timestamp() - data->start_time);
-		printf("%i ", id + 1);
-		printf("%s\n", string);
+		sem_post(data->check_death);
+		return (1);
 	}
-	sem_post(data->writing);
-	return ;
+	else
+	{
+		sem_post(data->check_death);
+		return (0);
+	}
 }
