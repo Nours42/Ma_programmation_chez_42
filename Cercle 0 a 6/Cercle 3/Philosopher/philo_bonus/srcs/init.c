@@ -6,7 +6,7 @@
 /*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 13:06:21 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/01 13:02:19 by nours42          ###   ########.fr       */
+/*   Updated: 2023/10/02 16:39:38 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	init_semaphore(t_data *data)
 	sem_unlink("/philo_forks");
 	sem_unlink("/philo_write");
 	sem_unlink("/philo_mealcheck");
-	data->forks = sem_open("/philo_forks", O_CREAT, S_IRWXU, data->nb_philo);
-	data->writing = sem_open("/philo_write", O_CREAT, S_IRWXU, 1);
-	data->meal_check = sem_open("/philo_mealcheck", O_CREAT, S_IRWXU, 1);
+	data->forks = sem_open("/philo_forks", O_CREAT, 0660, data->nb_philo);
+	data->writing = sem_open("/philo_write", O_CREAT, 0660, 1);
+	data->meal_check = sem_open("/philo_mealcheck", O_CREAT, 0660, 1);
 	if (data->forks == SEM_FAILED || data->writing == SEM_FAILED
 		|| data->meal_check == SEM_FAILED)
 		return (1);

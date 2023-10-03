@@ -6,31 +6,11 @@
 /*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:32:47 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/01 13:02:45 by nours42          ###   ########.fr       */
+/*   Updated: 2023/10/03 09:18:27 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
-int	main(int argc, char **argv)
-{
-	t_data	*data;
-	int		ret;
-
-	if (argc != 5 && argc != 6)
-		return (write_error("Wrong amount of arguments"));
-	else
-		data = (t_data *)malloc(sizeof(t_data));
-	if (ft_check_args(argv))
-		return (error_manager(3));
-	else
-		ret = init_all(data, argv);
-	if ((ret))
-		return (error_manager(ret));
-	if (launcher(data))
-		return (write_error("There was an error creating the threads"));
-	return (0);
-}
 
 int	write_error(char *str)
 {
@@ -58,17 +38,38 @@ int	error_manager(int error)
 	return (1);
 }
 
-int	ft_is_dead(t_data *data)
+void	exit_launcher(t_data *data, t_philo *philo)
 {
-	sem_wait(data->meal_check);
-	if (data->death == 1)
-	{
-		sem_post(data->meal_check);
-		return (1);
-	}
+	int	i;
+
+	i = -1;
+	while (++i < data->nb_philo)
+		pthread_join(philo[i].proc_id, NULL);
+	sem_close(data->forks);
+	sem_close(data->writing);
+	sem_close(data->meal_check);
+	sem_unlink("/philo_forks");
+	sem_unlink("/philo_write");
+	sem_unlink("/philo_mealcheck");
+	free(data);
+}
+
+int	main(int argc, char **argv)
+{
+	t_data	*data;
+	int		ret;
+
+	if (argc != 5 && argc != 6)
+		return (write_error("Wrong amount of arguments"));
 	else
-	{
-		sem_post(data->meal_check);
-		return (0);
-	}
+		data = (t_data *)malloc(sizeof(t_data));
+	if (ft_check_args(argv))
+		return (error_manager(3));
+	else
+		ret = init_all(data, argv);
+	if ((ret))
+		return (error_manager(ret));
+	if (launcher(data))
+		return (write_error("There was an error creating the threads"));
+	return (0);
 }

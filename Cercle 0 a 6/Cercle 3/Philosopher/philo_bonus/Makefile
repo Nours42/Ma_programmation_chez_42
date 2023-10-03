@@ -6,13 +6,13 @@
 #    By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/22 14:21:35 by sdestann          #+#    #+#              #
-#    Updated: 2023/09/29 22:18:29 by nours42          ###   ########.fr        #
+#    Updated: 2023/10/03 09:41:26 by nours42          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ### MISC ###
 
-NAME			=	philo
+NAME			=	philo_bonus
 
 CC				=	gcc -g -pthread
 CFLAGS			=	-Wall -Wextra -Werror

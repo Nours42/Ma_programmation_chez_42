@@ -6,7 +6,7 @@
 /*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:31:27 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/01 13:10:07 by nours42          ###   ########.fr       */
+/*   Updated: 2023/10/03 09:36:22 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ typedef struct s_philo
 	int					nb_eat;
 	int					fork1;
 	int					fork2;
-	int					left_fork_id;
-	int					right_fork_id;
 	long long			last_meal;
 	struct s_data		*data;
 	pthread_t			proc_id;
@@ -75,14 +73,14 @@ int			init_philo(t_data *data);
 int			main(int argc, char **argv);
 int			write_error(char *str);
 int			error_manager(int error);
-int			ft_is_dead(t_data *data);
+// int			ft_is_dead(t_data *data);
 
 // 	launcher.c	//
 
-void		philo_eats(t_philo *philo);
-void		*p_process(void *void_phil);
+// void		philo_eats(t_philo *philo);
+// void		*p_process(void *void_phil);
 void		exit_launcher(t_data *data, t_philo *philo);
-void		*death_checker(t_data *data, t_philo *philo, int i);
+// void		*death_checker(t_data *data, t_philo *philo, int i);
 int			launcher(t_data *data);
 
 // 	utils.c		//
