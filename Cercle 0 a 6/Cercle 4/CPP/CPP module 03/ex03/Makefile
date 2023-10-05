@@ -6,16 +6,20 @@
 #    By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 10:38:18 by sdestann          #+#    #+#              #
-#    Updated: 2023/10/05 16:39:13 by sdestann         ###   ########.fr        #
+#    Updated: 2023/10/05 17:02:00 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ### MISC ###
 
-NAME = FragTrap
+# il manque a creer le DiamondTrap.cpp et hpp avec les fonctions et attributs du sujet
+# le makefile est fait (la partie facile)
+
+NAME = DiamondTrap
 
 HEADER_SRCS =	ClapTrap.hpp	\
 				FragTrap.hpp	\
+				DiamondTrap.hpp	\
 				ScavTrap.hpp
 HEADER_DIR	=	includes/
 HEADER		=	$(addprefix $(HEADER_DIR), $(HEADER_SRCS))
@@ -23,6 +27,7 @@ HEADER		=	$(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 SRCS_DIR	=	srcs/
 SRCS		=	Main.cpp		\
 				ClapTrap.cpp	\
+				DiamondTrap.cpp	\
 				FragTrap.cpp	\
 				ScavTrap.cpp
 
@@ -33,7 +38,7 @@ OBJ_SRCS	=	$(addprefix $(OBJDIR)/, $(SRCS:.cpp=.o))
 
 COMPILE		=	c++
 
-FLAGS		=	-Wall -Wextra -Werror -std=c++98
+FLAGS		=	-Wall -Wextra -Werror -std=c++98 -Wshadow -Wno-shadow
 
 Y = "\033[33m"
 R = "\033[31m"
@@ -55,14 +60,14 @@ $(OBJDIR)/%.o: $(SRCS_DIR)%.cpp $(HEADER) Makefile
 
 $(NAME): ${OBJ_SRCS}
 	@$(COMPILE) ${FLAGS} -o $(NAME) ${OBJ_SRCS}
-	@echo $(G)Project FragTrap ! by SDESTANN successfully compiled${X}
+	@echo $(G)Project DiamondTrap ! by SDESTANN successfully compiled${X}
 
 clean:
-	@echo ${R}Cleaning FragTrap ! ${G}[${OBJDIR}]...${X}
+	@echo ${R}Cleaning DiamondTrap ! ${G}[${OBJDIR}]...${X}
 	@/bin/rm -Rf ${OBJDIR}
 
 fclean: clean
-	@echo ${R}FCleaning FragTrap ! ${G}[${NAME}]...${X}
+	@echo ${R}FCleaning DiamondTrap ! ${G}[${NAME}]...${X}
 	@/bin/rm -f ${NAME}
 
 re: fclean all
