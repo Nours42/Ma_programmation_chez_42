@@ -1,38 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
+/*   DiamondTrap.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 09:59:41 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/06 05:27:04 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/06 05:28:42 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCAVTRAP_H
-# define SCAVTRAP_H
+#ifndef DIAMONDTRAP_H
+# define DIAMONDTRAP_H
 
 # include "ClapTrap.hpp"
+# include "FragTrap.hpp"
+# include "ScavTrap.hpp"
 
-class	ScavTrap : virtual public ClapTrap
+class	DiamondTrap : public ScavTrap, public FragTrap
 {
 	private:
-		static const unsigned int	_class_hp;
-		static const unsigned int	_class_energy_points;
-		static const unsigned int	_class_attack_damage;
-		static const unsigned int	_class_attack_energy_cost;
 
+		std::string	_name;
+		
 	public:
 		
-		// canonical form
-		ScavTrap(std::string name);
-		ScavTrap(const ScavTrap & src);
-		~ScavTrap();
-		ScavTrap & operator=(const ScavTrap & rhs);
+		using FragTrap::_hitpoints;
+		using FragTrap::_attack_damage;
+		using ScavTrap::_energy_points;
+		using ScavTrap::attack;
 
-		void	guardGate( void );
-		void	attack(std::string const & target);
+		void	WhoAmI( void );
+		
+		// canonical form
+		DiamondTrap(std::string name);
+		DiamondTrap(const DiamondTrap & src);
+		~DiamondTrap();
+		DiamondTrap & operator=(const DiamondTrap & rhs);
 };
 
 #endif

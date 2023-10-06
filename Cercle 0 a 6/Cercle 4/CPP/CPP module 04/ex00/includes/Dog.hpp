@@ -1,38 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
+/*   Dog.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 09:59:41 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/06 05:27:04 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/06 07:35:10 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCAVTRAP_H
-# define SCAVTRAP_H
+#ifndef DOG_HPP
+# define DOG_HPP
 
-# include "ClapTrap.hpp"
+# include "Animal.hpp"
 
-class	ScavTrap : virtual public ClapTrap
+// ici pas besoin du virtual
+
+class	Dog
 {
 	private:
-		static const unsigned int	_class_hp;
-		static const unsigned int	_class_energy_points;
-		static const unsigned int	_class_attack_damage;
-		static const unsigned int	_class_attack_energy_cost;
+		
+		std::string	type;
 
 	public:
-		
-		// canonical form
-		ScavTrap(std::string name);
-		ScavTrap(const ScavTrap & src);
-		~ScavTrap();
-		ScavTrap & operator=(const ScavTrap & rhs);
 
-		void	guardGate( void );
-		void	attack(std::string const & target);
+		std::string getType( void ) const;
+		void makeSound( void ) const;
+
+		// canonical form
+		Dog();
+		Dog(Dog & ref);
+		~Dog();
+
+		Dog & operator=(const Dog & rhs);
 };
 
 #endif

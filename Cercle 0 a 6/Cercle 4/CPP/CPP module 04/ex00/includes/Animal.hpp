@@ -1,38 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
+/*   Animal.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 09:59:41 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/06 05:27:04 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/06 07:35:10 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCAVTRAP_H
-# define SCAVTRAP_H
+#ifndef ANIMAL_HPP
+# define ANIMAL_HPP
 
-# include "ClapTrap.hpp"
+# include <iostream>
 
-class	ScavTrap : virtual public ClapTrap
+// le mot clef virtual fait que le programme choisit a l'execution 
+// (et non pas a la compilation) ce au'il doit faire.
+
+class	Animal
 {
-	private:
-		static const unsigned int	_class_hp;
-		static const unsigned int	_class_energy_points;
-		static const unsigned int	_class_attack_damage;
-		static const unsigned int	_class_attack_energy_cost;
+	protected:
+		
+		std::string	type;
 
 	public:
-		
-		// canonical form
-		ScavTrap(std::string name);
-		ScavTrap(const ScavTrap & src);
-		~ScavTrap();
-		ScavTrap & operator=(const ScavTrap & rhs);
 
-		void	guardGate( void );
-		void	attack(std::string const & target);
+		virtual std::string getType( void ) const;
+		virtual void makeSound( void ) const;
+
+		// canonical form
+		Animal();
+		Animal(Animal & ref);
+		virtual ~Animal();
+
+		Animal & operator=(const Animal & rhs);
 };
 
 #endif

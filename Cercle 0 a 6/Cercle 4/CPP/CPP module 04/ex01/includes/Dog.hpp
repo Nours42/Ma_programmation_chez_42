@@ -1,38 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
+/*   Dog.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 09:59:41 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/06 05:27:04 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/06 08:02:44 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCAVTRAP_H
-# define SCAVTRAP_H
+#ifndef DOG_HPP
+# define DOG_HPP
 
-# include "ClapTrap.hpp"
+# include "Animal.hpp"
+# include "Brain.hpp"
 
-class	ScavTrap : virtual public ClapTrap
+// ici pas besoin du virtual
+
+class	Dog : public Animal
 {
 	private:
-		static const unsigned int	_class_hp;
-		static const unsigned int	_class_energy_points;
-		static const unsigned int	_class_attack_damage;
-		static const unsigned int	_class_attack_energy_cost;
+		
+		std::string	type;
+		Brain		*brain;
 
 	public:
-		
-		// canonical form
-		ScavTrap(std::string name);
-		ScavTrap(const ScavTrap & src);
-		~ScavTrap();
-		ScavTrap & operator=(const ScavTrap & rhs);
 
-		void	guardGate( void );
-		void	attack(std::string const & target);
+		std::string getType( void ) const;
+		void		makeSound( void ) const;
+		Brain		*getBrain( void ) const;
+
+		// canonical form
+		Dog();
+		~Dog();
+		Dog(Dog & ref);
+		Dog & operator=(const Dog & rhs);
 };
 
 #endif
