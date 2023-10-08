@@ -3,30 +3,24 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+         #
+#    By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 10:38:18 by sdestann          #+#    #+#              #
-#    Updated: 2023/10/06 07:58:09 by sdestann         ###   ########.fr        #
+#    Updated: 2023/10/08 21:38:49 by nours42          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ### MISC ###
 
-NAME = Animal
+NAME = Bureaucrat
 
-HEADER_SRCS =	Animal.hpp		\
-				Brain.hpp		\
-				Cat.hpp			\
-				Dog.hpp
+HEADER_SRCS =	Bureaucrat.hpp
 HEADER_DIR	=	includes/
 HEADER		=	$(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 
 SRCS_DIR	=	srcs/
 SRCS		=	Main.cpp		\
-				Animal.cpp		\
-				Brain.cpp		\
-				Cat.cpp			\
-				Dog.cpp
+				Bureaucrat.cpp
 
 OBJDIR		=	objs
 
@@ -35,7 +29,7 @@ OBJ_SRCS	=	$(addprefix $(OBJDIR)/, $(SRCS:.cpp=.o))
 
 COMPILE		=	c++
 
-FLAGS		=	-Wall -Wextra -Werror -std=c++98
+FLAGS		=	-Wall -Wextra -Werror -std=c++98 -Wshadow -Wno-shadow
 
 Y = "\033[33m"
 R = "\033[31m"
