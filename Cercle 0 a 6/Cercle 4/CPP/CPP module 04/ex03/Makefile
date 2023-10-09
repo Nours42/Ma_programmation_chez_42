@@ -3,30 +3,36 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+         #
+#    By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 10:38:18 by sdestann          #+#    #+#              #
-#    Updated: 2023/10/06 11:12:49 by sdestann         ###   ########.fr        #
+#    Updated: 2023/10/09 23:05:31 by nours42          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ### MISC ###
 
-NAME = Animal
+NAME = Materia
 
-HEADER_SRCS =	Animal.hpp		\
-				Brain.hpp		\
-				Cat.hpp			\
-				Dog.hpp
+HEADER_SRCS =	AMateria.hpp		\
+				Character.hpp		\
+				Cure.hpp			\
+				Ice.hpp				\
+				ICharacter.hpp		\
+				IMateriaSource.hpp	\
+				MateriaSource.hpp
+				
 HEADER_DIR	=	includes/
 HEADER		=	$(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 
 SRCS_DIR	=	srcs/
-SRCS		=	Main.cpp		\
-				Animal.cpp		\
-				Brain.cpp		\
-				Cat.cpp			\
-				Dog.cpp
+SRCS		=	Main.cpp			\
+				AMateria.cpp		\
+				Character.cpp		\
+				Cure.cpp			\
+				Ice.cpp				\
+				IMateriaSource.cpp	\
+				MateriaSource.cpp
 
 OBJDIR		=	objs
 
@@ -57,14 +63,14 @@ $(OBJDIR)/%.o: $(SRCS_DIR)%.cpp $(HEADER) Makefile
 
 $(NAME): ${OBJ_SRCS}
 	@$(COMPILE) ${FLAGS} -o $(NAME) ${OBJ_SRCS}
-	@echo $(G)Project Animal ! by SDESTANN successfully compiled${X}
+	@echo $(G)Project Materia ! by SDESTANN successfully compiled${X}
 
 clean:
-	@echo ${R}Cleaning Animal ! ${G}[${OBJDIR}]...${X}
+	@echo ${R}Cleaning Materia ! ${G}[${OBJDIR}]...${X}
 	@/bin/rm -Rf ${OBJDIR}
 
 fclean: clean
-	@echo ${R}FCleaning Animal ! ${G}[${NAME}]...${X}
+	@echo ${R}FCleaning Materia ! ${G}[${NAME}]...${X}
 	@/bin/rm -f ${NAME}
 
 re: fclean all

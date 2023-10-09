@@ -1,38 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
+/*   ICharacter.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 09:59:41 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/09 19:53:56 by nours42          ###   ########.fr       */
+/*   Updated: 2023/10/09 23:05:12 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCAVTRAP_H
-# define SCAVTRAP_H
+#ifndef ICHARACTER_HPP
+# define ICHARACTER_HPP
 
-# include "ClapTrap.hpp"
+# include "AMateria.hpp"
 
-class	ScavTrap : virtual public ClapTrap
+class	AMateria;
+
+class	ICharacter
 {
 	private:
-		static const unsigned int	_class_hp;
-		static const unsigned int	_class_energy_points;
-		static const unsigned int	_class_attack_damage;
-		static const unsigned int	_class_attack_energy_cost;
+
+	protected:
+		const std::string	_name;
 
 	public:
-		
-		// canonical form
-		ScavTrap(std::string name);
-		ScavTrap(const ScavTrap & src);
-		virtual ~ScavTrap();
-		ScavTrap & operator=(const ScavTrap & rhs);
+	
+		virtual std::string const & getName() const = 0;
+		virtual void equip(AMateria* m) = 0;
+		virtual void unequip(int idx) = 0;
+		virtual void use(int idx, ICharacter& target) = 0;
 
-		void	guardGate( void );
-		void	attack(std::string const & target);
+		////////////// canonical form ////////////////////
+		// ICharacter();									//
+		virtual ~ICharacter() {};							//
+		// ICharacter(ICharacter & ref);				//
+		// ICharacter & operator=(const ICharacter & ref);	//
+		//////////////////////////////////////////////////
 };
 
 #endif

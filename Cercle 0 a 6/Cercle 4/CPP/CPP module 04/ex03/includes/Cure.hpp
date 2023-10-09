@@ -1,38 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Materia.hpp                                        :+:      :+:    :+:   */
+/*   Cure.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 09:59:41 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/06 11:37:25 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/09 21:18:25 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MATERIA_HPP
-# define MATERIA_HPP
+#ifndef CURE_HPP
+# define CURE_HPP
 
-# include <iostream>
+# include "AMateria.hpp"
 
-class	AMateria
+class	Cure : public AMateria
 {
+	private:
+		std::string _type;
+
 	protected:
-		
-		std::string	type;
 
 	public:
-
-		AMateria(std::string const & type);
+	
+		Cure *clone() const;
+		void use(ICharacter& target);
 		std::string const & getType() const;
-		virtual AMateria* clone() const = 0;
-		virtual void use(ICharacter& target);
 
-		// canonical form
-		AMateria();
-		virtual ~AMateria();
-		AMateria(AMateria & ref);
-		AMateria & operator=(const AMateria & rhs);
+		////////////// canonical form ////////////////////
+		Cure();											//
+		~Cure();										//
+		Cure(Cure const & ref);							//
+		Cure & operator=(const Cure & ref);				//
+		//////////////////////////////////////////////////
 };
 
 #endif

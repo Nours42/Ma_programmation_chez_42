@@ -1,38 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
+/*   AMateria.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 09:59:41 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/09 19:53:56 by nours42          ###   ########.fr       */
+/*   Updated: 2023/10/09 22:35:24 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCAVTRAP_H
-# define SCAVTRAP_H
+#ifndef AMATERIA_HPP
+# define AMATERIA_HPP
 
-# include "ClapTrap.hpp"
+# include <iostream>
+# include "ICharacter.hpp"
 
-class	ScavTrap : virtual public ClapTrap
+class	ICharacter;
+
+class	AMateria
 {
-	private:
-		static const unsigned int	_class_hp;
-		static const unsigned int	_class_energy_points;
-		static const unsigned int	_class_attack_damage;
-		static const unsigned int	_class_attack_energy_cost;
+	protected:
+		
+		const std::string	_type;
 
 	public:
-		
-		// canonical form
-		ScavTrap(std::string name);
-		ScavTrap(const ScavTrap & src);
-		virtual ~ScavTrap();
-		ScavTrap & operator=(const ScavTrap & rhs);
+		////////////// canonical form ////////////////////
+		AMateria();										//
+		virtual ~AMateria();							//
+		AMateria(AMateria const & ref);					//
+		// AMateria & operator=(const AMateria & ref);	//
+		//////////////////////////////////////////////////
 
-		void	guardGate( void );
-		void	attack(std::string const & target);
+		AMateria(std::string const & type);
+		virtual std::string const & getType() const;
+		virtual AMateria* clone() const = 0;
+		virtual void use(ICharacter& target);
+
+		
 };
 
 #endif

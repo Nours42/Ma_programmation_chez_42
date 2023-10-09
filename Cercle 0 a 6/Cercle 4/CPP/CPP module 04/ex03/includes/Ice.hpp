@@ -1,38 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
+/*   Ice.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 09:59:41 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/09 19:53:56 by nours42          ###   ########.fr       */
+/*   Updated: 2023/10/09 21:30:39 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCAVTRAP_H
-# define SCAVTRAP_H
+#ifndef ICE_HPP
+# define ICE_HPP
 
-# include "ClapTrap.hpp"
+# include "AMateria.hpp"
 
-class	ScavTrap : virtual public ClapTrap
+class	Ice : public AMateria
 {
 	private:
-		static const unsigned int	_class_hp;
-		static const unsigned int	_class_energy_points;
-		static const unsigned int	_class_attack_damage;
-		static const unsigned int	_class_attack_energy_cost;
+		std::string _type;
+
+	protected:
 
 	public:
-		
-		// canonical form
-		ScavTrap(std::string name);
-		ScavTrap(const ScavTrap & src);
-		virtual ~ScavTrap();
-		ScavTrap & operator=(const ScavTrap & rhs);
+	
+		Ice *clone() const;
+		void use(ICharacter& target);
+		std::string const & getType() const;
 
-		void	guardGate( void );
-		void	attack(std::string const & target);
+		////////////// canonical form ////////////////////
+		Ice();											//
+		~Ice();											//
+		Ice(Ice const & ref);							//
+		Ice & operator=(const Ice & ref);				//
+		//////////////////////////////////////////////////
 };
 
 #endif
