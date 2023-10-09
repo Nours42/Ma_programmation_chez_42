@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 09:59:41 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/06 07:35:10 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/06 12:27:22 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 // ici pas besoin du virtual
 
-class	WrongCat
+class	WrongCat : public WrongAnimal
 {
 	private:
 		

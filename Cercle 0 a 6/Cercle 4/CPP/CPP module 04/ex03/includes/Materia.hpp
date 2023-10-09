@@ -1,39 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.hpp                                            :+:      :+:    :+:   */
+/*   Materia.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 09:59:41 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/06 12:27:06 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/06 11:37:25 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DOG_HPP
-# define DOG_HPP
+#ifndef MATERIA_HPP
+# define MATERIA_HPP
 
-# include "Animal.hpp"
+# include <iostream>
 
-// ici pas besoin du virtual
-
-class	Dog : public Animal
+class	AMateria
 {
-	private:
+	protected:
 		
 		std::string	type;
 
 	public:
 
-		std::string getType( void ) const;
-		void makeSound( void ) const;
+		AMateria(std::string const & type);
+		std::string const & getType() const;
+		virtual AMateria* clone() const = 0;
+		virtual void use(ICharacter& target);
 
 		// canonical form
-		Dog();
-		Dog(Dog & ref);
-		~Dog();
-
-		Dog & operator=(const Dog & rhs);
+		AMateria();
+		virtual ~AMateria();
+		AMateria(AMateria & ref);
+		AMateria & operator=(const AMateria & rhs);
 };
 
 #endif

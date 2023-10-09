@@ -1,39 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.hpp                                            :+:      :+:    :+:   */
+/*   Character.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 09:59:41 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/06 12:27:06 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/06 11:43:27 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DOG_HPP
-# define DOG_HPP
+#ifndef CHARACTER_HPP
+# define CHARACTER_HPP
 
-# include "Animal.hpp"
+# include <iostream>
 
-// ici pas besoin du virtual
-
-class	Dog : public Animal
+class	ICharater
 {
 	private:
 		
-		std::string	type;
+
+	protected:
+
 
 	public:
-
-		std::string getType( void ) const;
-		void makeSound( void ) const;
+	
+		virtual std::string const & getName() const = 0;
+		virtual void equip(AMateria* m) = 0;
+		virtual void unequip(int idx) = 0;
+		virtual void use(int idx, ICharacter& target) = 0;
 
 		// canonical form
-		Dog();
-		Dog(Dog & ref);
-		~Dog();
-
-		Dog & operator=(const Dog & rhs);
+		ICharater();
+		virtual ~ICharater();
+		ICharater(ICharater & ref);
+		ICharater & operator=(const ICharater & rhs);
 };
 
 #endif

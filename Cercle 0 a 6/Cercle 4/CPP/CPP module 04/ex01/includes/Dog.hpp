@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 09:59:41 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/06 08:02:44 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/06 11:09:09 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ class	Dog : public Animal
 		// canonical form
 		Dog();
 		~Dog();
-		Dog(Dog & ref);
+		Dog(Dog const & src);
 		Dog & operator=(const Dog & rhs);
 };
 

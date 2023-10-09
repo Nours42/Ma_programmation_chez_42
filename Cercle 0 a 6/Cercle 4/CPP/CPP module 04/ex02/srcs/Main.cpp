@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 10:27:54 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/06 11:14:13 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/06 11:22:30 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int main(void)
 	std::cout << std::endl;
 	int i;
 
-	const Animal* animal[10];
+	const AAnimal* animal[10];
 	i = -1;
 	while (++i < 5)
 		animal[i] = new Dog();

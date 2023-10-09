@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+         #
+#    By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 10:38:18 by sdestann          #+#    #+#              #
-#    Updated: 2023/10/08 21:38:49 by nours42          ###   ########.fr        #
+#    Updated: 2023/10/09 14:55:15 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,13 +14,15 @@
 
 NAME = Bureaucrat
 
-HEADER_SRCS =	Bureaucrat.hpp
+HEADER_SRCS =	Bureaucrat.hpp	\
+				Form.hpp
 HEADER_DIR	=	includes/
 HEADER		=	$(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 
 SRCS_DIR	=	srcs/
 SRCS		=	Main.cpp		\
-				Bureaucrat.cpp
+				Bureaucrat.cpp	\
+				Form.cpp
 
 OBJDIR		=	objs
 
@@ -51,14 +53,14 @@ $(OBJDIR)/%.o: $(SRCS_DIR)%.cpp $(HEADER) Makefile
 
 $(NAME): ${OBJ_SRCS}
 	@$(COMPILE) ${FLAGS} -o $(NAME) ${OBJ_SRCS}
-	@echo $(G)Project Animal ! by SDESTANN successfully compiled${X}
+	@echo $(G)Project Bureaucrat part 1 ! by SDESTANN successfully compiled${X}
 
 clean:
-	@echo ${R}Cleaning Animal ! ${G}[${OBJDIR}]...${X}
+	@echo ${R}Cleaning Bureaucrat part 1 ! ${G}[${OBJDIR}]...${X}
 	@/bin/rm -Rf ${OBJDIR}
 
 fclean: clean
-	@echo ${R}FCleaning Animal ! ${G}[${NAME}]...${X}
+	@echo ${R}FCleaning Bureaucrat part 1 ! ${G}[${NAME}]...${X}
 	@/bin/rm -f ${NAME}
 
 re: fclean all

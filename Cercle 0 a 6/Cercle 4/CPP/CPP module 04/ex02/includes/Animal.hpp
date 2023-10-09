@@ -1,39 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.hpp                                            :+:      :+:    :+:   */
+/*   Animal.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 09:59:41 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/06 12:27:06 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/06 11:21:06 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DOG_HPP
-# define DOG_HPP
+#ifndef ANIMAL_HPP
+# define ANIMAL_HPP
 
-# include "Animal.hpp"
+# include <iostream>
 
-// ici pas besoin du virtual
+// le mot clef virtual fait que le programme choisit a l'execution 
+// (et non pas a la compilation) ce au'il doit faire.
 
-class	Dog : public Animal
+class	AAnimal
 {
-	private:
+	protected:
 		
 		std::string	type;
 
 	public:
 
-		std::string getType( void ) const;
-		void makeSound( void ) const;
+		virtual std::string getType( void ) const = 0;
+		virtual void makeSound( void ) const = 0;
 
 		// canonical form
-		Dog();
-		Dog(Dog & ref);
-		~Dog();
+		AAnimal();
+		AAnimal(AAnimal & ref);
+		virtual ~AAnimal();
 
-		Dog & operator=(const Dog & rhs);
+		AAnimal & operator=(const AAnimal & rhs);
 };
 
 #endif

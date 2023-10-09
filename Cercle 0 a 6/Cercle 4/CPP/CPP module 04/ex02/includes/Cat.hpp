@@ -1,39 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.hpp                                            :+:      :+:    :+:   */
+/*   Cat.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 09:59:41 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/06 12:27:06 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/06 11:21:28 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DOG_HPP
-# define DOG_HPP
+#ifndef CAT_HPP
+# define CAT_HPP
 
 # include "Animal.hpp"
+# include "Brain.hpp"
 
 // ici pas besoin du virtual
 
-class	Dog : public Animal
+class	Cat : public AAnimal
 {
 	private:
 		
 		std::string	type;
+		Brain		*brain;
 
 	public:
 
-		std::string getType( void ) const;
-		void makeSound( void ) const;
+		std::string	getType( void ) const;
+		void		makeSound( void ) const;
+		Brain		*getBrain( void ) const;
 
 		// canonical form
-		Dog();
-		Dog(Dog & ref);
-		~Dog();
-
-		Dog & operator=(const Dog & rhs);
+		Cat();
+		~Cat();
+		Cat(Cat & ref);
+		Cat & operator=(const Cat & rhs);
 };
 
 #endif
