@@ -54,9 +54,9 @@ void	AForm::setSigned( const bool new_value)
 
 // 		<< operator overload Function
 
-std::ostream & operator<<( std::ostream & o, AForm const & rhs)
+std::ostream & operator<<( std::ostream & o, AForm const & ref)
 {
-	o << "AForm " << rhs.getName() << std::endl << "with a grade to sign : " << rhs.getGradeToSign() << std::endl << "with a grade to execute : " << rhs.getGradeToExecute() << std::endl << "with signed value equal to : " << rhs.getSigned() << " (0 for not signed, 1 for signed)";
+	o << ref.getName() << std::endl << "with a grade to sign : " << ref.getGradeToSign() << std::endl << "with a grade to execute : " << ref.getGradeToExecute() << std::endl << "with signed value equal to : " << ref.getSigned() << " (0 for not signed, 1 for signed)";
 	return (o);
 }
 
@@ -74,7 +74,7 @@ AForm::~AForm()
 
 AForm::AForm(AForm const & ref) : _name(ref.getName()), _grade_to_sign(ref.getGradeToSign()), _grade_to_execute(ref.getGradeToExecute()), _signed(ref.getSigned())
 {
-	std::cout << "AForm " << *this << " has been copied" << std::endl;
+	std::cout << *this << " has been copied" << std::endl;
 }
 
 AForm & AForm::operator=(AForm const & ref)
@@ -110,6 +110,19 @@ void	AForm::be_signed(Bureaucrat & ref)
 	std::cout << *this << " has been signed by bureaucrat " << ref.getName() << std::endl;
 }
 
+void	Form::be_signed(Bureaucrat & ref)
+{
+	int	grade = ref.getGrade();
+
+	if (grade > _grade_to_sign)
+	{
+		throw (Form::GradeTooLowException());
+		return ;
+	}
+	_signed = true;
+	std::cout << *this << " was signed by the bureaucrat " << ref.getName() << " with a grade " << ref.getGrade() << std::endl;
+}
+
 // Exceptions functions
 
 const char*	AForm::Exception::what() const throw()
@@ -131,3 +144,8 @@ const char*	AForm::GradeTooLowExceptionToSigned::what() const throw()
 {
 	return ("\n\"You haven't the grade to signed this !!!!\"");
 }
+
+const char* AForm::UnsignedFormException::what() const throw()
+{
+	return ("Cannot execute an unsigned form");
+};

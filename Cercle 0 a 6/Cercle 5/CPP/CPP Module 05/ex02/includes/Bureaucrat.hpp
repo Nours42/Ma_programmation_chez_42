@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bureaucrat.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:10:08 by nours42           #+#    #+#             */
-/*   Updated: 2023/10/09 14:16:35 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/10 20:40:13 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,21 @@
 
 # include <iostream>
 # include <stdexcept>
-# include "Form.hpp"
+# include "AForm.hpp"
 
 class	Form;
 
 class   Bureaucrat
 {
+	private:
+
+		const std::string	_name;
+		int					_grade;
+	
+	protected:
+
+
+	
 	public:
 
 		//////// increment / decrement grade ////////
@@ -42,7 +51,7 @@ class   Bureaucrat
 		Bureaucrat();
 		virtual ~Bureaucrat();
 		Bureaucrat(Bureaucrat const & ref);
-		Bureaucrat & operator=(const Bureaucrat & rhs);
+		Bureaucrat & operator=(const Bureaucrat & ref);
 
 		/// Function or parameters released by subject ///
 
@@ -51,6 +60,7 @@ class   Bureaucrat
 		// ex01
 		
 		void	signForm(Form & ref);
+		void	executeForm(Form const & form);
 
 		///////////////// Exceptions ////////////////
 
@@ -71,12 +81,8 @@ class   Bureaucrat
 			public:
 				virtual const char* what() const throw();
 		};
-
-	private:
-		const std::string	_name;
-		int					_grade;
 };
 
-std::ostream & operator<<(std::ostream & o, Bureaucrat const & rhs);
+std::ostream & operator<<(std::ostream & o, Bureaucrat const & ref);
 
 #endif

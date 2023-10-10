@@ -17,10 +17,19 @@
 # include <stdexcept>
 # include "Form.hpp"
 
-class Bureaucrat;
+class AForm;
 
-class   ShrubberyCreationForm : public Form
+class   ShrubberyCreationForm : public AForm
 {
+	private:
+
+		std::string	_target;
+	
+	protected:
+
+
+
+
 	public:
 
 		////////////////// Getters //////////////////
@@ -32,7 +41,7 @@ class   ShrubberyCreationForm : public Form
 		/////////////// canonical form //////////////
 
 		ShrubberyCreationForm();
-		virtual ~ShrubberyCreationForm();
+		~ShrubberyCreationForm();
 		ShrubberyCreationForm(ShrubberyCreationForm const & ref);
 		ShrubberyCreationForm & operator=(const ShrubberyCreationForm & ref);
 
@@ -40,9 +49,6 @@ class   ShrubberyCreationForm : public Form
 
 		ShrubberyCreationForm(std::string target);
 		void	execute(Bureaucrat const & executor) const;
-
-	private:
-		std::string	_target;
 };
 
 #endif

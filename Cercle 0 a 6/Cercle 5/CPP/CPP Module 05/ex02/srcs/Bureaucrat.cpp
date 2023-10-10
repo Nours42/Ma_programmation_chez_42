@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bureaucrat.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:22:12 by nours42           #+#    #+#             */
-/*   Updated: 2023/10/09 14:40:49 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/10 20:43:29 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ void	Bureaucrat::setGrade( const int new_grade)
 
 		// << operator overload
 		
-std::ostream & operator<<( std::ostream & o, Bureaucrat const & rhs)
+std::ostream & operator<<( std::ostream & o, Bureaucrat const & ref)
 {
-	o << "Bureaucrat " << rhs.getName() << " has a grade " << rhs.getGrade() << " " << std::endl;
+	o << "Bureaucrat " << ref.getName() << " has a grade " << ref.getGrade() << " " << std::endl;
 	return (o);
 }
 
@@ -120,6 +120,19 @@ void	Bureaucrat::signForm(Form & ref)
 	catch (Form::Exception &e)
 	{
 		std::cout << "Bureaucrat " << this->_name << " with a grade " << this->_grade << " cannot sign " << ref << " because " << e.what() << std::endl;
+	}
+}
+
+void Bureaucrat::executeForm(Form const & form)
+{
+	try
+	{
+		form.execute(*this);
+		std::cout << this->_name << " sucesfully executed " << form << std::endl;
+	}
+	catch (Form::Exception &e)
+	{
+		std::cout << e.what() << std::endl;
 	}
 }
 
