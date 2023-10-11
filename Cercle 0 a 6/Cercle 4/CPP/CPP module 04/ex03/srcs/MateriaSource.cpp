@@ -3,98 +3,89 @@
 /*                                                        :::      ::::::::   */
 /*   MateriaSource.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 20:06:10 by nours42           #+#    #+#             */
-/*   Updated: 2023/10/09 22:49:39 by nours42          ###   ########.fr       */
+/*   Updated: 2023/10/10 13:47:24 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/MateriaSource.hpp"
-#include "../includes/AMateria.hpp"
 
-////////////////////////////////////// CANONICAL FORM ////////////////////////////////////////
-																							//
-MateriaSource::MateriaSource()																//
-{																							//
-	int	i;																					//
-																							//
-	i = -1;																					//
-	while (++i < 4)																			//	
-	{																						//
-		this->_inventory[i] = 0;															//
-	}																						//
-	std::cout << "Materia source was created" << std::endl;									//
-}																							//
-																							//
-MateriaSource::~MateriaSource()																//
-{																							//
-	int i;																					//
-																							//
-	i = -1;																					//
-	while (++i < 4)																			//
-	{																						//
-		if (this->_inventory[i])															//
-			delete this->_inventory[i];														//
-	}																						//
-	std::cout << "Materia source was destroyed" << std::endl;								//
-}																							//
-																							//
-MateriaSource::MateriaSource(MateriaSource const & ref)	: IMateriaSource()					//
-{																							//
-	int i;																					//
-																							//
-	i = -1;																					//
-	while (++i < 4)																			//
-	{																						//
-		if (ref._inventory[i])																//
-			this->_inventory[i] = ref._inventory[i]->clone();								//
-	}																						//
-	std::cout << "Materia source was created from copy" << std::endl;						//
-}																							//
-																							//
-MateriaSource & MateriaSource::operator=(const MateriaSource & ref)							//
-{																							//
-	int i;																					//
-																							//
-	i = -1;																					//
-	while (++i < 4)																			//
-	{																						//	
-		if (this->_inventory[i])															//
-			delete this->_inventory[i];														//
-		if (ref._inventory[i])																//
-			this->_inventory[i] = (ref._inventory[i])->clone();								//
-	}																						//
-	return (*this);																			//
-}																							//
-//////////////////////////////////////////////////////////////////////////////////////////////
-
-void	MateriaSource::learnMateria(AMateria *m)
+MateriaSource::MateriaSource(void)
 {
-	int i = 0;
-
-	while ((this->_inventory)[i] != 0 && i < 4)
-		i++;
-	if (i >= 4)
+	for (int i = 0; i < 4; i++)
 	{
-		std::cout << "Can't learn more than 4 Materia" << std::endl;
-		return ;
+		this->_slot[i] = NULL;
 	}
-	(this->_inventory)[i] = m;
-	std::cout << "Materia " << m->getType() << " learned" << std::endl;
+	if (0)
+		std::cout << MAGENTA << "[MateriaSource] default constructor called" << std::endl << NO_COLOR;
 }
 
-AMateria*	MateriaSource::createMateria(std::string const & type)
+MateriaSource::MateriaSource(MateriaSource const & input)
 {
-	int i = 0;
+	*this = input;
+	if (0)
+		std::cout << MAGENTA << "[MateriaSource] copy constructor called" << std::endl;
+}
 
-	while ((this->_inventory)[i] && ((this->_inventory)[i])->getType() != type && i < 4)
-		i++;
-	if (i >= 4 || !(this->_inventory)[i])
+MateriaSource const & MateriaSource::operator=(MateriaSource const & input)
+{
+	for (int i = 0; i < 4; i++)
 	{
-		std::cout << type << " materia does not exit" << std::endl;
-		return (NULL);
+		if (input._slot[i] != NULL)
+		{
+			this->_slot[i] = input._slot[i]->clone();
+			if (0)
+				std::cout << MAGENTA << "[MateriaSource] copied " << input._slot[i]->getType() << "" << std::endl << NO_COLOR;
+		}
+		else
+			this->_slot[i] = NULL;
 	}
-	std::cout << "Materia " << type << " created" << std::endl;
-	return (((this->_inventory)[i])->clone());
+	if (0)
+		std::cout << MAGENTA << "[MateriaSource] assignement constructor called" << std::endl << NO_COLOR;
+	return (*this);
+}
+
+MateriaSource::~MateriaSource(void)
+{
+	for (int i = 0; i < 4; i++)
+	{
+		if (this->_slot[i] != NULL)
+			delete _slot[i];
+	}
+	if (0)
+		std::cout << MAGENTA << "[MateriaSource] destructor called" << std::endl << NO_COLOR;
+}
+
+void MateriaSource::learnMateria(AMateria * m)
+{
+	for (int i = 0; i < 4; i++)
+	{
+		if (this->_slot[i] == NULL)
+		{
+			this->_slot[i] = m;
+			std::cout << MAGENTA << "MateriaSource just learnt " << m->getType() << " at slot[" << i << "]" << std::endl << NO_COLOR;
+			m = NULL;
+			break ;
+		}
+	}
+	if (m != NULL)
+	{
+		std::cout	<< MAGENTA << "MateriaSource tried to learn " << m->getType() << " at a slot, but all are full! "
+					<< m->getType() << " is lost forever!" << std::endl << NO_COLOR;
+		delete m;
+	}
+}
+
+AMateria * MateriaSource::createMateria(std::string const & type)
+{
+	for (int i = 0; i < 4; i++)
+	{
+		if (this->_slot[i] != NULL && this->_slot[i]->getType() == type)
+		{
+			return (this->_slot[i]->clone());
+		}
+	}
+	return (0);
 }

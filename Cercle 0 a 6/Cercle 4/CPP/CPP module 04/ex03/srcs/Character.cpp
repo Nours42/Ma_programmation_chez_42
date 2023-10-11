@@ -3,112 +3,131 @@
 /*                                                        :::      ::::::::   */
 /*   Character.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 20:06:10 by nours42           #+#    #+#             */
-/*   Updated: 2023/10/09 23:00:02 by nours42          ###   ########.fr       */
+/*   Updated: 2023/10/10 14:13:08 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Character.hpp"
 
-////////////////////////////////////// CANONICAL FORM ////////////////////////////////////////////////////////	
-//																											// 
-// Character::Character()																					//
-// {																										//	
-// 	std::cout << "Character constructor called" << std::endl;												//
-// }																										//
-																											//
-Character::~Character()																						//
-{																											//
-	int	i;																									//
-																											//
-	i = -1;																									//
-	while (++i < 4)																							//
-	{																										//
-		if (this->_inventory[i])																			//
-			delete this->_inventory[i];																		//
-	}																										//
-	std::cout << "Character named " << this->_name << " has been destroyed" << std::endl;					//
-}																											//
-																											//
-Character::Character(Character const & ref) : _name(ref.getName() + "_copy")								//
-{																											//
-	int	i;																									//
-																											//
-	i = -1;																									//
-	while (++i < 4)																							//
-	{																										//
-		if (ref._inventory[i])																				//
-			this->_inventory[i] = (ref._inventory[i])->clone();												//
-	}																										//
-	std::cout << "A character named " << _name << " was created from copy of " << ref._name << std::endl;	//
-}																											//
-																											//
-Character & Character::operator=(const Character & ref)														//
-{																											//
-	int	i;																									//
-																											//
-	i = -1;																									//
-	while (++i < 4)																							//
-	{																										//
-		if (this->_inventory[i])																			//
-			delete this->_inventory[i];																		//
-		if (ref._inventory[i])																				//
-			this->_inventory[i] = (ref._inventory[i])->clone();												//
-	}																										//
-	return (*this);																							//
-}																											//
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Character::Character(){}
 
-void	Character::equip(AMateria *m)
+Character::Character(std::string const & name)
 {
-	int	i = 0;
-	if (!m)
+	this->_name = name;
+	this->_indexFloor = -1;
+	for (int i = 0; i < 4; i++)
 	{
-		std::cout << this->_name << " tried to equip nothing and it did nothing" << std::endl;
-		return ;
+		this->_slot[i] = NULL;
+		this->_floor[i] = NULL;
 	}
-	while (this->_inventory[i] !=0 && i < 4)
-		i++;
-	if (i >= 4)
-	{
-		std::cout << this->_name << " can't equip more than 4 Materia" << std::endl;
-		return ;
-	}
-	this->_inventory[i] = m;
-	std::cout << this->_name << " equipped materia " << m->getType() << " in slot " << i << std::endl;
+	if (0)
+		std::cout << YELLOW << "[Character] name constructor called name= " << name << std::endl << NO_COLOR;
 }
 
-void Character::unequip(int idx)
+Character::Character(Character const & input)
 {
-	if (idx < 0 || idx >= 4)
-		std::cout << this->_name << " tried to unequip nothing at slot " << idx << " and it did nothing" << std::endl;
-	else if (!this->_inventory[idx])
-		std::cout << this->_name << " has nothing equipped at slot " << idx << " so he can't unequip it" << std::endl;
+	*this = input;
+	this->_name = input._name + "_copy";
+	if (0)
+		std::cout << YELLOW << "[Character] copy constructor called name= " << input._name << std::endl << NO_COLOR;
+}
+
+Character const & Character::operator=(Character const & input)
+{
+	this->_name = input._name + "_assigned";
+	for (int i = 0; i < 4; i++)
+	{
+		if (input._slot[i] != NULL)
+			this->_slot[i] = input._slot[i]->clone();
+		else
+			this->_slot[i] = NULL;
+		this->_floor[i] = NULL;
+	}
+	this->_indexFloor = -1;
+	if (0)
+		std::cout << YELLOW << "[Character] assignement constructor called name= " << input._name << std::endl << NO_COLOR;
+	return (*this);
+}
+
+Character::~Character(void)
+{
+	for (int i = 0; i < 4; i++)
+	{
+		if (this->_slot[i] != NULL)
+		{
+			delete this->_slot[i];
+			if (0)
+				std::cout << YELLOW << "[Character] destructor deleted element at slot[" << i << "]" << std::endl << std::endl << NO_COLOR;
+		}
+		if (this->_floor[i] != NULL)
+		{
+			delete this->_floor[i];
+			if (0)
+				std::cout << YELLOW << "[Character] destructor deleted element at floor[" << i << "]" << std::endl << std::endl << NO_COLOR;
+		}
+	}
+	if (0)
+		std::cout << YELLOW << "[Character] destructor called name= " << this->_name << std::endl << NO_COLOR;
+}
+
+std::string const & Character::getName(void) const
+{
+	return (this->_name);
+}
+
+void	Character::equip(AMateria * m)
+{
+	for (int i = 0; i < 4; i++)
+	{
+		if (this->_slot[i] == NULL)
+		{
+			this->_slot[i] = m;
+			std::cout << YELLOW << this->_name << " equiped " << m->getType() << " at slot[" << i << "]" << std::endl << NO_COLOR;
+			m = NULL;
+			break ;
+		}
+	}
+	if (m != NULL)
+	{
+		std::cout	<< YELLOW << this->_name << " tried to equiped " << m->getType() << " at a slot, but all are full! "
+					<< m->getType() << "" << std::endl << NO_COLOR;
+		this->drop(m);
+	}
+}
+
+void	Character::unequip(int idx)
+{
+	if (this->_slot[idx] != NULL)
+	{
+		std::cout << YELLOW << this->_name << " unquiped " << this->_slot[idx]->getType() << " from slot[" << idx << "]" << std::endl << NO_COLOR;
+		this->drop(this->_slot[idx]);
+		this->_slot[idx] = NULL;
+	}
+}
+
+void	Character::use(int idx, ICharacter & target)
+{
+	
+	if (this->_slot[idx] != NULL)
+	{
+		std::cout << YELLOW << this->_name << " " << NO_COLOR;
+		this->_slot[idx]->use(target);
+	}
 	else
-	{
-		AMateria *ptr = this->_inventory[idx];
-		std::cout << this->_name << " unequipped " << ptr->getType() << " at slot "<< idx << "\n";
-		this->_inventory[idx] = 0;
-	}
+		std::cout << YELLOW << this->_name << " tried to use slot[" << idx << "] but its empty!" << std::endl << NO_COLOR;
 }
 
-void Character::use(int idx, ICharacter& target)
+void	Character::drop(AMateria * m)
 {
-	std::string	name;
-
-	name = this->getName();
-	if (idx < 0 || idx > 4 || !this->_inventory[idx])
+	this->_indexFloor++;
+	if (this->_indexFloor == 4)
 	{
-		std::cout << "Nothing found to use at index " << idx << std::endl;
-		return ;
+		this->_indexFloor = 0;
+		delete this->_floor[0];
 	}
-	std::cout << name;
-	((this->_inventory)[idx])->use(target);
-}
-
-AMateria	*Character::getMateriaFromInventory(int idx)
-{
-	return (this->_inventory[idx]);
+	this->_floor[this->_indexFloor] = m;
+	std::cout << YELLOW << m->getType() << " dropped on the floor[" << this->_indexFloor << "]" << std::endl << NO_COLOR;
 }

@@ -3,51 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   AMateria.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 20:06:10 by nours42           #+#    #+#             */
-/*   Updated: 2023/10/09 22:29:36 by nours42          ###   ########.fr       */
+/*   Updated: 2023/10/10 13:46:38 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/AMateria.hpp"
 
-////////////////////////////////////// CANONICAL FORM ////////////////////////////////////////
-																							//
-AMateria::AMateria()																		//
-{																							//	
-	std::cout << "Abstract Materia constructor called" << std::endl;						//
-}																							//
-																							//
-AMateria::~AMateria()																		//
-{																							//
-	std::cout << "Abstract Materia destructor called" << std::endl;							//
-}																							//
-																							//
-AMateria::AMateria(AMateria const & ref) : _type(ref._type)		 							//
-{																							//
-	std::cout << "Abstract Materia copy constructor called" << std::endl;					//																//
-}																							//
-																							//
-// AMateria & AMateria::operator=(const AMateria & ref)										//
-// {																						//
-// 	std::cout << "Abstract Materia constructor by operator = called" << std::endl;			//
-// 	this->_type = ref.type;																	//
-// 	return (*this);																			//
-// }																						//
-//////////////////////////////////////////////////////////////////////////////////////////////
+AMateria::AMateria(std::string const & type)
+{
+	this->_type = type;
+	if (0)
+		std::cout << WHITE << "[AMateria] type constructor called type= " << type << std::endl << NO_COLOR;
+}
 
-std::string const & AMateria::getType() const
+AMateria::AMateria(AMateria const & input)
+{
+	*this = input;
+	if (0)
+		std::cout << WHITE << "[AMateria] copy constructor called" << std::endl;
+}
+
+AMateria const & AMateria::operator=(AMateria const & input)
+{
+	this->_type = input._type;
+	if (0)
+		std::cout << WHITE << "[AMateria] assignement constructor called" << std::endl << NO_COLOR;
+	return (*this);
+}
+
+AMateria::~AMateria(void)
+{
+	if (0)
+		std::cout << WHITE << "[AMateria] destructor called" << std::endl << NO_COLOR;
+}
+
+std::string	const & AMateria::getType(void) const
 {
 	return (this->_type);
 }
 
-void AMateria::use(ICharacter& target)
+void	AMateria::use(ICharacter & target)
 {
-	std::cout << "Abstract Materia used on " << target.getName() << std::endl;
-}
-
-AMateria::AMateria(std::string const & type) : _type(type)
-{
-	std::cout << "Abstract materia has been constructed" << std::endl;
+	(void) target;
 }

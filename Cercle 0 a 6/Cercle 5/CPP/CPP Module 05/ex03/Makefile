@@ -6,7 +6,7 @@
 #    By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 10:38:18 by sdestann          #+#    #+#              #
-#    Updated: 2023/10/11 10:21:07 by sdestann         ###   ########.fr        #
+#    Updated: 2023/10/11 10:56:35 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ NAME = Bureaucrat
 
 HEADER_SRCS =	AForm.hpp					\
 				Bureaucrat.hpp				\
+				Intern.hpp					\
 				PresidentialPardonForm.hpp 	\
 				RobotMyRequestForm.hpp		\
 				ShrubberyCreationForm.hpp
@@ -27,6 +28,7 @@ SRCS_DIR	=	srcs/
 SRCS		=	Main.cpp					\
 				AForm.cpp					\
 				Bureaucrat.cpp				\
+				Intern.cpp					\
 				PresidentialPardonForm.cpp 	\
 				RobotMyRequestForm.cpp		\
 				ShrubberyCreationForm.cpp
@@ -60,14 +62,14 @@ $(OBJDIR)/%.o: $(SRCS_DIR)%.cpp $(HEADER) Makefile
 
 $(NAME): ${OBJ_SRCS}
 	@$(COMPILE) ${FLAGS} -o $(NAME) ${OBJ_SRCS}
-	@echo $(G)Project Bureaucrat part 2 ! by SDESTANN successfully compiled${X}
+	@echo $(G)Project Bureaucrat part 3 ! by SDESTANN successfully compiled${X}
 
 clean:
-	@echo ${R}Cleaning Bureaucrat part 2 ! ${G}[${OBJDIR}]...${X}
+	@echo ${R}Cleaning Bureaucrat part 3 ! ${G}[${OBJDIR}]...${X}
 	@/bin/rm -Rf ${OBJDIR}
 
 fclean: clean
-	@echo ${R}FCleaning Bureaucrat part 2 ! ${G}[${NAME}]...${X}
+	@echo ${R}FCleaning Bureaucrat part 3 ! ${G}[${NAME}]...${X}
 	@/bin/rm -f ${NAME}
 	@/bin/rm -f "A27_shrubbery"
 

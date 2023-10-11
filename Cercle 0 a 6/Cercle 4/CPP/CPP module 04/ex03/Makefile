@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+         #
+#    By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 10:38:18 by sdestann          #+#    #+#              #
-#    Updated: 2023/10/09 23:05:31 by nours42          ###   ########.fr        #
+#    Updated: 2023/10/10 13:31:12 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ HEADER_SRCS =	AMateria.hpp		\
 				Ice.hpp				\
 				ICharacter.hpp		\
 				IMateriaSource.hpp	\
-				MateriaSource.hpp
+				MateriaSource.hpp	\
+				colors.h
 				
 HEADER_DIR	=	includes/
 HEADER		=	$(addprefix $(HEADER_DIR), $(HEADER_SRCS))
@@ -31,7 +32,6 @@ SRCS		=	Main.cpp			\
 				Character.cpp		\
 				Cure.cpp			\
 				Ice.cpp				\
-				IMateriaSource.cpp	\
 				MateriaSource.cpp
 
 OBJDIR		=	objs

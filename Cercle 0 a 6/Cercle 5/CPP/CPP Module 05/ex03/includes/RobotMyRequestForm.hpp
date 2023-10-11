@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ShrubberyCreationForm.hpp                                          :+:      :+:    :+:   */
+/*   RobotMyRequestForm.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,18 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHRUBBERYCREATIONFORM_HPP
-# define SHRUBBERYCREATIONFORM_HPP
+#ifndef ROBOTMYREQUESTFORM_HPP
+# define ROBOTMYREQUESTFORM_HPP
 
-# include <iostream>
-# include <iomanip>
-# include <fstream>
-# include <stdexcept>
 # include "AForm.hpp"
+# include <cstdlib>
 
 class AForm;
 
-class   ShrubberyCreationForm : public AForm
+class   RobotMyRequestForm : public AForm
 {
 	private:
 
@@ -42,15 +39,20 @@ class   ShrubberyCreationForm : public AForm
 
 		/////////////// canonical form //////////////
 
-		ShrubberyCreationForm();
-		~ShrubberyCreationForm();
-		ShrubberyCreationForm(ShrubberyCreationForm const & ref);
-		ShrubberyCreationForm & operator=(ShrubberyCreationForm const & ref);
+		RobotMyRequestForm();
+		~RobotMyRequestForm();
+		RobotMyRequestForm(RobotMyRequestForm const & ref);
+		RobotMyRequestForm & operator=(const RobotMyRequestForm & ref);
 
 		/// Function creation released by subject ///
 
-		ShrubberyCreationForm(std::string target);
+		RobotMyRequestForm(std::string target);
 		void	execute(Bureaucrat const & executor) const;
+		class FailureException : public AForm::Exception
+		{
+			public:
+				virtual const char* what() const throw();
+		};
 };
 
 #endif

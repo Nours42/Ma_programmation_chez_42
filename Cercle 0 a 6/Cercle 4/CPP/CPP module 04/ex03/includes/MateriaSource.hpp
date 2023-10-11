@@ -3,36 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   MateriaSource.hpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 09:59:41 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/09 22:00:00 by nours42          ###   ########.fr       */
+/*   Updated: 2023/10/10 13:45:56 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MATERIASOURCE_HPP
 # define MATERIASOURCE_HPP
-
 # include "IMateriaSource.hpp"
+# include "AMateria.hpp"
+# include "colors.h"
 
-class	MateriaSource : public IMateriaSource
+class MateriaSource : virtual public IMateriaSource
 {
-	private:
-		AMateria	*_inventory[4];
 
-	protected:
+public:
 
-	public:
-	
-		void		learnMateria(AMateria *m);
-		AMateria*	createMateria(std::string const & type);
+	MateriaSource(void);
+	MateriaSource(MateriaSource const & input);
+	MateriaSource const & operator=(MateriaSource const & input);
+	~MateriaSource(void);
 
-		////////////// canonical form ////////////////////////////
-		MateriaSource();										//
-		~MateriaSource();										//
-		MateriaSource(MateriaSource const & ref);				//
-		MateriaSource & operator=(const MateriaSource & ref);	//
-		//////////////////////////////////////////////////////////
+	void learnMateria(AMateria * m);
+	AMateria * createMateria(std::string const & type);
+
+private:
+
+	AMateria * _slot[4];
+
 };
 
 #endif

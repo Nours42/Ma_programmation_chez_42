@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ShrubberyCreationForm.hpp                                          :+:      :+:    :+:   */
+/*   PresidentialPardonForm.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,18 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHRUBBERYCREATIONFORM_HPP
-# define SHRUBBERYCREATIONFORM_HPP
+#ifndef PRESIDENTIALPARDONFORM_HPP
+# define PRESIDENTIALPARDONFORM_HPP
 
-# include <iostream>
-# include <iomanip>
-# include <fstream>
-# include <stdexcept>
 # include "AForm.hpp"
 
 class AForm;
 
-class   ShrubberyCreationForm : public AForm
+class   PresidentialPardonForm : public AForm
 {
 	private:
 
@@ -42,14 +38,14 @@ class   ShrubberyCreationForm : public AForm
 
 		/////////////// canonical form //////////////
 
-		ShrubberyCreationForm();
-		~ShrubberyCreationForm();
-		ShrubberyCreationForm(ShrubberyCreationForm const & ref);
-		ShrubberyCreationForm & operator=(ShrubberyCreationForm const & ref);
+		PresidentialPardonForm();
+		~PresidentialPardonForm();
+		PresidentialPardonForm(PresidentialPardonForm const & ref);
+		PresidentialPardonForm & operator=(const PresidentialPardonForm & ref);
 
 		/// Function creation released by subject ///
 
-		ShrubberyCreationForm(std::string target);
+		PresidentialPardonForm(std::string target);
 		void	execute(Bureaucrat const & executor) const;
 };
 

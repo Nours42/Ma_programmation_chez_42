@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 09:59:41 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/05 16:42:24 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/10 16:49:58 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ class	ClapTrap
 		ClapTrap(std::string name, std::string class_name);
 		ClapTrap(std::string name, std::string class_name, unsigned int hp, unsigned energy_points, unsigned int attack_damage);
 		ClapTrap(const ClapTrap & src);
-		~ClapTrap();
+		virtual ~ClapTrap();
 
 		ClapTrap & operator=(const ClapTrap & rhs);
 };

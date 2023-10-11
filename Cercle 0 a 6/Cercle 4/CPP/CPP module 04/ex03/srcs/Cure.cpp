@@ -3,56 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   Cure.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 20:06:10 by nours42           #+#    #+#             */
-/*   Updated: 2023/10/09 22:46:16 by nours42          ###   ########.fr       */
+/*   Updated: 2023/10/10 14:07:39 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ICharacter.hpp"
 #include "../includes/Cure.hpp"
-#include "../includes/IMateriaSource.hpp"
 
-////////////////////////////////////// CANONICAL FORM ////////////////////////////////////////
-																							//
-Cure::Cure() : _type("cure")																//
-{																							//	
-	std::cout << this->_type << " created" << std::endl;									//
-}																							//
-																							//
-Cure::~Cure()																				//
-{																							//
-	std::cout << this->_type << " destroyed\n";												//
-}																							//
-																							//
-Cure::Cure(Cure const & ref) : AMateria(ref), _type(ref.getType() + "_copy")								//
-{																							//
-	std::cout << ref._type << " was created by copy" << std::endl;							//
-}																							//
-																							//
-Cure & Cure::operator=(const Cure & ref)													//
-{																							//
-	std::cout << "Assigned from " << ref.getType() << std::endl;							//
-	return (*this);																			//
-}																							//
-//////////////////////////////////////////////////////////////////////////////////////////////
+Cure::Cure(void) : AMateria("cure")
+{
+	if (0)
+		std::cout << GREEN << "[Cure] default constructor called" << std::endl << NO_COLOR;
+}
 
-std::string const & Cure::getType( void ) const
+Cure::Cure(std::string const & type) : AMateria(type)
+{
+	if (0)
+		std::cout << GREEN << "[Cure] default constructor called" << std::endl << NO_COLOR;
+}
+
+Cure::Cure(Cure const & input) : AMateria("Cure_copy")
+{
+	*this = input;
+	if (0)
+		std::cout << GREEN << "[Cure] copy constructor called" << std::endl;
+}
+
+Cure const & Cure::operator=(Cure const & input)
+{
+	this->_type = input._type;
+	if (0)
+		std::cout << GREEN << "[Cure] assignement constructor called" << std::endl << NO_COLOR;
+	return (*this);
+}
+
+Cure::~Cure(void)
+{
+	if (0)
+		std::cout << GREEN << "[Cure] destructor called" << std::endl << NO_COLOR;
+}
+
+std::string const & Cure::getType(void) const
 {
 	return (this->_type);
 }
 
-Cure *Cure::clone() const
+AMateria *	Cure::clone(void) const
 {
-	Cure	*ret = new Cure;
-	return (ret);
+	return (new Cure("cure"));
 }
 
-void Cure::use(ICharacter& target)
+void	Cure::use(ICharacter & target)
 {
-	std::string	target_name;
-
-	target_name = target.getName();
-	std::cout << " heal " << target_name << "\'s wounds" << std::endl;
+	std::cout << GREEN << "* heals " << target.getName() << "'s wounds *" << std::endl << NO_COLOR;
 }

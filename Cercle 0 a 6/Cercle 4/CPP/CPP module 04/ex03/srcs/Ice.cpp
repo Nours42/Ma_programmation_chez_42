@@ -3,56 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   Ice.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 20:06:10 by nours42           #+#    #+#             */
-/*   Updated: 2023/10/09 22:46:50 by nours42          ###   ########.fr       */
+/*   Updated: 2023/10/10 14:07:40 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ICharacter.hpp"
 #include "../includes/Ice.hpp"
-#include "../includes/IMateriaSource.hpp"
 
-////////////////////////////////////// CANONICAL FORM ////////////////////////////////////////
-																							//
-Ice::Ice() : _type("ice")																	//
-{																							//	
-	std::cout << this->_type << " created" << std::endl;									//
-}																							//
-																							//
-Ice::~Ice()																					//
-{																							//
-	std::cout << this->_type << " destroyed\n";												//
-}																							//
-																							//
-Ice::Ice(Ice const & ref) : AMateria(ref), _type(ref.getType() + "_copy")					//
-{																							//
-	std::cout << this->_type << " was created by copy" << std::endl;						//
-}																							//
-																							//
-Ice & Ice::operator=(const Ice & ref)														//
-{																							//
-	std::cout << "Assigned from " << ref.getType() << std::endl;							//
-	return (*this);																			//
-}																							//
-//////////////////////////////////////////////////////////////////////////////////////////////
+Ice::Ice(void) : AMateria("ice")
+{
+	if (0)
+		std::cout << BLUE << "[Ice] default constructor called" << std::endl << NO_COLOR;
+}
 
-std::string const & Ice::getType( void ) const
+Ice::Ice(std::string const & type) : AMateria(type)
+{
+	if (0)
+		std::cout << BLUE << "[Ice] default constructor called" << std::endl << NO_COLOR;
+}
+
+Ice::Ice(Ice const & input) : AMateria("ice_copy")
+{
+	*this = input;
+	if (0)
+		std::cout << BLUE << "[Ice] copy constructor called" << std::endl;
+}
+
+Ice const & Ice::operator=(Ice const & input)
+{
+	this->_type = input._type;
+	if (0)
+		std::cout << BLUE << "[Ice] assignement constructor called" << std::endl << NO_COLOR;
+	return (*this);
+}
+
+Ice::~Ice(void)
+{
+	if (0)
+		std::cout << BLUE << "[Ice] destructor called" << std::endl << NO_COLOR;
+}
+
+std::string const & Ice::getType(void) const
 {
 	return (this->_type);
 }
 
-Ice *Ice::clone() const
+AMateria *	Ice::clone(void) const
 {
-	Ice	*ret = new Ice;
-	return (ret);
+	return (new Ice("ice"));
 }
 
-void Ice::use(ICharacter& target)
+void	Ice::use(ICharacter & target)
 {
-	std::string	target_name;
-
-	target_name = target.getName();
-	std::cout << " shoot an ice bolt at " << target_name << std::endl;
+	std::cout << BLUE << "* shoots an ice bolt at " << target.getName() << " *" << std::endl << NO_COLOR;
 }

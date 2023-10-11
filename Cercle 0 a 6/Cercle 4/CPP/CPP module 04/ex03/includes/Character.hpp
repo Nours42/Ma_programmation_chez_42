@@ -3,43 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   Character.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 09:59:41 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/09 23:03:28 by nours42          ###   ########.fr       */
+/*   Updated: 2023/10/10 13:45:30 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CHARACTER_HPP
 # define CHARACTER_HPP
-
 # include "ICharacter.hpp"
+# include "AMateria.hpp"
 
-class	Character : public ICharacter
+class Character : public ICharacter
 {
 	private:
-	
-		AMateria			*_inventory[4];
-		std::string const	_name;
 
+		///// norme //////
+		Character();	//
+		//////////////////
+		
+		void	drop(AMateria * m);
+
+		std::string	_name;
+		AMateria	*_slot[4];
+		AMateria	*_floor[4];
+		int			_indexFloor;
+	
 	protected:
 
 
-	public:
 	
-		Character(std::string name);
-		std::string const & getName() const;
-		void equip(AMateria* m);
-		void unequip(int idx);
-		void use(int idx, ICharacter& target);
-		AMateria	*getMateriaFromInventory(int idx);
+	public:
+		
+		////////////////// norme /////////////////////////////////
+		Character(Character const & input);						//
+		Character const & operator=(Character const & input);	//
+		~Character(void);										//
+		//////////////////////////////////////////////////////////
+		
+		Character(std::string const & name);
+		std::string const & getName(void) const;
+		void	equip(AMateria * m);
+		void	unequip(int idx);
+		void	use(int idx, ICharacter & target);
 
-		////////////// canonical form ////////////////////
-		Character();									//
-		virtual ~Character();							//
-		Character(Character const & ref);				//
-		Character & operator=(Character const & ref);	//
-		//////////////////////////////////////////////////
 };
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 09:59:41 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/05 15:09:23 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/10 16:49:22 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ class	ClapTrap
 		ClapTrap(std::string name);
 		ClapTrap(std::string name, std::string class_name);
 		ClapTrap(const ClapTrap & src);
-		~ClapTrap();
+		virtual ~ClapTrap();
 
 		ClapTrap & operator=(const ClapTrap & rhs);
 };

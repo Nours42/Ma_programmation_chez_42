@@ -3,131 +3,108 @@
 /*                                                        :::      ::::::::   */
 /*   Main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 10:27:54 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/09 22:50:30 by nours42          ###   ########.fr       */
+/*   Updated: 2023/10/10 14:05:47 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../includes/colors.h"
 #include "../includes/AMateria.hpp"
-#include "../includes/Character.hpp"
-#include "../includes/Cure.hpp"
 #include "../includes/Ice.hpp"
+#include "../includes/Cure.hpp"
 #include "../includes/ICharacter.hpp"
+#include "../includes/Character.hpp"
 #include "../includes/IMateriaSource.hpp"
 #include "../includes/MateriaSource.hpp"
 
-void ft_tests()
+int	main(void)
 {
-	// Constructors
-	std::cout << std::endl;
-	std::cout << "CONSTRUCTORS:" << std::endl;
-	std::cout << "-----------------------" << std::endl;
-	IMateriaSource* src = new MateriaSource();
-	src->learnMateria(new Ice());
-	// src->learnMateria(new Cure());
-	// ICharacter* me = new Character("me");
-	// std::cout << std::endl;
-
-	// // Create Materia
-	// std::cout << "CREATE MATERIA:" << std::endl;
-	// std::cout << "-----------------------" << std::endl;
-	// AMateria	*tmp;
+	std::cout << RED << "\n*** creating a new spellbook ***" << std::endl << std::endl << NO_COLOR;
+	MateriaSource *spellBook = new MateriaSource();
+	spellBook->learnMateria(new Ice());
+	spellBook->learnMateria(new Cure());
 	
-	// AMateria	*tmp1;
-	// AMateria	*tmp2;
-	// AMateria	*tmp3;
-	// AMateria	*tmp4;
+	
+	std::cout << RED << "\n*** copying spellbook ***" << std::endl << std::endl << NO_COLOR;
+	IMateriaSource *spellBookCopy = new MateriaSource(*spellBook);
+	
+	
+	std::cout << RED << "\n*** learn new spells ***" << std::endl << std::endl << NO_COLOR;
+	spellBook->learnMateria(new Cure());
+	spellBook->learnMateria(new Ice());
+	spellBook->learnMateria(new Cure());
+	spellBook->learnMateria(new Ice());
+	
+	
+	std::cout << RED << "\n*** learn new spells ***" << std::endl << std::endl << NO_COLOR;
+	spellBookCopy->learnMateria(new Cure());
+	spellBookCopy->learnMateria(new Cure());
+	spellBookCopy->learnMateria(new Cure());
+	delete spellBook;
+	
+	
+	std::cout << RED << "\n*** creating a new character ***" << std::endl << std::endl << NO_COLOR;
+	AMateria *tmp;
+	Character *testDummy = new Character("Test-Dummy");
+	
+	tmp = spellBookCopy->createMateria("cure");
+	testDummy->equip(tmp);
+	tmp = spellBookCopy->createMateria("ice");
+	testDummy->equip(tmp);
 
-	// tmp = src->createMateria("ice");
-	// me->equip(tmp);
-	// tmp1 = src->createMateria("cure");
-	// me->equip(tmp1);
-	// tmp = src->createMateria("fire"); // null
-	// me->equip(tmp);
-	// std::cout << std::endl;
 
-	// // Use on a new character
-	// std::cout << "USE ON A NEW CHARACTER:" << std::endl;
-	// std::cout << "-----------------------" << std::endl;
-	// ICharacter* bob = new Character("bob");
-	// me->use(0, *bob);
-	// me->use(1, *bob);
-	// std::cout << std::endl;
-	// me->use(2, *bob); // Use an empty / non existing slot in inventory
-	// me->use(-4, *bob);
-	// me->use(18, *bob);
-	// std::cout << std::endl;
+	std::cout <<  RED << "\n*** copy the a new character ***" << std::endl << std::endl << NO_COLOR;
+	ICharacter *testDummyCopy = new Character(*testDummy);
+	
+	testDummyCopy->use(1, *testDummy);
+	testDummyCopy->use(0, *testDummy);
 
-	// // Deep copy character
-	// std::cout << "DEEP COPY CHARACTER:" << std::endl;
-	// std::cout << "-----------------------" << std::endl;
-	// Character	*charles = new Character("Charles");
-	// tmp2 = src->createMateria("cure");
-	// charles->equip(tmp2);
-	// tmp3 = src->createMateria("ice");
-	// charles->equip(tmp3);
-	// tmp = src->createMateria("earth");
-	// charles->equip(tmp);
-	// Character	*charles_copy = new Character(*charles);
-	// std::cout << std::endl;
+	delete testDummyCopy;
+	delete testDummy;
 
-	// // Deep copy vs its source character
-	// std::cout << "DEEP COPY VS SOURCE:" << std::endl;
-	// std::cout << "-----------------------" << std::endl;
-	// charles->unequip(0); // this shows that they have different materia pointers equipped
-	// tmp4 = charles_copy->getMateriaFromInventory(1);
-	// charles_copy->unequip(1); //this will produce a leak if we don't store the address somewhere else before
-	// delete tmp4;
-	// tmp = src->createMateria("cure");
-	// charles_copy->equip(tmp);
-	// tmp = src->createMateria("ice");
-	// charles_copy->equip(tmp);
-	// std::cout << std::endl;
 
-	// charles->use(0, *bob);
-	// charles->use(1, *bob);
-	// charles->use(2, *bob);
-	// charles->use(3, *bob);
-	// std::cout << std::endl;
-	// charles_copy->use(0, *bob);
-	// charles_copy->use(1, *bob);
-	// charles_copy->use(2, *bob);
-	// charles_copy->use(3, *bob);
-	// std::cout << std::endl;
+	std::cout << RED << "\n*** creating a new character ***" << std::endl << std::endl << NO_COLOR;
+	ICharacter *Gandalf = new Character("Gandalf");
 
-	// // Unequip tests:
-	// std::cout << "UNEQUIP:" << std::endl;
-	// std::cout << "-----------------------" << std::endl;
-	// me->unequip(-1); // unequip an empty / non existing slot in inventory
-	// me->unequip(18);
-	// me->unequip(3);
-	// std::cout << std::endl;
-	// me->use(1, *charles);
-	// me->unequip(1); // Unequip a valid slot in inventory (cure unequipped)
-	// me->use(1, *charles); // try to use it
-	// std::cout << std::endl;
+	tmp = spellBookCopy->createMateria("ice");
+	Gandalf->equip(tmp);
+	tmp = spellBookCopy->createMateria("cure");
+	Gandalf->equip(tmp);
+	tmp = spellBookCopy->createMateria("ice");
+	Gandalf->equip(tmp);
+	tmp = spellBookCopy->createMateria("cure");
+	Gandalf->equip(tmp);
+	tmp = spellBookCopy->createMateria("ice");
+	Gandalf->equip(tmp);
+	tmp = spellBookCopy->createMateria("cure");
+	Gandalf->equip(tmp);
+	Gandalf->unequip(0);
+	tmp = spellBookCopy->createMateria("ice");
+	Gandalf->equip(tmp);
+	tmp = spellBookCopy->createMateria("ice");
+	Gandalf->equip(tmp);
+	
+	
+	std::cout << RED << "\n*** creating another new character ***" << std::endl << std::endl << NO_COLOR;
+	ICharacter *Grima = new Character("Grima \"langue de serpent \"");
+	Gandalf->use(0, *Grima);
+	Gandalf->use(1, *Grima);
+	Grima->use(0, *Gandalf);
+	Grima->use(1, *Gandalf);
+	
+	
+	std::cout << RED << "\n*** destroying character Grima ***" << std::endl << std::endl << NO_COLOR;
+	delete Grima;
 
-	// // Destructors
-	// std::cout << "DESTRUCTORS:" << std::endl;
-	// std::cout << "-----------------------" << std::endl;
-	// delete bob;
-	// delete me;
-	// delete src;
-	// delete charles;
-	// delete charles_copy;
-	// delete tmp1;
-	// delete tmp2;
-	// std::cout << std::endl;
-	// //system("leaks ex03");
-}
 
-int main(void)
-{
-	ft_tests();
-	// Leaks check
-	std::cout << "LEAKS:" << std::endl;
-	std::cout << "-----------------------" << std::endl;
+	std::cout << RED << "\n*** destroying character Gandalf ***" << std::endl << std::endl << NO_COLOR;
+	delete Gandalf;
+
+	
+	std::cout << RED << "\n*** destroying spellbook ***" << std::endl << std::endl << NO_COLOR;
+	delete spellBookCopy;
+
 	return (0);
 }
