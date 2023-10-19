@@ -6,66 +6,42 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 10:14:36 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/19 14:47:04 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/19 15:46:58 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BITCOINEXCHANGE_HPP
 # define BITCOINEXCHANGE_HPP
 
-# include <iostream>
-# include <fstream>
-# include <map>
-# include <cstdlib>
-# include <iomanip>
+# include <queue>
 # include <string>
-# include <vector>
+# include <iostream>
+# include <string>
+# include <fstream>
+# include <cstdlib>
 
-class	btcValues
+class amount
 {
 	private:
-		
-		std::map<std::vector<int>, float>	_bitcoinValueList;
-		std::map<std::vector<int>, float> _instructionList;
-		void				_convertValuesToYMDV(std::string strIn);
-		void				_convertInstructsToYMDV(std::string strIn);
-		int					_year;
-		int					_month;
-		int					_day;
-		float				_value;
-		
+
+		std::string		_date;
+		float			_value;
+
 	protected:
 	public:
-		/////// Canonical Form ///////
-		btcValues();
-		~btcValues();
-		btcValues &operator=(btcValues &ref);
-		btcValues(btcValues &ref);
 
-		/////// getter ///////
-		std::map<std::vector<int>, float>	getBtcList(void);
+		amount();
+		amount(std::string s, int v);
+		amount &operator=(amount const &ref);
+		amount(amount const &ref);
 
-		/////// Fucntions ///////
-		void	doTheJob(char **argv);
-		void	openValuesList(void);
-		void	openInstructionsList(char **argv);
-		void	verificationDate(int*);
-		void	verificationAmount(int);
-
-
-		/////// Exceptions ///////
-		class	DateError : public std::exception
-		{
-			public:
-				virtual const char* what() const throw() { return "Erreur de Date"; }
-		};
-
-		class	ValueError : public std::exception
-		{
-			public:
-				virtual const char* what() const throw() { return "Erreur de Valeur"; }
-		};
+		void				wrongdateformat(std::string input);
+		float				getvalue() const;
+		std::string			getdate() const;
+		void				setdate(std::string d);
+		void				setvalue(float i);
+		amount 				getamount(std::string text);
+		std::queue<amount>	getqueue(char *f);
 };
-
 
 #endif

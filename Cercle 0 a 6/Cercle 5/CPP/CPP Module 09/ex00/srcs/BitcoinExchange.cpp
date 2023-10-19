@@ -6,192 +6,119 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:22:07 by nours42           #+#    #+#             */
-/*   Updated: 2023/10/19 14:50:34 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/19 15:50:30 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/BitcoinExchange.hpp"
 
-btcValues::btcValues() {}
-
-btcValues::~btcValues() {}
-
-btcValues &btcValues::operator=(btcValues &ref)
+amount::amount()
 {
-	this->_bitcoinValueList = ref.getBtcList();
-	return (*this);
+	_date = "";
+	_value = 0.0f;
 }
 
-std::map<std::vector<int>, float> btcValues::getBtcList()
+amount::amount(std::string s, int v)
 {
-	return (this->_bitcoinValueList);
+	_date = s;
+	_value = v;
 }
 
-btcValues::btcValues(btcValues &ref)
-{	*this = ref; }
-
-void	btcValues::_convertValuesToYMDV(std::string strIn)
+amount	&amount::operator=(amount const &a)
 {
-	size_t		pos;
-	std::string	strTemp;
-	const char	*charTemp;
-
-	strTemp = strIn.substr(0,4);
-	charTemp = strTemp.c_str();
-	this->_year = atoi(charTemp);
-	strTemp = strIn.substr(6,2);
-	charTemp = strTemp.c_str();
-	this->_month = atoi(charTemp);
-	strTemp = strIn.substr(9,2);
-	charTemp = strTemp.c_str();
-	this->_day = atoi(charTemp);
-	pos = strIn.find(",");
-	pos++;
-	strTemp = strIn.substr(pos);
-	charTemp = strTemp.c_str();
-	this->_value = atof(charTemp);
+	_date = a.getdate();
+	_value = a.getvalue();
+	return *this;
 }
 
+amount::amount(amount const &ref) : _date(ref._date), _value(ref._value)
+{}
 
-void	btcValues::openValuesList()
+
+void	amount::wrongdateformat(std::string input)
 {
-	int	i = 0;
-	int temp[3];
-	
-	std::ifstream	bvl("./cpp_09/data.csv");
-	if (!bvl.is_open())
+	_date = "Error: bad input -> " + std::string(input.begin(), input.begin() + input.find(','));
+	_value = -1;
+}
+
+float amount::getvalue() const
+{
+	return (_value);
+}
+
+std::string	amount::getdate() const
+{
+	return (_date);
+}
+
+void	amount::setdate(std::string d)
+{
+	_date = d;
+}
+
+void	amount::setvalue(float i)
+{
+	_value = i;
+}
+
+amount amount::getamount(std::string text)
+{
+	amount			ret;
+	int 			month, day;
+	std::string		date;
+	const char		*temp;
+	float			value;
+
+	if (text[10] != ',')
 	{
-		std::cout << "Coulnd't open the values file" << std::endl;
-		return ;
+		ret.wrongdateformat(text);
+		return (ret);
+	}
+	temp = (std::string(&text[5], &text[7]).c_str());
+	month = atoi(temp);
+	temp = (std::string(&text[8], &text[10]).c_str());
+	day = atoi(temp);
+	if (month < 0 || month > 12 || day < 0 || day > 31)
+	{
+		ret.wrongdateformat(text);
+		return (ret);
+	}
+	date = std::string(text.begin(), text.begin() + text.find(','));
+	if (ret.getdate() == "")
+		ret.setdate(date);
+	temp = std::string(text.begin() + text.find(',') + 1, text.end()).c_str();
+	value = atof(temp);
+	if (value < 0 || value > 1000)
+	{
+		if (value > 1000)
+			ret.setdate("Error: too large a number.");
+		else
+			ret.setdate("Error: not a positive number.");
+		ret.setvalue(-1);
+	}
+	if (ret.getvalue() != -1)
+		ret.setvalue(value);
+	return (ret);
+}
+
+std::queue<amount>	amount::getqueue(char *f)
+{
+	std::queue<amount>	ret;
+	std::ifstream file(f);
+	std::string line;
+
+	if (file.is_open())
+	{
+		std::getline(file, line);
+		while (std::getline(file, line))
+		{
+			ret.push(getamount(line));
+		}
+		file.close();
 	}
 	else
 	{
-		std::string	line_read;
-		while (getline(bvl, line_read))
-		{
-			if (i == 0)
-				i++;
-			else
-			{
-				_convertValuesToYMDV(line_read);
-				temp[0] = this->_year;
-				temp[1] = this->_month;
-				temp[2] = this->_day;
-				this->_bitcoinValueList.insert(std::make_pair(std::vector<int>(temp, temp + 3), this->_value));
-			}
-		}
-		std::cout << "Values file found and opened successfully" << std::endl;
-		// std::map<std::vector<int>, int>::iterator it;
-		// for (it = _bitcoinValueList.begin(); it != _bitcoinValueList.end(); ++it)
-		// {
-		// 	std::cout << "At the " << it->first[0] << "-" << it->first[1] << "-" << it->first[2] << ", the bitcoin has the value of " << it->second << ";" << std::endl;
-		// }
+		std::cerr << "Unable to open file" << std::endl;
 	}
-	bvl.close();
-}
-
-void	btcValues::_convertInstructsToYMDV(std::string strIn)
-{
-	size_t		pos;
-	std::string	strTemp;
-	const char	*charTemp;
-
-	pos = strIn.find(" | ");
-	if (pos == std::string::npos)
-		std::cout << "erreur de date" << std::endl;
-	else
-	{
-		strTemp = strIn.substr(0,4);
-		charTemp = strTemp.c_str();
-		try
-		{
-			this->_year = atoi(charTemp);
-		}
-		catch (btcValues::DateError &e)
-		{
-			std::cout << e.what() << std::endl;
-			return ;
-		}
-		strTemp = strIn.substr(6,2);
-		charTemp = strTemp.c_str();
-		try
-		{
-			this->_month = atoi(charTemp);
-		}
-		catch (btcValues::DateError &e)
-		{
-			std::cout << e.what() << std::endl;
-			return ;
-		}
-		strTemp = strIn.substr(9,2);
-		charTemp = strTemp.c_str();
-		try
-		{
-			this->_day = atoi(charTemp);
-		}
-		catch (btcValues::DateError &e)
-		{
-			std::cout << e.what() << std::endl;
-			return ;
-		}
-		pos = strIn.find(" | ");
-		strTemp = strIn.substr(pos);
-		charTemp = strTemp.c_str();
-		try
-		{
-			this->_value = atof(charTemp);
-		}
-		catch (btcValues::DateError &e)
-		{
-			std::cout << e.what() << std::endl;
-			return ;
-		}
-	}
-}
-
-void	btcValues::openInstructionsList(char **argv)
-{
-	int i = 0;
-	int	temp[3];
-	std::ifstream	BitcoinExchangeList(argv[1]);
-	if (!BitcoinExchangeList.is_open())
-	{
-		std::cout << "Coulnd't open the instruction file" << std::endl;
-		return ;
-	}
-	else
-	{
-		std::string	line_read;
-		while (getline(BitcoinExchangeList, line_read))
-		{
-			if (i == 0)
-				i++;
-			else
-			{
-				_convertInstructsToYMDV(line_read);
-				temp[0] = this->_year;
-				temp[1] = this->_month;
-				temp[2] = this->_day;
-				this->_instructionList.insert(std::make_pair(std::vector<int>(temp, temp + 3), this->_value));
-			}
-		}
-		std::cout << "Values file found and opened successfully" << std::endl;
-		std::map<std::vector<int>, float>::iterator it;
-		for (it = _instructionList.begin(); it != _instructionList.end(); ++it)
-		{
-			std::cout << "At the " << it->first[0] << "-" << it->first[1] << "-" << it->first[2] << ", the bitcoin has the value of " << it->second << ";" << std::endl;
-		}
-	}
-	BitcoinExchangeList.close();
-}
-
-void	btcValues::doTheJob(char **argv)
-{
-	openValuesList();
-	openInstructionsList(argv);
-	// stocker les dates en tableau;
-	// lire les instructions ligne a ligne;
-		// verifier date
-		// verifier montant
-		// application ou rejet
+	return (ret);
 }
