@@ -6,21 +6,22 @@
 #    By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 10:38:18 by sdestann          #+#    #+#              #
-#    Updated: 2023/10/18 10:57:37 by sdestann         ###   ########.fr        #
+#    Updated: 2023/10/18 13:57:55 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ### MISC ###
 
-NAME = Iter
+NAME = Span
 
-HEADER_SRCS =	iter.hpp
+HEADER_SRCS =	Span.hpp
 
 HEADER_DIR	=	includes/
 HEADER		=	$(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 
 SRCS_DIR	=	srcs/
-SRCS		=	main.cpp
+SRCS		=	main.cpp	\
+				Span.cpp
 
 OBJDIR		=	objs
 
@@ -51,14 +52,14 @@ $(OBJDIR)/%.o: $(SRCS_DIR)%.cpp $(HEADER) Makefile
 
 $(NAME): ${OBJ_SRCS}
 	@$(COMPILE) ${FLAGS} -o $(NAME) ${OBJ_SRCS}
-	@echo $(G)Project Iter ! by SDESTANN successfully compiled${X}
+	@echo $(G)Project Span ! by SDESTANN successfully compiled${X}
 
 clean:
-	@echo ${R}Cleaning Iter ! ${G}[${OBJDIR}]...${X}
+	@echo ${R}Cleaning Span ! ${G}[${OBJDIR}]...${X}
 	@/bin/rm -Rf ${OBJDIR}
 
 fclean: clean
-	@echo ${R}FCleaning Iter ! ${G}[${NAME}]...${X}
+	@echo ${R}FCleaning Span ! ${G}[${NAME}]...${X}
 	@/bin/rm -f ${NAME}
 
 re: fclean all

@@ -6,15 +6,15 @@
 #    By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 10:38:18 by sdestann          #+#    #+#              #
-#    Updated: 2023/10/18 11:28:03 by sdestann         ###   ########.fr        #
+#    Updated: 2023/10/19 05:01:16 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ### MISC ###
 
-NAME = Array
+NAME = MutantStack
 
-HEADER_SRCS =	Array.hpp
+HEADER_SRCS =	MutantStack.hpp
 
 HEADER_DIR	=	includes/
 HEADER		=	$(addprefix $(HEADER_DIR), $(HEADER_SRCS))
@@ -51,14 +51,14 @@ $(OBJDIR)/%.o: $(SRCS_DIR)%.cpp $(HEADER) Makefile
 
 $(NAME): ${OBJ_SRCS}
 	@$(COMPILE) ${FLAGS} -o $(NAME) ${OBJ_SRCS}
-	@echo $(G)Project Array ! by SDESTANN successfully compiled${X}
+	@echo $(G)Project MutantStack ! by SDESTANN successfully compiled${X}
 
 clean:
-	@echo ${R}Cleaning Array ! ${G}[${OBJDIR}]...${X}
+	@echo ${R}Cleaning MutantStack ! ${G}[${OBJDIR}]...${X}
 	@/bin/rm -Rf ${OBJDIR}
 
 fclean: clean
-	@echo ${R}FCleaning Array ! ${G}[${NAME}]...${X}
+	@echo ${R}FCleaning MutantStack ! ${G}[${NAME}]...${X}
 	@/bin/rm -f ${NAME}
 
 re: fclean all
