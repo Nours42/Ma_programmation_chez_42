@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 10:14:36 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/19 12:31:20 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/19 14:47:04 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,20 @@
 # include <cstdlib>
 # include <iomanip>
 # include <string>
+# include <vector>
 
 class	btcValues
 {
 	private:
 		
-		std::map<int*, int>	_bvl;
+		std::map<std::vector<int>, float>	_bitcoinValueList;
+		std::map<std::vector<int>, float> _instructionList;
 		void				_convertValuesToYMDV(std::string strIn);
+		void				_convertInstructsToYMDV(std::string strIn);
 		int					_year;
 		int					_month;
 		int					_day;
-		int					_value;
-		
+		float				_value;
 		
 	protected:
 	public:
@@ -41,7 +43,7 @@ class	btcValues
 		btcValues(btcValues &ref);
 
 		/////// getter ///////
-		std::map<int*, int>	getBtcList(void);
+		std::map<std::vector<int>, float>	getBtcList(void);
 
 		/////// Fucntions ///////
 		void	doTheJob(char **argv);
@@ -54,12 +56,14 @@ class	btcValues
 		/////// Exceptions ///////
 		class	DateError : public std::exception
 		{
-			virtual const char* what() const throw() { return "Erreur de Date"; }
+			public:
+				virtual const char* what() const throw() { return "Erreur de Date"; }
 		};
 
 		class	ValueError : public std::exception
 		{
-			virtual const char* what() const throw() { return "Erreur de Valeur"; }
+			public:
+				virtual const char* what() const throw() { return "Erreur de Valeur"; }
 		};
 };
 
