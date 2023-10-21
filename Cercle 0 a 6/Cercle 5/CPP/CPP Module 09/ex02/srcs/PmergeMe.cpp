@@ -6,7 +6,7 @@
 /*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:22:07 by nours42           #+#    #+#             */
-/*   Updated: 2023/10/21 16:05:50 by nours42          ###   ########.fr       */
+/*   Updated: 2023/10/21 18:33:00 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,8 +166,7 @@ void PmergeMe::_sortEachPair( std::vector< std::pair<int, int> > &splitVector )
 	_printVector( splitVector, "Split pair", YELLOW );
 }
 
-void PmergeMe::_sortPairsByLargestValue( std::vector< std::pair<int, int> > &
-        splitVector )
+void PmergeMe::_sortPairsByLargestValue( std::vector< std::pair<int, int> > &splitVector )
 {
 	int length = splitVector.size();
 	_insertionSortPairs( splitVector, length - 1 );
@@ -188,8 +187,7 @@ void PmergeMe::_insertionSortPairs( std::vector< std::pair<int, int> > &
 	}
 }
 
-void PmergeMe::_insertElement( std::vector< std::pair<int, int> > &splitVector,
-                               std::pair<int, int> element, int n )
+void PmergeMe::_insertElement( std::vector< std::pair<int, int> > &splitVector, std::pair<int, int> element, int n )
 {
 	if ( n < 0 )
 	{
@@ -222,8 +220,7 @@ void PmergeMe::_insertElement( std::vector< std::pair<int, int> > &splitVector,
 	}
 }
 
-void PmergeMe::_createSortedSequence( std::vector< std::pair<int, int> > &
-                                      splitVector )
+void PmergeMe::_createSortedSequence( std::vector< std::pair<int, int> > &splitVector )
 {
 	std::vector<int> pending;
 
@@ -266,8 +263,7 @@ std::vector<int> PmergeMe::_createIndexInsertSequence( std::vector<int> pending 
 	{
 		return ( indexSequence );
 	}
-	std::vector<int> jacobSequence = _buildJacobstahlInsertionSequence(
-	                                     pendingSize);
+	std::vector<int> jacobSequence = _buildJacobstahlInsertionSequence( pendingSize);
 	_printVector( jacobSequence, "Jacobstahl", PURPLE );
 	int i = 1;
 	while ( i <= pendingSize )
@@ -363,8 +359,7 @@ void PmergeMe::_insertStraggler( std::vector<int> &sortedVector )
 }
 
 template <typename T>
-void PmergeMe::_printVector( std::vector<T> &vector, std::string name,
-                             std::string color )
+void PmergeMe::_printVector( std::vector<T> &vector, std::string name, std::string color )
 {
 	if (!VERBOSE)
 	{
@@ -492,8 +487,7 @@ void PmergeMe::_insertionSortPairs( std::list< std::pair<int, int> > &
 	}
 }
 
-void PmergeMe::_insertElement( std::list< std::pair<int, int> > &splitList,
-                               std::pair<int, int> element, int n )
+void PmergeMe::_insertElement( std::list< std::pair<int, int> > &splitList, std::pair<int, int> element, int n )
 {
 	std::list< std::pair<int, int> >::iterator it = splitList.begin();
 	std::advance( it, n );
@@ -531,8 +525,7 @@ void PmergeMe::_insertElement( std::list< std::pair<int, int> > &splitList,
 	}
 }
 
-void PmergeMe::_createSortedSequence( std::list< std::pair<int, int> > &
-                                      splitList )
+void PmergeMe::_createSortedSequence( std::list< std::pair<int, int> > &splitList )
 {
 	std::list<int> pending;
 
@@ -578,8 +571,7 @@ std::list<int> PmergeMe::_createIndexInsertSequence( std::list<int> pending )
 	{
 		return ( indexSequence );
 	}
-	std::list<int> jacobSequence = _buildJacobstahlInsertionSequence(
-	                                     pending );
+	std::list<int> jacobSequence = _buildJacobstahlInsertionSequence( pending );
 	_printList( jacobSequence, "Jacobstahl", PURPLE );
 	int i = 1;
 	while (i <= pendingSize)
@@ -680,8 +672,7 @@ void PmergeMe::_insertStraggler( std::list<int> &sortedList )
 }
 
 template <typename T>
-void PmergeMe::_printList( std::list<T> &list, std::string name,
-                             std::string color )
+void PmergeMe::_printList( std::list<T> &list, std::string name, std::string color )
 {
 	if (!VERBOSE)
 	{
