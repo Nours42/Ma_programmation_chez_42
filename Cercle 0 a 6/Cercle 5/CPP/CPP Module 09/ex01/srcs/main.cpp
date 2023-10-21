@@ -3,46 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:22:07 by nours42           #+#    #+#             */
-/*   Updated: 2023/10/18 12:23:16 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/21 15:01:03 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/easyfind.hpp"
-#include <iomanip>
+#include "../includes/RPN.hpp"
 
-int main( void )
+int	main(int argc, char **argv)
 {
-	std::list<int>	Tarr;
-	int				i;
-
-	i = 0;
-	while (i < 100)
+	if (argc != 2)
 	{
-		Tarr.push_back(i);
-		i++;
-	}
-	
-	srand(time(NULL));
-	int choose = std::rand() % 120;
-
-	std::cout << "la liste Tarr est compose des chiffres de 0 a 99" << std:: endl;
-	std::cout << "le chiffre choose, aleatoire entre 0 et 119, est : " << choose << std:: endl;
-	std::cout << "la fonction easyfind recherche la premiere occurence de choose dans Tarr" << std:: endl;
-	std::cout << "si le nombre n'est pas trouve elle retourne une erreur" << std::endl;
-	try
-	{
-		easyfind(Tarr, choose);
-		std::cout << "Choose a ete trouve" << std::endl;
-	}
-	catch (std::out_of_range &e)
-	{
-		std::cout << e.what() << std::endl;
+		std::cerr << "Wrong Use! ./program \"operations\"" << std::endl;
+		return (1);
 	}
 
-	std::cout << "n'hesitez pas a relancer le programme pour changer le nombre choose" << std::endl;
-	
+	std::deque<char> mydeque = getdeque(argv[1]);
+	if (mydeque.empty())
+	{
+		std::cerr << "Error" << std::endl;
+		return (2);
+	}
+
+	int d1, d2;
+	std::deque<int> tmp;
+
+	while(!(mydeque.empty()))
+	{
+		if (isdigit(mydeque.front()))
+			tmp.push_back(mydeque.front() - '0');
+		else
+		{
+			d1 = tmp.front(); //front recupere le premier element de la deque (comme un begin())
+			tmp.pop_front(); //pop_front retire le premier element de la deque et reduit la taille de celle-ci de 1
+			d2 = tmp.front();
+			tmp.pop_front();
+			tmp.push_front(operation(d1, d2, mydeque.front()));
+		}
+		mydeque.pop_front();
+	}
+	std::cout << "Result is : " << tmp.front() << std::endl;
 	return (0);
 }
