@@ -6,7 +6,7 @@
 /*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 10:14:36 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/22 09:47:43 by nours42          ###   ########.fr       */
+/*   Updated: 2023/10/22 09:02:09 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,14 @@ std::string			getContentsAsString( std::list<int> &list );
 std::string			getContentsAsString( std::list< std::pair<int, int> > &list );
 std::vector<int>	*convertArrayToVector( int *array, int array_size );
 
+
+
 template <typename T>
-void 				verifySortAccuracy( int *array, int array_size, T &resultContainer );
+void verifySortAccuracy( int *array, int array_size, T &resultContainer );
 template <typename T>
-void				printContainer( std::vector<T> &vector, std::string name, std::string color );
+void	printContainer( std::vector<T> &vector, std::string name, std::string color );
 template <typename T>
-void 				rintContainer( std::list<T> &list, std::string name, std::string color );
+void printContainer( std::list<T> &list, std::string name, std::string color );
 
 class PmergeMe
 {
@@ -144,17 +146,17 @@ class PmergeMe
 		template <typename T>
 		void 								_printVector( std::vector<T> &vector, std::string name, std::string color );	
 		template <typename T>
-		void								_printList( std::list<T> &list, std::string name, std::string color );
+		void _printList( std::list<T> &list, std::string name, std::string color );
 		
-		std::string							_getVectorContentsAsString( std::vector<int> &vector );
-		std::string							_getListContentsAsString( std::list<int> &list );
-		std::string							_getVectorContentsAsString( std::vector< std::pair<int, int> > &vector );
-		std::string							_getListContentsAsString( std::list< std::pair<int, int> > &list );
-		std::vector<int>					_createIndexInsertSequence( std::vector<int> pending );
+		std::list< std::pair<int, int> > 	_splitIntoPairs( std::list<int> &unsortedList );
 		std::list<int>						_createIndexInsertSequence( std::list<int> pending );
 		std::list<int>						_buildJacobstahlInsertionSequence( std::list<int> pending );
+		std::string							_getVectorContentsAsString( std::vector<int> &vector );
+		std::string							_getVectorContentsAsString( std::vector< std::pair<int, int> > &vector );
+		std::string							_getListContentsAsString( std::list<int> &list );
+		std::string							_getListContentsAsString( std::list< std::pair<int, int> > &list );
+		std::vector<int>					_createIndexInsertSequence( std::vector<int> pending );
 		std::vector<int>					_buildJacobstahlInsertionSequence( int size );
-		std::list< std::pair<int, int> > 	_splitIntoPairs( std::list<int> &unsortedList );
 		std::vector< std::pair<int, int> >	_splitIntoPairs( std::vector<int> &unsortedVector );
 
 	public:
