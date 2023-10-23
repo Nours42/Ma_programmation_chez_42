@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 20:22:07 by nours42           #+#    #+#             */
-/*   Updated: 2023/10/22 09:44:02 by nours42          ###   ########.fr       */
+/*   Updated: 2023/10/23 12:04:29 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/PmergeMe.hpp"
+
+template <typename T>
+void printContainer( std::vector<T> & vector, std::string name, std::string color )
+{
+	std::stringstream ss;
+	ss << name << " vector (size " << vector.size() << "): ";
+	printLine( color, ss.str(), getContentsAsString( vector ) );
+}
+
+template <typename T>
+void printContainer( std::list<T> & list, std::string name, std::string color )
+{
+	std::stringstream ss;
+	ss << "-- " << name << " list (size " << list.size() << "): ";
+	printLine( color, ss.str(), getContentsAsString( list ) );
+}
 
 /////// Canonical Form ///////
 
