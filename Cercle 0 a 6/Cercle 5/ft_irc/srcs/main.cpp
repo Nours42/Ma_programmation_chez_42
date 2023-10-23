@@ -6,11 +6,17 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:27:20 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/23 15:52:02 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/23 17:36:11 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ircserv.hpp"
+
+int	print_error(std::string str)
+{
+	std::cerr << "error : " << str << std::endl;
+	return (-1);
+}
 
 static int	print_usage(std::string exec)
 {
