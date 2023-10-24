@@ -29,7 +29,7 @@
     "autoprefixer": "^10.4.8",
     "axios": "^0.27.2",
     "constants": "^0.0.2",
-    "expo": "~45.0.0",
+    "expo": "~49.0.16",
     "expo-font": "^10.1.0",
     "expo-location": "^14.2.2",
     "expo-notifications": "^0.15.4",
