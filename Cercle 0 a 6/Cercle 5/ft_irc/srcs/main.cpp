@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:27:20 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/23 17:36:11 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/24 10:40:39 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,26 +24,35 @@ static int	print_usage(std::string exec)
 	return (EXIT_FAILURE);
 }
 
-int	check_number(std::string number)
+int	check_numbers(char *str)
 {
-	std::string::const_iterator it = number.begin();
-    while (it != number.end() && std::isdigit(*it))
-		++it;
-    return (!number.empty() && it == number.end());
+	unsigned int	i = 0;
+	unsigned int	lenght = 0;
+
+	while (str[lenght])
+		lenght++;
+	while (i < lenght)
+	{
+		if (isdigit(str[i]))
+			i++;
+		else
+			return (0);
+	}
+	return (1);
 }
 
 int	check_args(int argc, char **argv)
 {
 	if (argc != 3)
-		std::error_runtime("not enougth or too many arguments\n");
+		return (print_error("not enougth or too many arguments\n"));
 	if (!check_numbers(argv[1]))
-		std::error_runtime("<port> must be a numeric value\n");
+		return (print_error("<port> must be a numeric value\n"));
 	return (1);
 }
 
 int	main(int argc, char **argv)
 {
-	if (!checkargs(argc, argv))
+	if (!check_args(argc, argv))
 		return print_usage(argv[0]);
 	// else
 	// {

@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:26:19 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/23 17:36:16 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/24 10:22:26 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 # include <iomanip>
 # include <iostream>
+# include <algorithm>
 # include <cstdio>
 # include <cstdlib>
 # include <cstring>
