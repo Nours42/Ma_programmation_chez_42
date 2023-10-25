@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 13:22:06 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/04 11:50:03 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/25 15:39:08 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ Point::Point(Fixed const x, Fixed const y): x(x), y(y)
 {
 }
 
-Point & Point::operator=( Point & rhs )
+Point &Point::operator=( Point &rhs )
 {
 	return(rhs);
 }
