@@ -1,7 +1,7 @@
 FROM debian:10
 
 RUN apt-get update
-RUN apt-get -y install php7.3 php-mysqli php-fpm wget sendmail
+RUN apt-get -y install php7.3 php-mysqli php-fpm wget
 
 EXPOSE 9000
 
