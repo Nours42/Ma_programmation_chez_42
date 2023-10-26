@@ -2,9 +2,9 @@
 
 FROM debian:bookworm
 # bookworm est la version 12.2 de debian c'est la derniere version stable en oct 2023
-
+RUN echo "\e[33m ~~~~~ NGINX DEBUT D'INSTALLATION ~~~~~"
 # update des paquets (eventuellement) et install de nginx
-RUN apt update && apt upgrade && apt install nginx -y
+RUN apt update && apt upgrade && apt install nginx -y && rm -rf /var/lib/apt/lists/*
 # installatation de vim et de curl (au cas ou)
 RUN apt install vim -y
 RUN apt install curl -y
@@ -20,22 +20,14 @@ RUN mkdir -p /var/run/nginx
 COPY config/nginx.conf /etc/nginx/nginx.conf
 RUN chmod 755 /var/www/html
 RUN chown -R www-data:www-data /var/www/html
-CMD [ "nginx", "-g", "daemon off;" ]
-
-# RUN apt update && apt upgrade && apk add \
-# 			openssl			\
-# 			nginx			\
-# 			curl			\
-# 			vim				\
-# 			sudo
-
-# RUN	rm -f /etc/nginx/nginx.conf
-
-# COPY ./config/nginx.conf /etc/nginx/nginx.conf
-# COPY scripts/setup_nginx.sh /setup_nginx.sh
-
-# RUN chmod -R +x /setup_nginx.sh
-
-# EXPOSE	443
-
-# ENTRYPOINT [ "sh", "setup_nginx.sh" ]
+COPY ["./config/nginx.conf", "/etc/nginx/nginx.conf"]
+COPY ["./config/sdestann.42.fr.conf", "/etc/nginx/sites-available"]
+COPY ["./tools/config.sh", "./"]
+#WORKDIR
+EXPOSE 443
+#STOPSIGNAL SIGQUIT
+#USER
+#ONBUILD
+#CMD ["ping", "localhost"]
+ENTRYPOINT ["/bin/sh", "-c", "./config.sh"]
+RUN echo "~~~~~ NGINX FIN D'INSTALLATION ~~~~~ \e[0m "
