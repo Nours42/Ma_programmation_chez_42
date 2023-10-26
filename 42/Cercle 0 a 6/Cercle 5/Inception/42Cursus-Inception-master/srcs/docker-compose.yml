@@ -1,0 +1,69 @@
+version: "3.5"
+
+networks:
+  nw:
+    name: my_network42
+    driver: bridge
+
+volumes:
+  wp:
+    driver: local
+    name: wp_volume
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/sdestann/data/wp
+  db:
+    driver: local
+    name: db_volume
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/sdestann/data/db
+
+services:
+ 
+  mariadb:
+    container_name: mariadb
+    image: mariadb
+    build: ./requirements/mariadb
+    env_file:
+      - ./.env
+    networks:
+      - nw
+    restart: unless-stopped
+    volumes:
+      - db:/var/lib/mysql
+      
+  wordpress:
+    container_name: wordpress
+    image: wordpress
+    build: ./requirements/wordpress
+    env_file:
+      - ./.env
+    networks:
+      - nw
+    depends_on:
+      - mariadb
+    restart: unless-stopped
+    volumes:
+      - wp:/var/www/html
+
+  nginx:
+    container_name: nginx
+    image: nginx
+    build: ./requirements/nginx
+    env_file:
+      - ./.env
+    ports:
+      - "443:443"
+    depends_on:
+      - mariadb
+      - wordpress
+    volumes:
+      - wp:/var/www/html
+    networks:
+      - nw
+    restart: unless-stopped
+
+      

@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
     container_name: mariadb
     networks:
-      - inception
+      - inception42
     ports:
       - "3306"
     volumes:
@@ -13,7 +13,7 @@ services:
     env_file: .env
     hostname: mariadb
     #init: true
-    restart: on-failure
+    restart: always
     #stop_signal: SIGTERM
 #---------------------------------------
   wordpress:
@@ -22,7 +22,7 @@ services:
       dockerfile: Dockerfile
     container_name: wordpress
     networks:
-      - inception
+      - inception42
     ports:
       - "9000"
     volumes:
@@ -30,7 +30,7 @@ services:
     env_file: .env
     hostname: wordpress
     #init: true
-    restart: on-failure
+    restart: always
     #stop_signal: SIGTERM
     depends_on:
       - mariadb
@@ -41,15 +41,16 @@ services:
       dockerfile: Dockerfile
     container_name: nginx
     networks:
-      - inception
+      - inception42
     ports:
       - "443:443"
+      - "8080"
     volumes:
       - wordpress:/var/www/wordpress
     env_file: .env
     hostname: nginx
     #init: true
-    restart: on-failure
+    restart: always
     #stop_signal: SIGTERM
     depends_on:
       - wordpress
@@ -71,6 +72,6 @@ volumes:
       device: /home/sdestann/data/wordpress
 ########################################
 networks:
-  inception:
-    name: inception
+  inception42:
+    name: inception42
     driver: bridge

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+         #
+#    By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 10:38:18 by sdestann          #+#    #+#              #
-#    Updated: 2023/10/26 08:54:28 by sdestann         ###   ########.fr        #
+#    Updated: 2023/10/26 13:31:20 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
