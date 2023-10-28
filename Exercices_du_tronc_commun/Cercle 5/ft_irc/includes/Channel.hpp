@@ -1,13 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ircserv.cpp                                        :+:      :+:    :+:   */
+/*   Channel.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/23 15:26:48 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/23 15:27:16 by sdestann         ###   ########.fr       */
+/*   Created: 2023/10/28 18:43:22 by nours42           #+#    #+#             */
+/*   Updated: 2023/10/28 18:55:14 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ircserv.hpp"
+#ifndef CHANNEL_HPP
+# define CHANNEL_HPP
+
+# include "Ircserv.hpp"
+
+class	Channel
+{
+	private:
+	protected:
+	public:
+		Channel();
+		~Channel();
+		Channel(Channel const &ref);
+		Channel &operator=(Channel const &ref);
+};
+
+#endif

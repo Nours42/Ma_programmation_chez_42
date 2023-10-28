@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.cpp                                         :+:      :+:    :+:   */
+/*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 17:02:41 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/23 17:24:41 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/28 18:52:48 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ircserv.hpp"
+#include "../includes/Ircserv.hpp"
 
 int	print_error(std::string str)
 {

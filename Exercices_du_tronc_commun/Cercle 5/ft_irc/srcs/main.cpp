@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:27:20 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/24 10:40:39 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/28 18:52:21 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ircserv.hpp"
+#include "../includes/Ircserv.hpp"
+#include "../includes/Channel.hpp"
+#include "../includes/ChannelManager.hpp"
+#include "../includes/User.hpp"
+#include "../includes/UserManager.hpp"
+#include "../includes/CmdsManager.hpp"
 
 int	print_error(std::string str)
 {
@@ -24,24 +29,18 @@ static int	print_usage(std::string exec)
 	return (EXIT_FAILURE);
 }
 
-int	check_numbers(char *str)
+bool check_numbers(const char *chaine)
 {
-	unsigned int	i = 0;
-	unsigned int	lenght = 0;
-
-	while (str[lenght])
-		lenght++;
-	while (i < lenght)
+    while(*chaine)
 	{
-		if (isdigit(str[i]))
-			i++;
-		else
-			return (0);
-	}
-	return (1);
+        if (!isdigit(*chaine))
+            return false;
+		chaine++;
+    }
+    return true;
 }
 
-int	check_args(int argc, char **argv)
+int	check_args(int argc, const char **argv)
 {
 	if (argc != 3)
 		return (print_error("not enougth or too many arguments\n"));
@@ -50,7 +49,7 @@ int	check_args(int argc, char **argv)
 	return (1);
 }
 
-int	main(int argc, char **argv)
+int	main(int argc, const char **argv)
 {
 	if (!check_args(argc, argv))
 		return print_usage(argv[0]);
