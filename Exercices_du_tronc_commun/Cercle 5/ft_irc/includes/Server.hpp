@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Ircserv.hpp                                        :+:      :+:    :+:   */
+/*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:26:19 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/28 18:55:45 by nours42          ###   ########.fr       */
+/*   Updated: 2023/10/29 19:06:34 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,17 @@
 #ifndef IRCSERV_HPP
 # define IRCSERV_HPP
 
-# include <iomanip>
-# include <iostream>
 # include <algorithm>
+# include <arpa/inet.h>
 # include <cstdio>
 # include <cstdlib>
 # include <cstring>
-# include <unistd.h>
-# include <sys/socket.h>
+# include <iomanip>
+# include <iostream>
+# include <map>
 # include <netinet/in.h>
-# include <arpa/inet.h>
+# include <sys/socket.h>
+# include <unistd.h>
 
 # include "UserManager.hpp"
 # include "ChannelManager.hpp"
@@ -39,19 +40,21 @@ int	print_error(std::string str);
 
 class   Server{
 	private:
-		int         _port;
-		std::string _password;
+		Server(Server const &ref);					//no used
+		Server &operator=(Server const &ref);		//no used
+		
+		int         	_port;
+		std::string 	_password;
 
 		ChannelManager  _channelManager;
-		CmdsManager  _cmdsManager;
+		CmdsManager  	_cmdsManager;
 		UserManager     _userManager;
 
 	protected:
 	public:
 		Server(int port, std::string password);
 		~Server();
-		Server(Server const &ref);
-		Server &operator=(Server const &ref);
+		
 
 		std::string	getPassword(void) const;
 		int			getPort(void) const;

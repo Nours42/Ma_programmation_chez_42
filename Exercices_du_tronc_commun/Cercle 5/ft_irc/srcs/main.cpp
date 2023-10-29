@@ -6,11 +6,11 @@
 /*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:27:20 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/28 18:52:21 by nours42          ###   ########.fr       */
+/*   Updated: 2023/10/29 18:34:11 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/Ircserv.hpp"
+#include "../includes/Server.hpp"
 #include "../includes/Channel.hpp"
 #include "../includes/ChannelManager.hpp"
 #include "../includes/User.hpp"
