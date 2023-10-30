@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+         #
+#    By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 10:38:18 by sdestann          #+#    #+#              #
-#    Updated: 2023/10/29 18:34:42 by nours42          ###   ########.fr        #
+#    Updated: 2023/10/30 16:11:18 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,17 +17,29 @@ NAME = ircserv
 HEADER_SRCS =	Channel.hpp			\
 				ChannelManager.hpp	\
 				CmdsManager.hpp		\
+				Command.hpp			\
+				Console.hpp			\
 				Server.hpp			\
 				User.hpp			\
-				UserManager.hpp
+				UserManager.hpp		\
+				Utils.hpp			\
+				/cmds/InviteCommand.hpp		\
+				/cmds/KickCommand.hpp		\
+				/cmds/ModeCommand.hpp		\
+				/cmds/TopicCommand.hpp
 
 
 HEADER_DIR	=	includes/
 HEADER		=	$(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 
 SRCS_DIR	=	srcs/
-SRCS		=	main.cpp			\
-				Server.cpp
+SRCS		=	Console.cpp			\
+				main.cpp			\
+				Server.cpp			\
+				/cmds/InviteCommand.cpp	\
+				/cmds/KickCommand.cpp	\
+				/cmds/ModeCommand.cpp	\
+				/cmds/TopicCommand.cpp
 
 OBJDIR		=	objs
 

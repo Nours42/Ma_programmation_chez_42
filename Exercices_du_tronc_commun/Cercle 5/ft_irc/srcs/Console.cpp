@@ -1,36 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   CmdsManager.hpp                                    :+:      :+:    :+:   */
+/*   Console.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/28 18:32:01 by nours42           #+#    #+#             */
-/*   Updated: 2023/10/30 16:04:39 by sdestann         ###   ########.fr       */
+/*   Created: 2023/10/30 14:36:49 by sdestann          #+#    #+#             */
+/*   Updated: 2023/10/30 16:07:43 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CMDSMANAGER_HPP
-# define CMDSMANAGER_HPP
+#include "../includes/Server.hpp"
 
-# include "Server.hpp"
-
-class	CmdsManager
+void Console::print(std::string type, std::string str, std::string color)
 {
-	private:
+	std::cout << color << " " << type << " " << Console::RESET << " " << Utils::str_trim(str, "\n") << std::endl;
+}
 
-		CmdsManager(CmdsManager const &ref);				//no used
-		CmdsManager &operator=(CmdsManager const &ref);		//no used
+void Console::log(std::string str)
+{
+	Console::print("LOG", str, Console::BLUE);
+}
 
-		std::map<std::string, Command*> _cmds;
-		
-	protected:
-	public:
-	
-		CmdsManager(void) {};
-		~CmdsManager(void) { _cmds.clear(); };
-		
-        void    getCommands(void) const;
-};
-
-#endif
+void Console::error(std::string str)
+{
+	Console::print("ERROR", str, Console::RED);
+}

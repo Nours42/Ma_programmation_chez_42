@@ -1,37 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   UserManager.hpp                                    :+:      :+:    :+:   */
+/*   ModeCommand.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/28 18:31:45 by nours42           #+#    #+#             */
-/*   Updated: 2023/10/30 16:05:13 by sdestann         ###   ########.fr       */
+/*   Created: 2023/10/30 15:27:45 by sdestann          #+#    #+#             */
+/*   Updated: 2023/10/30 15:34:47 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef USERMANAGER_HPP
-# define USERMANAGER_HPP
+#ifndef MODECOMMAND_HPP
+# define MODECOMMAND_HPP
 
-# include "Server.hpp"
+# include "../Server.hpp"
 
-class	UserManager
+class ModeCommand : public Command
 {
-	private:
-	
-		UserManager(UserManager const &ref);				// no used
-		UserManager &operator=(UserManager const &ref);		// no used
-		
-		std::map<int, User*> _users;
+	private :
+
+		ModeCommand(ModeCommand const &ref);				//no used
+		ModeCommand &operator=(ModeCommand const &ref);		//no used
 
 	protected:
+
+		Server		*_server;
+
 	public:
-	
-		UserManager(void) {};
-		~UserManager(void) { _users.clear(); };
-		
-		std::map<int, User*>	getUsers(void) { return (_users); };
-		void 	addUser(User *user);
+
+		ModeCommand(Server* sever);
+		~ModeCommand(void);
+
+		bool onCommand(User* sender, std::vector<std::string> args);
 		
 };
 

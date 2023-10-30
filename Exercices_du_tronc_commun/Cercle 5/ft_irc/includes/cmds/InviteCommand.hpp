@@ -1,37 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   UserManager.hpp                                    :+:      :+:    :+:   */
+/*   InviteCommand.hpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/28 18:31:45 by nours42           #+#    #+#             */
-/*   Updated: 2023/10/30 16:05:13 by sdestann         ###   ########.fr       */
+/*   Created: 2023/10/30 15:27:29 by sdestann          #+#    #+#             */
+/*   Updated: 2023/10/30 15:36:27 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef USERMANAGER_HPP
-# define USERMANAGER_HPP
+#ifndef INVITECOMMAND_HPP
+# define INVITECOMMAND_HPP
 
-# include "Server.hpp"
+# include "../Server.hpp"
 
-class	UserManager
+class InviteCommand : public Command
 {
-	private:
-	
-		UserManager(UserManager const &ref);				// no used
-		UserManager &operator=(UserManager const &ref);		// no used
-		
-		std::map<int, User*> _users;
+	private :
+
+		InviteCommand(InviteCommand const &ref);				//no used
+		InviteCommand &operator=(InviteCommand const &ref);		//no used
 
 	protected:
+
+		Server		*_server;
+
 	public:
-	
-		UserManager(void) {};
-		~UserManager(void) { _users.clear(); };
-		
-		std::map<int, User*>	getUsers(void) { return (_users); };
-		void 	addUser(User *user);
+
+		InviteCommand(Server* sever);
+		~InviteCommand(void);
+
+		bool onCommand(User* sender, std::vector<std::string> args);
 		
 };
 

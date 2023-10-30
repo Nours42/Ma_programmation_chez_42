@@ -1,37 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   UserManager.hpp                                    :+:      :+:    :+:   */
+/*   KickCommand.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/28 18:31:45 by nours42           #+#    #+#             */
-/*   Updated: 2023/10/30 16:05:13 by sdestann         ###   ########.fr       */
+/*   Created: 2023/10/30 15:26:09 by sdestann          #+#    #+#             */
+/*   Updated: 2023/10/30 15:34:14 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef USERMANAGER_HPP
-# define USERMANAGER_HPP
+#ifndef KICKCOMMAND_HPP
+# define KICKCOMMAND_HPP
 
-# include "Server.hpp"
+# include "../Server.hpp"
 
-class	UserManager
+class KickCommand : public Command
 {
-	private:
-	
-		UserManager(UserManager const &ref);				// no used
-		UserManager &operator=(UserManager const &ref);		// no used
-		
-		std::map<int, User*> _users;
+	private :
+
+		KickCommand(KickCommand const &ref);				//no used
+		KickCommand &operator=(KickCommand const &ref);		//no used
 
 	protected:
+
+		Server		*_server;
+
 	public:
-	
-		UserManager(void) {};
-		~UserManager(void) { _users.clear(); };
-		
-		std::map<int, User*>	getUsers(void) { return (_users); };
-		void 	addUser(User *user);
+
+		KickCommand(Server* sever);
+		~KickCommand(void);
+
+		bool onCommand(User* sender, std::vector<std::string> args);
 		
 };
 

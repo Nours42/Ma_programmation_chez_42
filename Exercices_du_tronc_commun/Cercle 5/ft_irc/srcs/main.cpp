@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:27:20 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/29 18:34:11 by nours42          ###   ########.fr       */
+/*   Updated: 2023/10/30 16:01:13 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Server.hpp"
-#include "../includes/Channel.hpp"
-#include "../includes/ChannelManager.hpp"
-#include "../includes/User.hpp"
-#include "../includes/UserManager.hpp"
-#include "../includes/CmdsManager.hpp"
 
 int	print_error(std::string str)
 {
