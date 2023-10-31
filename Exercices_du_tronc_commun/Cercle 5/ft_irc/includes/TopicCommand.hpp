@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   InviteCommand.hpp                                  :+:      :+:    :+:   */
+/*   TopicCommand.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/30 15:27:29 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/30 15:36:27 by sdestann         ###   ########.fr       */
+/*   Created: 2023/10/30 15:29:53 by sdestann          #+#    #+#             */
+/*   Updated: 2023/10/31 10:32:21 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INVITECOMMAND_HPP
-# define INVITECOMMAND_HPP
+#ifndef TOPICCOMMAND_HPP
+# define TOPICCOMMAND_HPP
 
-# include "../Server.hpp"
+# include "Server.hpp"
 
-class InviteCommand : public Command
+class TopicCommand : public Command
 {
 	private :
 
-		InviteCommand(InviteCommand const &ref);				//no used
-		InviteCommand &operator=(InviteCommand const &ref);		//no used
+		TopicCommand(TopicCommand const &ref);					//no used
+		TopicCommand &operator=(TopicCommand const &ref);		//no used
 
 	protected:
 
@@ -28,8 +28,8 @@ class InviteCommand : public Command
 
 	public:
 
-		InviteCommand(Server* sever);
-		~InviteCommand(void);
+		TopicCommand(Server* sever);
+		~TopicCommand(void);
 
 		bool onCommand(User* sender, std::vector<std::string> args);
 		

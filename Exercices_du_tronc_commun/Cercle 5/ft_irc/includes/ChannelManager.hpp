@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 18:32:14 by nours42           #+#    #+#             */
-/*   Updated: 2023/10/30 16:06:42 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/31 10:26:00 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # include "Server.hpp"
 # include "Channel.hpp"
+
+class Channel;
+
 
 class	ChannelManager
 {
@@ -32,6 +35,22 @@ class	ChannelManager
 		~ChannelManager(void) {};
 		
         std::map<std::string, Channel*> getChannels(void) const { return _channels; }
+
+		bool	contains(std::string name) { return _channels.count(name) == 1;	};
+
+		Channel*	add(std::string name, std::string topic)
+		{
+			Channel* chan = new Channel(name, topic);
+			_channels[name] = chan;
+			return chan;
+		}
+
+		Channel*	get(std::string name)
+		{
+			if (!this->contains(name))
+				return NULL;
+			return _channels[name];
+		}
 };
 
 #endif

@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ModeCommand.hpp                                    :+:      :+:    :+:   */
+/*   InviteCommand.hpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/30 15:27:45 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/30 15:34:47 by sdestann         ###   ########.fr       */
+/*   Created: 2023/10/30 15:27:29 by sdestann          #+#    #+#             */
+/*   Updated: 2023/10/31 10:32:03 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MODECOMMAND_HPP
-# define MODECOMMAND_HPP
+#ifndef INVITECOMMAND_HPP
+# define INVITECOMMAND_HPP
 
-# include "../Server.hpp"
+# include "Server.hpp"
 
-class ModeCommand : public Command
+class InviteCommand : public Command
 {
 	private :
 
-		ModeCommand(ModeCommand const &ref);				//no used
-		ModeCommand &operator=(ModeCommand const &ref);		//no used
+		InviteCommand(InviteCommand const &ref);				//no used
+		InviteCommand &operator=(InviteCommand const &ref);		//no used
 
 	protected:
 
@@ -28,8 +28,8 @@ class ModeCommand : public Command
 
 	public:
 
-		ModeCommand(Server* sever);
-		~ModeCommand(void);
+		InviteCommand(Server* server);
+		~InviteCommand(void);
 
 		bool onCommand(User* sender, std::vector<std::string> args);
 		

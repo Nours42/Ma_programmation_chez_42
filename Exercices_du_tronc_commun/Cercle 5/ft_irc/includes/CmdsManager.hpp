@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 18:32:01 by nours42           #+#    #+#             */
-/*   Updated: 2023/10/30 16:04:39 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/31 10:32:35 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CMDSMANAGER_HPP
 
 # include "Server.hpp"
+# include "Command.hpp"
 
 class	CmdsManager
 {
@@ -30,7 +31,24 @@ class	CmdsManager
 		CmdsManager(void) {};
 		~CmdsManager(void) { _cmds.clear(); };
 		
-        void    getCommands(void) const;
+        void	getCommands(void) const;
+		void	on(std::string cmd_name, Command* cmd)
+		{
+			 _cmds[Utils::str_toupper(cmd_name)] = cmd;
+		};
+
+		bool call(std::string cmd_name, std::vector<std::string> args, User* sender)
+		{
+			if (!this->has(cmd_name))
+				return false;
+			return _cmds[Utils::str_toupper(cmd_name)]->onCommand(sender, args);
+		};
+		
+		bool has(std::string cmd_name)
+		{
+			return _cmds.count(Utils::str_toupper(cmd_name)) == 1;
+		};
+
 };
 
 #endif

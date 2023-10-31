@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   TopicCommand.hpp                                   :+:      :+:    :+:   */
+/*   ModeCommand.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/30 15:29:53 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/30 15:33:15 by sdestann         ###   ########.fr       */
+/*   Created: 2023/10/30 15:27:45 by sdestann          #+#    #+#             */
+/*   Updated: 2023/10/31 10:32:17 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOPICCOMMAND_HPP
-# define TOPICCOMMAND_HPP
+#ifndef MODECOMMAND_HPP
+# define MODECOMMAND_HPP
 
-# include "../Server.hpp"
+# include "Server.hpp"
 
-class TopicCommand : public Command
+class ModeCommand : public Command
 {
 	private :
 
-		TopicCommand(TopicCommand const &ref);					//no used
-		TopicCommand &operator=(TopicCommand const &ref);		//no used
+		ModeCommand(ModeCommand const &ref);				//no used
+		ModeCommand &operator=(ModeCommand const &ref);		//no used
 
 	protected:
 
@@ -28,8 +28,8 @@ class TopicCommand : public Command
 
 	public:
 
-		TopicCommand(Server* sever);
-		~TopicCommand(void);
+		ModeCommand(Server* sever);
+		~ModeCommand(void);
 
 		bool onCommand(User* sender, std::vector<std::string> args);
 		

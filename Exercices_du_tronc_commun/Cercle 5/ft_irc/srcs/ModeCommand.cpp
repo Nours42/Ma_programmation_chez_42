@@ -6,11 +6,11 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 15:27:45 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/30 15:38:41 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/31 11:12:28 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cmds/ModeCommand.hpp"
+#include "../includes/ModeCommand.hpp"
 
 ModeCommand::ModeCommand(Server *server) : _server(server) {}
 ModeCommand::~ModeCommand(void) {}
@@ -69,7 +69,7 @@ static bool	giveTakeChannelMode(User *sender, Channel *channel, std::pair<std::s
 				return (!sender->sendMessage(ERR_NOCHANMODES, ":Restricted to safe channels"));
 			return (!sender->sendMessage(ERR_NOCHANMODES, ":Channel creator can't be unset"));
 		}
-		channel->setCreator(user);
+		// channel->setCreator(user);
 	}
 
 	else if (mode.first[1] == 'o') // Give/take channel operator status

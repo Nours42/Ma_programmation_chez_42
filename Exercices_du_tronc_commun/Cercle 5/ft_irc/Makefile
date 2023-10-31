@@ -6,7 +6,7 @@
 #    By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 10:38:18 by sdestann          #+#    #+#              #
-#    Updated: 2023/10/30 16:11:18 by sdestann         ###   ########.fr        #
+#    Updated: 2023/10/31 12:15:10 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,27 +19,29 @@ HEADER_SRCS =	Channel.hpp			\
 				CmdsManager.hpp		\
 				Command.hpp			\
 				Console.hpp			\
+				InviteCommand.hpp	\
+				KickCommand.hpp		\
+				Message.hpp			\
+				ModeCommand.hpp		\
 				Server.hpp			\
+				TopicCommand.hpp	\
 				User.hpp			\
 				UserManager.hpp		\
 				Utils.hpp			\
-				/cmds/InviteCommand.hpp		\
-				/cmds/KickCommand.hpp		\
-				/cmds/ModeCommand.hpp		\
-				/cmds/TopicCommand.hpp
-
 
 HEADER_DIR	=	includes/
 HEADER		=	$(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 
 SRCS_DIR	=	srcs/
-SRCS		=	Console.cpp			\
+SRCS		=	Channel.cpp			\
+				Console.cpp			\
+				InviteCommand.cpp	\
+				KickCommand.cpp		\
 				main.cpp			\
+				ModeCommand.cpp		\
 				Server.cpp			\
-				/cmds/InviteCommand.cpp	\
-				/cmds/KickCommand.cpp	\
-				/cmds/ModeCommand.cpp	\
-				/cmds/TopicCommand.cpp
+				TopicCommand.cpp	\
+				User.cpp
 
 OBJDIR		=	objs
 

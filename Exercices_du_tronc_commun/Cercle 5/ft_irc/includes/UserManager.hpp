@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 18:31:45 by nours42           #+#    #+#             */
-/*   Updated: 2023/10/30 16:05:13 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/31 10:22:49 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,18 @@ class	UserManager
 		
 		std::map<int, User*>	getUsers(void) { return (_users); };
 		void 	addUser(User *user);
+
+		User* findbyNickname(std::string nickname)
+		{
+			std::map<int, User*>::iterator begin = _users.begin();
+			while(begin != _users.end())
+			{
+				if (begin->second != NULL && nickname == begin->second->getNickname())
+					return begin->second;
+				begin++;
+			}
+			return NULL;
+		};
 		
 };
 
