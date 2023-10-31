@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:26:19 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/31 15:33:44 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/31 16:17:56 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <sys/socket.h>
 # include <sys/time.h>
 # include <fcntl.h>
+# include <event.h>
 # include <netinet/in.h>
 # include <arpa/inet.h>
 # include <netdb.h>

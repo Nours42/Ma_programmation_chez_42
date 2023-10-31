@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:27:20 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/30 16:01:13 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:49:52 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,11 @@ int	main(int argc, const char **argv)
 {
 	if (!check_args(argc, argv))
 		return print_usage(argv[0]);
-	// else
-	// {
-			// lancer le serveur sur le port;
-	// }
-	return (0);
+	Server server(
+		std::atoi(argv[1]),
+		std::string(argv[2])
+	);
+	server.connect();
+
+	return EXIT_SUCCESS;
 }
