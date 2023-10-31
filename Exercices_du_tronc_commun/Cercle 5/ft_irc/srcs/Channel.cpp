@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 10:14:29 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/31 12:29:24 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:27:56 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,27 @@ Channel::Channel(std::string name, std::string topic) : _name(name), _topic(topi
 Channel::~Channel(void) {}
 
 /// ACTIONS ///
+
+bool	Channel::join(User* user)
+{
+	user->setCurrentChannel(_name);
+	_users.push_back(user);
+	rawBroadcast(user->to_string(isSetMode('a', "")) + " JOIN " + getName(), user);
+	user->sendRawMessage(user->to_string(isSetMode('a', "")) + " JOIN " + getName());
+	return (true);
+}
+
+bool	Channel::leave(User* user)
+{
+	int index;
+	if ((index = this->contains(user)) < 0)
+		return false;
+	user->sendRawMessage(user->to_string(isSetMode('a', "")) + " PART :" + getName());
+	rawBroadcast(user->to_string(isSetMode('a', "")) + " PART :" + getName(), user);
+	user->setCurrentChannel("");
+	_users.erase(_users.begin() + index);
+	return true;
+}
 
 bool	Channel::kick(User* sender, User *target, std::string arg)
 {
@@ -47,6 +68,38 @@ void	Channel::rawBroadcast(std::string message, User* sender)
 	}
 }
 
+void	Channel::broadcast(std::string code, std::string message, User* sender)
+{
+	size_t i = 0;
+	while (i < _users.size())
+	{
+		if (_users[i]->getUsername() != sender->getUsername()
+			&& _users[i]->getCurrentChannel() == _name)
+			_users[i]->sendMessage(code, message);
+		i++;
+	}
+}
+
+int		Channel::contains(User* user)
+{
+	size_t index = 0;
+	while (index < _users.size())
+	{
+		if (user->getUsername() == _users[index]->getUsername())
+			return index;
+		index++;
+	}
+	return -1;
+}
+
+int		Channel::contains(std::string name)
+{
+	for (std::size_t idx = 0; idx < _users.size(); idx += 1) {
+		if (_users[idx]->getUsername() == name)
+			return (idx);
+	}
+	return (-1);
+}
 
 /// GETTERS ///
 
@@ -64,7 +117,7 @@ void	Channel::deleteBanList(User *user)
 {
 	if (!isBanList(user))
 		return ;
-	for (std::vector<User*>::const_iterator it = _banList.begin(); it != _banList.end(); it++) {
+	for (std::vector<User*>::iterator it = _banList.begin(); it != _banList.end(); it++) {
 		if (*it == user)
 			return ((void)_banList.erase(it));
 	}
@@ -95,7 +148,7 @@ void	Channel::deleteExcepList(User *user)
 {
 	if (!isExcepList(user))
 		return ;
-	for (std::vector<User*>::const_iterator it = _excepList.begin(); it != _excepList.end(); it++) {
+	for (std::vector<User*>::iterator it = _excepList.begin(); it != _excepList.end(); it++) {
 		if (*it == user)
 			return ((void)_excepList.erase(it));
 	}
@@ -122,7 +175,7 @@ void	Channel::deleteInviteList(User *user)
 {
 	if (!isInviteList(user))
 		return ;
-	for (std::vector<User*>::const_iterator it = _inviteList.begin(); it != _inviteList.end(); it++) {
+	for (std::vector<User*>::iterator it = _inviteList.begin(); it != _inviteList.end(); it++) {
 		if (*it == user)
 			return ((void)_inviteList.erase(it));
 	}
@@ -143,17 +196,19 @@ bool	Channel::isInviteList(User *user) const
 
 	/// ModerateList ///
 
-bool	Channel::isModerate(User *user) const
+std::string	Channel::getUsersList(void)
 {
-	std::size_t idx = 0;
-
-	while (idx < _moderates.size())
+	std::stringstream ss;
+	std::vector<User*>::iterator begin = _users.begin();
+	std::vector<User*>::iterator end = _users.end();
+	for (; begin != end; begin++)
 	{
-		if (_moderates[idx] == user)
-			return (true);
-		idx++;
+		User* user = (*begin);
+		if (user == NULL) continue;
+		if (isOperator(user)) ss << "@";
+		ss << user->getNickname() << " ";
 	}
-	return (false);
+	return ss.str();
 }
 
 /// USERS ///
@@ -181,7 +236,6 @@ bool	Channel::isCreator(User *user) const
 	return (false);
 }
 
-
 /// OPERATORS ///
 void	Channel::addOperator(User *user)
 {
@@ -203,7 +257,7 @@ bool	Channel::isOperator(User *user) const
 
 void	Channel::deleteOperator(User *user)
 {
-	std::vector<User*>::const_iterator it = _operators.begin();
+	std::vector<User*>::iterator it = _operators.begin();
 
 	if (!isOperator(user))
 		return ;
@@ -215,9 +269,11 @@ void	Channel::deleteOperator(User *user)
 	}
 }
 
+std::vector<User*>	Channel::getOperators(void) const { return (_operators); }
+
 /// LIMITS ///
 
-void	setLimit(std::string limit)
+void	Channel::setLimit(std::string limit)
 {
 	std::istringstream ss(limit);
 	if (!(ss >> _limit))
@@ -255,17 +311,28 @@ void	Channel::deleteModerate(User *user)
 {
 	if (!isModerate(user))
 		return ;
-	for (std::vector<User*>::const_iterator it = _moderates.begin(); it != _moderates.end(); it++) {
+	for (std::vector<User*>::iterator it = _moderates.begin(); it != _moderates.end(); it++) {
 		if (*it == user)
 			return ((void)_moderates.erase(it));
 	}
+}
+
+std::vector<User*>	Channel::getModerates(void) const { return (_operators); }
+
+bool	Channel::isModerate(User *user) const
+{
+	for (std::size_t idx = 0; idx < _moderates.size(); idx += 1) {
+		if (_moderates[idx] == user)
+			return (true);
+	}
+	return (false);
 }
 
 /// MODES ///
 
 void	Channel::deleteMode(char mode, std::string params)
 {
-	for (std::multimap<char, std::string >::const_iterator it = _modes.begin(); it != _modes.end(); it++)
+	for (std::multimap<char, std::string >::iterator it = _modes.begin(); it != _modes.end(); it++)
 	{
 		if (it->first == mode && it->second == params)
 			return ((void)_modes.erase(it));
@@ -290,6 +357,32 @@ bool	Channel::setMode(std::string mode, std::string params)
 	else if (mode[0] == '-')
 		deleteMode(mode[1], params);
 	return (true);
+}
+
+bool	Channel::isMode(char mode) const
+{
+	std::string		validModes = "OovaimnqpsrtklbeI";
+
+	for (std::size_t idx = 0; idx < validModes.size(); idx += 1) {
+		if (mode == validModes[idx])
+			return (true);
+	}
+	return (false);
+}
+
+void	Channel::addMode(char mode, std::string params)
+{
+	std::multimap<char, std::string >::iterator it = _modes.begin();
+	while (it != _modes.end())
+	{
+		if (it->first == mode && it->second == params)
+		{
+			_modes.erase(it);
+			break ;
+		}
+		it++;
+	}
+	_modes.insert(std::pair<char, std::string>(mode, params));
 }
 
 /// PASSWORDS ///

@@ -6,31 +6,34 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 18:43:22 by nours42           #+#    #+#             */
-/*   Updated: 2023/10/31 12:28:12 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:23:12 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CHANNEL_HPP
 # define CHANNEL_HPP
 
-# include "Server.hpp"
+# include <vector>
+# include <cctype>
+# include <string>
+# include <User.hpp>
 
 class	Channel
 {
 	private:
 		
 		std::string							_name;
-		std::string							_password;
 		std::string							_topic;
+		std::string							_password;
 		std::multimap<char, std::string>	_modes;
 		std::vector<User*>					_banList;
-		std::vector<User*>					_creator;
 		std::vector<User*>					_excepList;
 		std::vector<User*>					_inviteList;
 		std::vector<User*>					_users;
 		std::vector<User*>					_operators;
 		std::vector<User*>					_moderates;
 		std::size_t							_limit;
+		User*								_creator;
 
 
 	protected:
@@ -45,8 +48,11 @@ class	Channel
 
 		/// ACTIONS ///
 
+		bool				join(User* user);
+		bool				leave(User* user);
 		bool				kick(User* sender, User *target, std::string arg);
 		void				rawBroadcast(std::string message, User* sender);
+		void				broadcast(std::string code, std::string message, User* sender);
 		
 		/// GETTERS ///
 
@@ -58,15 +64,18 @@ class	Channel
 		void								addBanList(User *user);
 		bool 								isBanList(User *user) const;
 		void								deleteBanList(User *user);
+
 		void								addExcepList(User *user);
 		void								deleteExcepList(User *user);
 		bool								isExcepList(User *user) const;
 		std::vector<User*>					getExcepList(void) const { return (_excepList); }
+
 		std::vector<User*>					getInviteList(void) const { return (_inviteList); }
 		void								addInviteList(User *user);
 		void								deleteInviteList(User *user);
 		bool 								isInviteList(User *user) const;
-		bool 								isModerate(User *user) const;
+
+		std::string							getUsersList(void);
 		
 		/// USERS ///
 		User*								getUser(std::string name);
@@ -74,12 +83,14 @@ class	Channel
 
 		/// CREATORS ///
 		void								setCreator(User *user);
+		User								*getCreator(void) const;
 		bool								isCreator(User *user) const;
 
 		/// OPERATORS ///
 		void								addOperator(User *user);
 		bool								isOperator(User *user) const;
 		void								deleteOperator(User *user);
+		std::vector<User*>					getOperators(void) const;
 
 		/// LIMITS ///
 
@@ -92,12 +103,16 @@ class	Channel
 		/// MODERATES ///
 		void								addModerate(User *user);
 		void								deleteModerate(User *user);
+		bool 								isModerate(User *user) const;
+		std::vector<User*>					getModerates(void) const;
 
 		/// MODES ///
 
+		bool								isMode(char mode) const;
 		void								deleteMode(char mode, std::string params);
 		std::multimap<char, std::string>	getModes(void) const { return (_modes); };
 		bool 								isSetMode(char mode, std::string params) const;
+		void								addMode(char mode, std::string params);
 		bool								setMode(std::string mode, std::string params);
 
 		/// PASSWORDS ///

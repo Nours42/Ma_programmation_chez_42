@@ -6,14 +6,18 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 18:32:01 by nours42           #+#    #+#             */
-/*   Updated: 2023/10/31 10:32:35 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:18:25 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CMDSMANAGER_HPP
 # define CMDSMANAGER_HPP
 
-# include "Server.hpp"
+# include <iostream>
+# include <memory>
+# include <vector>
+# include <map>
+# include "Utils.hpp"
 # include "Command.hpp"
 
 class	CmdsManager

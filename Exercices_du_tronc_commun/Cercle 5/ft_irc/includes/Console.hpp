@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 14:35:39 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/30 16:04:58 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:10:39 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define CONSOLE_HPP
 
 # include <iostream>
-# include "Server.hpp"
 
 namespace Console
 {

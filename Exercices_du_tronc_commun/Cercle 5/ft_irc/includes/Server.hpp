@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:26:19 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/31 11:38:46 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:33:44 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,44 +18,26 @@
 #ifndef SERVER_HPP
 # define SERVER_HPP
 
-# include <algorithm>
-# include <arpa/inet.h>
-# include <cstdio>
-# include <cstdlib>
-# include <cstring>
-# include <iomanip>
 # include <iostream>
-# include <map>
+# include <cstdlib>
+# include <unistd.h>
 # include <memory>
-# include <netinet/in.h>
-# include <sstream>
-# include <string>
+# include <errno.h>
+# include <sys/types.h>
 # include <sys/socket.h>
 # include <sys/time.h>
-# include <unistd.h>
-# include <vector>
+# include <fcntl.h>
+# include <netinet/in.h>
+# include <arpa/inet.h>
+# include <netdb.h>
 
-class Server;
-class User;
-
-# include "Utils.hpp"
-# include "Command.hpp"
-# include "InviteCommand.hpp"
-# include "KickCommand.hpp"
-# include "ModeCommand.hpp"
-# include "TopicCommand.hpp"
-# include "Channel.hpp"
-# include "ChannelManager.hpp"
-# include "Message.hpp"
 # include "CmdsManager.hpp"
-
-# include "Console.hpp"
-# include "User.hpp"
+# include "ChannelManager.hpp"
 # include "UserManager.hpp"
 
 
-
 #define PORT 8080
+#define CLIENT_MAX_COUNT	11
 
 int	print_error(std::string str);
 
@@ -93,5 +75,10 @@ class   Server
 		ChannelManager	&getChannels(void);
 		UserManager		&getUsers(void);
 };
+
+# include "KickCommand.hpp"
+# include "InviteCommand.hpp"
+# include "TopicCommand.hpp"
+# include "ModeCommand.hpp"
 
 #endif

@@ -6,14 +6,16 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 18:31:45 by nours42           #+#    #+#             */
-/*   Updated: 2023/10/31 10:22:49 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:17:06 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef USERMANAGER_HPP
 # define USERMANAGER_HPP
 
-# include "Server.hpp"
+# include <iostream>
+# include <map>
+# include "User.hpp"
 
 class	UserManager
 {

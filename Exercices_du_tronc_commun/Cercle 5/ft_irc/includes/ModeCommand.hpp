@@ -6,14 +6,16 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 15:27:45 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/31 10:32:17 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:21:13 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MODECOMMAND_HPP
 # define MODECOMMAND_HPP
 
+# include "Command.hpp"
 # include "Server.hpp"
+# include "Channel.hpp"
 
 class ModeCommand : public Command
 {

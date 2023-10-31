@@ -6,14 +6,16 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 15:29:53 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/31 10:32:21 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:21:01 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOPICCOMMAND_HPP
 # define TOPICCOMMAND_HPP
 
+# include "Command.hpp"
 # include "Server.hpp"
+# include "Channel.hpp"
 
 class TopicCommand : public Command
 {

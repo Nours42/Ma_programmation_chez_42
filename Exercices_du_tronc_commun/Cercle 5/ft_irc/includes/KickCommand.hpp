@@ -6,14 +6,16 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 15:26:09 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/31 10:32:11 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:20:41 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef KICKCOMMAND_HPP
 # define KICKCOMMAND_HPP
 
+# include "Command.hpp"
 # include "Server.hpp"
+# include "Utils.hpp"
 
 class KickCommand : public Command
 {

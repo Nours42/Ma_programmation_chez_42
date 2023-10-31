@@ -6,7 +6,7 @@
 #    By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 10:38:18 by sdestann          #+#    #+#              #
-#    Updated: 2023/10/31 12:15:10 by sdestann         ###   ########.fr        #
+#    Updated: 2023/10/31 15:39:17 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@
 
 NAME = ircserv
 
-HEADER_SRCS =	Channel.hpp			\
+HEADER_SRCS =	Bot.hpp				\
+				Channel.hpp			\
 				ChannelManager.hpp	\
 				CmdsManager.hpp		\
 				Command.hpp			\
@@ -41,7 +42,8 @@ SRCS		=	Channel.cpp			\
 				ModeCommand.cpp		\
 				Server.cpp			\
 				TopicCommand.cpp	\
-				User.cpp
+				User.cpp			\
+				Utils.cpp
 
 OBJDIR		=	objs
 

@@ -6,14 +6,24 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 18:43:22 by nours42           #+#    #+#             */
-/*   Updated: 2023/10/31 12:21:22 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:36:12 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef USER_HPP
 # define USER_HPP
 
-# include "Server.hpp"
+# include <iostream>
+# include <sys/types.h>
+# include <sys/socket.h>
+# include <sys/time.h>
+# include <netinet/in.h>
+# include <arpa/inet.h>
+# include <netdb.h>
+# include <map>
+# include <sstream>
+# include "Console.hpp"
+# include "Message.hpp"
 
 class	User
 {
@@ -52,6 +62,7 @@ class	User
 		void					setAccepted(bool accepted) { _accepted = accepted; };
 		void					setConnected(bool connected) { _connected = connected; };
 		void					setCurrentChannel(std::string channel) { _currentChannel = channel; };
+		void					setMode(char mode, bool state) { _modes[mode] = state; }
 		
 		/// Is ? ///
 		bool					isAccepted(void) { return _accepted; };
@@ -59,6 +70,7 @@ class	User
 
 		/// Getters ///
 		
+		std::string				getAddress(void) const { return inet_ntoa(_address.sin_addr); }
 		std::map<char, bool>	getModes(void) const { return _modes; }
 		std::string				getCurrentChannel(void) const { return _currentChannel; }
 		std::string				getNickname(void) const { return _nickname; };
@@ -70,6 +82,8 @@ class	User
 		bool		sendRawMessage(std::string message);
 		bool		sendMessage(std::string code, std::string message);
 		bool		useMode(std::string mode);
+		void		addMode(char mode) { setMode(mode, true); }
+		void		removeMode(char mode) { setMode(mode, false); }
 
 		std::string	to_string(bool isAnon) const;
 		
