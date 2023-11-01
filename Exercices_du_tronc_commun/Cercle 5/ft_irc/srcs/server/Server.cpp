@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 17:02:41 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/01 11:48:14 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/01 14:12:20 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 Server::Server(int port, std::string password) : _port(port), _password(password)
 {
+	// creation de la liste de commande possible :
 	_cmdsManager.on("KICK", new KickCommand(this));
 	_cmdsManager.on("INVITE", new InviteCommand(this));
 	_cmdsManager.on("TOPIC", new TopicCommand(this));
 	_cmdsManager.on("MODE", new ModeCommand(this));
+	//ajout de quelque blabla
 	_channelManager.add("#general", "Salon par default pour discuter de tout et de rien.");
 	_channelManager.add("#test", "Salon pour effectuer des tests.");
 }

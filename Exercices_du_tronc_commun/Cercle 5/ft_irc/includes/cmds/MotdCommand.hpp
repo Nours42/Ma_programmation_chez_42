@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   KickCommand.hpp                                    :+:      :+:    :+:   */
+/*   MotdCommand.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/30 15:26:09 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/31 15:20:41 by sdestann         ###   ########.fr       */
+/*   Created: 2023/11/01 14:44:00 by nours42           #+#    #+#             */
+/*   Updated: 2023/11/01 14:44:21 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef KICKCOMMAND_HPP
-# define KICKCOMMAND_HPP
+#ifndef MOTDCOMMAND_HPP
+# define MOTDCOMMAND_HPP
 
 # include "Command.hpp"
 # include "Server.hpp"
-# include "Utils.hpp"
+# include "Channel.hpp"
 
-class KickCommand : public Command
+class MotdCommand : public Command
 {
 	private :
 
-		KickCommand(KickCommand const &ref);				//no used
-		KickCommand &operator=(KickCommand const &ref);		//no used
+		// MotdCommand(MotdCommand const &ref);				//no used
+		// MotdCommand &operator=(MotdCommand const &ref);		//no used
 
 	protected:
 
@@ -30,8 +30,8 @@ class KickCommand : public Command
 
 	public:
 
-		KickCommand(Server* sever);
-		~KickCommand(void);
+		MotdCommand(Server* server);
+		~MotdCommand(void);
 
 		bool onCommand(User* sender, std::vector<std::string> args);
 		

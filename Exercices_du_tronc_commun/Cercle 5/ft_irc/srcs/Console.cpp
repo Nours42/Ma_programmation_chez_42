@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   Console.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 14:36:49 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/31 15:38:01 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/01 14:39:39 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Server.hpp"
-#include "../includes/Command.hpp"
+#include "../includes/cmds/Command.hpp"
 
 void Console::print(std::string type, std::string str, std::string color)
 {

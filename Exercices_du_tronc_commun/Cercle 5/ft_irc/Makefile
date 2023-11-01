@@ -3,56 +3,56 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+         #
+#    By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 10:38:18 by sdestann          #+#    #+#              #
-#    Updated: 2023/10/31 15:39:17 by sdestann         ###   ########.fr        #
+#    Updated: 2023/11/01 14:42:33 by nours42          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ### MISC ###
 
-NAME = ircserv
+NAME_SERV	=	ircserv
+NAME_BOT	=	ircbot
 
-HEADER_SRCS =	Bot.hpp				\
-				Channel.hpp			\
-				ChannelManager.hpp	\
-				CmdsManager.hpp		\
-				Command.hpp			\
-				Console.hpp			\
-				InviteCommand.hpp	\
-				KickCommand.hpp		\
-				Message.hpp			\
-				ModeCommand.hpp		\
-				Server.hpp			\
-				TopicCommand.hpp	\
-				User.hpp			\
-				UserManager.hpp		\
-				Utils.hpp			\
+SRCS_SERV	=	Utils.cpp \
+				Console.cpp \
+				server/main.cpp \
+				server/Server.cpp \
+				server/Channel.cpp \
+				server/cmds/PassCommand.cpp \
+				server/cmds/UserCommand.cpp \
+				server/cmds/NickCommand.cpp \
+				server/cmds/JoinCommand.cpp \
+				server/cmds/PrivmsgCommand.cpp \
+				server/cmds/QuitCommand.cpp \
+				server/cmds/TopicCommand.cpp \
+				server/cmds/PartCommand.cpp \
+				server/cmds/ModeCommand.cpp \
+				server/cmds/PingCommand.cpp \
+				server/cmds/MotdCommand.cpp \
+				server/cmds/VersionCommand.cpp \
+				server/cmds/TimeCommand.cpp \
+				server/cmds/InviteCommand.cpp \
+				server/cmds/OperCommand.cpp \
+				server/cmds/ListCommand.cpp \
+				server/cmds/KickCommand.cpp \
+				server/cmds/NamesCommand.cpp
 
-HEADER_DIR	=	includes/
-HEADER		=	$(addprefix $(HEADER_DIR), $(HEADER_SRCS))
+OBJS_SERV	:=	$(addprefix bin/, $(SRCS_SERV:.cpp=.o))
 
-SRCS_DIR	=	srcs/
-SRCS		=	Channel.cpp			\
-				Console.cpp			\
-				InviteCommand.cpp	\
-				KickCommand.cpp		\
-				main.cpp			\
-				ModeCommand.cpp		\
-				Server.cpp			\
-				TopicCommand.cpp	\
-				User.cpp			\
-				Utils.cpp
+SRCS_BOT	:=	Utils.cpp \
+				Console.cpp \
+				bot/main.cpp \
+				bot/Bot.cpp
 
-OBJDIR		=	objs
+OBJS_BOT	:=	$(addprefix bin/, $(SRCS_BOT:.cpp=.o))
 
-SRCS_PATH	=	$(addprefix $(SRCS_DIR), $(SRCS))
-OBJ_SRCS	=	$(addprefix $(OBJDIR)/, $(SRCS:.cpp=.o))
+COMPILE		=	clang++
 
-COMPILE		=	c++
+FLAGS		=	-Wall -Wextra -Werror -std=c++98
 
-FLAGS		=	-Wall -Wextra -Werror -std=c++98 -Wshadow -Wno-shadow
+### COLORS ###
 
 Y = "\033[33m"
 R = "\033[31m"
@@ -64,25 +64,38 @@ CUT = "\033[K"
 
 ### RULES ###
 
-all: $(NAME)
+all: $(NAME_SERV)
 
-$(OBJDIR)/%.o: $(SRCS_DIR)%.cpp $(HEADER) Makefile
-	@echo ${Y}Compiling [$@]...${X}
-	@/bin/mkdir -p ${OBJDIR}
-	@${COMPILE} ${FLAGS} -I./$(HEADER_DIR) -c -o $@ $<
-	@printf ${UP}${CUT}
+bin/%.o: srcs/%.cpp
+	@echo $(Y)Compiling [$@]...$(X)
+	@/bin/mkdir -p $(dir $@)
+	@$(COMPILE) $(FLAGS) -o $@ -c $< -I includes
+	@printf $(UP)$(CUT)
 
-$(NAME): ${OBJ_SRCS}
-	@$(COMPILE) ${FLAGS} -o $(NAME) ${OBJ_SRCS}
-	@echo $(G)Project FT_IRC ! by SDESTANN successfully compiled${X}
+$(NAME_SERV): $(OBJS_SERV)
+	@$(COMPILE) $(FLAGS) $(OBJS_SERV)-o $(NAME_SERV)
+	@echo $(G)Project $(NAME_SERV) by SDESTANN successfully compiled$(X)
+
+$(NAME_BOT): $(OBJS_BOT)
+	@$(COMPILE) $(FLAGS) $(OBJS_BOT)-o $(NAME_BOT)
+	@echo $(G)Project $(NAME_BOT) by SDESTANN successfully compiled$(X)
+
+bonus: $(NAME_BOT)
+
+run: $(NAME_SERV)
+	./$(NAME_SERV) 6667 test
+run-bonus: $(NAME_BOT)
+	./$(NAME_BOT) 127.0.0.1 6667 test general
 
 clean:
-	@echo ${R}Cleaning FT_IRC ! ${G}[${OBJDIR}]...${X}
-	@/bin/rm -Rf ${OBJDIR}
+	@echo $(R)Cleaning FT_IRC ! $(G)[$(OBJDIR)]...$(X)
+	@/bin/rm -Rf bin/
 
 fclean: clean
-	@echo ${R}FCleaning FT_IRC ! ${G}[${NAME}]...${X}
-	@/bin/rm -f ${NAME}
+	@echo $(R)FCleaning FT_IRC ! $(G)[$(NAME_SERV)]...$(X)
+	@/bin/rm -f $(NAME_SERV)
+	@echo $(R)FCleaning FT_IRC ! $(G)[$(NAME_BOT)]...$(X)
+	@/bin/rm -f $(NAME_BOT)
 
 re: fclean all
 

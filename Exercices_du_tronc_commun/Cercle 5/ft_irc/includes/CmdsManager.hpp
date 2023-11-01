@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   CmdsManager.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 18:32:01 by nours42           #+#    #+#             */
-/*   Updated: 2023/11/01 11:46:08 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/01 14:38:37 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <vector>
 # include <map>
 # include "Utils.hpp"
-# include "Command.hpp"
+# include "./cmds/Command.hpp"
 
 class	CmdsManager
 {

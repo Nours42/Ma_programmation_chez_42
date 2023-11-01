@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:26:19 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/01 11:09:28 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/01 14:39:14 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 // BIBLIOGRAPHY //
 
@@ -87,9 +88,9 @@ class   Server
 		UserManager		&getUsers(void);
 };
 
-# include "KickCommand.hpp"
-# include "InviteCommand.hpp"
-# include "TopicCommand.hpp"
-# include "ModeCommand.hpp"
+# include "./cmds/KickCommand.hpp"
+# include "./cmds/InviteCommand.hpp"
+# include "./cmds/TopicCommand.hpp"
+# include "./cmds/ModeCommand.hpp"
 
 #endif
