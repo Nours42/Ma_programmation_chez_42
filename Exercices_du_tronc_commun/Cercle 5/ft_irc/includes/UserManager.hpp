@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 18:31:45 by nours42           #+#    #+#             */
-/*   Updated: 2023/10/31 15:17:06 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/01 11:55:16 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,38 @@ class	UserManager
 			}
 			return NULL;
 		};
+
+		bool contains(std::string nickname)
+		{
+			return this->findbyNickname(nickname) != NULL;
+		}
+
+		bool contains(int socket) { return _users.count(socket) == 1; }
+
+		User* findBySocket(int socket)
+		{
+			std::cout << "UserManager - findBySocket : " << socket << std::endl;
+			if (!this->contains(socket))
+			{
+				std::cout << "socket inconnu" << std::endl;
+				for (int i = 0; _users[i]; i++)
+				{
+					std::cout << "users connu : " << i << " de valeur " << _users[i] << std::endl;
+				}
+				return NULL;
+			}
+			return _users[socket];
+		};
+
+		void add(User* user)
+		{
+			_users.insert(std::pair<int, User*>(user->getSocket(), user));
+		}
 		
+		void remove(int socket)
+		{
+			_users.erase(socket);
+		}
 };
 
 #endif

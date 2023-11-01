@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 18:32:01 by nours42           #+#    #+#             */
-/*   Updated: 2023/10/31 15:18:25 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/01 11:46:08 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,13 @@ class	CmdsManager
 			 _cmds[Utils::str_toupper(cmd_name)] = cmd;
 		};
 
-		bool call(std::string cmd_name, std::vector<std::string> args, User* sender)
+		bool call(const std::string &cmd_name, const std::vector<std::string>& args, User* sender)
 		{
+			std::cout << "cmdsManager.call : " << cmd_name << std::endl;
 			if (!this->has(cmd_name))
 				return false;
 			return _cmds[Utils::str_toupper(cmd_name)]->onCommand(sender, args);
-		};
+		}
 		
 		bool has(std::string cmd_name)
 		{

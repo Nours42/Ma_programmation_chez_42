@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:26:19 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/31 16:17:56 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/01 11:09:28 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@
 # include <errno.h>
 # include <sys/types.h>
 # include <sys/socket.h>
+# include <sys/select.h>
 # include <sys/time.h>
 # include <fcntl.h>
-# include <event.h>
+// # include <sys/event.h>
 # include <netinet/in.h>
 # include <arpa/inet.h>
 # include <netdb.h>
@@ -35,6 +36,14 @@
 # include "CmdsManager.hpp"
 # include "ChannelManager.hpp"
 # include "UserManager.hpp"
+
+/// en test ///
+
+#include <vector>
+#include <cstring>
+#include <pthread.h>
+
+//////
 
 
 #define PORT 8080
@@ -70,6 +79,7 @@ class   Server
 
 		std::string		getPassword(void) const;
 		int				getPort(void) const;
+		void			processCommand(const std::string& command, const std::string& arguments, int userSocket);
 		void			connect(void);
 
 		CmdsManager		&getCommands(void);

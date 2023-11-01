@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 10:07:42 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/31 15:11:08 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/01 09:41:54 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define ERR_NEEDMOREPARAMS		"3" // <command> :Not enough parameters
 # define ERR_USERONCHANNEL		"4" // :is already on channel
 # define ERR_USERNOTINCHANNEL	"5" // <nick> <channel> :This User aren't on that channel
+# define ERR_MSGTOOLONG			"6" // Msg > a 512 char
 
 // places error
 # define ERR_NOTONCHANNEL		"3" // :You're not on that channel
