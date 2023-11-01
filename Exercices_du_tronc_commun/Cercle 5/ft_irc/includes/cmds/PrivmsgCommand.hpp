@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PrivmsgCommand.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:49:00 by nours42           #+#    #+#             */
-/*   Updated: 2023/11/01 14:49:15 by nours42          ###   ########.fr       */
+/*   Updated: 2023/11/01 16:45:33 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define PRIVMSGCOMMAND_HPP
 
 # include "Command.hpp"
-# include "Server.hpp"
-# include "Channel.hpp"
+# include "../Server.hpp"
+# include "../Channel.hpp"
 
 class PrivmsgCommand : public Command
 {

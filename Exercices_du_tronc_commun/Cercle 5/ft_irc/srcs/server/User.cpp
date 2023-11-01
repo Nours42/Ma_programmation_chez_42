@@ -6,11 +6,11 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:07:40 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/31 12:30:51 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/01 16:55:28 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/User.hpp"
+#include "../../includes/User.hpp"
 
 bool	User::tryConnect(void)
 {
@@ -52,9 +52,16 @@ bool	User::useMode(std::string mode)
 	return true;
 }
 
-std::string	User::to_string(bool isAnon) const
+std::string	User::to_string(bool isAnon)
 {
 	if (isAnon)
 		return ":anonymous!anonymous@anonymous";
 	return (":" + _nickname + "!" + _username + "@" + this->getAddress());
+}
+
+bool	User::isMode(char mode)
+{
+	if (!hasMode(mode))
+		return false;
+	return _modes[mode];
 }

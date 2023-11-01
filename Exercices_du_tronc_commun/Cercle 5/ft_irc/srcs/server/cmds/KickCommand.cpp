@@ -6,11 +6,11 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 15:26:09 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/31 10:37:22 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/01 16:42:53 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/KickCommand.hpp"
+#include "../../../includes/cmds/KickCommand.hpp"
 
 KickCommand::KickCommand(Server *server) : _server(server) {}
 KickCommand::~KickCommand(void) {}

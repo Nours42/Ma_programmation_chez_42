@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   JoinCommand.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:53:05 by nours42           #+#    #+#             */
-/*   Updated: 2023/11/01 14:53:37 by nours42          ###   ########.fr       */
+/*   Updated: 2023/11/01 16:42:58 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include "cmds/JoinCommand.hpp"
+#include "../../../includes/cmds/JoinCommand.hpp"
 #include "Console.hpp"
 
 JoinCommand::JoinCommand(Server* server) : _server(server) {}

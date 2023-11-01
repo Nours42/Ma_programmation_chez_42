@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   NickCommand.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:56:03 by nours42           #+#    #+#             */
-/*   Updated: 2023/11/01 14:56:05 by nours42          ###   ########.fr       */
+/*   Updated: 2023/11/01 15:46:12 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sstream>
 
 #include "Utils.hpp"
-#include "cmds/NickCommand.hpp"
+#include "../../../includes/cmds/NickCommand.hpp"
 
 #define NICKNAME_MAX_SIZE 9
 

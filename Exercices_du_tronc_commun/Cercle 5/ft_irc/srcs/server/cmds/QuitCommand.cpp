@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   QuitCommand.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:56:52 by nours42           #+#    #+#             */
-/*   Updated: 2023/11/01 14:56:53 by nours42          ###   ########.fr       */
+/*   Updated: 2023/11/01 16:41:58 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "Console.hpp"
-#include "cmds/QuitCommand.hpp"
+#include "../../../includes/cmds/QuitCommand.hpp"
 
 QuitCommand::QuitCommand(Server *server) : _server(server) {}
 QuitCommand::~QuitCommand(void) {}

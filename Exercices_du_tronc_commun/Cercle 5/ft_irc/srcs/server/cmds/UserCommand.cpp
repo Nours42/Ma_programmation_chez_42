@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   UserCommand.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:57:16 by nours42           #+#    #+#             */
-/*   Updated: 2023/11/01 14:57:17 by nours42          ###   ########.fr       */
+/*   Updated: 2023/11/01 16:41:49 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cmds/UserCommand.hpp"
+#include "../../../includes/cmds/UserCommand.hpp"
 
-UserCommand::UserCommand(void) {}
+UserCommand::UserCommand(Server *server) : _server(server)  {}
 UserCommand::~UserCommand(void) {}
 
 bool UserCommand::onCommand(User* sender, std::vector<std::string> args)

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 17:02:41 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/01 14:12:20 by nours42          ###   ########.fr       */
+/*   Updated: 2023/11/01 16:55:25 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/Server.hpp"
+#include "../../includes/Server.hpp"
 
 Server::Server(int port, std::string password) : _port(port), _password(password)
 {

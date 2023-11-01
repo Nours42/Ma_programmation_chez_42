@@ -6,11 +6,11 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 15:27:29 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/31 09:50:28 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/01 16:43:03 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/InviteCommand.hpp"
+#include "../../../includes/cmds/InviteCommand.hpp"
 
 InviteCommand::InviteCommand(Server *server) : _server(server) {}
 InviteCommand::~InviteCommand(void) {}

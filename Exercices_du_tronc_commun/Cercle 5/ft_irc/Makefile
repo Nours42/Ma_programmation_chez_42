@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+         #
+#    By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 10:38:18 by sdestann          #+#    #+#              #
-#    Updated: 2023/11/01 14:42:33 by nours42          ###   ########.fr        #
+#    Updated: 2023/11/01 16:47:27 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,7 +73,7 @@ bin/%.o: srcs/%.cpp
 	@printf $(UP)$(CUT)
 
 $(NAME_SERV): $(OBJS_SERV)
-	@$(COMPILE) $(FLAGS) $(OBJS_SERV)-o $(NAME_SERV)
+	@$(COMPILE) $(FLAGS) $(OBJS_SERV) -o $(NAME_SERV)
 	@echo $(G)Project $(NAME_SERV) by SDESTANN successfully compiled$(X)
 
 $(NAME_BOT): $(OBJS_BOT)

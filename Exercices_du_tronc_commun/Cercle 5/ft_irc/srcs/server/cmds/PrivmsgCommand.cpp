@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   PrivmsgCommand.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:56:35 by nours42           #+#    #+#             */
-/*   Updated: 2023/11/01 14:56:42 by nours42          ###   ########.fr       */
+/*   Updated: 2023/11/01 16:42:04 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vector>
-#include "cmds/PrivmsgCommand.hpp"
+#include "../../../includes/cmds/PrivmsgCommand.hpp"
 #include <Utils.hpp>
 #include "Console.hpp"
 #include "Message.hpp"

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   QuitCommand.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:49:31 by nours42           #+#    #+#             */
-/*   Updated: 2023/11/01 14:49:48 by nours42          ###   ########.fr       */
+/*   Updated: 2023/11/01 16:45:38 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define QUITCOMMAND_HPP
 
 # include "Command.hpp"
-# include "Server.hpp"
-# include "Channel.hpp"
+# include "../Server.hpp"
+# include "../Channel.hpp"
 
 class QuitCommand : public Command
 {

@@ -6,11 +6,11 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:27:20 by sdestann          #+#    #+#             */
-/*   Updated: 2023/10/31 15:49:52 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/01 16:55:20 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/Server.hpp"
+#include "../../includes/Server.hpp"
 
 int	print_error(std::string str)
 {

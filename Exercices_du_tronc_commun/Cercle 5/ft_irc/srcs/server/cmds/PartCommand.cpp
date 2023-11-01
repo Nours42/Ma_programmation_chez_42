@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   PartCommand.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:56:18 by nours42           #+#    #+#             */
-/*   Updated: 2023/11/01 14:56:19 by nours42          ###   ########.fr       */
+/*   Updated: 2023/11/01 16:42:17 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "Console.hpp"
-#include "cmds/PartCommand.hpp"
+#include "../../../includes/cmds/PartCommand.hpp"
 
 PartCommand::PartCommand(Server *server) : _server(server) {}
 PartCommand::~PartCommand(void) {}

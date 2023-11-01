@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   UserCommand.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:50:44 by nours42           #+#    #+#             */
-/*   Updated: 2023/11/01 14:50:59 by nours42          ###   ########.fr       */
+/*   Updated: 2023/11/01 16:45:53 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define USERCOMMAND_HPP
 
 # include "Command.hpp"
-# include "Server.hpp"
-# include "Channel.hpp"
+# include "../Server.hpp"
+# include "../Channel.hpp"
 
 class UserCommand : public Command
 {

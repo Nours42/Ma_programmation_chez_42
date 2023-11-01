@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PingCommand.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:48:17 by nours42           #+#    #+#             */
-/*   Updated: 2023/11/01 14:48:34 by nours42          ###   ########.fr       */
+/*   Updated: 2023/11/01 16:45:29 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define PINGCOMMAND_HPP
 
 # include "Command.hpp"
-# include "Server.hpp"
-# include "Channel.hpp"
+# include "../Server.hpp"
+# include "../Channel.hpp"
 
 class PingCommand : public Command
 {

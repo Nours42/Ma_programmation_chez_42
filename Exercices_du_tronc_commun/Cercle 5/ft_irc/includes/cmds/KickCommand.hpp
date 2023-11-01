@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   KickCommand.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 15:26:09 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/01 14:42:19 by nours42          ###   ########.fr       */
+/*   Updated: 2023/11/01 16:44:39 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 # define KICKCOMMAND_HPP
 
 # include "Command.hpp"
-# include "Server.hpp"
-# include "Utils.hpp"
+# include "../Server.hpp"
+# include "../Channel.hpp"
+# include "../Utils.hpp"
 
 class KickCommand : public Command
 {

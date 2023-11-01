@@ -6,11 +6,11 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 15:39:03 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/01 11:44:47 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/01 17:03:39 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Utils.hpp"
+#include "../includes/Utils.hpp"
 #include <sstream>
 #include <string>
 
@@ -81,7 +81,6 @@ std::string Utils::str_toupper(std::string str)
 		ss << (char) std::toupper(str[i]);
 		i++;
 	}
-	// std::cout << "ToUpper : " << ss.str() << std::endl;
 	return ss.str();
 }
 
