@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Warlock.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/02 17:33:40 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/02 18:32:55 by sdestann         ###   ########.fr       */
+/*   Created: 2023/11/02 21:02:32 by nours42           #+#    #+#             */
+/*   Updated: 2023/11/02 22:05:22 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,23 @@
 # include <iostream>
 # include <string>
 
-class Warlock
+class   Warlock
 {
     private:
         
+        Warlock & operator=(Warlock const & ref);
+        Warlock(Warlock const & ref);
+        Warlock(void);
         std::string _name;
         std::string _title;
 
-		Warlock();
-		Warlock(Warlock const &ref);
-		Warlock &operator=(Warlock const &ref);
-
     protected:
     public:
-
-		/// COPELIAN ///
-		Warlock(std::string name, std::string title);
-		~Warlock();
-		
-		
-		std::string const	&getName() const;
-		std::string const	&getTitle() const;
-		void				setTitle(std::string const &str);
-		void				introduce() const;
+        Warlock(std::string const &name, std::string const &title);
+        ~Warlock();
+        std::string const & getName() const;
+        std::string const & getTitle() const;
+        void        setTitle(std::string const & str);
+        void        introduce() const;
 };
-
 #endif
