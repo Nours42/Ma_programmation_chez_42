@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 15:26:09 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/01 16:44:39 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/02 11:44:17 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 
 # include "Command.hpp"
 # include "../Server.hpp"
-# include "../Channel.hpp"
-# include "../Utils.hpp"
+# include "../User.hpp"
 
 class KickCommand : public Command
 {

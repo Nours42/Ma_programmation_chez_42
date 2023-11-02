@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 15:27:29 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/01 16:46:10 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/02 11:01:51 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 
 # include "Command.hpp"
 # include "../Server.hpp"
-# include "../Channel.hpp"
+# include "../User.hpp"
 
 class InviteCommand : public Command
 {
 	private :
 
-		InviteCommand(InviteCommand const &ref);				//no used
-		InviteCommand &operator=(InviteCommand const &ref);		//no used
+		// InviteCommand(InviteCommand const &ref);				//no used
+		// InviteCommand &operator=(InviteCommand const &ref);		//no used
 
 	protected:
 

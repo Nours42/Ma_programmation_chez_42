@@ -6,11 +6,13 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 15:27:45 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/01 16:30:15 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/02 11:54:44 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/cmds/ModeCommand.hpp"
+#include "../../../includes/Channel.hpp"
+#include "../../../includes/Message.hpp"
 
 ModeCommand::ModeCommand(Server *server) : _server(server) {
 	std::cout << "MODE" << std::endl;

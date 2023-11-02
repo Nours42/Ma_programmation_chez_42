@@ -6,11 +6,13 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 10:14:29 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/01 16:55:11 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/02 11:48:13 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/Channel.hpp"
+#include "../../includes/User.hpp"
+#include "../../includes/Console.hpp"
 
 Channel::Channel(std::string name, std::string topic) : _name(name), _topic(topic), _password(""), _limit(-1) {}
 Channel::~Channel(void) {}

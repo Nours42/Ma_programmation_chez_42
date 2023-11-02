@@ -6,11 +6,12 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:57:16 by nours42           #+#    #+#             */
-/*   Updated: 2023/11/01 16:41:49 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/02 11:52:47 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/cmds/UserCommand.hpp"
+#include "../../../includes/Message.hpp"
 
 UserCommand::UserCommand(Server *server) : _server(server)  {}
 UserCommand::~UserCommand(void) {}

@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 18:32:01 by nours42           #+#    #+#             */
-/*   Updated: 2023/11/01 17:00:17 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/02 11:58:40 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,16 @@
 # include <vector>
 # include <map>
 
-# include "Utils.hpp"
 # include "./cmds/Command.hpp"
+# include "User.hpp"
+# include "Utils.hpp"
 
 class	CmdsManager
 {
 	private:
 
-		CmdsManager(CmdsManager const &ref);				//no used
-		CmdsManager &operator=(CmdsManager const &ref);		//no used
+		// CmdsManager(CmdsManager const &ref);				//no used
+		// CmdsManager &operator=(CmdsManager const &ref);		//no used
 
 		std::map<std::string, Command*> _cmds;
 		
@@ -39,7 +40,7 @@ class	CmdsManager
         void	getCommands(void) const;
 		void	on(std::string cmd_name, Command* cmd)
 		{
-			 _cmds[Utils::str_toupper(cmd_name)] = cmd;
+			_cmds[Utils::str_toupper(cmd_name)] = cmd;
 		};
 
 		bool call(const std::string &cmd_name, const std::vector<std::string>& args, User* sender)
@@ -48,12 +49,13 @@ class	CmdsManager
 			if (!this->has(cmd_name))
 				return false;
 			return _cmds[Utils::str_toupper(cmd_name)]->onCommand(sender, args);
-		}
-		
+		};
+
 		bool has(std::string cmd_name)
 		{
-			return _cmds.count(Utils::str_toupper(cmd_name)) == 1;
+			return _cmds.count(Utils::str_toupper(cmd_name)) == 1; 
 		};
+
 
 };
 

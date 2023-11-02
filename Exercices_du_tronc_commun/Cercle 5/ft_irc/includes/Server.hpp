@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:26:19 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/01 16:37:01 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/02 10:31:51 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,14 @@
 # include <sys/select.h>
 # include <sys/time.h>
 # include <fcntl.h>
-// # include <sys/event.h>
 # include <netinet/in.h>
 # include <arpa/inet.h>
 # include <netdb.h>
-
-# include "CmdsManager.hpp"
-# include "ChannelManager.hpp"
-# include "UserManager.hpp"
-
-/// en test ///
-
 #include <vector>
-#include <cstring>
-#include <pthread.h>
 
-//////
+# include "./UserManager.hpp"
+# include "./ChannelManager.hpp"
+# include "./CmdsManager.hpp"
 
 
 #define PORT 8080
@@ -104,10 +96,5 @@ class   Server
 		void			setVersionComments(std::string comments);
 		void			setOpPassword(std::string password);
 };
-
-# include "./cmds/KickCommand.hpp"
-# include "./cmds/InviteCommand.hpp"
-# include "./cmds/TopicCommand.hpp"
-# include "./cmds/ModeCommand.hpp"
 
 #endif

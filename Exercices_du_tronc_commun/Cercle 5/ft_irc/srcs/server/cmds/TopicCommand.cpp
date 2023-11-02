@@ -6,11 +6,12 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 15:29:43 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/01 16:29:46 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/02 11:54:16 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/cmds/TopicCommand.hpp"
+#include "../../../includes/Message.hpp"
 
 TopicCommand::TopicCommand(Server *server) : _server(server) {}
 TopicCommand::~TopicCommand(void) {}

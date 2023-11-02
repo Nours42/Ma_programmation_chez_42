@@ -6,14 +6,15 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:56:03 by nours42           #+#    #+#             */
-/*   Updated: 2023/11/01 15:46:12 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/02 11:53:07 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sstream>
 
-#include "Utils.hpp"
+#include "../../../includes/Utils.hpp"
 #include "../../../includes/cmds/NickCommand.hpp"
+#include "../../../includes/Message.hpp"
 
 #define NICKNAME_MAX_SIZE 9
 

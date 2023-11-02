@@ -6,14 +6,14 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:54:50 by nours42           #+#    #+#             */
-/*   Updated: 2023/11/01 16:42:37 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/02 10:00:31 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "../../../includes/cmds/MotdCommand.hpp"
-#include "Console.hpp"
-#include "Message.hpp"
+#include "../../../includes/Console.hpp"
+#include "../../../includes/Message.hpp"
 
 MotdCommand::MotdCommand(Server *server) : _server(server) {};
 MotdCommand::~MotdCommand(void) {}

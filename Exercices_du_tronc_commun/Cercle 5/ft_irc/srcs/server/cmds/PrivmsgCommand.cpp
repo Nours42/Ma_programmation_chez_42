@@ -6,15 +6,15 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:56:35 by nours42           #+#    #+#             */
-/*   Updated: 2023/11/01 16:42:04 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/02 10:01:17 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vector>
 #include "../../../includes/cmds/PrivmsgCommand.hpp"
-#include <Utils.hpp>
-#include "Console.hpp"
-#include "Message.hpp"
+#include "../../../includes/Utils.hpp"
+#include "../../../includes/Console.hpp"
+#include "../../../includes/Message.hpp"
 
 PrivmsgCommand::PrivmsgCommand(Server* server) : _server(server) {}
 PrivmsgCommand::~PrivmsgCommand(void) {}

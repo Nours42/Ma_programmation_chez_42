@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 15:29:53 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/01 16:45:48 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/02 11:08:58 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "Command.hpp"
 # include "../Server.hpp"
-# include "../Channel.hpp"
+# include "../User.hpp"
 
 class TopicCommand : public Command
 {

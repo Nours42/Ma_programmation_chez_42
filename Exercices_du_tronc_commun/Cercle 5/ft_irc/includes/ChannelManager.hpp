@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 18:32:14 by nours42           #+#    #+#             */
-/*   Updated: 2023/10/31 15:18:44 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/02 10:47:11 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ class	ChannelManager
 {
 	private:
 
-		ChannelManager(ChannelManager const &ref);				//no used
-		ChannelManager &operator=(ChannelManager const &ref);	//no used
+		// ChannelManager(ChannelManager const &ref);				//no used
+		// ChannelManager &operator=(ChannelManager const &ref);	//no used
 
 		std::map<std::string, Channel*> _channels;
 

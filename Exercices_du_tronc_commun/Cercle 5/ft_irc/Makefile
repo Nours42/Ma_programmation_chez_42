@@ -6,7 +6,7 @@
 #    By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 10:38:18 by sdestann          #+#    #+#              #
-#    Updated: 2023/11/01 16:47:27 by sdestann         ###   ########.fr        #
+#    Updated: 2023/11/02 10:10:16 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,12 +41,12 @@ SRCS_SERV	=	Utils.cpp \
 
 OBJS_SERV	:=	$(addprefix bin/, $(SRCS_SERV:.cpp=.o))
 
-SRCS_BOT	:=	Utils.cpp \
-				Console.cpp \
-				bot/main.cpp \
-				bot/Bot.cpp
+# SRCS_BOT	:=	Utils.cpp \
+# 				Console.cpp \
+# 				bot/main.cpp \
+# 				bot/Bot.cpp
 
-OBJS_BOT	:=	$(addprefix bin/, $(SRCS_BOT:.cpp=.o))
+# OBJS_BOT	:=	$(addprefix bin/, $(SRCS_BOT:.cpp=.o))
 
 COMPILE		=	clang++
 
@@ -76,16 +76,16 @@ $(NAME_SERV): $(OBJS_SERV)
 	@$(COMPILE) $(FLAGS) $(OBJS_SERV) -o $(NAME_SERV)
 	@echo $(G)Project $(NAME_SERV) by SDESTANN successfully compiled$(X)
 
-$(NAME_BOT): $(OBJS_BOT)
-	@$(COMPILE) $(FLAGS) $(OBJS_BOT)-o $(NAME_BOT)
-	@echo $(G)Project $(NAME_BOT) by SDESTANN successfully compiled$(X)
+# $(NAME_BOT): $(OBJS_BOT)
+# 	@$(COMPILE) $(FLAGS) $(OBJS_BOT)-o $(NAME_BOT)
+# 	@echo $(G)Project $(NAME_BOT) by SDESTANN successfully compiled$(X)
 
 bonus: $(NAME_BOT)
 
 run: $(NAME_SERV)
 	./$(NAME_SERV) 6667 test
-run-bonus: $(NAME_BOT)
-	./$(NAME_BOT) 127.0.0.1 6667 test general
+# run-bonus: $(NAME_BOT)
+# 	./$(NAME_BOT) 127.0.0.1 6667 test general
 
 clean:
 	@echo $(R)Cleaning FT_IRC ! $(G)[$(OBJDIR)]...$(X)
@@ -94,8 +94,8 @@ clean:
 fclean: clean
 	@echo $(R)FCleaning FT_IRC ! $(G)[$(NAME_SERV)]...$(X)
 	@/bin/rm -f $(NAME_SERV)
-	@echo $(R)FCleaning FT_IRC ! $(G)[$(NAME_BOT)]...$(X)
-	@/bin/rm -f $(NAME_BOT)
+# @echo $(R)FCleaning FT_IRC ! $(G)[$(NAME_BOT)]...$(X)
+# @/bin/rm -f $(NAME_BOT)
 
 re: fclean all
 

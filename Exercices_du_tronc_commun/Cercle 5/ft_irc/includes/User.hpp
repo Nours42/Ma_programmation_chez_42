@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 18:43:22 by nours42           #+#    #+#             */
-/*   Updated: 2023/11/01 16:59:31 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/02 10:40:01 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,7 @@ class	User
 		void		removeMode(char mode) { setMode(mode, false); };
 
 		std::string	to_string(bool isAnon);
-
 		
 };
-
-# include "Server.hpp"
-# include "Console.hpp"
-# include "Message.hpp"
 
 #endif

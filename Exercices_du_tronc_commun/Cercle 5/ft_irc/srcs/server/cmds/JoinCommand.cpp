@@ -6,13 +6,14 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:53:05 by nours42           #+#    #+#             */
-/*   Updated: 2023/11/01 16:42:58 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/02 11:53:46 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "../../../includes/cmds/JoinCommand.hpp"
-#include "Console.hpp"
+#include "../../../includes/Console.hpp"
+#include "../../../includes/Message.hpp"
 
 JoinCommand::JoinCommand(Server* server) : _server(server) {}
 JoinCommand::~JoinCommand(void) {}

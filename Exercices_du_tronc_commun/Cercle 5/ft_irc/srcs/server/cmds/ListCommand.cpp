@@ -6,15 +6,15 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:54:04 by nours42           #+#    #+#             */
-/*   Updated: 2023/11/01 16:42:47 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/02 10:00:00 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "../../../includes/cmds/ListCommand.hpp"
-#include "Console.hpp"
-#include "Message.hpp"
-#include "Utils.hpp"
+#include "../../../includes/Console.hpp"
+#include "../../../includes/Message.hpp"
+#include "../../../includes/Utils.hpp"
 
 ListCommand::ListCommand(Server *server) : _server(server) {};
 ListCommand::~ListCommand(void) {}

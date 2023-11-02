@@ -6,14 +6,14 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:55:26 by nours42           #+#    #+#             */
-/*   Updated: 2023/11/01 16:42:30 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/02 10:00:28 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/cmds/NamesCommand.hpp"
-#include "Server.hpp"
-#include "Utils.hpp"
-#include "Message.hpp"
+#include "../../../includes/Server.hpp"
+#include "../../../includes/Utils.hpp"
+#include "../../../includes/Message.hpp"
 
 NamesCommand::NamesCommand(Server *server) : _server(server) {}
 NamesCommand::~NamesCommand(void) {}

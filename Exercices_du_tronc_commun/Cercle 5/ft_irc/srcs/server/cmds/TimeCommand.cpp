@@ -6,14 +6,14 @@
 /*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:56:59 by nours42           #+#    #+#             */
-/*   Updated: 2023/11/01 16:46:09 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/02 10:01:26 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "../../../includes/cmds/TimeCommand.hpp"
-#include "Console.hpp"
-#include "Message.hpp"
+#include "../../../includes/Console.hpp"
+#include "../../../includes/Message.hpp"
 
 #include <iostream>
 #include <iomanip>
