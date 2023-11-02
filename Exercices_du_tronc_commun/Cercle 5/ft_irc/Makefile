@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+         #
+#    By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 10:38:18 by sdestann          #+#    #+#              #
-#    Updated: 2023/11/02 10:10:16 by sdestann         ###   ########.fr        #
+#    Updated: 2023/11/02 16:04:42 by nours42          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,14 +39,14 @@ SRCS_SERV	=	Utils.cpp \
 				server/cmds/KickCommand.cpp \
 				server/cmds/NamesCommand.cpp
 
-OBJS_SERV	:=	$(addprefix bin/, $(SRCS_SERV:.cpp=.o))
+OBJS_SERV	:=	$(addprefix obj/, $(SRCS_SERV:.cpp=.o))
 
 # SRCS_BOT	:=	Utils.cpp \
 # 				Console.cpp \
 # 				bot/main.cpp \
 # 				bot/Bot.cpp
 
-# OBJS_BOT	:=	$(addprefix bin/, $(SRCS_BOT:.cpp=.o))
+# OBJS_BOT	:=	$(addprefix obj/, $(SRCS_BOT:.cpp=.o))
 
 COMPILE		=	clang++
 
@@ -66,9 +66,9 @@ CUT = "\033[K"
 
 all: $(NAME_SERV)
 
-bin/%.o: srcs/%.cpp
+obj/%.o: srcs/%.cpp
 	@echo $(Y)Compiling [$@]...$(X)
-	@/bin/mkdir -p $(dir $@)
+	@/obj/mkdir -p $(dir $@)
 	@$(COMPILE) $(FLAGS) -o $@ -c $< -I includes
 	@printf $(UP)$(CUT)
 
@@ -89,13 +89,13 @@ run: $(NAME_SERV)
 
 clean:
 	@echo $(R)Cleaning FT_IRC ! $(G)[$(OBJDIR)]...$(X)
-	@/bin/rm -Rf bin/
+	@/obj/rm -Rf obj/
 
 fclean: clean
 	@echo $(R)FCleaning FT_IRC ! $(G)[$(NAME_SERV)]...$(X)
-	@/bin/rm -f $(NAME_SERV)
+	@/obj/rm -f $(NAME_SERV)
 # @echo $(R)FCleaning FT_IRC ! $(G)[$(NAME_BOT)]...$(X)
-# @/bin/rm -f $(NAME_BOT)
+# @/obj/rm -f $(NAME_BOT)
 
 re: fclean all
 

@@ -3,47 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   KickCommand.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 15:26:09 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/02 11:54:59 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:45:23 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/cmds/KickCommand.hpp"
-#include "../../../includes/Channel.hpp"
-#include "../../../includes/Message.hpp"
 
-KickCommand::KickCommand(Server *server) : _server(server) {}
-KickCommand::~KickCommand(void) {}
+//////////////////////////////// A QUOI JE SERS ///////////////////////////////
+//
+//  OBLIGATOIRE DANS LE SUJET
+//  Je sers a virer un user d'un salon
+//
+//  J'ai donc les fonctions :
+//      KICK -	prend en params un userName et le channel actuel, doit verifier
+//				que l'user est operator sur le channel.
+//
+///////////////////////////////////////////////////////////////////////////////
 
-bool	KickCommand::onCommand(User *sender, std::vector<std::string> args)
-{
-	User	*target = NULL;
-	Channel	*channel = NULL;
-
-	if (!sender->isConnected())
-		return !sender->sendMessage(ERR_NOTREGISTERED, ":You have not registered");
-
-	if (args.size() < 3)
-		return (!sender->sendMessage(ERR_NEEDMOREPARAMS, args[0] + " :Not enough parameters"));
-
-	if (!(channel = _server->getChannels().get(args[1])))
-		return (!sender->sendMessage(ERR_NOSUCHCHANNEL, args[1] + " :No such channel"));
-
-	if (sender->getCurrentChannel() != channel->getName())
-		return (!sender->sendMessage(ERR_NOTONCHANNEL, channel->getName() + " :You're not on that channel"));
-
-	if (!channel->isOperator(sender))
-		return (!sender->sendMessage(ERR_CHANOPRIVSNEEDED, channel->getName() + " :You're not channel operator"));
-
-	if (!(target = _server->getUsers().findbyNickname(args[2])))
-		return (!sender->sendMessage(ERR_NOSUCHNICK, args[2] + " :No such nick/channel"));
-
-	if (target->getCurrentChannel() != channel->getName())
-		return (!sender->sendMessage(ERR_USERNOTINCHANNEL, target->getNickname() + " " + channel->getName() + " :They aren't on that channel"));
-
-	if (args.size() == 3)
-		return (channel->kick(sender, target, ""));
-	return (channel->kick(sender, target, args[3]));
-}
+// bool	KickCommand::onCommand(User *sender, std::vector<std::string> args)
+// {
+// 	
+// }

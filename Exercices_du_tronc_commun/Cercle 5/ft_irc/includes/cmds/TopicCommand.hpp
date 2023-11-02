@@ -3,38 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   TopicCommand.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 15:29:53 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/02 11:08:58 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/02 14:53:25 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOPICCOMMAND_HPP
 # define TOPICCOMMAND_HPP
 
-# include "Command.hpp"
-# include "../Server.hpp"
-# include "../User.hpp"
+// # include "Command.hpp"
+// # include "../Server.hpp"
+// # include "../User.hpp"
 
-class TopicCommand : public Command
-{
-	private :
+// class TopicCommand : public Command
+// {
+// 	private :
 
-		TopicCommand(TopicCommand const &ref);					//no used
-		TopicCommand &operator=(TopicCommand const &ref);		//no used
+// 		TopicCommand(TopicCommand const &ref);					//no used
+// 		TopicCommand &operator=(TopicCommand const &ref);		//no used
 
-	protected:
+// 	protected:
 
-		Server		*_server;
+// 		Server		*_server;
 
-	public:
+// 	public:
 
-		TopicCommand(Server* sever);
-		~TopicCommand(void);
+// 		TopicCommand(Server* sever);
+// 		~TopicCommand(void);
 
-		bool onCommand(User* sender, std::vector<std::string> args);
+// 		bool onCommand(User* sender, std::vector<std::string> args);
 		
-};
+// };
 
 #endif
