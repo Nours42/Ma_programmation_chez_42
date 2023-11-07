@@ -3,16 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   Utils.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 15:39:03 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/02 10:30:23 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/07 11:36:51 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../includes/Utils.hpp"
-#include <sstream>
-#include <string>
 
 std::vector<std::string> Utils::str_split(std::string str, std::string delimiters)
 {

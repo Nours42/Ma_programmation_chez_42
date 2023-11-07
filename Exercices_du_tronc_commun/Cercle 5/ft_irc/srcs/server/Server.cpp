@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 17:02:41 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/07 11:27:25 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/07 11:35:03 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@
 //	return (_channel);
 //}
 
-//UserManager	&Server::getUsers(void)
+//User	&Server::getUsers(void)
 //{
-//	return (_userManager);
+//	return (_user);
 //}
 
 void Server::processCommand(const std::string& command, const std::string& arguments, int userSocket)

@@ -3,20 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   Utils.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 14:38:07 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/02 11:45:33 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/07 11:36:41 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_HPP
 # define UTILS_HPP
-
-# include <iostream>
-# include <vector>
-# include <sstream>
-# include "User.hpp"
 
 namespace Utils
 {
