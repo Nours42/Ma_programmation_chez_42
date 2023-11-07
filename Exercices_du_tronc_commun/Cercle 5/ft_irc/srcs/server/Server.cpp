@@ -3,59 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 17:02:41 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/02 11:47:19 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/07 11:27:25 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/Server.hpp"
-#include "../../includes/User.hpp"
-#include "../../includes/Console.hpp"
-#include "../../includes/cmds/KickCommand.hpp"
-#include "../../includes/cmds/InviteCommand.hpp"
-#include "../../includes/cmds/TopicCommand.hpp"
-#include "../../includes/cmds/ModeCommand.hpp"
+//Server::Server(int port, std::string password) : _port(port), _password(password)
+//{
+//	si server n'existe pas :
+//		cree un User.
+//		cree un channel general dont le user est modo.
+//		dit bienvenue
+//	tente de rejoindre le server avec le password.
+//		si non, "wrong password"
+//		si oui, cree un User.
+//		ajoute l'User a general en user simple.
+//		dit bienvenue
+//}
 
-Server::Server(int port, std::string password) : _port(port), _password(password)
-{
-	// creation de la liste de commande possible :
-	_cmdsManager.on("KICK", new KickCommand(this));
-	_cmdsManager.on("INVITE", new InviteCommand(this));
-	_cmdsManager.on("TOPIC", new TopicCommand(this));
-	_cmdsManager.on("MODE", new ModeCommand(this));
-	//ajout de quelque blabla
-	_channelManager.add("#general", "Salon par default pour discuter de tout et de rien.");
-	_channelManager.add("#test", "Salon pour effectuer des tests.");
-}
+//Server::~Server() {} 
 
-Server::~Server() {} 
+//std::string	Server::getPassword(void) const
+//{
+//	return (_password);
+//}
 
-std::string	Server::getPassword(void) const
-{
-	return (_password);
-}
+//int	Server::getPort(void) const
+//{
+//	return (_port);
+//}
 
-int			Server::getPort(void) const
-{
-	return (_port);
-}
+//Channel	&Server::getChannels(void)
+//{
+//	return (_channel);
+//}
 
-CmdsManager	&Server::getCommands(void)
-{
-	return (_cmdsManager);
-}
-
-ChannelManager	&Server::getChannels(void)
-{
-	return (_channelManager);
-}
-
-UserManager	&Server::getUsers(void)
-{
-	return (_userManager);
-}
+//UserManager	&Server::getUsers(void)
+//{
+//	return (_userManager);
+//}
 
 void Server::processCommand(const std::string& command, const std::string& arguments, int userSocket)
 {

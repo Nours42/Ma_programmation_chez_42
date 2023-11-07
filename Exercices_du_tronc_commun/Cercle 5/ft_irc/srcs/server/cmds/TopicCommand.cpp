@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 15:29:43 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/07 09:52:38 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/07 10:27:23 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,7 @@
 // void	ChangeTopic(User *sender, Channel *channel)
 //{
 //		lance CanIChangeTopic
-//			si OK : 
+//			si OK : prompt cin attends le nouveau TOPIC
+//			regarde si le topic repond aux regles (longueur du TOPIC)
+//			si ok, change le TOPIC.
 //}
