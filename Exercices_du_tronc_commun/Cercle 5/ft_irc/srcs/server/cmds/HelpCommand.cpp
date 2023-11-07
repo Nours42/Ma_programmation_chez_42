@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   KickCommand.cpp                                    :+:      :+:    :+:   */
+/*   HelpCommand.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/30 15:26:09 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/02 15:45:23 by nours42          ###   ########.fr       */
+/*   Created: 2023/11/07 09:40:58 by sdestann          #+#    #+#             */
+/*   Updated: 2023/11/07 09:48:34 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 //////////////////////////////// A QUOI JE SERS ///////////////////////////////
 //
-//  OBLIGATOIRE DANS LE SUJET
-//  Je sers a virer un user d'un salon
+//  Je sers a reafficher les commandes et leurs options
 //
 //  J'ai donc les fonctions :
-//      KICK -	prend en params un userName et le channel actuel, doit verifier
-//				que l'user est operator sur le channel.
+//
+//		HELP -	rappelle les differents menu HELP suivants :
+//		JOINHELP -	rappelle les fonctions dispos et options de JOIN
+//		MODEHELP -	rappelle les fonctions dispos et options de MODE
+//		QUITHELP -	rappelle les fonctions dispos et options de QUIT
+//		TOPICHELP -	rappelle les fonctions dispos et options de TOPIC
+//				
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-// bool	KickCommand::onCommand(User *sender, std::vector<std::string> args)
-// {
-// 	
-// }
