@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dummy.hpp                                          :+:      :+:    :+:   */
+/*   BrickWall.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/03 05:38:39 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/09 17:02:57 by sdestann         ###   ########.fr       */
+/*   Created: 2023/11/09 16:31:07 by sdestann          #+#    #+#             */
+/*   Updated: 2023/11/09 16:49:12 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DUMMY_HPP
-# define DUMMY_HPP
+#include "BrickWall.hpp"
 
-# include "ATarget.hpp"
-# include <iostream>
+BrickWall::BrickWall() : ATarget("Inconspicuous Red-brick Wall") {}
 
-class	Dummy : public ATarget
+BrickWall::~BrickWall() {}
+
+ATarget	*BrickWall::clone() const
 {
-	public:
-		Dummy();
-		~Dummy();
-
-		virtual ATarget *clone() const;
-};
-
-#endif
+	return (new BrickWall());
+}

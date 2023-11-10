@@ -16,7 +16,7 @@ ATarget::ATarget() {}
 
 ATarget::ATarget(std::string const &t)
 {
-	this->type = t;
+	this->_type = t;
 }
 
 ATarget::~ATarget() {}
@@ -27,16 +27,16 @@ ATarget::ATarget(ATarget const & ref)
 }
 ATarget & ATarget::operator=(ATarget const & ref)
 {
-	this->type = ref.type;
+	this->_type = ref.type;
 	return (*this);
 }
 
 std::string	const	&ATarget::getType() const
 {
-	return (this->type);
+	return (this->_type);
 }
 
 void	ATarget::getHitBySpell(ASpell const & aspell_ref) const
 {
-	std::cout << this->type << " has been " << aspell_ref.getEffects() << "!" << std::endl;
+	std::cout << this->_type << " has been " << aspell_ref.getEffects() << "!" << std::endl;
 }

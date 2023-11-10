@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dummy.hpp                                          :+:      :+:    :+:   */
+/*   Fwoosh.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/03 05:38:39 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/09 17:02:57 by sdestann         ###   ########.fr       */
+/*   Created: 2023/11/09 16:31:24 by sdestann          #+#    #+#             */
+/*   Updated: 2023/11/10 11:47:47 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DUMMY_HPP
-# define DUMMY_HPP
+#ifndef FWOOSH_HPP
+# define FWOOSH_HPP
 
-# include "ATarget.hpp"
 # include <iostream>
+# include "ASpell.hpp"
 
-class	Dummy : public ATarget
+
+class Fwoosh : public ASpell
 {
+	private:
+		
+		Fwoosh(Fwoosh const &ref);
+		Fwoosh &operator=(Fwoosh const &ref);
 	public:
-		Dummy();
-		~Dummy();
+		Fwoosh();
+		~Fwoosh();
 
-		virtual ATarget *clone() const;
+		virtual ASpell *clone() const;
+		
 };
 
 #endif

@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dummy.hpp                                          :+:      :+:    :+:   */
+/*   Fireball.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/03 05:38:39 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/09 17:02:57 by sdestann         ###   ########.fr       */
+/*   Created: 2023/11/09 16:31:24 by sdestann          #+#    #+#             */
+/*   Updated: 2023/11/10 11:47:47 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DUMMY_HPP
-# define DUMMY_HPP
+#ifndef FIREBALL_HPP
+# define FIREBALL_HPP
 
-# include "ATarget.hpp"
 # include <iostream>
+# include "ASpell.hpp"
 
-class	Dummy : public ATarget
+
+class Fireball : public ASpell
 {
+	private:
+		
+		Fireball(Fireball const &ref);
+		Fireball &operator=(Fireball const &ref);
 	public:
-		Dummy();
-		~Dummy();
+		Fireball();
+		~Fireball();
 
-		virtual ATarget *clone() const;
+		virtual ASpell *clone() const;
+		
 };
 
 #endif

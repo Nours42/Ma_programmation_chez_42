@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dummy.hpp                                          :+:      :+:    :+:   */
+/*   Polymorph.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/03 05:38:39 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/09 17:02:57 by sdestann         ###   ########.fr       */
+/*   Created: 2023/11/09 16:31:24 by sdestann          #+#    #+#             */
+/*   Updated: 2023/11/10 11:47:47 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DUMMY_HPP
-# define DUMMY_HPP
+#ifndef POLYMORPH_HPP
+# define POLYMORPH_HPP
 
-# include "ATarget.hpp"
 # include <iostream>
+# include "ASpell.hpp"
 
-class	Dummy : public ATarget
+
+class Polymorph : public ASpell
 {
+	private:
+		
+		Polymorph(Polymorph const &ref);
+		Polymorph &operator=(Polymorph const &ref);
 	public:
-		Dummy();
-		~Dummy();
+		Polymorph();
+		~Polymorph();
 
-		virtual ATarget *clone() const;
+		virtual ASpell *clone() const;
+		
 };
 
 #endif

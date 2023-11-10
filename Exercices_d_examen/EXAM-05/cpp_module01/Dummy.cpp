@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Dummy.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 05:38:39 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/03 06:06:43 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/09 17:04:41 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ Dummy::~Dummy() {}
 
 ATarget *Dummy::clone() const
 {
-	return(new Dummy());
+	return (new Dummy());
 }
