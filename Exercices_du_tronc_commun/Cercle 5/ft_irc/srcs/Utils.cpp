@@ -3,6 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   Utils.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 15:39:03 by sdestann          #+#    #+#             */
@@ -10,6 +11,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+=======
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/16 11:41:37 by nours42          #+#    #+#             */
+/*   Updated: 2023/11/18 18:29:39 by nours42          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Utils.hpp"
+#include <sstream>
+#include <string>
+
+>>>>>>> 80cc973 (ft_irc)
 std::vector<std::string> Utils::str_split(std::string str, std::string delimiters)
 {
 	std::vector<std::string> parts;
@@ -70,25 +84,31 @@ std::string Utils::str_trim(std::string str, const char* charset)
 std::string Utils::str_toupper(std::string str)
 {
 	std::stringstream ss;
-	size_t i = 0;
-
-	while (i < str.size())
-	{
+	for (size_t i = 0; i < str.size(); i++)
 		ss << (char) std::toupper(str[i]);
-		i++;
-	}
 	return ss.str();
 }
 
 std::string Utils::str_tolower(std::string str)
 {
 	std::stringstream ss;
-	size_t i = 0;
-
-	while (i < str.size())
-	{
+	for (size_t i = 0; i < str.size(); i++)
 		ss << (char) std::tolower(str[i]);
-		i++;
-	}
 	return ss.str();
+}
+
+int	Utils::stoi(std::string & s )
+{
+    int i;
+    std::istringstream(s) >> i;
+    return i;
+}
+
+
+template<typename T>
+std::string Utils::to_string(const T & value)
+{
+    std::ostringstream oss;
+    oss << value;
+    return oss.str();
 }

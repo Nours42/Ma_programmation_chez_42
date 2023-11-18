@@ -5,21 +5,17 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/15 16:30:38 by nours42          #+#    #+#             */
-/*   Updated: 2023/11/18 18:29:46 by nours42          ###   ########.fr       */
+/*   Created: 2022/03/28 13:24:43 by nours42          #+#    #+#             */
+/*   Updated: 2023/11/18 18:31:17 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
-#include "Server.hpp"
-
-// Subject		:	https://cdn.intra.42.fr/pdf/pdf/39873/fr.subject.pdf
-// RFC			:	https://datatracker.ietf.org/doc/html/rfc1459
-// Multi-Socket	:	https://www.geeksforgeeks.org/socket-programming-in-cc-handling-multiple-clients-on-server-without-multi-threading/
+#include "Bot.hpp"
 
 static int print_usage(std::string exec)
 {
-	std::cerr << "usage: " << exec << " <port> <password>\n";
+	std::cerr << "usage: " << exec << " <host> <port: int> <password> <channel>\n";
 	return EXIT_FAILURE;
 }
 
@@ -38,9 +34,9 @@ static bool check_number(std::string number)
 
 static bool check_args(int ac, char **av)
 {
-	if (ac != 3)
+	if (ac != 5)
 		return print_error("not enough arguments");
-	if (!check_number(av[1]))
+	if (!check_number(av[2]))
 		return print_error("port must be numeric");
 	return true;
 }
@@ -50,11 +46,12 @@ int main(int ac, char **av)
 	if (!check_args(ac, av))
 		return print_usage(av[0]);
 
-	Server server(
-		std::atoi(av[1]),
-		std::string(av[2])
+	Bot bot(
+		std::string(av[1]),
+		std::atoi(av[2]),
+		std::string(av[3])
 	);
-	server.connect();
+	bot.connect(std::string(av[4]));
 
 	return EXIT_SUCCESS;
 }

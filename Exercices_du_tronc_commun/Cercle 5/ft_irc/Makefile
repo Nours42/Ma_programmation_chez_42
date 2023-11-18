@@ -5,17 +5,20 @@
 #                                                     +:+ +:+         +:+      #
 #    By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/08/14 10:38:18 by sdestann          #+#    #+#              #
-#    Updated: 2023/11/02 16:04:42 by nours42          ###   ########.fr        #
+#    Created: 2022/03/01 10:39:56 by nours42          #+#    #+#              #
+#    Updated: 2023/11/17 20:14:50 by nours42          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-### MISC ###
+NAME_SERV	:=	ircserv
+NAME_BOT	:=	ircbot
+VERSION		:=	1.0
+ARCH		:=	x64
 
-NAME_SERV	=	ircserv
-NAME_BOT	=	ircbot
-
-SRCS_SERV	=	Utils.cpp \
+# -----------------------------------------------------------------------------
+# COMPILATION
+# -----------------------------------------------------------------------------
+SRCS_SERV	:=	Utils.cpp \
 				Console.cpp \
 				server/main.cpp \
 				server/Server.cpp \
@@ -39,64 +42,61 @@ SRCS_SERV	=	Utils.cpp \
 				server/cmds/KickCommand.cpp \
 				server/cmds/NamesCommand.cpp
 
-OBJS_SERV	:=	$(addprefix obj/, $(SRCS_SERV:.cpp=.o))
+OBJS_SERV	:=	$(addprefix bin/, $(SRCS_SERV:.cpp=.o))
 
-# SRCS_BOT	:=	Utils.cpp \
-# 				Console.cpp \
-# 				bot/main.cpp \
-# 				bot/Bot.cpp
+SRCS_BOT	:=	Utils.cpp \
+				Console.cpp \
+				bot/main.cpp \
+				bot/Bot.cpp
 
-# OBJS_BOT	:=	$(addprefix obj/, $(SRCS_BOT:.cpp=.o))
+OBJS_BOT	:=	$(addprefix bin/, $(SRCS_BOT:.cpp=.o))
 
-COMPILE		=	clang++
+CC			:=	clang++
+CFLAGS		:=	-Wall -Wextra -Werror -std=c++98
 
-FLAGS		=	-Wall -Wextra -Werror -std=c++98
+# -----------------------------------------------------------------------------
+# COLORS
+# -----------------------------------------------------------------------------
+__RED		:=	"\033[1;31m"
+__GREEN		:=	"\033[1;32m"
+__YELLOW	:=	"\033[1;33m"
+__BLUE		:=	"\033[1;36m"
+__WHITE		:=	"\033[1;37m"
+__EOC		:=	"\033[0;0m"
 
-### COLORS ###
+# -----------------------------------------------------------------------------
+# RULES
+# -----------------------------------------------------------------------------
+bin/%.o: srcs/%.cpp
+	@mkdir -p ${dir $@}
+	@${CC} ${CFLAGS} -o $@ -c $< -I includes
+	@echo ${__GREEN}"Compiling "${__WHITE}$<${__EOC}
 
-Y = "\033[33m"
-R = "\033[31m"
-G = "\033[32m"
-B = "\033[34m"
-X = "\033[0m"
-UP = "\033[A"
-CUT = "\033[K"
+all: ${NAME_SERV}
 
-### RULES ###
+${NAME_SERV}: ${OBJS_SERV}
+	@${CC} ${CFLAGS} ${OBJS_SERV} -o ${NAME_SERV}
+	@echo ${__GREEN}"Finished "${__WHITE}${NAME_SERV}" v"${VERSION}" bin target"${__EOC}
 
-all: $(NAME_SERV)
+${NAME_BOT}: ${OBJS_BOT}
+	@${CC} ${CFLAGS} ${OBJS_BOT} -o ${NAME_BOT}
+	@echo ${__GREEN}"Finished "${__WHITE}${NAME_BOT}" v"${VERSION}" bin target"${__EOC}
 
-obj/%.o: srcs/%.cpp
-	@echo $(Y)Compiling [$@]...$(X)
-	@/obj/mkdir -p $(dir $@)
-	@$(COMPILE) $(FLAGS) -o $@ -c $< -I includes
-	@printf $(UP)$(CUT)
+bonus: ${NAME_BOT}
 
-$(NAME_SERV): $(OBJS_SERV)
-	@$(COMPILE) $(FLAGS) $(OBJS_SERV) -o $(NAME_SERV)
-	@echo $(G)Project $(NAME_SERV) by SDESTANN successfully compiled$(X)
-
-# $(NAME_BOT): $(OBJS_BOT)
-# 	@$(COMPILE) $(FLAGS) $(OBJS_BOT)-o $(NAME_BOT)
-# 	@echo $(G)Project $(NAME_BOT) by SDESTANN successfully compiled$(X)
-
-bonus: $(NAME_BOT)
-
-run: $(NAME_SERV)
-	./$(NAME_SERV) 6667 test
-# run-bonus: $(NAME_BOT)
-# 	./$(NAME_BOT) 127.0.0.1 6667 test general
+run: ${NAME_SERV}
+	./${NAME_SERV} 6667 test
+run-bonus: ${NAME_BOT}
+	./${NAME_BOT} 127.0.0.1 6667 test general
 
 clean:
-	@echo $(R)Cleaning FT_IRC ! $(G)[$(OBJDIR)]...$(X)
-	@/obj/rm -Rf obj/
+	@rm -rf bin/
 
 fclean: clean
-	@echo $(R)FCleaning FT_IRC ! $(G)[$(NAME_SERV)]...$(X)
-	@/obj/rm -f $(NAME_SERV)
-# @echo $(R)FCleaning FT_IRC ! $(G)[$(NAME_BOT)]...$(X)
-# @/obj/rm -f $(NAME_BOT)
+	@rm -rf ${NAME_SERV} ${NAME_BOT}
+	@echo ${__BLUE}"Cleaned "${__WHITE}"bin target(s)"${__EOC}
 
 re: fclean all
+re-all: fclean ${NAME_SERV} ${NAME_BOT}
 
-.PHONY: all clean fclean re
+.PHONY: all fclean clean re

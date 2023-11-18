@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   JoinCommand.hpp                                    :+:      :+:    :+:   */
+/*   TimeCommand.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/16 11:23:56 by nours42          #+#    #+#             */
-/*   Updated: 2023/11/18 18:32:25 by nours42          ###   ########.fr       */
+/*   Created: 2022/03/23 10:58:08 by nours42          #+#    #+#             */
+/*   Updated: 2023/11/18 18:32:09 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef JOINCOMMAND_HPP
-#define JOINCOMMAND_HPP
+#ifndef TIMECOMMAND_HPP
+#define TIMECOMMAND_HPP
 
 #include "Command.hpp"
 #include "Server.hpp"
+#include "Channel.hpp"
 
-class JoinCommand : public Command
+class TimeCommand : public Command
 {
 	protected:
-		Server*	_server;
+		Server		*_server;
+
 	public:
-		JoinCommand(Server* sever);
-		~JoinCommand(void);
+		TimeCommand(Server* sever);
+		~TimeCommand(void);
 
 		bool onCommand(User* sender, std::vector<std::string> args);
 };
