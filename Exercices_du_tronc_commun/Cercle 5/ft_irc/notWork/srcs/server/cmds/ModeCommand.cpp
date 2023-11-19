@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/18 18:30:55 by nours42           #+#    #+#             */
-/*   Updated: 2023/11/18 18:30:56 by nours42          ###   ########.fr       */
+/*   Created: 2023/11/19 13:27:09 by nours42           #+#    #+#             */
+/*   Updated: 2023/11/19 13:35:14 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,26 @@
 #include "Console.hpp"
 #include <iostream>
 #include <sstream>
+
+//////////////////////////////// A QUOI JE SERS ///////////////////////////////
+//
+//  OBLIGATOIRE DANS LE SUJET : MODE
+//      Je sers a parametrer le mode d'un channel. Les modes existants sont :
+//          o - give/take channel operator privileges;
+//          s - secret channel flag;
+//          i - invite-only channel flag;
+//
+//  J'ai donc les fonctions :
+//
+//      SENDCHANNELMODE -	recupere le mode d'un channel et l'affiche, cela
+// 							peut servir a savoir pourQuoi un user n'a pas acces
+// 							a un serveur. ATTENTION si un user n'est pas
+//							operator, cela ne doit afficher les channel secret.
+//		GIVEMODERATOR - TAKEMODERATOR - donne les droits operator a un user.
+//		SECRETMODE	-		Change le mode en secret
+//		INVITEMODE	-		Change le mode en invite-only mode
+//
+///////////////////////////////////////////////////////////////////////////////
 
 ModeCommand::ModeCommand(Server *server) : _server(server) {}
 ModeCommand::~ModeCommand(void) {}

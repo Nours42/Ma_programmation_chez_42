@@ -106,6 +106,10 @@ void Server::connect(void)
                 struct sockaddr_in client_addr;
                 socklen_t client_len = sizeof(client_addr);
                 int client_socket = accept(_server, (struct sockaddr *) &client_addr, &client_len);
+				//
+				std::cout << "pollResult : " << pollResult << std::endl;
+				std::cout << "client_sovcket : " << client_socket << std::endl;
+				//
                 if (client_socket < 0)
 				{
                     Console::error("accept: failed");
@@ -135,6 +139,7 @@ void Server::connect(void)
 						User* user = _userManager.findBySocket(client_socket);
 						if (user == NULL)
 						{
+							Console::error("le User est NULL server ligne 142");
 							continue;
 						}
 						if (std::string(buffer).find("\n") == std::string::npos)
@@ -162,7 +167,7 @@ void Server::connect(void)
 					} 
 					else if (received_bytes == 0)
 					{
-						
+						Console::error("Erreur 0 bytes recu");
 					}
 					else
 					{
