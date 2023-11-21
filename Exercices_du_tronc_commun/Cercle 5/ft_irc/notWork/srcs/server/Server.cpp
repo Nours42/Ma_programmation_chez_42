@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 13:18:15 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/21 16:36:30 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/21 17:30:32 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ void Server::connect(void)
 					char	buffer[1024];
 					std::memset(buffer, 0, sizeof(buffer));
 					ssize_t received_bytes = recv(fds[i].fd, buffer, sizeof(buffer), 0);
+					std::cout << "buffer : " << buffer << std::endl;
 					if (received_bytes > 0)
 					{
 						//
@@ -186,6 +187,7 @@ void Server::connect(void)
 							//
 							user->_message = std::string(buffer);
 						}
+						std::cout << "user->message : " << user->_message << std::endl;
 						std::vector<std::string> cmd_line = Utils::str_split(user->_message, "\n");
 						for (size_t i = 0; i < cmd_line.size(); i++)
 						{

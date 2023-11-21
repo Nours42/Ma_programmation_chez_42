@@ -44,8 +44,8 @@ Server::Server(int port, std::string password) : _port(port), _password(password
 	setOpPassword("operator");									// mot de passe des operators
 
 	_cmdsManager.on("PASS", new PassCommand(this));
-	_cmdsManager.on("USER", new UserCommand());
 	_cmdsManager.on("NICK", new NickCommand(this));
+	_cmdsManager.on("USER", new UserCommand());
 	_cmdsManager.on("JOIN", new JoinCommand(this));
 	_cmdsManager.on("PRIVMSG", new PrivmsgCommand(this));
 	_cmdsManager.on("NOTICE", new PrivmsgCommand(this));
