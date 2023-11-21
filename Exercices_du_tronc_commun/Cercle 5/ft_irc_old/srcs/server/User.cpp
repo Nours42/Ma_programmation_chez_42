@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   User.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:07:40 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/01 16:55:28 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/15 18:04:00 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ bool	User::tryConnect(void)
 		return (false);
 	setConnected(true);
 	std::cout << "Welcome to my IRC " << _username << " !" << std::endl;
-	std::cout << _username << " has join IRC" << std::endl;
+	std::cout << _username << " is join IRC" << std::endl;
 	return (true);
 };
 
@@ -61,7 +61,7 @@ std::string	User::to_string(bool isAnon)
 
 bool	User::isMode(char mode)
 {
-	if (!hasMode(mode))
-		return false;
+	//if (!hasMode(mode))
+	//	return false;
 	return _modes[mode];
 }

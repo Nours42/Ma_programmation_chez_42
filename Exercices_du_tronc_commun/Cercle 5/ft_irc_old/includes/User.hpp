@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   User.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 18:43:22 by nours42           #+#    #+#             */
-/*   Updated: 2023/11/02 10:40:01 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/15 18:02:44 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <netdb.h>
 # include <map>
 # include <sstream>
+# include "Console.hpp"
 
 class	User
 {

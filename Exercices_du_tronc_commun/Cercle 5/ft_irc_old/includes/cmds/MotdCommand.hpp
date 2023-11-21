@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   MotdCommand.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:44:00 by nours42           #+#    #+#             */
-/*   Updated: 2023/11/01 16:44:52 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/15 18:06:27 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include "Command.hpp"
 # include "../Server.hpp"
 # include "../Channel.hpp"
+
+class Server;
 
 class MotdCommand : public Command
 {

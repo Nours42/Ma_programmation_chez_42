@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sdestann <sdestann@student.42.fr>          +#+  +:+       +#+         #
+#    By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/14 10:38:18 by sdestann          #+#    #+#              #
-#    Updated: 2023/11/02 10:10:16 by sdestann         ###   ########.fr        #
+#    Updated: 2023/11/15 18:08:44 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,24 +20,12 @@ SRCS_SERV	=	Utils.cpp \
 				server/main.cpp \
 				server/Server.cpp \
 				server/Channel.cpp \
-				server/cmds/PassCommand.cpp \
-				server/cmds/UserCommand.cpp \
-				server/cmds/NickCommand.cpp \
-				server/cmds/JoinCommand.cpp \
-				server/cmds/PrivmsgCommand.cpp \
-				server/cmds/QuitCommand.cpp \
+				server/User.cpp		\
 				server/cmds/TopicCommand.cpp \
-				server/cmds/PartCommand.cpp \
 				server/cmds/ModeCommand.cpp \
-				server/cmds/PingCommand.cpp \
-				server/cmds/MotdCommand.cpp \
-				server/cmds/VersionCommand.cpp \
-				server/cmds/TimeCommand.cpp \
 				server/cmds/InviteCommand.cpp \
-				server/cmds/OperCommand.cpp \
-				server/cmds/ListCommand.cpp \
-				server/cmds/KickCommand.cpp \
-				server/cmds/NamesCommand.cpp
+				server/cmds/KickCommand.cpp
+				
 
 OBJS_SERV	:=	$(addprefix bin/, $(SRCS_SERV:.cpp=.o))
 
