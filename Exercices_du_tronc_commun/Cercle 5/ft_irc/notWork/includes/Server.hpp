@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 13:15:17 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/21 13:15:20 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/21 16:41:38 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ class Server
 		char						_opt;
 		int							_server;
 		struct sockaddr_in			_address;
-		socklen_t					_addressSize;
+		//socklen_t					_addressSize;
 
 		// int							_kq;
 		// std::vector<struct kevent>	_changes;

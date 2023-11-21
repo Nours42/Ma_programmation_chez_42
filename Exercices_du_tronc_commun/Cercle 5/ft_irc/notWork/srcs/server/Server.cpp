@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 13:18:15 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/21 14:48:35 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/21 16:36:30 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,57 +86,63 @@ void Server::connect(void)
 	fcntl(_server, F_SETFL, O_NONBLOCK);
 	if (listen(_server, 42) < 0)
 		Console::log("listen: error");
-	struct pollfd fds[1];
+	struct pollfd fds[64];
+    int nfds = 1;
+	int client_socket;
     fds[0].fd = _server;
     fds[0].events = POLLIN;
-	Console::log("Server listening...");
-	_addressSize = sizeof(_address);
 	while (true)
 	{
-		int pollResult = poll(fds, 1, -1);
+		int pollResult = poll(fds, nfds, -1);
         if (pollResult == -1)
 		{
             Console::error("poll");
             break;
         }
-        if (pollResult > 0)
+        for (int i = 0; i < nfds; ++i)
 		{
-            if (fds[0].revents & POLLIN)
+            if (fds[i].revents & POLLIN)
 			{
 				//
-				std::cout << "(fds[0].revents & POLLIN)" << std::endl;
+				std::cout << "(fds[" << i << "].revents & POLLIN)" << std::endl;
 				//
-                struct sockaddr_in client_addr;
-                socklen_t client_len = sizeof(client_addr);
-                int client_socket = accept(_server, (struct sockaddr *) &client_addr, &client_len);
-				//
-				std::cout << "pollResult : " << pollResult << std::endl;
-				std::cout << "client_sovcket : " << client_socket << std::endl;
-				//
-                if (client_socket < 0)
-				{
+				if (fds[i].fd == _server)
+                {
 					//
-					std::cout << "(client_socket < 0)" << std::endl;
+					std::cout << "(fds[" << i << "].fd == _server)" << std::endl;
 					//
-                    Console::error("accept: failed");
+					struct sockaddr_in client_addr;
+					socklen_t client_len = sizeof(client_addr);
+					client_socket = accept(_server, (struct sockaddr *) &client_addr, &client_len);
+					
+					if (client_socket < 0)
+					{
+						//
+						std::cout << "(client_socket < 0)" << std::endl;
+						//
+						Console::error("accept: failed");
+					}
+					else
+					{
+						//
+						std::cout << "!(client_socket < 0)" << std::endl;
+						//
+						fcntl(client_socket, F_SETFL, O_NONBLOCK);
+						fds[nfds].fd = client_socket;
+                        fds[nfds].events = POLLIN;
+                        nfds++;
+                        Console::print("New client connected!", "OK", Console::GREEN);
+                        send(client_socket, "PING :Hello\r\n", 13, 0);
+					}
 				}
 				else
 				{
 					//
-					std::cout << "!(client_socket < 0)" << std::endl;
-					//
-					fcntl(client_socket, F_SETFL, O_NONBLOCK);
-					_userManager.add(new User(client_socket, client_addr));
-					send(client_socket, "PING :Hello\r\n", 13, 0);
-				}
-				if (fds[0].fd == client_socket)
-				{
-					//
-					std::cout << "(fds[0].fd == client_socket)" << std::endl;
+					std::cout << "fds[" << i << "].fd != _server" << std::endl;
 					//
 					char	buffer[1024];
-					std::memset(buffer, 0, 1024);
-					ssize_t received_bytes = recv(client_socket, buffer, sizeof(buffer), 0);
+					std::memset(buffer, 0, sizeof(buffer));
+					ssize_t received_bytes = recv(fds[i].fd, buffer, sizeof(buffer), 0);
 					if (received_bytes > 0)
 					{
 						//
@@ -205,6 +211,13 @@ void Server::connect(void)
 						std::cout << "(received_bytes == 0)" << std::endl;
 						//
 						Console::error("Erreur 0 bytes recu");
+                        close(fds[i].fd);
+                        for (int j = i; j < nfds - 1; ++j)
+						{
+                            fds[j] = fds[j + 1];
+                        }
+                        nfds--;
+						Console::print("Client ", "disconnected", Console::RED);
 					}
 					else
 					{
