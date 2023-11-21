@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocartier <ocartier@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/21 17:00:59 by ocartier          #+#    #+#             */
-/*   Updated: 2022/11/29 11:35:19 by ocartier         ###   ########.fr       */
+/*   Created: 2023/11/21 13:20:42 by sdestann          #+#    #+#             */
+/*   Updated: 2023/11/21 13:21:00 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

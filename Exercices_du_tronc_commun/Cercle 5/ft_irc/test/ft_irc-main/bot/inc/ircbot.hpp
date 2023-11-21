@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ircbot.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocartier <ocartier@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/19 14:10:07 by ocartier          #+#    #+#             */
-/*   Updated: 2022/12/08 14:19:01 by ocartier         ###   ########.fr       */
+/*   Created: 2023/11/21 13:19:56 by sdestann          #+#    #+#             */
+/*   Updated: 2023/11/21 13:19:57 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef IRCBOT_HPP
 # define IRCBOT_HPP

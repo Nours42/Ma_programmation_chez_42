@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocartier <ocartier@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/20 13:48:59 by ocartier          #+#    #+#             */
-/*   Updated: 2022/11/29 14:47:12 by ocartier         ###   ########.fr       */
+/*   Created: 2023/11/21 13:20:35 by sdestann          #+#    #+#             */
+/*   Updated: 2023/11/21 13:20:35 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include <iostream>
 #include "ft_irc.hpp"

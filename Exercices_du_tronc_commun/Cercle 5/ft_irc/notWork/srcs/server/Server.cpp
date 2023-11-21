@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/16 21:57:50 by nours42          #+#    #+#             */
-/*   Updated: 2023/11/18 18:29:44 by nours42          ###   ########.fr       */
+/*   Created: 2023/11/21 13:18:15 by sdestann          #+#    #+#             */
+/*   Updated: 2023/11/21 14:48:35 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,9 @@ void Server::connect(void)
 		{
             if (fds[0].revents & POLLIN)
 			{
+				//
+				std::cout << "(fds[0].revents & POLLIN)" << std::endl;
+				//
                 struct sockaddr_in client_addr;
                 socklen_t client_len = sizeof(client_addr);
                 int client_socket = accept(_server, (struct sockaddr *) &client_addr, &client_len);
@@ -112,50 +115,81 @@ void Server::connect(void)
 				//
                 if (client_socket < 0)
 				{
+					//
+					std::cout << "(client_socket < 0)" << std::endl;
+					//
                     Console::error("accept: failed");
 				}
 				else
 				{
+					//
+					std::cout << "!(client_socket < 0)" << std::endl;
+					//
 					fcntl(client_socket, F_SETFL, O_NONBLOCK);
 					_userManager.add(new User(client_socket, client_addr));
 					send(client_socket, "PING :Hello\r\n", 13, 0);
 				}
 				if (fds[0].fd == client_socket)
 				{
-				char	buffer[1024];
-				std::memset(buffer, 0, 1024);
-				ssize_t received_bytes = recv(client_socket, buffer, sizeof(buffer), 0);
+					//
+					std::cout << "(fds[0].fd == client_socket)" << std::endl;
+					//
+					char	buffer[1024];
+					std::memset(buffer, 0, 1024);
+					ssize_t received_bytes = recv(client_socket, buffer, sizeof(buffer), 0);
 					if (received_bytes > 0)
 					{
+						//
+						std::cout << "(received_bytes > 0)" << std::endl;
+						//
 						if (std::string(buffer) == "\r\n")
 						{
+							//
+							std::cout << "(std::string(buffer) == \"\r\n\")" << std::endl;
+							//
 							continue;
 						}
 						if (std::strlen(buffer) > 511)
 						{
+							//
+							std::cout << "(std::strlen(buffer) > 511)" << std::endl;
+							//
 							send(client_socket, "Limit message to 512 characteres\r\n", 34, 0);
 							continue;
 						}
 						User* user = _userManager.findBySocket(client_socket);
 						if (user == NULL)
 						{
-							Console::error("le User est NULL server ligne 142");
+							//
+							std::cout << "(user == NULL)" << std::endl;
+							//
 							continue;
 						}
 						if (std::string(buffer).find("\n") == std::string::npos)
 						{
+							//
+							std::cout << "(std::string(buffer).find(\"\n\") == std::string::npos)" << std::endl;
+							//
 							user->_message += std::string(buffer);
 							continue;
 						}
 						if (user->_message.empty())
 						{
+							//
+							std::cout << "(user->_message.empty())" << std::endl;
+							//
 							user->_message = std::string(buffer);
 						}
 						std::vector<std::string> cmd_line = Utils::str_split(user->_message, "\n");
 						for (size_t i = 0; i < cmd_line.size(); i++)
 						{
 							if (cmd_line[i].length() == 0)
+							{
+								//
+								std::cout << "(cmd_line[i].length() == 0)" << std::endl;
+								//
 								continue;
+							}
 							Console::print("=> RECEIVED", cmd_line[i], Console::BLUE);
 							std::vector<std::string> cmd_args = Utils::str_parse(cmd_line[i]);
 							for (size_t j = 0; j < cmd_args.size(); j++)
@@ -167,10 +201,16 @@ void Server::connect(void)
 					} 
 					else if (received_bytes == 0)
 					{
+						//
+						std::cout << "(received_bytes == 0)" << std::endl;
+						//
 						Console::error("Erreur 0 bytes recu");
 					}
 					else
 					{
+						//
+						std::cout << "(else)" << std::endl;
+						//
 						// Erreur de réception
 						Console::error("recv: error");
 					}

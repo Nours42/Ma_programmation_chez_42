@@ -3,12 +3,13 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+         #
+#    By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/03/01 10:39:56 by nours42          #+#    #+#              #
-#    Updated: 2023/11/17 20:14:50 by nours42          ###   ########.fr        #
+#    Created: 2023/11/21 13:14:16 by sdestann          #+#    #+#              #
+#    Updated: 2023/11/21 13:14:18 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 NAME_SERV	:=	ircserv
 NAME_BOT	:=	ircbot

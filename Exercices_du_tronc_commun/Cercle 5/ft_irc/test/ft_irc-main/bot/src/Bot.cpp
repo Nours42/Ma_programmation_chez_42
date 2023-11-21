@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bot.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocartier <ocartier@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/19 13:58:32 by ocartier          #+#    #+#             */
-/*   Updated: 2022/12/08 14:19:31 by ocartier         ###   ########.fr       */
+/*   Created: 2023/11/21 13:20:11 by sdestann          #+#    #+#             */
+/*   Updated: 2023/11/21 13:20:13 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   utils.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ocartier <ocartier@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/19 14:09:53 by ocartier          #+#    #+#             */
-/*   Updated: 2022/12/08 14:18:48 by ocartier         ###   ########.fr       */
+/*   Created: 2023/11/21 13:20:29 by sdestann          #+#    #+#             */
+/*   Updated: 2023/11/21 13:20:30 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include <string.h>
 #include <string>
