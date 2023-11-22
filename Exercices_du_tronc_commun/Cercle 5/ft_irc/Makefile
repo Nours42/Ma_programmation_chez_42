@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+         #
+#    By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/21 13:14:16 by sdestann          #+#    #+#              #
-#    Updated: 2023/11/22 11:00:38 by sdestann         ###   ########.fr        #
+#    Updated: 2023/11/22 20:58:13 by nours42          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,8 +71,8 @@ bonus: ${NAME_BOT}
 
 run: ${NAME_SERV}
 	./${NAME_SERV} 6667 test
-run-bonus: ${NAME_BOT}
-	./${NAME_BOT} 127.0.0.1 6667 test general
+# run-bonus: ${NAME_BOT}
+# 	./${NAME_BOT} 127.0.0.1 6667 test general
 
 clean:
 	@rm -rf srcs/*.o
@@ -82,6 +82,6 @@ fclean: clean
 	@echo ${__BLUE}"Cleaned "${__WHITE}".o target(s)"${__EOC}
 
 re: fclean all
-re-all: fclean ${NAME_SERV} ${NAME_BOT}
+# re-all: fclean ${NAME_SERV} ${NAME_BOT}
 
 .PHONY: all fclean clean re

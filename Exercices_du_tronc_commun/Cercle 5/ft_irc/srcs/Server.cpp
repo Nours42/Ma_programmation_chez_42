@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:20:43 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/22 17:59:03 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/22 21:29:56 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	Server::newUser(int & fd)
 	buffpass = buffer.substr(0, pos);
 	read_log(fd, buffpass, this);
 	if (newuser->conStep == 1)
-		this->passUser(fd, buffer, newuser);
+		this->passUser(fd, buffpass, newuser);
 
 	read(fd, &buffer[0], BUFFSIZE);
 	pos = 0;
@@ -80,7 +80,7 @@ void	Server::newUser(int & fd)
 	buffcap = buffer.substr(0, pos);
 	read_log(fd, buffcap, this);
 	if (newuser->conStep == 2)
-		this->capUser(fd, buffer, newuser);
+		this->capUser(fd, buffcap, newuser);
 
 	read(fd, &buffer[0], BUFFSIZE);
 	pos = 0;
@@ -88,18 +88,16 @@ void	Server::newUser(int & fd)
 	buffnick = buffer.substr(0, pos);
 	read_log(fd, buffnick, this);
 	if (newuser->conStep == 3)
-		this->nickUser(fd, buffer, newuser);
+		this->nickUser(fd, buffnick, newuser);
 
 	read(fd, &buffer[0], BUFFSIZE);
-	std::cout << buffer << std::endl;
-	std::cout << buffer.length() << std::endl;
 	pos = 0;
 	pos = buffer.find('\n');
-	std::cout << pos << std::endl;
 	buffuser = buffer.substr(0, pos);
 	read_log(fd, buffuser, this);
 	if (newuser->conStep == 4)
-		this->userUser(fd, buffer, newuser);
+		this->userUser(fd, buffuser, newuser);
+	
 	fds.push_back(pollfd());
 	this->fds[current_size].fd = fd;
 	this->fds[current_size].events = POLLIN;
@@ -255,8 +253,8 @@ std::string	Server::writeLoop(int & fd, std::string str)
 
 void	Server::passUser(int & fd, std::string message, User * user)
 {
-	std::cout << "passUser" << message << std::endl;
-	std::cout << "passUser" << message.length() << std::endl;
+	// std::cout << "passUser" << message << std::endl;
+	// std::cout << "passUser" << message.length() << std::endl;
 	std::string	rpl_error;
 	if (message.compare(0, 4, "PASS") != 0)
 	{
@@ -286,8 +284,8 @@ void	Server::passUser(int & fd, std::string message, User * user)
 
 void	Server::capUser(int & fd, std::string message, User * user)
 {
-	std::cout << "capUser" << message << std::endl;
-	std::cout << "capUser" << message.length() << std::endl;
+	// std::cout << "capUser" << message << std::endl;
+	// std::cout << "capUser" << message.length() << std::endl;
 	std::string	rpl_error;
 	if (message.compare(0, 3, "CAP") != 0)
 	{
@@ -302,8 +300,8 @@ void	Server::capUser(int & fd, std::string message, User * user)
 
 void	Server::nickUser(int & fd, std::string message, User * user)
 {
-	std::cout << "nickUser" << message << std::endl;
-	std::cout << "nickUser" << message.length() << std::endl;
+	// std::cout << "nickUser" << message << std::endl;
+	// std::cout << "nickUser" << message.length() << std::endl;
 	std::string	rpl_error;
 	if (message.compare(0, 4, "NICK") != 0)
 	{
@@ -330,13 +328,15 @@ void	Server::nickUser(int & fd, std::string message, User * user)
 	if (rpl_error.empty() == false)
 		throw (NickException());
 	user->conStep++;
-	user->nickname = nick;
+	ssize_t pos = nick.find('\n');
+	std::string nic = nick.substr(0, pos);
+	user->nickname = nic;
 }
 
 void	Server::userUser(int & fd, std::string message, User * user)
 {
-	std::cout << "userUser" << message << std::endl;
-	std::cout << "userUser" << message.length() << std::endl;
+	// std::cout << "userUser " << message << std::endl;
+	// std::cout << "userUser " << message.length() << std::endl;
 	std::string	rpl_error;
 	if (message.compare(0, 4, "USER") != 0)
 	{
@@ -352,6 +352,7 @@ void	Server::userUser(int & fd, std::string message, User * user)
 		send_log(user->fd, rpl_error, this);
 	}
 	std::string	username = line.substr(0, line.find(' '));
+	// std::cout << "username LENGTH : " << username.length() << std::endl;
 	line.erase(0, line.find(' ') + 1);
 	if ((line[0] != '0' || line[1] != ' ' || line[2] != '*') && rpl_error.empty())
 	{
@@ -360,7 +361,9 @@ void	Server::userUser(int & fd, std::string message, User * user)
 		send_log(user->fd, rpl_error, this);
 	}
 	line.erase(0, 5);
-	std::string	realname = line;
+	ssize_t pos = line.find('\r');
+	std::string	realname = line.substr(0, pos);
+	// std::cout << "realname LENGTH : " << realname.length() << std::endl;
 	if (rpl_error.empty() == false)
 		throw (UserException());
 	user->username = username;
