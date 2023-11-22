@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   User.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: babreton <babreton@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/04 17:48:02 by rrodor            #+#    #+#             */
-/*   Updated: 2023/11/21 10:16:40 by babreton         ###   ########.fr       */
+/*   Created: 2023/11/22 13:19:54 by sdestann          #+#    #+#             */
+/*   Updated: 2023/11/22 13:19:57 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

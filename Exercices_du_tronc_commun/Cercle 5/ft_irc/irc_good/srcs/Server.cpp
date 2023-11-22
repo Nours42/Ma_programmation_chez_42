@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/02 16:24:05 by rrodor            #+#    #+#             */
-/*   Updated: 2023/11/22 11:16:22 by sdestann         ###   ########.fr       */
+/*   Created: 2023/11/22 13:20:43 by sdestann          #+#    #+#             */
+/*   Updated: 2023/11/22 13:20:45 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,12 @@ void	Server::newUser(int & fd)
 	this->users.push_back(newuser);
 
 	rc = read(fd, &buffer[0], BUFFSIZE);
+	std::cout << "Server::newUser" << " buffer : " << buffer << std::endl;
+	std::cout << "Server::newUser" << " buffer length : " << buffer.length() << std::endl;
+	std::cout << "Server::newUser" << " rc : " << rc << std::endl;
+	std::cout << "Server::newUser" << " &buffer[10] : " << &buffer[10] << std::endl;
+	int lolo = buffer.tellg();
+	std::cout << "Server::newUser" << " lolo : " << lolo << std::endl;
 	buffer[rc] = '\0';
 	read_log(fd, buffer, this);
 	if (newuser->conStep == 1)
@@ -251,14 +257,20 @@ void	Server::passUser(int & fd, std::string &message, User * user)
 		send_log(user->fd, rpl_error, this);
 	}
 	std::string pass = message.substr(5);
+	std::cout << "passUser" << " message : " << message << std::endl;
+	std::cout << "passUser" << " pass : " << pass << std::endl;
+	std::cout << "passUser" << " password : " << this->password << std::endl;
 	if (pass.empty())
 	{
 		rpl_error = ":127.0.0.1 461 PASS :Not enough parameters\r\n";
 		send(user->fd, rpl_error.c_str(), rpl_error.length(), 0);
 		send_log(user->fd, rpl_error, this);
 	}
-	if (pass != this->password)
+	if (pass.compare(this->password) != 0)
 	{
+		std::cout << "passUser" << " pass length: " << pass.length() << std::endl;
+	std::cout << "passUser" << " password length: " << this->password.length() << std::endl;
+		std::cout << "diff pass - password : " << pass.compare(this->password) << std::endl;
 		rpl_error = ":127.0.0.1 464 PASS :Password incorrect\r\n";
 		send(user->fd, rpl_error.c_str(), rpl_error.length(), 0);
 		send_log(user->fd, rpl_error, this);
