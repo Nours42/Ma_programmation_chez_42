@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:03:01 by rrodor            #+#    #+#             */
-/*   Updated: 2023/11/22 10:49:02 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/22 10:54:31 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int main(int argc, char const* argv[])
 				}
 				buffer.resize(rc);
 				std::string strmess = buffer;
-				read_log(server->fds[i].fd, &buffer[0], server);
+				read_log(server->fds[i].fd, buffer, server);
 				if (!server->haveN(strmess))
 				{
 					strmess = server->writeLoop(server->fds[i].fd, strmess);

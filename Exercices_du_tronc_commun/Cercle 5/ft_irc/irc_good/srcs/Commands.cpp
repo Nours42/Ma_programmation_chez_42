@@ -6,49 +6,11 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 11:54:12 by rrodor            #+#    #+#             */
-/*   Updated: 2023/11/22 10:31:25 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/22 10:58:47 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_irc.hpp"
-
-//void	irc_join_cases(char *message, User *user, Server *server)
-//{
-//	int flag = 0;
-//	if (message[0] == '0')
-//	{
-//		std::vector<Channel *>::iterator	it = server->channels.begin();
-//		std::vector<Channel *>::iterator	ite = server->channels.end();
-//		while (it != ite)
-//		{
-//			if ((*it)->isInChannel(user) || (*it)->isOpInChannel(user))
-//			{
-//				flag = 1;
-//				std::string	channelName = (*it)->name;
-//				std::string rpl_part = ":" + user->nickname + " PART #" + (*it)->name + " :Left all channels\r\n";
-//				(*it)->channelSendLoop(rpl_part, user->fd, server, 1);
-//				(*it)->nbUsers--;
-//				(*it)->deleteChannelUser(user, server, 0);
-//			}
-//			it++;
-//		}
-//		if (flag == 0)
-//		{
-//			std::string rpl_not_valid_name = ":127.0.0.1 476 " + user->nickname + " " + message + " :Invalid channel name\r\n";
-//			send(user->fd, rpl_not_valid_name.c_str(), rpl_not_valid_name.length(), 0);
-//			send_log(user->fd, &rpl_not_valid_name.c_str(), server);
-//		}
-//		server->checkChannel();
-//		return ;
-//	}
-//	else
-//	{
-//		std::string rpl_not_valid_name = ":127.0.0.1 476 " + user->nickname + " " + message + " :Invalid channel name\r\n";
-//		send(user->fd, rpl_not_valid_name.c_str(), rpl_not_valid_name.length(), 0);
-//		send_log(user->fd, &rpl_not_valid_name.c_str(), server);
-//		return ;
-//	}
-//}
 
 void irc_join_cases(const std::string& message, User *user, Server *server) {
     int flag = 0;
@@ -69,14 +31,14 @@ void irc_join_cases(const std::string& message, User *user, Server *server) {
         if (flag == 0) {
             std::string rpl_not_valid_name = ":127.0.0.1 476 " + user->nickname + " " + message + " :Invalid channel name\r\n";
             send(user->fd, rpl_not_valid_name.c_str(), rpl_not_valid_name.length(), 0);
-            send_log(user->fd, &rpl_not_valid_name, server);
+            send_log(user->fd, rpl_not_valid_name, server);
         }
         server->checkChannel();
         return;
     } else {
         std::string rpl_not_valid_name = ":127.0.0.1 476 " + user->nickname + " " + message + " :Invalid channel name\r\n";
         send(user->fd, rpl_not_valid_name.c_str(), rpl_not_valid_name.length(), 0);
-        send_log(user->fd, &rpl_not_valid_name, server);
+        send_log(user->fd, rpl_not_valid_name, server);
         return;
     }
 }
@@ -93,18 +55,6 @@ void	join_rmInvit(Channel *channel, User *user)
 	}
 }
 
-//char	*parse_join(char *message, std::string &passwd)
-//{
-//	int i = 0;
-//	int j = 0;
-//	while (message[i] != ' ' && message[i] != '\0')
-//		i++;
-//	passwd = message;
-//	if (i + 1 < (int)passwd.length())
-//		passwd = passwd.substr(i + 1, passwd.length());
-//	else
-//		passwd = "";
-//	message[i] = '\0';
 std::string parse_join(std::string message, std::string &passwd) {
     size_t i = 0;
     while (i < message.length() && message[i] != ' ')
@@ -117,23 +67,18 @@ std::string parse_join(std::string message, std::string &passwd) {
 	return message;
 }
 
-//void	irc_join(char *message, User *user, Server *server)
 void irc_join(std::string message, User *user, Server *server) 
 {
 	std::string passwd;
 	std::cout << COMMAND << "JOIN" << std::endl;
-	//message = message + 5;
-	//if (message[0] == '\0')
 	if (message.empty())
     {
         std::string err_need_more_param = ":127.0.0.1 461 " + user->nickname + " JOIN :Not enough parameters\r\n";
         send(user->fd, err_need_more_param.c_str(), err_need_more_param.length(), 0);
-        send_log(user->fd, &err_need_more_param, server);
+        send_log(user->fd, err_need_more_param, server);
         return ;
     }
 	std::stringstream ss(message);
-	//message = parse_join(message, passwd);
-	//if (message[0] != '#')
 	std::string token;
     std::getline(ss, token, ' ');
     if (token.empty())
@@ -141,17 +86,13 @@ void irc_join(std::string message, User *user, Server *server)
 
     if (token[0] != '#')
 		return irc_join_cases(token, user, server);
-	//message = message + 1;
 	token = token.substr(1);
-	//message = strtok(message, "\r\n");
-	//std::stringstream ss(message);
 
     std::string line;
     std::getline(ss, line, '\n');
 	
 	for (std::vector<Channel *>::iterator it = server->channels.begin(); it != server->channels.end(); ++it)
 	{
-		//if ((*it)->name == message)
 		if ((*it)->name == token)
 		{
 			if ((*it)->isModeI())
@@ -160,7 +101,7 @@ void irc_join(std::string message, User *user, Server *server)
 				{
 					std::string rpl_not_invited = ":127.0.0.1 473 " + user->nickname + " #" + (*it)->name + " :Cannot join channel (+i)\r\n";
 					send(user->fd, rpl_not_invited.c_str(), rpl_not_invited.length(), 0);
-					send_log(user->fd, &rpl_not_invited, server);
+					send_log(user->fd, rpl_not_invited, server);
 					return;
 				}
 			}
@@ -170,7 +111,7 @@ void irc_join(std::string message, User *user, Server *server)
 				{
 					std::string rpl_channel_full = ":127.0.0.7 471 " + user->nickname + " #" + (*it)->name + " :Cannot join channel (+l)\r\n";
 					send(user->fd, rpl_channel_full.c_str(), rpl_channel_full.length(), 0);
-					send_log(user->fd, &rpl_channel_full, server);
+					send_log(user->fd, rpl_channel_full, server);
 					return;
 				}
 			}
@@ -180,7 +121,7 @@ void irc_join(std::string message, User *user, Server *server)
 				{
 					std::string rpl_wrong_passwd = ":127.0.0.1 475 " + user->nickname + " #" + (*it)->name + " :Cannot join channel (+k)\r\n";
 					send(user->fd, rpl_wrong_passwd.c_str(), rpl_wrong_passwd.length(), 0);
-					send_log(user->fd, &rpl_wrong_passwd, server);
+					send_log(user->fd, rpl_wrong_passwd, server);
 					return;
 				}
 			}
@@ -190,25 +131,22 @@ void irc_join(std::string message, User *user, Server *server)
 			for (std::vector<User *>::iterator it2 = (*it)->users.begin(); it2 != (*it)->users.end(); ++it2)
 			{
 				send((*it2)->fd, rpl_join.c_str(), rpl_join.length(), 0);
-				send_log((*it2)->fd, &rpl_join, server);
+				send_log((*it2)->fd, rpl_join, server);
 			}
 			for (std::vector<User *>::iterator it2 = (*it)->operators.begin(); it2 != (*it)->operators.end(); ++it2)
 			{
 				send((*it2)->fd, rpl_join.c_str(), rpl_join.length(), 0);
-				send_log((*it2)->fd, &rpl_join, server);
+				send_log((*it2)->fd, rpl_join, server);
 			}
 			(*it)->printChannelUsers(JOIN);
 			server->printServerChannels((*it)->name);
 			std::string topic_mess = "TOPIC #" + (*it)->name + "\r\n";
-			//char *topic = strdup(topic_mess.c_str());
-			//irc_topic(topic, user, server);
 			irc_topic(topic_mess, user, server);
 			irc_names(*it, user, server);
 			(*it)->nbUsers++;
 			return ;
 		}
 	}
-	//Channel *channel = new Channel(message);
 	Channel *channel = new Channel(token);
 	channel->lastTopicUpdateWho = user->nickname;
 	channel->nbUsers = 1;
@@ -217,85 +155,12 @@ void irc_join(std::string message, User *user, Server *server)
 
 	std::string rpl_join = ":" + user->nickname + " JOIN #" + channel->name + "\r\n";
 	send(user->fd, rpl_join.c_str(), rpl_join.length(), 0);
-	send_log(user->fd, &rpl_join, server);
+	send_log(user->fd, rpl_join, server);
 
 	channel->printChannelUsers(JOIN);
 	server->printServerChannels(channel->name);
 	irc_names(channel, user, server);
 }
-
-//void	irc_privmsg(char *message, User *user, Server *server)
-//{
-//	std::cout << COMMAND << "PRIVMSG" << std::endl;
-//	message = message + 8;
-//	message = strtok(message, "\r\n");
-//	if (message[0] == '\0')
-//    {
-//        std::string err_need_more_param = ":127.0.0.1 461 " + user->nickname + " PRIVMSG :Not enough parameters\r\n";
-//        send(user->fd, err_need_more_param.c_str(), err_need_more_param.length(), 0);
-//        send_log(user->fd, &err_need_more_param.c_str(), server);
-//        return ;
-//    }
-//	int	i = 0;
-//	while (message[i] != ':')
-//		i++;
-//	std::string dest = message;
-//	dest = dest.substr(0, i - 1);
-//	if (dest[0] == '#' && !(*server->getChannelByName(dest))->isInChannel(user) && !(*server->getChannelByName(dest))->isOpInChannel(user))
-//		return;
-//	std::cout << PRIVMSG << "sent to " << dest << std::endl;
-//	message = message + i + 1;
-//	std::cout << PRIVMSG << "\"" << message << "\"" << RESET << std::endl;
-//	if (dest[0] == '#')
-//	{
-//		dest = dest.substr(1, dest.length());
-//		for (std::vector<Channel *>::const_iterator it = server->channels.begin(); it != server->channels.end(); it++)
-//		{
-//			if (dest == (*it)->name)
-//			{
-//				std::string rpl_privmsg = ":" + user->nickname + " PRIVMSG #" + (*it)->name + " :" + message + "\r\n";
-//				for (std::vector<User *>::const_iterator it2 = (*it)->users.begin(); it2 != (*it)->users.end(); it2++)
-//				{
-//					if ((*it2)->fd != user->fd)
-//					{
-//						send((*it2)->fd, rpl_privmsg.c_str(), rpl_privmsg.length(), 0);
-//						send_log((*it2)->fd, &rpl_privmsg.c_str(), server);
-//					}
-//				}
-//				for (std::vector<User *>::const_iterator it3 = (*it)->operators.begin(); it3 != (*it)->operators.end(); it3++)
-//				{
-//					if ((*it3)->fd != user->fd)
-//					{
-//						send((*it3)->fd, rpl_privmsg.c_str(), rpl_privmsg.length(), 0);
-//						send_log((*it3)->fd, &rpl_privmsg.c_str(), server);
-//					}
-//				}
-//				return ;
-//			}
-//		}
-//		std::string err_no_such_channel = "127.0.0.1 403 " + user->nickname + " #" + dest + " :No such channel\r\n";
-//		send(user->fd, err_no_such_channel.c_str(), err_no_such_channel.length(), 0);
-//		send_log(user->fd, &err_no_such_channel.c_str(), server);
-//		return ;
-//	}
-//	else
-//	{
-//		for (std::vector<User *>::const_iterator it = server->users.begin(); it != server->users.end(); it++)
-//		{
-//			if (dest == (*it)->nickname)
-//			{
-//				std::string rpl_privmsg = ":" + user->nickname + " PRIVMSG " + (*it)->nickname + " :" + message + "\r\n";
-//				send((*it)->fd, rpl_privmsg.c_str(), rpl_privmsg.length(), 0);
-//				send_log((*it)->fd, &rpl_privmsg.c_str(), server);
-//				return ;
-//			}
-//		}
-//		std::string err_no_such_nick = "127.0.0.1 401 " + user->nickname + " " + dest + " :No such nickname\r\n";
-//		send(user->fd, err_no_such_nick.c_str(), err_no_such_nick.length(), 0);
-//		send_log(user->fd, &err_no_such_nick.c_str(), server);
-//		return ;
-//	}
-//}
 
 void irc_privmsg(std::string message, User *user, Server *server) {
     std::cout << COMMAND << "PRIVMSG" << std::endl;
@@ -303,7 +168,7 @@ void irc_privmsg(std::string message, User *user, Server *server) {
     if (message[0] == '\0') {
         std::string err_need_more_param = ":127.0.0.1 461 " + user->nickname + " PRIVMSG :Not enough parameters\r\n";
         send(user->fd, err_need_more_param.c_str(), err_need_more_param.length(), 0);
-        send_log(user->fd, &err_need_more_param, server);
+        send_log(user->fd, err_need_more_param, server);
         return;
     }
     int i = 0;
@@ -322,13 +187,13 @@ void irc_privmsg(std::string message, User *user, Server *server) {
                 for (std::vector<User *>::const_iterator it2 = (*it)->users.begin(); it2 != (*it)->users.end(); it2++) {
                     if ((*it2)->fd != user->fd) {
                         send((*it2)->fd, rpl_privmsg.c_str(), rpl_privmsg.length(), 0);
-                        send_log((*it2)->fd, &rpl_privmsg, server);
+                        send_log((*it2)->fd, rpl_privmsg, server);
                     }
                 }
                 for (std::vector<User *>::const_iterator it3 = (*it)->operators.begin(); it3 != (*it)->operators.end(); it3++) {
                     if ((*it3)->fd != user->fd) {
                         send((*it3)->fd, rpl_privmsg.c_str(), rpl_privmsg.length(), 0);
-                        send_log((*it3)->fd, &rpl_privmsg, server);
+                        send_log((*it3)->fd, rpl_privmsg, server);
                     }
                 }
                 return;
@@ -336,56 +201,23 @@ void irc_privmsg(std::string message, User *user, Server *server) {
         }
         std::string err_no_such_channel = "127.0.0.1 403 " + user->nickname + " #" + dest + " :No such channel\r\n";
         send(user->fd, err_no_such_channel.c_str(), err_no_such_channel.length(), 0);
-        send_log(user->fd, &err_no_such_channel, server);
+        send_log(user->fd, err_no_such_channel, server);
         return;
     } else {
         for (std::vector<User *>::const_iterator it = server->users.begin(); it != server->users.end(); it++) {
             if (dest == (*it)->nickname) {
                 std::string rpl_privmsg = ":" + user->nickname + " PRIVMSG " + (*it)->nickname + " :" + message + "\r\n";
                 send((*it)->fd, rpl_privmsg.c_str(), rpl_privmsg.length(), 0);
-                send_log((*it)->fd, &rpl_privmsg, server);
+                send_log((*it)->fd, rpl_privmsg, server);
                 return;
             }
         }
         std::string err_no_such_nick = "127.0.0.1 401 " + user->nickname + " " + dest + " :No such nickname\r\n";
         send(user->fd, err_no_such_nick.c_str(), err_no_such_nick.length(), 0);
-        send_log(user->fd, &err_no_such_nick, server);
+        send_log(user->fd, err_no_such_nick, server);
         return;
     }
 }
-
-//void	irc_part(char *message, User *user, Server *server)
-//{
-//	int			rc;
-//	std::cout << COMMAND << "PART" << std::endl;
-
-//	message = message + 6;
-//	message = strtok(message, "\r\n");
-//	std::string rpl_part = message;
-//	std::string	channelName = rpl_part.substr(0, rpl_part.find(' '));
-//	rpl_part.erase(0, rpl_part.find(' ') + 2);
-//	std::string	reason = rpl_part;
-//	rpl_part = ":" + user->nickname + " PART #" + channelName + " :" + rpl_part + "\r\n";
-
-//	std::vector<Channel *>::iterator	it = server->channels.begin();
-//	std::vector<Channel *>::iterator	ite = server->channels.end();
-
-//	while (it != ite)
-//	{
-//		if ((*it)->name == channelName)
-//		{
-//			(*it)->channelSendLoop(rpl_part, user->fd, server, 1);
-//			(*it)->nbUsers--;
-//			rc = (*it)->deleteChannelUser(user, server);
-//			if (rc == 1)
-//			{
-//				delete (*it);
-//				std::cout << DELETE << "Succesfully deleted channel " << "#" << channelName << RESET << std::endl;
-//			}
-//		}
-//		it++;
-//	}
-//}
 
 void irc_part(std::string message, User *user, Server *server) {
     int rc;
@@ -429,55 +261,6 @@ void	irc_names(Channel *channel, User *user, Server *server)
 	channel->channelSendLoop(rpl_endnames, user->fd, server, 1);
 }
 
-//void	irc_quit(char *message, User *user, Server *server)
-//{
-//	std::cout << COMMAND << "QUIT" << std::endl;
-//	message = message + 6;
-//	message = strtok(message, "\r\n");
-//	std::string msg;
-//	if (message == NULL)
-//		msg = "Quit";
-//	else
-//		std::string	msg = message;
-//	std::string rpl_quit = ":" + user->nickname + " QUIT :Quit: " + msg + "\r\n";
-
-//	std::vector<Channel *>::iterator	it = server->channels.begin();
-//	std::vector<Channel *>::iterator	ite = server->channels.end();
-//	int									rc;
-
-//	while (it != ite)
-//	{
-//		if ((*it)->isInChannel(user) || (*it)->isOpInChannel(user))
-//		{
-//			(*it)->channelSendLoop(rpl_quit, user->fd, server, 0);
-//			(*it)->nbUsers--;
-//			rc = (*it)->deleteChannelUser(user, server);
-//			if (rc == 1)
-//			{
-//				std::string name = (*it)->name;
-//				delete (*it);
-//				std::cout << DELETE << "Succesfully deleted channel " << "#" << name << RESET << std::endl;
-//			}
-//			else
-//				(*it)->printChannelUsers(QUIT);
-//		}
-//		it++;
-//	}
-
-//	std::vector<struct pollfd>::iterator	it4 = server->fds.begin();
-//	std::vector<struct pollfd>::iterator	it4e = server->fds.end();
-//	while (it4 != it4e)
-//	{
-//		if ((*it4).fd == user->fd)
-//		{
-//			close((*it4).fd);
-//			(*it4).fd = -1;
-//		}
-//		it4++;
-//	}
-//	delete user;
-//}
-
 void irc_quit(std::string message, User *user, Server *server) {
     std::cout << COMMAND << "QUIT" << std::endl;
 
@@ -515,91 +298,6 @@ void irc_quit(std::string message, User *user, Server *server) {
     delete user;
 }
 
-//void	irc_topic(char *message, User *user, Server *server)
-//{
-//	std::string channel;
-//	std::string topic;
-//	int i = 0;
-//	std::vector<Channel *>::iterator	it;
-//	std::vector<Channel *>::iterator	ite = server->channels.end();
-//	std::time_t t = std::time(0);
-//	std::ostringstream oss;
-//	oss << t;
-//	std::string time_str = oss.str();
-
-//	std::cout << COMMAND << "TOPIC" << std::endl;
-//	message = message + 6;
-//	if (message[0] == '\0')
-//    {
-//        std::string err_need_more_param = ":127.0.0.1 461 " + user->nickname + " TOPIC :Not enough parameters\r\n";
-//        send(user->fd, err_need_more_param.c_str(), err_need_more_param.length(), 0);
-//        send_log(user->fd, &err_need_more_param.c_str(), server);
-//        return ;
-//    }
-//	message = strtok(message, "\r\n");
-//	while (message[i] != ' ' && message[i] != '\0')
-//		i++;
-//	channel = message;
-//	channel = channel.substr(1, i - 1);
-//	it = server->getChannelByName(channel);
-//	if (it == ite)
-//	{
-//		std::string rpl_not_valid_name = ":127.0.0.1 403 " + user->nickname + " #" + channel + " :No such channel\r\n";
-//		send(user->fd, rpl_not_valid_name.c_str(), rpl_not_valid_name.length(), 0);
-//		send_log(user->fd, &rpl_not_valid_name.c_str(), server);
-//		return ;
-//	}
-//	if (!(*it)->isInChannel(user) && !(*it)->isOpInChannel(user))
-//	{
-//		std::string rpl_not_valid_name = ":127.0.0.1 442 " + user->nickname + " #" + channel + " :You're not on that channel\r\n";
-//		send(user->fd, rpl_not_valid_name.c_str(), rpl_not_valid_name.length(), 0);
-//		send_log(user->fd, &rpl_not_valid_name.c_str(), server);
-//		return ;
-//	}
-//	if (message[i] == '\0')
-//	{
-//		if ((*it)->topic == "")
-//		{
-//			std::string rpl_no_topic = ":127.0.0.1 331 " + user->nickname + " #" + channel + " :No topic is set\r\n";
-//			send(user->fd, rpl_no_topic.c_str(), rpl_no_topic.length(), 0);
-//			send_log(user->fd, &rpl_no_topic.c_str(), server);
-//			return ;
-//		}
-//		else
-//		{
-//			std::string rpl_topic = ":127.0.0.1 332 " + user->nickname + " #" + channel + " :" + (*it)->topic + "\r\n";
-//			send(user->fd, rpl_topic.c_str(), rpl_topic.length(), 0);
-//			send_log(user->fd, &rpl_topic.c_str(), server);
-//			std::string rpl_time = ":127.0.0.1 333 " + user->nickname + " #" + channel + " " + (*it)->lastTopicUpdateWho + " " + (*it)->lastTopicUpdateWhen + "\r\n";
-//			send(user->fd, rpl_time.c_str(), rpl_time.length(), 0);
-//			send_log(user->fd, &rpl_time.c_str(), server);
-//			return ;
-//		}
-//	}
-//	else
-//	{
-//		if ((*it)->isModeT())
-//		{
-//			if (!(*it)->isOpInChannel(user))
-//			{
-//				std::string rpl_not_op = ":127.0.0.1 482 " + user->nickname + " #" + channel + " :You're not channel operator\r\n";
-//				send(user->fd, rpl_not_op.c_str(), rpl_not_op.length(), 0);
-//				send_log(user->fd, &rpl_not_op.c_str(), server);
-//				return ;
-//			}
-//		}
-//		message = message + i + 2;
-//		topic = message;
-//		(*it)->topic = topic;
-//		(*it)->lastTopicUpdateWhen = time_str;
-//		(*it)->lastTopicUpdateWho = user->nickname;
-//		std::string rpl_topic = ":" + user->nickname + " TOPIC #" + channel + " :" + topic + "\r\n";
-//		(*it)->channelSendLoop(rpl_topic, user->fd, server, 1);
-//		std::string rpl_time = ":127.0.0.1 333 " + user->nickname + " #" + channel + " " + (*it)->lastTopicUpdateWho + " " + (*it)->lastTopicUpdateWhen + "\r\n";
-//		(*it)->channelSendLoop(rpl_time, user->fd, server, 1);
-//	}
-//}
-
 void irc_topic(std::string message, User *user, Server *server) {
     std::string channel;
     std::string topic;
@@ -615,7 +313,7 @@ void irc_topic(std::string message, User *user, Server *server) {
     if (message[0] == '\0') {
         std::string err_need_more_param = ":127.0.0.1 461 " + user->nickname + " TOPIC :Not enough parameters\r\n";
         send(user->fd, err_need_more_param.c_str(), err_need_more_param.length(), 0);
-        send_log(user->fd, &err_need_more_param, server);
+        send_log(user->fd, err_need_more_param, server);
         return;
     }
 
@@ -626,14 +324,14 @@ void irc_topic(std::string message, User *user, Server *server) {
     if (it == ite) {
         std::string rpl_not_valid_name = ":127.0.0.1 403 " + user->nickname + " #" + channel + " :No such channel\r\n";
         send(user->fd, rpl_not_valid_name.c_str(), rpl_not_valid_name.length(), 0);
-        send_log(user->fd, &rpl_not_valid_name, server);
+        send_log(user->fd, rpl_not_valid_name, server);
         return;
     }
 
     if (!(*it)->isInChannel(user) && !(*it)->isOpInChannel(user)) {
         std::string rpl_not_valid_name = ":127.0.0.1 442 " + user->nickname + " #" + channel + " :You're not on that channel\r\n";
         send(user->fd, rpl_not_valid_name.c_str(), rpl_not_valid_name.length(), 0);
-        send_log(user->fd, &rpl_not_valid_name, server);
+        send_log(user->fd, rpl_not_valid_name, server);
         return;
     }
 
@@ -641,15 +339,15 @@ void irc_topic(std::string message, User *user, Server *server) {
         if ((*it)->topic.empty()) {
             std::string rpl_no_topic = ":127.0.0.1 331 " + user->nickname + " #" + channel + " :No topic is set\r\n";
             send(user->fd, rpl_no_topic.c_str(), rpl_no_topic.length(), 0);
-            send_log(user->fd, &rpl_no_topic, server);
+            send_log(user->fd, rpl_no_topic, server);
             return;
         } else {
             std::string rpl_topic = ":127.0.0.1 332 " + user->nickname + " #" + channel + " :" + (*it)->topic + "\r\n";
             send(user->fd, rpl_topic.c_str(), rpl_topic.length(), 0);
-            send_log(user->fd, &rpl_topic, server);
+            send_log(user->fd, rpl_topic, server);
             std::string rpl_time = ":127.0.0.1 333 " + user->nickname + " #" + channel + " " + (*it)->lastTopicUpdateWho + " " + (*it)->lastTopicUpdateWhen + "\r\n";
             send(user->fd, rpl_time.c_str(), rpl_time.length(), 0);
-            send_log(user->fd, &rpl_time, server);
+            send_log(user->fd, rpl_time, server);
             return;
         }
     } else {
@@ -657,7 +355,7 @@ void irc_topic(std::string message, User *user, Server *server) {
             if (!(*it)->isOpInChannel(user)) {
                 std::string rpl_not_op = ":127.0.0.1 482 " + user->nickname + " #" + channel + " :You're not channel operator\r\n";
                 send(user->fd, rpl_not_op.c_str(), rpl_not_op.length(), 0);
-                send_log(user->fd, &rpl_not_op, server);
+                send_log(user->fd, rpl_not_op, server);
                 return;
             }
         }
@@ -672,37 +370,6 @@ void irc_topic(std::string message, User *user, Server *server) {
         (*it)->channelSendLoop(rpl_time, user->fd, server, 1);
     }
 }
-
-//void	irc_nick(char *message, User *user, Server *server)
-//{
-//	std::cout << COMMAND << "NICK" << std::endl;
-//	message = message + 5;
-//	message = strtok(message, "\r\n");
-//	std::string	oldNick = user->nickname;
-//	user->nickname = message;
-//	if (server->checkNick(user->fd, message))
-//	{
-//		std::string			rpl_error;
-//		std::ostringstream	line;
-//		int	rc = server->checkNick(user->fd, message);
-//		rc == 432 ? line << rc << " " << user->nickname << " :Erroneus nickname\r\n" : line << rc << " " << user->nickname << " :Nickname is already in use\r\n";
-//		rpl_error = ":127.0.0.1 " + line.str();
-//		send(user->fd, rpl_error.c_str(), rpl_error.length(), 0);
-//		send_log(user->fd, &rpl_error.c_str(), server);
-//		return;
-//	}
-//	std::string rpl_nick = ":" + oldNick + " NICK " + message + "\r\n";
-
-//	std::vector<Channel *>::iterator	it = server->channels.begin();
-//	std::vector<Channel *>::iterator	ite = server->channels.end();
-
-//	while (it != ite)
-//	{
-//		if ((*it)->isInChannel(user) || (*it)->isOpInChannel(user))
-//			(*it)->channelSendLoop(rpl_nick, user->fd, server, 1);
-//		it++;
-//	}
-//}
 
 void irc_nick(std::string message, User *user, Server *server) {
     std::cout << COMMAND << "NICK" << std::endl;
@@ -724,7 +391,7 @@ void irc_nick(std::string message, User *user, Server *server) {
 
         rpl_error = ":127.0.0.1 " + line.str();
         send(user->fd, rpl_error.c_str(), rpl_error.length(), 0);
-        send_log(user->fd, &rpl_error, server);
+        send_log(user->fd, rpl_error, server);
         return;
     }
 
@@ -737,26 +404,6 @@ void irc_nick(std::string message, User *user, Server *server) {
     }
 }
 
-
-//void	irc_mode(char *message, User *user, Server *server)
-//{
-//	bool	hasLastParam;
-//	std::cout << COMMAND << "MODE" << std::endl;
-//	message = message + 6;
-//	std::string	rpl_mode = message;
-//	std::string	channelName = rpl_mode.substr(0, rpl_mode.find(' '));
-//	rpl_mode.erase(0, rpl_mode.find(' ') + 1);
-//	std::string	mode = rpl_mode.substr(0, rpl_mode.find(' '));
-//	if (channelName == mode)
-//		return;
-//	rpl_mode.erase(0, rpl_mode.find(' ') + 1);
-//	std::string param = rpl_mode;
-//	param != mode ? hasLastParam = true : hasLastParam = false;
-
-//	std::string::iterator	it = mode.begin();
-//	std::string::iterator	ite = mode.end();
-//	int						sign = -1;
-//	while (it != ite)
 void irc_mode(std::string *message, User *user, Server *server) {
     bool hasLastParam = false;
     std::cout << COMMAND << "MODE" << std::endl;
@@ -828,21 +475,6 @@ void irc_mode(std::string *message, User *user, Server *server) {
 
 void	irc_kick(std::string message, User * user, Server * server)
 {
-	//std::string	reason;
-	//bool		hasReason = false;
-	//int			rc;
-
-	//std::cout << COMMAND << "KICK" << std::endl;
-
-	//message = message + 6;
-	//message = strtok(message, "\r\n");
-	//std::string	rpl_kick = message;
-	//if (rpl_kick.find(':') != std::string::npos)
-	//	hasReason = true;
-	//std::string channelName = rpl_kick.substr(0, rpl_kick.find(' '));
-	//rpl_kick.erase(0, rpl_kick.find(' ') + 1);
-	//std::string kickedUser = rpl_kick.substr(0, rpl_kick.find(' '));
-	//reason = "Kicked by operator";
 	std::istringstream iss(message);
     std::string word;
     std::getline(iss, word, ' '); // Read until the first space
@@ -861,31 +493,29 @@ void	irc_kick(std::string message, User * user, Server * server)
 	{
 		std::string rpl_error = ":127.0.0.1 461 " + user->nickname + " KICK :Not enough parameters\r\n";
 		send(user->fd, rpl_error.c_str(), rpl_error.length(), 0);
-		send_log(user->fd, &rpl_error, server);
+		send_log(user->fd, rpl_error, server);
 		return;
 	}
-	//if (server->getChannelByName(channelName) == server->channels.end())
-	// Check if the channel exists
     std::vector<Channel *>::iterator it = server->getChannelByName(channelName);
     if (it == server->channels.end())
 	{
 		std::string rpl_error = ":127.0.0.1 403 " + user->nickname + " #" + channelName + " :No such channel\r\n";
 		send(user->fd, rpl_error.c_str(), rpl_error.length(), 0);
-		send_log(user->fd, &rpl_error, server);
+		send_log(user->fd, rpl_error, server);
 		return;
 	}
 	if (!(*server->getChannelByName(channelName))->isOpInChannel((*server->getUserByName(kickedUser))) && !(*server->getChannelByName(channelName))->isInChannel((*server->getUserByName(kickedUser))))
 	{
 		std::string rpl_error = ":127.0.0.1 403 " + user->nickname + " " + kickedUser + " #" + channelName + " :They aren't on that channel\r\n";
 		send(user->fd, rpl_error.c_str(), rpl_error.length(), 0);
-		send_log(user->fd, &rpl_error, server);
+		send_log(user->fd, rpl_error, server);
 		return;
 	}
 	if (!(*server->getChannelByName(channelName))->isOpInChannel(user) && !(*server->getChannelByName(channelName))->isInChannel(user))
 	{
 		std::string rpl_error = ":127.0.0.1 442 " + user->nickname + " #" + channelName + " :You're not on that channel\r\n";
 		send(user->fd, rpl_error.c_str(), rpl_error.length(), 0);
-		send_log(user->fd, &rpl_error, server);
+		send_log(user->fd, rpl_error, server);
 		return;
 	}
 	if (!(*it)->isOpInChannel(user) || !(*it)->isBestOp(user, (*it)->getUserByNick(kickedUser)))
@@ -893,19 +523,13 @@ void	irc_kick(std::string message, User * user, Server * server)
 		std::cout << ERROR << user->nickname << " is not operator or have less privileges than " << kickedUser << ", can't kick it." << RESET << std::endl;
 		std::string rpl_error = ":127.0.0.1 403 " + user->nickname + " #" + channelName + " :You're not channel operator\r\n";
 		send(user->fd, rpl_error.c_str(), rpl_error.length(), 0);
-		send_log(user->fd, &rpl_error, server);
+		send_log(user->fd, rpl_error, server);
 		return;
 	}
-	//if (hasReason == true)
 	if (hasReason)
 	{
-		//rpl_kick.erase(0, rpl_kick.find(' ') + 2);
-		//reason = rpl_kick;
 		std::getline(iss, reason);
 	}
-	//std::vector<Channel *>::iterator	it = server->getChannelByName(channelName);
-	//if (it == server->channels.end())
-	//	return;
 	
 	rpl_kick = ":" + user->nickname + " KICK #" + channelName + " " + kickedUser + " :" + reason + "\r\n";
 	(*it)->channelSendLoop(rpl_kick, user->fd, server, 1);
@@ -920,20 +544,6 @@ void	irc_kick(std::string message, User * user, Server * server)
 
 void	irc_invite(std::string message, User *user, Server *server)
 {
-	//int i = 0;
-	//std::string nick;
-	//std::string channel;
-	//message = message + 7;
-	//message = strtok(message, "\r\n");
-	//std::string strmessage = message;
-	//while (message[i] != ' ')
-	//	i++;
-	//nick = strmessage.substr(0, i);
-	//channel = strmessage.substr(i + 2, strmessage.length());
-	//std::vector<Channel *>::iterator	it = server->getChannelByName(channel);
-	//if (it == server->channels.end())
-	//{
-	//	std::string rpl_not_in_channel = ":127.0.0.1 403 " + user->nickname + " #" + channel + " :No such channel\r\n";
 	std::istringstream iss(message);
     std::string word;
     std::getline(iss, word, ' '); // Read until the first space
@@ -946,7 +556,7 @@ void	irc_invite(std::string message, User *user, Server *server)
     if (it == server->channels.end()) {
         std::string rpl_not_in_channel = ":127.0.0.1 403 " + user->nickname + " #" + channel + " :No such channel\r\n";
 		send(user->fd, rpl_not_in_channel.c_str(), rpl_not_in_channel.length(), 0);
-		send_log(user->fd, &rpl_not_in_channel, server);
+		send_log(user->fd, rpl_not_in_channel, server);
 		std::cout << ERROR << "No channel found." << RESET << std::endl;
 	}
 	else
@@ -956,7 +566,7 @@ void	irc_invite(std::string message, User *user, Server *server)
 		{
 			std::string	rpl_no_such_nick = ":127.0.0.1 401 " + user->nickname + " " + nick + " :No such nickname\r\n";
 			send(user->fd, rpl_no_such_nick.c_str(), rpl_no_such_nick.length(), 0);
-			send_log(user->fd, &rpl_no_such_nick, server);
+			send_log(user->fd, rpl_no_such_nick, server);
 			std::cout << ERROR << "No user found." << RESET << std::endl;
 			return ;
 		}
@@ -964,13 +574,13 @@ void	irc_invite(std::string message, User *user, Server *server)
 		{
 			std::string rpl_already_in_channel = ":127.0.0.1 443 " + user->nickname + " #" + channel + " " + nick + " :is already on channel\r\n";
 			send(user->fd, rpl_already_in_channel.c_str(), rpl_already_in_channel.length(), 0);
-			send_log(user->fd, &rpl_already_in_channel, server);
+			send_log(user->fd, rpl_already_in_channel, server);
 			std::cout << ERROR << "User already in channel." << RESET << std::endl;
 			return ;
 		}
 		std::string rpl_invite = ":" + user->nickname + " INVITE " + nick + " #" + channel + "\r\n";
 		send((*it2)->fd, rpl_invite.c_str(), rpl_invite.length(), 0);
-		send_log((*it2)->fd, &rpl_invite, server);
+		send_log((*it2)->fd, rpl_invite, server);
 		(*it)->invitedUsers.push_back(*it2);
 		std::cout << INVITE << " > " << user->nickname << " invite " << nick << " in #" << channel << "." << RESET << std::endl;
 	}

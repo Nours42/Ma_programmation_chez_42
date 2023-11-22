@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:41:33 by rrodor            #+#    #+#             */
-/*   Updated: 2023/11/22 10:38:16 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/22 11:15:57 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ class Server
 		std::vector<Channel *>		channels;
 		std::string					password;
 
-		Server(std::string *port, std::string password);
+		Server(const char *port, std::string password);
 		~Server();
 
 		int									getServerSocket() const;
@@ -36,10 +36,10 @@ class Server
 		std::vector<User *>::iterator		getUserByFd(int & fd);
 
 		void		newUser(int & fd);
-		void		passUser(int & fd, std::string *message, User * user);
-		void		capUser(int & fd, std::string *message, User * user);
-		void		nickUser(int & fd, std::string *message, User * user);
-		void		userUser(int & fd, std::string *message, User * user);
+		void		passUser(int & fd, std::string &message, User * user);
+		void		capUser(int & fd, std::string &message, User * user);
+		void		nickUser(int & fd, std::string &message, User * user);
+		void		userUser(int & fd, std::string &message, User * user);
 		void		printServerChannels(std::string name) const;
 		void		checkChannel();
 		void		deleteUser(int & fd);
@@ -50,22 +50,22 @@ class Server
 		class PassException : public std::exception
 		{
 			public:
-				virtual std::string *what() const throw();
+				virtual const char *what() const throw();
 		};
 		class CapException : public std::exception
 		{
 			public:
-				virtual std::string *what() const throw();
+				virtual const char *what() const throw();
 		};
 		class NickException : public std::exception
 		{
 			public:
-				virtual std::string *what() const throw();
+				virtual const char *what() const throw();
 		};
 		class UserException : public std::exception
 		{
 			public:
-				virtual std::string *what() const throw();
+				virtual const char *what() const throw();
 		};
 	private:
 		void	_initServer();

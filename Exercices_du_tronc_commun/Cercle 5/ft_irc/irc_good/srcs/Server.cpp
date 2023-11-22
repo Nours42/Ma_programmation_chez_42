@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:24:05 by rrodor            #+#    #+#             */
-/*   Updated: 2023/11/22 10:36:35 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/22 11:16:22 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,8 @@ void	Server::_initServer()
 
 	if (setsockopt(this->_serverSocket, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)))
 		throw std::runtime_error("[ERROR] : can't set options of socket, please check your permissions or cpu arch.");
-
-	//if (ioctl(this->_serverSocket, FIONBIO, (char *)&opt))
-	//	throw std::runtime_error("[ERROR] : can't recover device information, please check your permissions or cpu arch.");
-
 	if (fcntl(this->_serverSocket, F_SETFL, O_NONBLOCK) < 0)
         throw std::runtime_error("[ERROR] : can't set socket to non-blocking mode, please check your permissions or cpu arch.");
-
-	//memset((char *)&this->_adress, 0, sizeof(this->_adress));
 	std::fill_n(reinterpret_cast<char*>(&this->_adress), sizeof(this->_adress), 0);
 	this->_adress.sin_family = AF_INET;
 	this->_adress.sin_addr.s_addr = inet_addr("127.0.0.1");
@@ -73,30 +67,27 @@ void	Server::newUser(int & fd)
 
 	rc = read(fd, &buffer[0], BUFFSIZE);
 	buffer[rc] = '\0';
-	read_log(fd, &buffer[0], this);
+	read_log(fd, buffer, this);
 	if (newuser->conStep == 1)
 		this->passUser(fd, buffer, newuser);
 
-	rc = read(fd, buffer, BUFFSIZE);
+	rc = read(fd, &buffer[0], BUFFSIZE);
 	buffer[rc] = '\0';
-	read_log(fd, &buffer[0], this);
+	read_log(fd, buffer, this);
 	if (newuser->conStep == 2)
 		this->capUser(fd, buffer, newuser);
 
-	rc = read(fd, buffer, BUFFSIZE);
+	rc = read(fd, &buffer[0], BUFFSIZE);
 	buffer[rc] = '\0';
-	read_log(fd, &buffer[0], this);
+	read_log(fd, buffer, this);
 	if (newuser->conStep == 3)
 		this->nickUser(fd, buffer, newuser);
 
-	rc = read(fd, buffer, BUFFSIZE);
+	rc = read(fd, &buffer[0], BUFFSIZE);
 	buffer[rc] = '\0';
-	read_log(fd, &buffer[0], this);
+	read_log(fd, buffer, this);
 	if (newuser->conStep == 4)
 		this->userUser(fd, buffer, newuser);
-	
-	//current_size++;
-
 	fds.push_back(pollfd());
 	this->fds[current_size].fd = fd;
 	this->fds[current_size].events = POLLIN;
@@ -109,7 +100,6 @@ void	Server::newUser(int & fd)
 
 Server::~Server()
 {
-	//shutdown(this->_serverSocket, SHUT_RDWR);
 	if (this->_serverSocket >= 0) {
         close(this->_serverSocket);
         this->_serverSocket = -1;
@@ -251,16 +241,16 @@ std::string	Server::writeLoop(int & fd, std::string str)
 	return str;
 }
 
-void	Server::passUser(int & fd, const char * message, User * user)
+void	Server::passUser(int & fd, std::string &message, User * user)
 {
 	std::string	rpl_error;
-	if (strncmp(message, "PASS", 4) != 0)
+	if (message.compare(0, 4, "PASS") != 0)
 	{
 		rpl_error = ":127.0.0.1 421 PASS :Unknown command, expected PASS\r\n";
 		send(user->fd, rpl_error.c_str(), rpl_error.length(), 0);
 		send_log(user->fd, rpl_error, this);
 	}
-	std::string	pass = message + 5;
+	std::string pass = message.substr(5);
 	if (pass.empty())
 	{
 		rpl_error = ":127.0.0.1 461 PASS :Not enough parameters\r\n";
@@ -278,10 +268,10 @@ void	Server::passUser(int & fd, const char * message, User * user)
 	user->conStep++;
 }
 
-void	Server::capUser(int & fd, const char * message, User * user)
+void	Server::capUser(int & fd, std::string &message, User * user)
 {
 	std::string	rpl_error;
-	if (strncmp(message, "CAP", 3) != 0)
+	if (message.compare(0, 3, "CAP") != 0)
 	{
 		rpl_error = ":127.0.0.1 421 CAP :Unknown command, expected CAP\r\n";
 		send(user->fd, rpl_error.c_str(), rpl_error.length(), 0);
@@ -292,16 +282,16 @@ void	Server::capUser(int & fd, const char * message, User * user)
 	user->conStep++;
 }
 
-void	Server::nickUser(int & fd, const char * message, User * user)
+void	Server::nickUser(int & fd, std::string &message, User * user)
 {
 	std::string	rpl_error;
-	if (strncmp(message, "NICK", 4) != 0)
+	if (message.compare(0, 4, "NICK") != 0)
 	{
 		rpl_error = ":127.0.0.1 421 NICK :Unknown command, expected NICK\r\n";
 		send(user->fd, rpl_error.c_str(), rpl_error.length(), 0);
 		send_log(user->fd, rpl_error, this);
 	}
-	std::string	nick = message + 5;
+	std::string nick = message.substr(5);
 	if (nick.empty())
 	{
 		rpl_error = ":127.0.0.1 431 NICK :No nickname given\r\n";
@@ -323,16 +313,16 @@ void	Server::nickUser(int & fd, const char * message, User * user)
 	user->nickname = nick;
 }
 
-void	Server::userUser(int & fd, const char * message, User * user)
+void	Server::userUser(int & fd, std::string &message, User * user)
 {
 	std::string	rpl_error;
-	if (strncmp(message, "USER", 4) != 0)
+	if (message.compare(0, 4, "USER") != 0)
 	{
 		rpl_error = ":127.0.0.1 421 USER :Unknown command, expected USER\r\n";
 		send(user->fd, rpl_error.c_str(), rpl_error.length(), 0);
 		send_log(user->fd, rpl_error, this);
 	}
-	std::string	line = message + 5;
+	std::string line = message.substr(5);
 	if (line.empty() || line.find(':') == std::string::npos)
 	{
 		rpl_error = ":127.0.0.1 461 USER :Not enough parameters\r\n";

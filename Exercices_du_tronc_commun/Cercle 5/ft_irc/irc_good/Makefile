@@ -6,7 +6,7 @@
 #    By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/21 13:14:16 by sdestann          #+#    #+#              #
-#    Updated: 2023/11/22 10:39:14 by sdestann         ###   ########.fr        #
+#    Updated: 2023/11/22 11:00:38 by sdestann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,7 +79,7 @@ clean:
 
 fclean: clean
 	@rm -rf ${NAME_SERV} ${NAME_BOT}
-	@echo ${__BLUE}"Cleaned "${__WHITE}"bin target(s)"${__EOC}
+	@echo ${__BLUE}"Cleaned "${__WHITE}".o target(s)"${__EOC}
 
 re: fclean all
 re-all: fclean ${NAME_SERV} ${NAME_BOT}

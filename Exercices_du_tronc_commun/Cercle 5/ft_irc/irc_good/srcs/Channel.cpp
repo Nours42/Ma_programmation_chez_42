@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 18:36:08 by rrodor            #+#    #+#             */
-/*   Updated: 2023/11/22 10:28:44 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/22 10:55:17 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	Channel::channelSendLoop(std::string message, int & sFd, Server * server, i
 		if (sFd != (*it)->fd || (sFd == (*it)->fd && sendToHim == 1))
 		{
 			send((*it)->fd, message.c_str(), message.length(), 0);
-			send_log((*it)->fd, &message, server);
+			send_log((*it)->fd, message, server);
 		}
 		it++;
 	}
@@ -116,7 +116,7 @@ void	Channel::channelSendLoop(std::string message, int & sFd, Server * server, i
 		if (sFd != (*it)->fd || (sFd == (*it)->fd && sendToHim == 1))
 		{
 			send((*it)->fd, message.c_str(), message.length(), 0);
-			send_log((*it)->fd, &message, server);
+			send_log((*it)->fd, message, server);
 		}
 		it++;
 	}
