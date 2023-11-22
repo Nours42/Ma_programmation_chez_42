@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 13:18:15 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/21 17:30:32 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/21 20:01:23 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void Server::connect(void)
     fds[0].events = POLLIN;
 	while (true)
 	{
+		Console::print("Waiting for another incoming transmission", "", Console::YELLOW);
 		int pollResult = poll(fds, nfds, -1);
         if (pollResult == -1)
 		{
