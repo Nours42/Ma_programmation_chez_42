@@ -6,7 +6,7 @@
 /*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:20:26 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/25 20:47:24 by nours42          ###   ########.fr       */
+/*   Updated: 2023/11/26 20:52:19 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	send_log(int & fd, std::string message, Server * server)
 			name = (*it)->nickname;
 		it++;
 	}
-	std::cout << GREEN;
+	std::cout << GREEN << ON_BLACK << "[SND_BUFFER]";
 	if (name.empty())
 		std::cout << "[" << fd << " - new user] : ";
 	else
@@ -50,7 +50,7 @@ void	read_log(int & fd, std::string buffer, Server * server)
 			name = (*it)->nickname;
 		it++;
 	}
-	std::cout << CYAN;
+	std::cout << CYAN << ON_BLACK << " [RCV_BUFFER]";
 	if (name.empty())
 		std::cout << "[" << fd << " - new user] : ";
 	else

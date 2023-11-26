@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bot.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 13:17:36 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/21 13:17:38 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/26 20:27:37 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void Bot::connect(std::string channel)
 			{
 				std::string pong = "PONG :" + tmp_args[1] + "\r\n";
 				send(_server, pong.c_str(), pong.size(), 0);
-				Console::print("<= SENT", pong, Console::GREEN);
+				Console::print("<= SENT", pong, Console::GREEN << ON_BLACK << "[SND_BUFFER]");
 			}
 			else if (std::strstr(cmd_line[i].c_str(), "PRIVMSG") != NULL)
 			{
@@ -123,7 +123,7 @@ bool Bot::reply(std::string location, std::string msg)
 {
 	std::string msg_reply = "PRIVMSG " + location + " :" + msg + "\r\n";
 	send(_server, msg_reply.c_str(), msg_reply.size(), 0);
-	Console::print("<= SENT", msg_reply, Console::GREEN);
+	Console::print("<= SENT", msg_reply, Console::GREEN << ON_BLACK << "[SND_BUFFER]");
 	return true;
 }
 

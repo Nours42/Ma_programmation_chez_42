@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   User.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 13:15:51 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/21 13:15:53 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/26 20:27:37 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ class User
 
 		bool		sendRawMessage(std::string message)
 		{
-			Console::print("<= SENT", message.c_str(), Console::GREEN);
+			Console::print("<= SENT", message.c_str(), Console::GREEN << ON_BLACK << "[SND_BUFFER]");
 			message += "\r\n";
 			return send(this->getSocket(), message.c_str(), message.length(), 0) != -1;
 		}

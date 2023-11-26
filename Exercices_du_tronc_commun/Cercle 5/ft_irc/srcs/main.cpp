@@ -6,7 +6,7 @@
 /*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:20:34 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/25 20:49:24 by nours42          ###   ########.fr       */
+/*   Updated: 2023/11/26 20:44:36 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,13 @@ int main(int argc, char **argv)
 					{
 						try
 						{
-							std::cout << YELLOW << "New user connected with id " << newSd << "." << RESET << std::endl;
+							std::cout << YELLOW << "[STATUS] : New user connected with id " << newSd << "." << RESET << std::endl;
 							server->newUser(newSd);
 							fdsId++;
 						}
 						catch (const std::exception& e)
 						{
-							std::cerr << ERROR << "Error during user creation : " << std::endl;
+							std::cerr << BRIGHT_MAGENTA<< ON_BLACK << "[ERROR] : Error during user creation : " << std::endl;
 							std::cerr <<  e.what() << RESET << std::endl;
 							server->deleteUser(newSd);
 							close(newSd);
@@ -77,13 +77,13 @@ int main(int argc, char **argv)
 				rc = recv(server->fds[i].fd, &buffer[0], sizeof(buffer), 0);
 				if (rc == 0)
 				{
-					std::cout << YELLOW << "Receiving ctrl c from id " << server->fds[i].fd << ", erasing user." << RESET << std::endl;
+					std::cout << YELLOW << "[STATUS] : Receiving ctrl c from id " << server->fds[i].fd << ", erasing user." << RESET << std::endl;
 					close(server->fds[i].fd);
 					server->deleteUser(server->fds[i].fd);
 					server->checkChannel();
 					server->fds[i].fd = -1;
-					std::cout << DELETE << "User succesfully deleted" << RESET << std::endl;
-					std::cout << DIVIDER << RESET << std::endl;
+					std::cout << BRIGHT_YELLOW << ON_BLACK << "[DELETE] : User succesfully deleted" << RESET << std::endl;
+					std::cout << RED_LINE << std::endl;
 					continue;
 				}
 				buffer.resize(rc);
@@ -93,12 +93,12 @@ int main(int argc, char **argv)
 				{
 					strmess = server->writeLoop(server->fds[i].fd, strmess);
 					interpretor((char*)strmess.c_str(), server->fds[i].fd, server);
-					std::cout << DIVIDER << RESET << std::endl;
+					std::cout << RED_LINE << std::endl;
 				}
 				else
 					interpretor(&buffer[0], server->fds[i].fd, server);
 			}
-			std::cout << DIVIDER << RESET << std::endl;
+			std::cout << RED_LINE << std::endl;
 		}
 	}
 	std::cout << "END OF PROGRAM" << std::endl;

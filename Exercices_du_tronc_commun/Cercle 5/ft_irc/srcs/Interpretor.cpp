@@ -6,7 +6,7 @@
 /*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:20:19 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/25 20:47:19 by nours42          ###   ########.fr       */
+/*   Updated: 2023/11/26 21:01:03 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void commands(std::string message, User *user, Server *server) {
     else if (message.compare(0, 7, "PRIVMSG") == 0)
         irc_privmsg(message, user, server);
     else if (message.compare(0, 4, "PING") == 0) {
-        std::cout << COMMAND << "PING" << std::endl;
+        std::cout << YELLOW <<  ON_BLACK << "[COMMAND]PING" << std::endl;
         std::string rpl_pong = "PONG " + message.substr(5) + "\r\n";
         send(user->fd, rpl_pong.c_str(), rpl_pong.length(), 0);
         send_log(user->fd, rpl_pong, server);
@@ -52,18 +52,6 @@ void commands(std::string message, User *user, Server *server) {
         send_log(user->fd, rpl_error, server);
     }
 }
-
-//void	interpretor(char *message, int fd, Server * server)
-//{
-//	User *user = findUser(fd, server);
-//	if (user == NULL)
-//	{
-//		std::cout << "[ERROR] : User not found" << std::endl;
-//		return ;
-//	}
-//	if (message[0] >= 'A' && message[0] <= 'Z')
-//		commands(message, user, server);
-//}
 
 void interpretor(std::string message, int fd, Server *server) {
     User *user = findUser(fd, server);

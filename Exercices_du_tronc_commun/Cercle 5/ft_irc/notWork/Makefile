@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+         #
+#    By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/21 13:14:16 by sdestann          #+#    #+#              #
-#    Updated: 2023/11/21 13:14:18 by sdestann         ###   ########.fr        #
+#    Updated: 2023/11/26 20:27:37 by nours42          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,7 @@ CFLAGS		:=	-Wall -Wextra -Werror -std=c++98
 # COLORS
 # -----------------------------------------------------------------------------
 __RED		:=	"\033[1;31m"
-__GREEN		:=	"\033[1;32m"
+__GREEN << ON_BLACK << "[SND_BUFFER]"		:=	"\033[1;32m"
 __YELLOW	:=	"\033[1;33m"
 __BLUE		:=	"\033[1;36m"
 __WHITE		:=	"\033[1;37m"
@@ -71,17 +71,17 @@ __EOC		:=	"\033[0;0m"
 bin/%.o: srcs/%.cpp
 	@mkdir -p ${dir $@}
 	@${CC} ${CFLAGS} -o $@ -c $< -I includes
-	@echo ${__GREEN}"Compiling "${__WHITE}$<${__EOC}
+	@echo ${__GREEN << ON_BLACK << "[SND_BUFFER]"}"Compiling "${__WHITE}$<${__EOC}
 
 all: ${NAME_SERV}
 
 ${NAME_SERV}: ${OBJS_SERV}
 	@${CC} ${CFLAGS} ${OBJS_SERV} -o ${NAME_SERV}
-	@echo ${__GREEN}"Finished "${__WHITE}${NAME_SERV}" v"${VERSION}" bin target"${__EOC}
+	@echo ${__GREEN << ON_BLACK << "[SND_BUFFER]"}"Finished "${__WHITE}${NAME_SERV}" v"${VERSION}" bin target"${__EOC}
 
 ${NAME_BOT}: ${OBJS_BOT}
 	@${CC} ${CFLAGS} ${OBJS_BOT} -o ${NAME_BOT}
-	@echo ${__GREEN}"Finished "${__WHITE}${NAME_BOT}" v"${VERSION}" bin target"${__EOC}
+	@echo ${__GREEN << ON_BLACK << "[SND_BUFFER]"}"Finished "${__WHITE}${NAME_BOT}" v"${VERSION}" bin target"${__EOC}
 
 bonus: ${NAME_BOT}
 

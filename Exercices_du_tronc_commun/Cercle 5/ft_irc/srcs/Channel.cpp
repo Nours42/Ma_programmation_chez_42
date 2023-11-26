@@ -6,7 +6,7 @@
 /*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:20:02 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/25 20:48:59 by nours42          ###   ########.fr       */
+/*   Updated: 2023/11/26 20:44:36 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,12 +140,12 @@ int		Channel::deleteChannelUser(std::vector<User *>::iterator iterator, Server *
 			if (this->isInChannel((*iterator)))
 			{
 				this->users.erase(it);
-				std::cout << DELETE << "Erasing user " << (*iterator)->nickname << " from #" << this->name << RESET << std::endl;
+				std::cout << BRIGHT_YELLOW << ON_BLACK << "[DELETE] : Erasing user " << (*iterator)->nickname << " from #" << this->name << RESET << std::endl;
 			}
 			else if (this->isOpInChannel((*iterator)))
 			{
 				this->operators.erase(it);
-				std::cout << DELETE << "Erasing operator " << (*iterator)->nickname << " from #" << this->name << RESET << std::endl;
+				std::cout << BRIGHT_YELLOW << ON_BLACK << "[DELETE] : Erasing operator " << (*iterator)->nickname << " from #" << this->name << RESET << std::endl;
 			}
 		}
 		it++;
@@ -154,7 +154,7 @@ int		Channel::deleteChannelUser(std::vector<User *>::iterator iterator, Server *
 		this->allocNewOp(server);
 	else if (this->operators.empty() && this->users.empty())
 	{
-		std::cout << DELETE << "Channel " << this->name << " is empty, erasing it from server..." << RESET << std::endl;
+		std::cout << BRIGHT_YELLOW << ON_BLACK << "[DELETE] : Channel " << this->name << " is empty, erasing it from server..." << RESET << std::endl;
 		server->channels.erase(server->getChannelByName(this->name));
 		return 1;
 	}
@@ -179,12 +179,12 @@ int	Channel::deleteChannelUser(User * user, Server * server)
 			if (this->isInChannel(user))
 			{
 				this->users.erase(it);
-				std::cout << DELETE << "Erasing user " << user->nickname << " from #" << this->name << RESET << std::endl;
+				std::cout << BRIGHT_YELLOW << ON_BLACK << "[DELETE] : Erasing user " << user->nickname << " from #" << this->name << RESET << std::endl;
 			}
 			else if (this->isOpInChannel(user))
 			{
 				this->operators.erase(it);
-				std::cout << DELETE << "Erasing operator " << user->nickname << " from #" << this->name << RESET << std::endl;
+				std::cout << BRIGHT_YELLOW << ON_BLACK << "[DELETE] : Erasing operator " << user->nickname << " from #" << this->name << RESET << std::endl;
 			}
 		}
 		it++;
@@ -193,7 +193,7 @@ int	Channel::deleteChannelUser(User * user, Server * server)
 		this->allocNewOp(server);
 	else if (this->operators.empty() && this->users.empty())
 	{
-		std::cout << DELETE << "Channel " << this->name << " is empty, erasing it from server..." << RESET << std::endl;
+		std::cout << BRIGHT_YELLOW << ON_BLACK << "[DELETE] : Channel " << this->name << " is empty, erasing it from server..." << RESET << std::endl;
 		server->channels.erase(server->getChannelByName(this->name));
 		return 1;
 	}
@@ -202,12 +202,12 @@ int	Channel::deleteChannelUser(User * user, Server * server)
 
 void	Channel::allocNewOp(Server * server)
 {
-	std::cout << YELLOW << "#" << this->name << " is empty, allocating a new operator..." << RESET << std::endl;
+	std::cout << YELLOW << "[STATUS] : #" << this->name << " is empty, allocating a new operator..." << RESET << std::endl;
 	User *	newOp = this->users.front();
 	this->users.erase(this->users.begin());
 	this->operators.push_back(newOp);
-	std::cout << YELLOW << "Adding " << newOp->nickname << " as new channel operator." << RESET << std::endl;
-	this->printChannelUsers(YELLOW);
+	std::cout << YELLOW << "[STATUS] : Adding " << newOp->nickname << " as new channel operator." << RESET << std::endl;
+	this->printChannelUsers("\033[33m [STATUS] : ");
 	irc_names(this, newOp, server);
 }
 
@@ -242,7 +242,7 @@ void	Channel::opUser(User * user ,std::vector<User *>::iterator iterator, Server
 
 	if (this->isOpInChannel(user) == false)
 	{
-		std::cout << ERROR << "User " << user->nickname << " is not operator in channel # " << this->name << RESET << std::endl;
+		std::cout << BRIGHT_MAGENTA<< ON_BLACK << "[ERROR] : User " << user->nickname << " is not operator in channel # " << this->name << RESET << std::endl;
 		return;
 	}
 
@@ -259,7 +259,7 @@ void	Channel::opUser(User * user ,std::vector<User *>::iterator iterator, Server
 	if (it != ite)
 	{
 		irc_names(this, (*it), server);
-		std::cout << YELLOW << "Operator " << user->nickname << " succesfully set " << (*iterator)->nickname << " as new channel operator in #" << this->name << RESET << std::endl;
+		std::cout << YELLOW << "[STATUS] : Operator " << user->nickname << " succesfully set " << (*iterator)->nickname << " as new channel operator in #" << this->name << RESET << std::endl;
 	}
 }
 
@@ -270,12 +270,12 @@ void	Channel::deOpUser(User * user ,std::vector<User *>::iterator iterator, Serv
 
 	if (this->isOpInChannel(user) == false)
 	{
-		std::cout << ERROR << "User " << user->nickname << " is not operator in channel # " << this->name << RESET << std::endl;
+		std::cout << BRIGHT_MAGENTA<< ON_BLACK << "[ERROR] : User " << user->nickname << " is not operator in channel # " << this->name << RESET << std::endl;
 		return;
 	}
 	if (this->isBestOp(user, iterator) == false)
 	{
-		std::cout << ERROR << "Operator " << user->nickname << " have less privileges than " << (*iterator)->nickname << " in channel #" << this->name << RESET << std::endl;
+		std::cout << BRIGHT_MAGENTA<< ON_BLACK << "[ERROR] : Operator " << user->nickname << " have less privileges than " << (*iterator)->nickname << " in channel #" << this->name << RESET << std::endl;
 		return;
 	}
 
@@ -292,7 +292,7 @@ void	Channel::deOpUser(User * user ,std::vector<User *>::iterator iterator, Serv
 	if (it != ite)
 	{
 		irc_names(this, (*it), server);
-		std::cout << YELLOW << "Operator " << user->nickname << " succesfully remove " << (*iterator)->nickname << " as channel operator in #" << this->name << RESET << std::endl;
+		std::cout << YELLOW << "[STATUS] : Operator " << user->nickname << " succesfully remove " << (*iterator)->nickname << " as channel operator in #" << this->name << RESET << std::endl;
 	}
 	if (this->operators.empty())
 		this->allocNewOp(server);
@@ -369,12 +369,12 @@ int	Channel::deleteChannelUser(User * user, Server * server, int noErase)
 			if (this->isInChannel(user))
 			{
 				this->users.erase(it);
-				std::cout << DELETE << "Erasing user " << user->nickname << " from #" << this->name << RESET << std::endl;
+				std::cout << BRIGHT_YELLOW << ON_BLACK << "[DELETE] : Erasing user " << user->nickname << " from #" << this->name << RESET << std::endl;
 			}
 			else if (this->isOpInChannel(user))
 			{
 				this->operators.erase(it);
-				std::cout << DELETE << "Erasing operator " << user->nickname << " from #" << this->name << RESET << std::endl;
+				std::cout << BRIGHT_YELLOW << ON_BLACK << "[DELETE] : Erasing operator " << user->nickname << " from #" << this->name << RESET << std::endl;
 			}
 		}
 		it++;

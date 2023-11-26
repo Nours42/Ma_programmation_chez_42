@@ -6,13 +6,14 @@
 #    By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/21 13:14:16 by sdestann          #+#    #+#              #
-#    Updated: 2023/11/25 20:53:23 by nours42          ###   ########.fr        #
+#    Updated: 2023/11/26 19:29:36 by nours42          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ircserv
 
 HEADER_SRCS =	Channel.hpp	\
+				Color.hpp	\
 				ft_irc.hpp	\
 				Server.hpp	\
 				User.hpp

@@ -6,7 +6,7 @@
 /*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:20:11 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/25 20:48:38 by nours42          ###   ########.fr       */
+/*   Updated: 2023/11/26 21:18:46 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,16 @@ std::string parse_join(std::string message, std::string &passwd) {
 
     passwd = (i + 1 < message.length()) ? message.substr(i + 1) : "";
     message.resize(i);
-	std::cout << JOIN << " > Try to join channel " << message << RESET << std::endl;
-	std::cout << JOIN << " > Channel password : " << passwd << RESET << std::endl;
+	std::cout << MAGENTA << "[COMMAND][JOIN] > Try to join channel " << message << RESET << std::endl;
+	std::cout << MAGENTA << "[COMMAND][JOIN] > Channel password : " << passwd << RESET << std::endl;
 	return message;
 }
 
 void irc_join(std::string message, User *user, Server *server) 
 {
 	std::string passwd;
-	std::cout << COMMAND << "JOIN" << std::endl;
+    message = message.substr(5); //on enleve JOIN 
+	std::cout << YELLOW <<  ON_BLACK << "[COMMAND]JOIN" << std::endl;
 	if (message.empty())
     {
         std::string err_need_more_param = ":127.0.0.1 461 " + user->nickname + " JOIN :Not enough parameters\r\n";
@@ -83,14 +84,11 @@ void irc_join(std::string message, User *user, Server *server)
     std::getline(ss, token, ' ');
     if (token.empty())
         return;
-
     if (token[0] != '#')
 		return irc_join_cases(token, user, server);
 	token = token.substr(1);
-
     std::string line;
     std::getline(ss, line, '\n');
-	
 	for (std::vector<Channel *>::iterator it = server->channels.begin(); it != server->channels.end(); ++it)
 	{
 		if ((*it)->name == token)
@@ -163,7 +161,7 @@ void irc_join(std::string message, User *user, Server *server)
 }
 
 void irc_privmsg(std::string message, User *user, Server *server) {
-    std::cout << COMMAND << "PRIVMSG" << std::endl;
+    std::cout << YELLOW <<  ON_BLACK << "[COMMAND][PRIVMSG]" << std::endl;
     message = message.substr(8); // Remove the command "PRIVMSG"
     if (message[0] == '\0') {
         std::string err_need_more_param = ":127.0.0.1 461 " + user->nickname + " PRIVMSG :Not enough parameters\r\n";
@@ -176,9 +174,9 @@ void irc_privmsg(std::string message, User *user, Server *server) {
     std::string dest = message.substr(0, i - 1);
     if (dest[0] == '#' && !(*server->getChannelByName(dest))->isInChannel(user) && !(*server->getChannelByName(dest))->isOpInChannel(user))
         return;
-    std::cout << PRIVMSG << "sent to " << dest << std::endl;
+    std::cout << BLUE << ON_BLACK << "[PRIVMSG] : sent to " << dest << std::endl;
     message = message.substr(i + 1);
-    std::cout << PRIVMSG << "\"" << message << "\"" << RESET << std::endl;
+    std::cout << BLUE << ON_BLACK << "[PRIVMSG] : \"" << message << "\"" << RESET << std::endl;
     if (dest[0] == '#') {
         dest = dest.substr(1);
         for (std::vector<Channel *>::const_iterator it = server->channels.begin(); it != server->channels.end(); it++) {
@@ -221,7 +219,7 @@ void irc_privmsg(std::string message, User *user, Server *server) {
 
 void irc_part(std::string message, User *user, Server *server) {
     int rc;
-    std::cout << COMMAND << "PART" << std::endl;
+    std::cout << YELLOW <<  ON_BLACK << "[COMMAND]PART" << std::endl;
 
     message = message.substr(6); // Remove the command "PART"
     std::string rpl_part = message;
@@ -237,7 +235,7 @@ void irc_part(std::string message, User *user, Server *server) {
             rc = (*it)->deleteChannelUser(user, server);
             if (rc == 1) {
                 delete (*it);
-                std::cout << DELETE << "Succesfully deleted channel #" << channelName << RESET << std::endl;
+                std::cout << BRIGHT_YELLOW << ON_BLACK << "[DELETE] : Succesfully deleted channel #" << channelName << RESET << std::endl;
             }
         }
     }
@@ -245,7 +243,7 @@ void irc_part(std::string message, User *user, Server *server) {
 
 void	irc_names(Channel *channel, User *user, Server *server)
 {
-	std::cout << COMMAND << "NAMES" << std::endl;
+	std::cout << YELLOW <<  ON_BLACK << "[COMMAND]NAMES" << std::endl;
 	std::string rpl_names = ":127.0.0.1 353 = #" + channel->name + " :";
 	for (std::vector<User *>::iterator it = channel->operators.begin(); it != channel->operators.end(); ++it)
 	{
@@ -262,7 +260,7 @@ void	irc_names(Channel *channel, User *user, Server *server)
 }
 
 void irc_quit(std::string message, User *user, Server *server) {
-    std::cout << COMMAND << "QUIT" << std::endl;
+    std::cout << YELLOW <<  ON_BLACK << "[COMMAND]QUIT" << std::endl;
 
     message = message.substr(6); // Remove the command "QUIT"
     std::string msg;
@@ -282,7 +280,7 @@ void irc_quit(std::string message, User *user, Server *server) {
             if (rc == 1) {
                 std::string name = (*it)->name;
                 delete (*it);
-                std::cout << DELETE << "Succesfully deleted channel #" << name << RESET << std::endl;
+                std::cout << BRIGHT_YELLOW << ON_BLACK << "[DELETE] : Succesfully deleted channel #" << name << RESET << std::endl;
             } else {
                 (*it)->printChannelUsers(QUIT);
             }
@@ -308,7 +306,7 @@ void irc_topic(std::string message, User *user, Server *server) {
     oss << t;
     std::string time_str = oss.str();
 
-    std::cout << COMMAND << "TOPIC" << std::endl;
+    std::cout << YELLOW <<  ON_BLACK << "[COMMAND]TOPIC" << std::endl;
 
     if (message[0] == '\0') {
         std::string err_need_more_param = ":127.0.0.1 461 " + user->nickname + " TOPIC :Not enough parameters\r\n";
@@ -372,7 +370,7 @@ void irc_topic(std::string message, User *user, Server *server) {
 }
 
 void irc_nick(std::string message, User *user, Server *server) {
-    std::cout << COMMAND << "NICK" << std::endl;
+    std::cout << YELLOW <<  ON_BLACK << "[COMMAND]NICK" << std::endl;
     message = message.substr(5);
     size_t pos = message.find("\r\n");
     std::string newNick = message.substr(0, pos);
@@ -406,7 +404,7 @@ void irc_nick(std::string message, User *user, Server *server) {
 
 void irc_mode(std::string *message, User *user, Server *server) {
     bool hasLastParam = false;
-    std::cout << COMMAND << "MODE" << std::endl;
+    std::cout << YELLOW <<  ON_BLACK << "[COMMAND]MODE" << std::endl;
     *message = message->substr(6); // Exclut "MODE " du début
 
     size_t firstSpace = message->find(' ');
@@ -434,20 +432,20 @@ void irc_mode(std::string *message, User *user, Server *server) {
 			sign = 0;
 		if ((*it) == 'o' && sign == 0)
 		{
-			std::cout << YELLOW << "Operator " << user->nickname << " try to remove operator privilege to " << param << RESET << std::endl;
+			std::cout << YELLOW << "[STATUS] : Operator " << user->nickname << " try to remove operator privilege to " << param << RESET << std::endl;
 			(*server->getChannelByName(channelName))->deOpUser(user, (*server->getChannelByName(channelName))->getUserByNick(param), server);
 				return;
 		}
 		else if ((*it) == 'o' && sign == 1)
 		{
-			std::cout << YELLOW << "Operator " << user->nickname << " try to set user " << param << " has new channel operator" << RESET << std::endl;
+			std::cout << YELLOW << "[STATUS] : Operator " << user->nickname << " try to set user " << param << " has new channel operator" << RESET << std::endl;
 			(*server->getChannelByName(channelName))->opUser(user, (*server->getChannelByName(channelName))->getUserByNick(param), server);
 				return;
 		}
 		else if ((*it) == 'k' && sign == 0)
 		{
 			(*server->getChannelByName(channelName))->password.clear();
-			std::cout << YELLOW << "Operator " << user->nickname << " unset password on channel #" << channelName << RESET << std::endl;
+			std::cout << YELLOW << "[STATUS] : Operator " << user->nickname << " unset password on channel #" << channelName << RESET << std::endl;
 			return;
 		}
 		else if ((*it) == 'k' && sign == 1)
@@ -455,7 +453,7 @@ void irc_mode(std::string *message, User *user, Server *server) {
 			if (hasLastParam == true)
 			{
 				(*server->getChannelByName(channelName))->password = param;
-				std::cout << YELLOW << "Operator " << user->nickname << " set password " << param << " has new channel password." << RESET << std::endl;
+				std::cout << YELLOW << "[STATUS] : Operator " << user->nickname << " set password " << param << " has new channel password." << RESET << std::endl;
 			}
 			return;
 		}
@@ -538,7 +536,7 @@ void	irc_kick(std::string message, User * user, Server * server)
 	{
 		std::string name = (*it)->name;
 		delete (*it);
-		std::cout << DELETE << "Succesfully deleted channel " << "#" << name << RESET << std::endl;
+		std::cout << BRIGHT_YELLOW << ON_BLACK << "[DELETE] : Succesfully deleted channel " << "#" << name << RESET << std::endl;
 	}
 }
 
@@ -557,7 +555,7 @@ void	irc_invite(std::string message, User *user, Server *server)
         std::string rpl_not_in_channel = ":127.0.0.1 403 " + user->nickname + " #" + channel + " :No such channel\r\n";
 		send(user->fd, rpl_not_in_channel.c_str(), rpl_not_in_channel.length(), 0);
 		send_log(user->fd, rpl_not_in_channel, server);
-		std::cout << ERROR << "No channel found." << RESET << std::endl;
+		std::cout << BRIGHT_MAGENTA<< ON_BLACK << "[ERROR] : No channel found." << RESET << std::endl;
 	}
 	else
 	{
@@ -567,7 +565,7 @@ void	irc_invite(std::string message, User *user, Server *server)
 			std::string	rpl_no_such_nick = ":127.0.0.1 401 " + user->nickname + " " + nick + " :No such nickname\r\n";
 			send(user->fd, rpl_no_such_nick.c_str(), rpl_no_such_nick.length(), 0);
 			send_log(user->fd, rpl_no_such_nick, server);
-			std::cout << ERROR << "No user found." << RESET << std::endl;
+			std::cout << BRIGHT_MAGENTA<< ON_BLACK << "[ERROR] : No user found." << RESET << std::endl;
 			return ;
 		}
 		if ((*it)->isInChannel(*it2)  || (*it)->isOpInChannel(*it2))
@@ -575,13 +573,13 @@ void	irc_invite(std::string message, User *user, Server *server)
 			std::string rpl_already_in_channel = ":127.0.0.1 443 " + user->nickname + " #" + channel + " " + nick + " :is already on channel\r\n";
 			send(user->fd, rpl_already_in_channel.c_str(), rpl_already_in_channel.length(), 0);
 			send_log(user->fd, rpl_already_in_channel, server);
-			std::cout << ERROR << "User already in channel." << RESET << std::endl;
+			std::cout << BRIGHT_MAGENTA<< ON_BLACK << "[ERROR] : User already in channel." << RESET << std::endl;
 			return ;
 		}
 		std::string rpl_invite = ":" + user->nickname + " INVITE " + nick + " #" + channel + "\r\n";
 		send((*it2)->fd, rpl_invite.c_str(), rpl_invite.length(), 0);
 		send_log((*it2)->fd, rpl_invite, server);
 		(*it)->invitedUsers.push_back(*it2);
-		std::cout << INVITE << " > " << user->nickname << " invite " << nick << " in #" << channel << "." << RESET << std::endl;
+		std::cout << BRIGHT_RED << "[COMMAND][INVITE] > " << user->nickname << " invite " << nick << " in #" << channel << "." << RESET << std::endl;
 	}
 }

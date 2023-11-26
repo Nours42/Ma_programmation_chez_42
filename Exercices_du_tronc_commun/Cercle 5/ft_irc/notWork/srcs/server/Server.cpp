@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 13:18:15 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/21 17:30:32 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/26 20:27:37 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void Server::connect(void)
 						fds[nfds].fd = client_socket;
                         fds[nfds].events = POLLIN;
                         nfds++;
-                        Console::print("New client connected!", "OK", Console::GREEN);
+                        Console::print("New client connected!", "OK", Console::GREEN << ON_BLACK << "[SND_BUFFER]");
                         send(client_socket, "PING :Hello\r\n", 13, 0);
 					}
 				}

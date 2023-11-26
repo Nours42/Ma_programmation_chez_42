@@ -6,7 +6,7 @@
 /*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:20:43 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/25 20:52:10 by nours42          ###   ########.fr       */
+/*   Updated: 2023/11/26 21:29:20 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	Server::newUser(int & fd)
 	int rc;
 	// int i = 5;
 	std::string	buffer;
+	std::string buff_temp;
+	ssize_t	pos = 0;
 	buffer.resize(BUFFSIZE);
 	User *newuser = new User(fd);
 	this->users.push_back(newuser);
@@ -63,26 +65,34 @@ void	Server::newUser(int & fd)
 	rc = read(fd, &buffer[0], BUFFSIZE);
 	buffer[rc] = '\0';
 	read_log(fd, buffer, this);
+	pos = buffer.find("\r\n");
+	buff_temp = buffer.substr(0, pos);
 	if (newuser->conStep == 1)
-		this->passUser(fd, buffer, newuser);
+		this->passUser(fd, buff_temp, newuser);
 
 	rc = read(fd, &buffer[0], BUFFSIZE);
 	buffer[rc] = '\0';
 	read_log(fd, buffer, this);
+	pos = buffer.find("\r\n");
+	buff_temp = buffer.substr(0, pos);
 	if (newuser->conStep == 2)
-		this->capUser(fd, buffer, newuser);
+		this->capUser(fd, buff_temp, newuser);
 
 	rc = read(fd, &buffer[0], BUFFSIZE);
 	buffer[rc] = '\0';
 	read_log(fd, buffer, this);
+	pos = buffer.find("\r\n");
+	buff_temp = buffer.substr(0, pos);
 	if (newuser->conStep == 3)
-		this->nickUser(fd, buffer, newuser);
+		this->nickUser(fd, buff_temp, newuser);
 
 	rc = read(fd, &buffer[0], BUFFSIZE);
 	buffer[rc] = '\0';
 	read_log(fd, buffer, this);
+	pos = buffer.find("\r");
+	buff_temp = buffer.substr(0, pos);
 	if (newuser->conStep == 4)
-		this->userUser(fd, buffer, newuser);
+		this->userUser(fd, buff_temp, newuser);
 	fds.push_back(pollfd());
 	this->fds[current_size].fd = fd;
 	this->fds[current_size].events = POLLIN;
@@ -90,7 +100,7 @@ void	Server::newUser(int & fd)
 	std::string message = ":127.0.0.1 001 " + newuser->nickname + " :Welcome to the ft_irc network, " + newuser->nickname + "\r\n";
 	send(fd, message.c_str(), message.length(), 0);
 	send_log(fd, message, this);
-	std::cout << YELLOW << "New user " << newuser->nickname << " succesfully registered with id " << fd << "." << RESET << std::endl;
+	std::cout << YELLOW << "[STATUS] : New user " << newuser->nickname << " succesfully registered with id " << fd << "." << RESET << std::endl;
 }
 
 Server::~Server()
@@ -188,7 +198,7 @@ void	Server::checkChannel()
 			(*it)->allocNewOp(this);
 		if ((*it)->operators.empty() && (*it)->users.empty())
 		{
-			std::cout << DELETE << "Channel " << (*it)->name << " is empty, erasing it from server..." << RESET << std::endl;
+			std::cout << BRIGHT_YELLOW << ON_BLACK << "[DELETE] : Channel " << (*it)->name << " is empty, erasing it from server..." << RESET << std::endl;
 			it = this->channels.erase(it);
 		}
 		else

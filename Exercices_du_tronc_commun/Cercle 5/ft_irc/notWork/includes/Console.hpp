@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Console.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: nours42 <nours42@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 13:14:46 by sdestann          #+#    #+#             */
-/*   Updated: 2023/11/21 13:14:48 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/11/26 20:27:37 by nours42          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@
 
 namespace Console
 {
-	static std::string GREEN = "\033[1;32m";
+	static std::string GREEN << ON_BLACK << "[SND_BUFFER]" = "\033[1;32m";
 	static std::string BLUE = "\033[1;36m";
 	static std::string RED = "\x1b[31m";
 	static std::string PURPLE = "\x1b[35m";
 
 	static std::string IBLUE = "\x1b[44m";
-	static std::string IGREEN = "\x1b[42m";
+	static std::string IGREEN << ON_BLACK << "[SND_BUFFER]" = "\x1b[42m";
 	static std::string IRED = "\x1b[41m";
 
 	static std::string RESET = "\033[0m";
