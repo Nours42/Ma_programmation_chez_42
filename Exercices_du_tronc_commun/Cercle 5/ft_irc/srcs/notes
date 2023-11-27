@@ -1,6 +1,0 @@
-il ya des invalide read size partoooout
-segfautl quand log, cree un chan et exit de weechat
-faire une commande WHO ou WHOIS
-en cas de reco les channels arrivent par paquet ainsi
-[COMMAND][JOIN][#,#JJJ,#frfr][USERS_LIST]
-il faut detecter les virgules et faire les separations de JOIN
