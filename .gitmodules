@@ -1,3 +1,6 @@
 [submodule "Exercices_du_tronc_commun/Cercle 0/ft_libft"]
 	path = Exercices_du_tronc_commun/Cercle 0/ft_libft
 	url = https://github.com/Nours42/ft_libft
+[submodule "Exercices_April_fool_2023"]
+	path = Exercices_April_fool_2023
+	url = https://github.com/Nours42/April_fool
