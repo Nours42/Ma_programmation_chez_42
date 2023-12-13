@@ -1,5 +1,5 @@
 import sys
-import PyPDF2
+from PyPDF2 import PdfReader
 
 # Vérifie s'il y a au moins un argument (le premier argument est le nom du script lui-même)
 if len(sys.argv) < 2:
@@ -9,17 +9,21 @@ if len(sys.argv) < 2:
 # Récupère le nom du fichier PDF passé en argument
 pdf_file_name = sys.argv[1]
 
+# Nom du fichier texte où tu veux sauvegarder le texte extrait
+output_file_name = "texte_extrait.txt"
+
 # Ouvre le fichier PDF en mode lecture binaire ('rb')
 with open(pdf_file_name, 'rb') as pdf_file:
-    pdf_reader = PyPDF2.PdfFileReader(pdf_file)
+    pdf_reader = PdfReader(pdf_file)
     
-    # Boucle à travers chaque page du PDF
-    for page_num in range(pdf_reader.numPages):
-        page = pdf_reader.getPage(page_num)
-        
-        # Extrait le texte de la page
-        text = page.extractText()
-        
-        # Utilise le texte pour tes besoins (classification, traitement, etc.)
-        # Par exemple, imprime le texte de chaque page
-        print(text)
+    # Crée un fichier texte pour écrire le texte extrait
+    with open(output_file_name, 'w', encoding='utf-8') as output_file:
+        # Boucle à travers chaque page du PDF
+        for page_num in range(len(pdf_reader.pages)):
+            page = pdf_reader.pages[page_num]
+            
+            # Extrait le texte de la page
+            text = page.extract_text()
+            
+            # Écrit le texte extrait dans le fichier texte
+            output_file.write(text)
