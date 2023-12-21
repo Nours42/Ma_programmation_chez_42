@@ -6,7 +6,7 @@
 /*   By: sdestann <sdestann@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:25:47 by sdestann          #+#    #+#             */
-/*   Updated: 2023/05/03 10:54:46 by sdestann         ###   ########.fr       */
+/*   Updated: 2023/12/06 15:25:20 by sdestann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ static inline void	input_fractal(char **argv, int *i, t_mlx *mlx, int argc)
 			(*i)++;
 		else
 		{
-			mlx->julia_const.re = ft_atof(argv[(*i)++]);
-			mlx->julia_const.im = ft_atof(argv[(*i)++]);
+			mlx->julia_const.re = atof(argv[(*i)++]);
+			mlx->julia_const.im = atof(argv[(*i)++]);
 		}
 	}
 }
