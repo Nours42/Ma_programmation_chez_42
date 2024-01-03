@@ -109,23 +109,34 @@ int	main(int argc, char **argv)
 				sendAll(clientfd);
 				break;
 			}
-			if (FD_ISSET(fd, &readfd))
-			else
+			if (FD_ISSET(fd, &readfd) && fd != sockfd)
 			{
-				for (int j = 0; j = strlen(clients[clientfd].msg); i < nbytes: i++, j++); 
+				int nbytes = recv(fd, buftoread, 70000, 0);
+				if (nbytes <= 0)
 				{
-					clients[fd].msg[j] = buftoread[i];
-					if (clients[fd].msg[j] == "\n")
+					sprintf(buftowrite, "server: client %d just left\n", clients[fd].id);
+					sendAll(fd);
+					FD_CLR(fd, &active);
+					close(fd);
+					break;
+				}
+				else
+				{
+					for (int i = 0, j = strlen(clients[fd].msg); i < nbytes; i++, j++)
 					{
-						clients[fd].msg[j] = "\0";
-						sprintf(buftowrite, "client %d: %s\n", clients[fd].id, clients[fd].msg);
-						sendAll(fd);
-						bzero(clients[fd].msg, strlen(clients[fd].msg));
-						j = -1;
+						clients[fd].msg[j] = buftoread[i];
+						if (clients[fd].msg[j] == '\n')
+						{
+							clients[fd].msg[j] = '\0';
+							sprintf(buftowrite, "client %d: %s\n", clients[fd].id, clients[fd].msg);
+							sendAll(fd);
+							bzero(clients[fd].msg, strlen(clients[fd].msg));
+							j = -1;
+						}
 					}
+					break ;
 				}
 			}
-			break ;
 		}
 	}
 }
